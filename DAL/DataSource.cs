@@ -22,8 +22,8 @@ namespace DalObject
             static internal int BaseStationsIndexer = 0;
             static internal int customersIndexer = 0;
             static internal int ParcelsIndexer = 0;
-
         }
+
         static public void Initialize()
         {
 

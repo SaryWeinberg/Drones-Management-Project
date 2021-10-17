@@ -11,12 +11,11 @@ namespace targil0
             Console.ReadKey();
         }
         static partial void Welcome2385();
-
         private static void Welcome1743()
         {
-            Console.WriteLine("Enter your name: ");
+            Console.WriteLine("Enter your name:");
             string name = Console.ReadLine();
-            Console.WriteLine("{0}, welcome to my first console application", name);
+            Console.WriteLine($"{name}, welcome to my first console application");
         }
     }
 }
