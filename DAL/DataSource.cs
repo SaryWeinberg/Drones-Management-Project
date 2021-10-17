@@ -11,7 +11,7 @@ namespace DalObject
     {
         /// <arrays>
         static internal Drone[] Drones = new Drone[10];
-        static internal Station[] BaseStations = new Station[5];
+        static internal Station[] Stations = new Station[5];
         static internal Customer[] customers = new Customer[100];
         static internal Parcel[] Parcels = new Parcel[1000];
         /// </arrays>
@@ -19,19 +19,18 @@ namespace DalObject
         internal class config
         {
             static internal int DronesIndexer = 0;
-            static internal int BaseStationsIndexer = 0;
+            static internal int StationsIndexer = 0;
             static internal int customersIndexer = 0;
             static internal int ParcelsIndexer = 0;
-
         }
         static public void Initialize()
         {
             Random rand = new Random();
             for(int i = 0; i < 2; i++)
             {
-                Station station = BaseStations[config.BaseStationsIndexer++];
-                station.ID = config.BaseStationsIndexer;
-                station.Name = config.BaseStationsIndexer;
+                Station station = Stations[config.StationsIndexer++];
+                station.ID = config.StationsIndexer;
+                station.Name = config.StationsIndexer;
                 station.Longitude = rand.Next();
                 station.Latitude = rand.Next();
                 station.ChargeSlots = rand.Next(10); //כמה רחפנים יש?
@@ -61,13 +60,15 @@ namespace DalObject
             {
                 Parcel parcel = Parcels[config.ParcelsIndexer++];
                 parcel.ID = config.ParcelsIndexer;
-                parcel.SenderId = ;
-                parcel.TargetId = ;
-                parcel.Weight = ;
-                parcel.Priority = ;
-                parcel.Priority = ;
-                parcel.Priority = ;
-                parcel.Priority = ;
+                parcel.SenderId = rand.Next() % config.customersIndexer;
+                parcel.TargetId = rand.Next() % config.customersIndexer;
+                parcel.Weight = (WeightCategories)(rand.Next(0, 2));
+                parcel.Priority = (Priorities)(rand.Next(0, 2));
+                parcel.Requested = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.DroneId = rand.Next() % config.DronesIndexer;
+                parcel.Scheduled = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.PickedUp = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.Delivered = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
             }
         }
     }
