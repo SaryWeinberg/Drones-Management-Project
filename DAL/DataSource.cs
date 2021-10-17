@@ -22,7 +22,6 @@ namespace DalObject
             static internal int BaseStationsIndexer = 0;
             static internal int customersIndexer = 0;
             static internal int ParcelsIndexer = 0;
-
         }
         static public void Initialize()
         {
@@ -61,13 +60,15 @@ namespace DalObject
             {
                 Parcel parcel = Parcels[config.ParcelsIndexer++];
                 parcel.ID = config.ParcelsIndexer;
-                parcel.SenderId = ;
-                parcel.TargetId = ;
-                parcel.Weight = ;
-                parcel.Priority = ;
-                parcel.Priority = ;
-                parcel.Priority = ;
-                parcel.Priority = ;
+                parcel.SenderId = rand.Next() % config.customersIndexer;
+                parcel.TargetId = rand.Next() % config.customersIndexer;
+                parcel.Weight = (WeightCategories)(rand.Next(0, 2));
+                parcel.Priority = (Priorities)(rand.Next(0, 2));
+                parcel.Requested = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.DroneId = rand.Next() % config.DronesIndexer;
+                parcel.Scheduled = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.PickedUp = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.Delivered = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
             }
         }
     }
