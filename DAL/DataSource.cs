@@ -29,7 +29,7 @@ namespace DalObject
             Random rand = new Random();
             for(int i = 0; i < 2; i++)
             {
-                Station station = new Station[config.BaseStationsIndexer++];
+                Station station = new Station[config.BaseStationsIndexer];
                 station.ID = config.BaseStationsIndexer;
                 station.Name = config.BaseStationsIndexer;
                 station.Longitude = rand.Next();
@@ -39,7 +39,7 @@ namespace DalObject
 
             for(int i = 0; i < 5; i++)
             {
-                Drone drone = new Drone[config.DronesIndexer++];
+                Drone drone = Drones[config.DronesIndexer];
                 drone.ID = config.DronesIndexer;
                 drone.Model = config.DronesIndexer;
                 drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));
@@ -49,10 +49,10 @@ namespace DalObject
 
             for(int i = 0; i < 10; i++)
             {
-                Customer customer = new Customer[config.customersIndexer++];
+                Customer customer = new Customer[config.customersIndexer];
                 customer.ID = config.customersIndexer;
                 customer.Phone = $"{rand.Next(111111111, 999999999)}";
-                customer.Name = $"Customer{i}"
+                customer.Name = $"Customer{i}";
                 customer.longitude =  rand.Next();
                 customer.latitude =  rand.Next();
             }
@@ -62,7 +62,7 @@ namespace DalObject
                 Customer customer = new Customer[config.customersIndexer++];
                 customer.ID = config.customersIndexer;
                 customer.Phone = $"{rand.Next(111111111, 999999999)}";
-                customer.Name = $"Customer{i}"
+                customer.Name = $"Customer{i}";
                 customer.longitude =  rand.Next();
                 customer.latitude =  rand.Next();
             }
