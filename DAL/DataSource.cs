@@ -26,6 +26,10 @@ namespace DalObject
         }
         static public void Initialize()
         {
+            for(int i= 0; i < 5; i++)
+            {
+                Drone Drones
+            }
 
 
         }
