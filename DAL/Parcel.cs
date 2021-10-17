@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDAL.DO
 {
-    struct Parcel
+    public struct Parcel
     {
         public int ID { get; set; }
         public int SenderId { get; set; }
