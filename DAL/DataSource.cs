@@ -11,7 +11,7 @@ namespace DalObject
     {
         /// <arrays>
         static internal Drone[] Drones = new Drone[10];
-        static internal Station[] BaseStations = new Station[5];
+        static internal Station[] Stations = new Station[5];
         static internal Customer[] customers = new Customer[100];
         static internal Parcel[] Parcels = new Parcel[1000];
         /// </arrays>
@@ -19,7 +19,7 @@ namespace DalObject
         internal class config
         {
             static internal int DronesIndexer = 0;
-            static internal int BaseStationsIndexer = 0;
+            static internal int StationsIndexer = 0;
             static internal int customersIndexer = 0;
             static internal int ParcelsIndexer = 0;
         }
@@ -28,9 +28,9 @@ namespace DalObject
             Random rand = new Random();
             for(int i = 0; i < 2; i++)
             {
-                Station station = BaseStations[config.BaseStationsIndexer++];
-                station.ID = config.BaseStationsIndexer;
-                station.Name = config.BaseStationsIndexer;
+                Station station = Stations[config.StationsIndexer++];
+                station.ID = config.StationsIndexer;
+                station.Name = config.StationsIndexer;
                 station.Longitude = rand.Next();
                 station.Latitude = rand.Next();
                 station.ChargeSlots = rand.Next(10); //כמה רחפנים יש?
