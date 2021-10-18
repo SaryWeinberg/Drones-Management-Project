@@ -72,9 +72,16 @@ namespace DalObject
 
         //Updats//
 
-        public static void AssingParcelToDrone()
+        public static void AssingParcelToDrone(Parcel parcel)
         {
-
+            foreach (Drone drone in DataSource.Drones)
+            {
+                if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
+                {
+                    parcel.DroneId = drone.ID;
+                    return;
+                }
+            }
 
         }
 
