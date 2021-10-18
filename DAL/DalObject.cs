@@ -64,26 +64,21 @@ namespace DalObject
             parcel.Delivered = delivered;
             DataSource.Parcels[DataSource.config.ParcelsIndexer++] = parcel;
         }
-        //public static void Update()
-        //{
-
-
-        //}
 
         //Updats//
 
         public static void AssingParcelToDrone(Parcel parcel)
         {
-            foreach (Drone drone in DataSource.Drones)
+            for (int i = 0; i < DataSource.config.ParcelsIndexer; i++)
             {
-                if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
+                if (DataSource.Drones[i].Status == DroneStatus.Available && DataSource.Drones[i].MaxWeight >= parcel.Weight)
                 {
-                    parcel.DroneId = drone.ID;
-                    return;
+                    parcel.DroneId = DataSource.Drones[i].ID;
+                    DataSource.Drones[i].Status = DroneStatus.Delivery;
+                    break;
                 }
             }
-
-        }
+        } 
 
         public static void CollectParcelByDrone()
         {
@@ -108,17 +103,17 @@ namespace DalObject
 
         //Display//
 
-        public static void DisplayStation()
+        public static void DisplayStation(int id)
         {
 
 
         }
-        public static void DisplayDrone()
+        public static void DisplayDrone(int id)
         {
 
 
         }
-        public static void DisplayCustomer()
+        public static void DisplayCustomer(int id)
         {
 
 
