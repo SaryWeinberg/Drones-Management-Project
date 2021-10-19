@@ -66,7 +66,7 @@ namespace DalObject
 
         public static void AssingParcelToDrone(Parcel parcel)
         {
-<<<<<<< HEAD
+
             for (int i = 0; i < DataSource.config.ParcelsIndexer; i++)
             {
                 if (DataSource.Drones[i].Status == DroneStatus.Available && DataSource.Drones[i].MaxWeight >= parcel.Weight)
@@ -77,10 +77,6 @@ namespace DalObject
                 }
             }
         } 
-=======
-
-        
->>>>>>> f35b37e53fd7f525f90b88041565f78153d1ca47
 
         public static void CollectParcelByDrone()
         {
