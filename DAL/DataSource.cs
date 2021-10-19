@@ -12,8 +12,9 @@ namespace DalObject
         /// <arrays>
         static internal Drone[] Drones = new Drone[10];
         static internal Station[] Stations = new Station[5];
-        static internal Customer[] customers = new Customer[100];
+        static internal Customer[] Customers = new Customer[100];
         static internal Parcel[] Parcels = new Parcel[1000];
+        static internal DroneCharge[] droneCharges = new DroneCharge[0];
         /// </arrays>
 
         internal class config
@@ -22,6 +23,8 @@ namespace DalObject
             static internal int StationsIndexer = 0;
             static internal int customersIndexer = 0;
             static internal int ParcelsIndexer = 0;
+            static internal int DroneChargeIndexer = 0;
+
         }
 
         static public void Initialize()
@@ -49,7 +52,7 @@ namespace DalObject
 
             for(int i = 0; i < 10; i++)
             {
-                Customer customer = customers[config.customersIndexer++];
+                Customer customer = Customers[config.customersIndexer++];
                 customer.ID = config.customersIndexer;
                 customer.Phone = $"{rand.Next(111111111, 999999999)}";
                 customer.Name = $"Customer{i}";
