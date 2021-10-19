@@ -85,8 +85,16 @@ namespace DalObject
 
         }
 
-        public static void CollectParcelByDrone()
+        public static void CollectParcelByDrone(Parcel parcel)//איסוף חבילה ע"י רחפן
         {
+            foreach (Drone drone in DataSource.Drones)
+            {
+                if (drone.ID == parcel.DroneId)
+                {
+                    parcel.DroneId = drone.ID;
+                    return;
+                }
+            }
 
 
         }
@@ -139,7 +147,7 @@ namespace DalObject
         public static void ViewDroneLists()
         {
 
-
+            
         }
         public static void ViewCustomerLists()
         {
