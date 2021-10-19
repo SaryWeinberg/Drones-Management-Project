@@ -61,6 +61,11 @@ namespace DalObject
             parcel.Delivered = delivered;
             DataSource.Parcels[DataSource.config.ParcelsIndexer++] = parcel;
         }
+        //public static void Update()
+        //{
+
+
+        //}
 
         //Updats//
 

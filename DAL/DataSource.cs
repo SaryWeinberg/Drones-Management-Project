@@ -23,6 +23,7 @@ namespace DalObject
             static internal int customersIndexer = 0;
             static internal int ParcelsIndexer = 0;
         }
+
         static public void Initialize()
         {
             Random rand = new Random();
