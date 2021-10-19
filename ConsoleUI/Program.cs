@@ -1,4 +1,6 @@
 ﻿using System;
+using IDAL.DO;
+
 
 namespace ConsoleUI
 {
@@ -6,7 +8,10 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Welcome to the delivery system by skimmers:\n1 " +
+                "- Insert options.\n2 - Update options.\n3 - Display options.\n4 " +
+                "- List view options.\n0 - Exit.");
+            return;
         }
     }
 }
