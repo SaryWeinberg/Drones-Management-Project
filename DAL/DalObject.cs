@@ -35,6 +35,8 @@ namespace DalObject
             drone.Status = status;
             drone.Battery = battery;
             DataSource.Drones[DataSource.config.DronesIndexer++] = drone;
+
+
         }
         public static void AddCustomer(int id,string phone,string name,double Longitude,double Latitude)
         {
@@ -45,8 +47,9 @@ namespace DalObject
             customer.longitude = Longitude;
             customer.latitude = Latitude;
             DataSource.customers[DataSource.config.customersIndexer++] = customer;
+
         }
-        public static void AddParcel( int id,int senderId ,int targetId ,WeightCategories weight,Priorities priority,DateTime requested,int droneId ,DateTime scheduled,DateTime pickedUp ,DateTime delivered)
+        public static void AddParcel( int id,int senderId ,int targetId ,WeightCategories weight,Priorities priority,DateTime requested,int droneId ,DateTime scheduled,DateTime pickedUp ,DateTime delivered )
         {
             Parcel parcel = new Parcel();
             parcel.ID = id;
@@ -61,7 +64,12 @@ namespace DalObject
             parcel.Delivered = delivered;
             DataSource.Parcels[DataSource.config.ParcelsIndexer++] = parcel;
         }
-       
+        //public static void Update()
+        //{
+
+
+        //}
+
         //Updats//
 
         public static void AssingParcelToDrone(Parcel parcel)
@@ -70,9 +78,6 @@ namespace DalObject
             {
                 if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
                 {
-
-                    drone.Status = DroneStatus.Delivery;
-
                     parcel.DroneId = drone.ID;
                     return;
                 }
