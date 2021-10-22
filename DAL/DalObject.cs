@@ -220,7 +220,7 @@ namespace DalObject
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
-                if (parcel.DroneId == null)
+                if (Nullable<int>parcel.DroneId == null)
                     yield return parcel;
             }
 

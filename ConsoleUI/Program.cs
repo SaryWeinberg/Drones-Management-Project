@@ -2,10 +2,7 @@
 using IDAL.DO;
 
 
-public enum UserOptions
-{
-    Add = 1, Update, Display, ListDisplay
-}
+
 
 
 namespace ConsoleUI
@@ -23,15 +20,32 @@ namespace ConsoleUI
 
             switch (Option)
             {
-                case UserOptions.Add:
+                case (int)UserOptions.Exit:
+
+                    break;
+                case (int)UserOptions.Add:
+                    Console.WriteLine("please select:\n" +
+                        "1-Add base-station\n" +
+                        "2-Add Drone\n" +
+                        "3-Add a new costumer\n" +
+                        "4-Add a new Parcel to a costumer"
+                       );
                     // code block
                     break;
-                case y:
+
+                case (int)UserOptions.Update:
+                    break;
+                case (int)UserOptions.Display:
                     // code block
                     break;
+                case (int)UserOptions.ListDisplay:
+                    // code block
+                    break;
+           
                 default:
-                    // code block
                     break;
+
+
             }
 
         }

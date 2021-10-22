@@ -14,3 +14,7 @@
     {
         Available, Maintenance, Delivery
     }
+public enum UserOptions
+{
+    Exit, Add, Update, Display, ListDisplay
+}
