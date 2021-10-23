@@ -1,14 +1,20 @@
-﻿public enum WeightCategories
-{
-    Light, Medium, Heavy
-}
+﻿
 
-public enum Priorities
-{
-    Normal, Medium, Emergency
-}
+    public enum WeightCategories
+    {
+        Light, Medium, Heavy
+    }
 
-public enum DroneStatus
+    public enum Priorities
+    {
+        Normal, Medium, Emergency
+    }
+
+    public enum DroneStatus
+    {
+        Available, Maintenance, Delivery
+    }
+public enum UserOptions
 {
-    Available, Maintenance, Delivery
+    Exit, Add, Update, Display, ListDisplay
 }

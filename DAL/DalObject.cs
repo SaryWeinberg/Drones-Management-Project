@@ -26,7 +26,7 @@ namespace DalObject
             DataSource.Stations[DataSource.config.StationsIndexer++] = station;
         }
 
-        public static void AddDrone(int id, string model, WeightCategories maxWeight, DroneStatus status ,double battery)
+        public static void AddDrone(int id, string model, WeightCategories maxWeight, DroneStatus status, double battery)
         {
             Drone drone = new Drone();
             drone.ID = id;
@@ -36,7 +36,7 @@ namespace DalObject
             drone.Battery = battery;
             DataSource.Drones[DataSource.config.DronesIndexer++] = drone;
         }
-        public static void AddCustomer(int id,string phone,string name,double Longitude,double Latitude)
+        public static void AddCustomer(int id, string phone, string name, double Longitude, double Latitude)
         {
             Customer customer = new Customer();
             customer.ID = id;
@@ -44,12 +44,12 @@ namespace DalObject
             customer.Name = name;
             customer.longitude = Longitude;
             customer.latitude = Latitude;
-            DataSource.customers[DataSource.config.customersIndexer++] = customer;
+            DataSource.Customers[DataSource.config.customersIndexer++] = customer;
         }
-        public static void AddParcel( int id,int senderId ,int targetId ,WeightCategories weight,Priorities priority,DateTime requested,int droneId ,DateTime scheduled,DateTime pickedUp ,DateTime delivered)
+        public static void AddParcel(int senderId, int targetId, WeightCategories weight, Priorities priority, DateTime requested, int droneId, DateTime scheduled, DateTime pickedUp, DateTime delivered)
         {
             Parcel parcel = new Parcel();
-            parcel.ID = id;
+            parcel.ID = DataSource.config.ParcelsIndexer;
             parcel.SenderId = senderId;
             parcel.TargetId = targetId;
             parcel.Weight = weight;
@@ -61,104 +61,188 @@ namespace DalObject
             parcel.Delivered = delivered;
             DataSource.Parcels[DataSource.config.ParcelsIndexer++] = parcel;
         }
-       
+
         //Updats//
 
-        public static void AssingParcelToDrone(Parcel parcel)
+        public static void AssingParcelToDrone(Parcel parcel)//שיוך חבליה לרחפן
         {
+
             foreach (Drone drone in DataSource.Drones)
             {
                 if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
                 {
                     parcel.DroneId = drone.ID;
                     drone.Status = DroneStatus.Delivery;
+                    parcel.DroneId = drone.ID;
+                    parcel.Scheduled = DateTime.Now;
                     return;
                 }
             }
         }
 
-        public static void CollectParcelByDrone()
+        public static void CollectParcelByDrone(Parcel parcel)//איסוף חבילה ע"י רחפן
         {
 
+            for (int i = 0; i < DataSource.config.DronesIndexer; i++)
+            {
+                if (DataSource.Drones[i].ID == parcel.DroneId)
+                {
 
+                    DataSource.Drones[i].Status = DroneStatus.Delivery;
+                    parcel.PickedUp = DateTime.Now;
+                    break;
+                }
+            }
         }
-        public static void ProvideParcelToCustomer()
+
+        public static void ProvideParcelToCustomer(Parcel parcel)//אספקת חבילה לקוח
         {
+            for (int i = 0; i < DataSource.config.DronesIndexer; i++)
+            {
+                if (DataSource.Drones[i].ID == parcel.DroneId)
+                {
+                    DataSource.Drones[i].Status = DroneStatus.Available;
 
-
+                    break;
+                }
+            }
+            parcel.Delivered = DateTime.Now;
         }
-        public static void SendDroneToChargeInStation()
+
+
+        public static void SendDroneToChargeInStation(Drone drone, int stationId)//שליחת רחפן לטעינה בתחנת בסיס
         {
-
-
+            drone.Status = DroneStatus.Maintenance;
+            DroneCharge droneCharge = new DroneCharge();
+            DataSource.droneCharges[DataSource.config.DroneChargeIndexer++] = droneCharge;
+            droneCharge.DroneId = drone.ID;
+            droneCharge.StationId = stationId;
         }
-        public static void ReleaseDroneFromChargeInStation()
+
+        public static void ReleaseDroneFromChargeInStation(DroneCharge droneCharge)//שחרור רחפן מטעינה בתחנת בסיס
         {
-
-
+            for (int i = 0; i < DataSource.config.DronesIndexer; i++)
+            {
+                if (DataSource.Drones[i].ID == droneCharge.DroneId)
+                {
+                    DataSource.Drones[i].Status = DroneStatus.Available;
+                    DataSource.Drones[i].Battery = 100;
+                    break;
+                }
+            }
         }
 
         //Display//
 
-        public static void DisplayStation()
+        public static Station DisplayStation(int stationId)//תצוגת תחנת בסיס
         {
+            foreach (Station station in DataSource.Stations)
+            {
+                if (station.ID == stationId)
+                {
 
-
+                    return station;
+                }
+            }
+            return new Station();
         }
-        public static void DisplayDrone()
+
+        public static Drone DisplayDrone(int droneId)//תצוגת רחפן
         {
-
-
+            foreach (Drone drone in DataSource.Drones)
+            {
+                if (drone.ID == droneId)
+                {
+                    return drone;
+                }
+            }
+            return new Drone();
         }
-        public static void DisplayCustomer()
+
+        public static Customer DisplayCustomer(int customerId)//תצוגת לקוח
         {
-
-
+            foreach (Customer customer in DataSource.Customers)
+            {
+                if (customer.ID == customerId)
+                {
+                    return customer;
+                }
+            }
+            return new Customer();
         }
-        public static void DisplayParcel()
+
+        public static Parcel DisplayParcel(int parcelId)//תצוגת חבילה
         {
-
-
+            foreach (Parcel parcel in DataSource.Parcels)
+            {
+                if (parcel.ID == parcelId)
+                {
+                    return parcel;
+                }
+            }
+            return new Parcel();
         }
 
         //Display Lists//
 
-        public static void ViewStationLists()
+        public static IEnumerable<Station> ViewStationLists()//הצגת רשימת תחונת בסיס
         {
-
-
-        }
-        public static void ViewDroneLists()
-        {
-
-
-        }
-        public static void ViewCustomerLists()
-        {
-
-
-        }
-        public static void ViewParcelLists()
-        {
-
-
-        }
-        public static void ViewFreeParcelLists()
-        {
-
-
-        }
-        public static void ViewAvailableStationLists()
-        {
-
-
+            foreach (Station station in DataSource.Stations)
+            {
+                yield return station;
+            }
         }
 
-        //Exit//
-        public static void Exit()
+        public static IEnumerable<Drone> ViewDroneLists()//הצגת שימות הרחפנים
         {
+            foreach (Drone drone in DataSource.Drones)
+            {
+                yield return drone;
+            }
+        }
 
+        public static IEnumerable<Customer> ViewCustomerLists()//הצגת שימת הלקוחות
+        {
+            foreach (Customer customer in DataSource.Customers)
+            {
+                yield return customer;
+            }
+        }
 
+        public static IEnumerable<Parcel> ViewParcelLists()//הצגת רשימת החבילות
+        {
+            foreach (Parcel parcel in DataSource.Parcels)
+            {
+                yield return parcel;
+            }
+
+        }
+
+        public static IEnumerable<Parcel> ViewFreeParcelLists()//הצגת רשימת לקוחות שעוד לא שויכו לרחפן
+        {
+            foreach (Parcel parcel in DataSource.Parcels)
+            {
+                if (Nullable<int>parcel.DroneId == null)
+                    yield return parcel;
+            }
+
+        }
+
+        public static IEnumerable<Station> ViewAvailableStationLists()//הצגת תחנות בסיס עם עמדות טעינה פנויות
+        {
+            foreach (Station station in DataSource.Stations)
+            {
+                int counter = 0;
+                foreach (DroneCharge droneCharge in DataSource.droneCharges)
+                {
+                    if (station.ID == droneCharge.StationId)
+                        counter++;
+                }
+                if (station.ChargeSlots - counter > 0)
+                {
+                    yield return station;
+                }
+            }
         }
     }
 }
