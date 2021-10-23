@@ -15,21 +15,21 @@ namespace DalObject
         }
 
         //Addings//
-        public static void AddStation(int id, int name, double longitude, double latitude, int chargeSlots)
+        public static void AddStation(double longitude, double latitude, int chargeSlots)
         {
             Station station = new Station();
-            station.ID = id;
-            station.Name = name;
+            station.ID = DataSource.config.StationsIndexer;
+            station.Name = DataSource.config.StationsIndexer;
             station.Longitude = longitude;
             station.Latitude = latitude;
             station.ChargeSlots = chargeSlots;
             DataSource.Stations[DataSource.config.StationsIndexer++] = station;
         }
 
-        public static void AddDrone(int id, string model, WeightCategories maxWeight, DroneStatus status, double battery)
+        public static void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)
         {
             Drone drone = new Drone();
-            drone.ID = id;
+            drone.ID = DataSource.config.DronesIndexer;
             drone.Model = model;
             drone.MaxWeight = maxWeight;
             drone.Status = status;
@@ -72,7 +72,7 @@ namespace DalObject
                 if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
                 {
                     parcel.DroneId = drone.ID;
-                    drone.Status = DroneStatus.Delivery;
+                    //drone.Status = DroneStatus.Delivery;
                     parcel.DroneId = drone.ID;
                     parcel.Scheduled = DateTime.Now;
                     return;
@@ -222,7 +222,7 @@ namespace DalObject
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
-                if (Nullable<int>parcel.DroneId == null)
+                if (parcel.DroneId == null)
                     yield return parcel;
             }
 
