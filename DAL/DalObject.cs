@@ -72,6 +72,8 @@ namespace DalObject
                 if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
                 {
                     parcel.DroneId = drone.ID;
+                    drone.Status = DroneStatus.Delivery;
+                    parcel.DroneId = drone.ID;
                     parcel.Scheduled = DateTime.Now;
                     return;
                 }

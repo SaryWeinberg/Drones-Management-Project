@@ -61,6 +61,11 @@ namespace DalObject
             parcel.Delivered = delivered;
             DataSource.Parcels[DataSource.config.ParcelsIndexer++] = parcel;
         }
+        //public static void Update()
+        //{
+
+
+        //}
 
         //Updats//
 
@@ -72,7 +77,6 @@ namespace DalObject
                 if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
                 {
                     parcel.DroneId = drone.ID;
-                    parcel.Scheduled = DateTime.Now;
                     return;
                 }
             }
