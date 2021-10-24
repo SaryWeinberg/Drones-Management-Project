@@ -35,6 +35,7 @@ namespace ConsoleUI
                 string Priority;
                 int DroneId;
                 int ChargeSlots;
+                int ParcelId;
 
                 switch (Option)
                 {
@@ -111,7 +112,7 @@ namespace ConsoleUI
                     //UpddateOption
                     case (int)UserOptions.Update:
                         Console.WriteLine("please select:\n" +
-                            "1-Assing a Assing to a drone\n" +
+                            "1-Assing a parcel to a drone\n" +
                             "2-Collect a parcel by a drone\n" +
                             "3-Supply a parcel to a customer\n" +
                             "4-Send a drone to charge in a station"
@@ -120,14 +121,21 @@ namespace ConsoleUI
                         switch (UpddateOption)
                         {
                             case (int)UpdateOptions.AssingParcelToDrone:
+                                DalObject.DalObject.AssingParcelToDrone(DalObject.DalObject.FindParcel());
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
+                                DalObject.DalObject.CollectParcelByDrone(DalObject.DalObject.FindParcel());
                                 break;
                             case (int)UpdateOptions.ProvideParcelToCustomer:
+                                DalObject.DalObject.ProvideParcelToCustomer(DalObject.DalObject.FindParcel());
+                                break;
+                           case (int)UpdateOptions.SendDroneToChargeInStation:
+                                Console.WriteLine("Enter station id:");
+                                int StationId = int.Parse(Console.ReadLine());
+                                DalObject.DalObject.SendDroneToChargeInStation(DalObject.DalObject.FindDrone(), StationId);
                                 break;
                             case (int)UpdateOptions.ReleaseDroneFromChargeInStation:
-                                break;
-                            case (int)UpdateOptions.SendDroneToChargeInStation:
+                                DalObject.DalObject.ReleaseDroneFromChargeInStation(DalObject.DalObject.FindDrone());
                                 break;
                             default:
                                 Console.WriteLine("ERROR");
@@ -215,7 +223,7 @@ namespace ConsoleUI
                     default:
                         Console.WriteLine("ERROR");
                         break;
-                } 
+                }
             } while (Option != 0);
         }
     }
