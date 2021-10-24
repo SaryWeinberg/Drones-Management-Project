@@ -18,5 +18,10 @@ namespace IDAL.DO
         public DateTime Scheduled { get; set; }
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
+
+        public override string ToString()
+        {
+            return "Parcel: " + ID + " " + SenderId + " " + TargetId + " " + Weight + " " + Priority + " " + Requested + " " + DroneId + " " + Scheduled + " " + PickedUp + " " + Delivered;
+        }
     }
 }

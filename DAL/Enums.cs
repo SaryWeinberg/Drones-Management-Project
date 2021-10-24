@@ -37,5 +37,5 @@ public enum DisplayOptions
 
 public enum ListDisplayOptions
 {
-    ViewStationLists = 1, ViewDroneLists, ViewCustomerLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
+    ViewStationLists = 1, ViewCustomerLists, ViewDroneLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
 }

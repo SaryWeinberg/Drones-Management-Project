@@ -215,7 +215,6 @@ namespace DalObject
             {
                 yield return parcel;
             }
-
         }
 
         public static IEnumerable<Parcel> ViewFreeParcelLists()//הצגת רשימת לקוחות שעוד לא שויכו לרחפן
@@ -225,7 +224,6 @@ namespace DalObject
                 if (parcel.DroneId == null)
                     yield return parcel;
             }
-
         }
 
         public static IEnumerable<Station> ViewAvailableStationLists()//הצגת תחנות בסיס עם עמדות טעינה פנויות

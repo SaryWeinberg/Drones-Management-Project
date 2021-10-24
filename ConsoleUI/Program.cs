@@ -1,6 +1,7 @@
 ﻿using System;
 using IDAL.DO;
 using DalObject;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -149,26 +150,22 @@ namespace ConsoleUI
                             case (int)DisplayOptions.DisplayCustomer:
                                 Console.WriteLine("Enter Customer ID");
                                 id = int.Parse(Console.ReadLine());
-                                Customer customer = DalObject.DalObject.DisplayCustomer(id);
-                                Console.WriteLine($"{customer.ID}\n" + $"{customer.Phone}\n" + $"{customer.Name}\n" + $"{customer.longitude}\n" + $"{customer.latitude}\n");
+                                Console.WriteLine(DalObject.DalObject.DisplayCustomer(id));
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
                                 Console.WriteLine("Enter Drone ID");
                                 id = int.Parse(Console.ReadLine());
-                                Drone drone = DalObject.DalObject.DisplayDrone(id);
-                                Console.WriteLine($"{drone.ID}\n" + $"{drone.Model}\n" + $"{drone.MaxWeight}\n" + $"{drone.Status}\n" + $"{drone.Battery}\n");
+                                Console.WriteLine(DalObject.DalObject.DisplayDrone(id));
                                 break;
                             case (int)DisplayOptions.DisplayParcel:
                                 Console.WriteLine("Enter Parcel ID");
                                 id = int.Parse(Console.ReadLine());
-                                Parcel parcel = DalObject.DalObject.DisplayParcel(id);
-                                Console.WriteLine($"{parcel.ID}\n" + $"{parcel.SenderId}\n" + $"{parcel.TargetId}\n" + $"{parcel.Weight}\n" + $"{parcel.Priority}\n" + $"{parcel.Requested}\n" + $"{parcel.DroneId}\n" + $"{parcel.Scheduled}\n" + $"{parcel.PickedUp}\n" + $"{parcel.Delivered}\n");
+                                Console.WriteLine(DalObject.DalObject.DisplayParcel(id));
                                 break;
                             case (int)DisplayOptions.DisplayStation:
                                 Console.WriteLine("Enter Station ID");
                                 id = int.Parse(Console.ReadLine());
-                                Station station = DalObject.DalObject.DisplayStation(id);
-                                Console.WriteLine($"{station.ID}\n" + $"{station.Name}\n" + $"{station.Longitude}\n" + $"{station.Latitude}\n" + $"{station.ChargeSlots}\n");
+                                Console.WriteLine(DalObject.DalObject.DisplayStation(id));
                                 break;
                             default:
                                 Console.WriteLine("ERROR");
@@ -189,22 +186,46 @@ namespace ConsoleUI
                         switch (ListDisplayOption)
                         {
                             case (int)ListDisplayOptions.ViewAvailableStationLists:
-                                Console.WriteLine(DalObject.DalObject.ViewAvailableStationLists());
+                                IEnumerable<Station> stations = DalObject.DalObject.ViewAvailableStationLists();
+                                foreach (Station item in stations)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case (int)ListDisplayOptions.ViewCustomerLists:
-                                Console.WriteLine(DalObject.DalObject.ViewCustomerLists());
+                                IEnumerable<Customer> customers = DalObject.DalObject.ViewCustomerLists();
+                                foreach (Customer item in customers)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case (int)ListDisplayOptions.ViewDroneLists:
-                                Console.WriteLine(DalObject.DalObject.ViewDroneLists());
+                                IEnumerable<Drone> drones = DalObject.DalObject.ViewDroneLists();
+                                foreach (Drone item in drones)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case (int)ListDisplayOptions.ViewFreeParcelLists:
-                                Console.WriteLine(DalObject.DalObject.ViewFreeParcelLists());
+                                IEnumerable<Parcel> parcels = DalObject.DalObject.ViewFreeParcelLists();
+                                foreach (Parcel item in parcels)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case (int)ListDisplayOptions.ViewParcelLists:
-                                Console.WriteLine(DalObject.DalObject.ViewParcelLists());
+                                parcels = DalObject.DalObject.ViewParcelLists();
+                                foreach (Parcel item in parcels)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             case (int)ListDisplayOptions.ViewStationLists:
-                                Console.WriteLine(DalObject.DalObject.ViewStationLists());
+                                stations = DalObject.DalObject.ViewStationLists();
+                                foreach (Station item in stations)
+                                {
+                                    Console.WriteLine(item);
+                                }
                                 break;
                             default:
                                 Console.WriteLine("ERROR");
@@ -215,8 +236,8 @@ namespace ConsoleUI
                     default:
                         Console.WriteLine("ERROR");
                         break;
-                } 
+                }
             } while (Option != 0);
         }
-    }
+    }   
 }
