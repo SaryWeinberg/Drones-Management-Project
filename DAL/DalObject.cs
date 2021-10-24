@@ -15,21 +15,21 @@ namespace DalObject
         }
 
         //Addings//
-        public static void AddStation(int id, int name, double longitude, double latitude, int chargeSlots)
+        public static void AddStation(double longitude, double latitude, int chargeSlots)
         {
             Station station = new Station();
-            station.ID = id;
-            station.Name = name;
+            station.ID = DataSource.config.StationsIndexer;
+            station.Name = DataSource.config.StationsIndexer;
             station.Longitude = longitude;
             station.Latitude = latitude;
             station.ChargeSlots = chargeSlots;
             DataSource.Stations[DataSource.config.StationsIndexer++] = station;
         }
 
-        public static void AddDrone(int id, string model, WeightCategories maxWeight, DroneStatus status, double battery)
+        public static void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)
         {
             Drone drone = new Drone();
-            drone.ID = id;
+            drone.ID = DataSource.config.DronesIndexer;
             drone.Model = model;
             drone.MaxWeight = maxWeight;
             drone.Status = status;
@@ -72,13 +72,51 @@ namespace DalObject
                 if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
                 {
                     parcel.DroneId = drone.ID;
-                    drone.Status = DroneStatus.Delivery;
+                    //drone.Status = DroneStatus.Delivery;
                     parcel.DroneId = drone.ID;
                     parcel.Scheduled = DateTime.Now;
                     return;
                 }
             }
         }
+
+        public static Parcel FindParcel()
+        {
+            Console.WriteLine("Enter parcel id:");
+            int Pid = int.Parse(Console.ReadLine());
+            foreach (Parcel parcel in DataSource.Parcels)
+            {
+                if (parcel.ID == Pid)
+                {
+
+                    return parcel;
+                }
+
+            }
+
+            return new Parcel();
+        }
+
+        public static Drone FindDrone()
+        {
+            Console.WriteLine("Enter Drone id:");
+            int Did = int.Parse(Console.ReadLine());
+            foreach (Drone drone in DataSource.Drones)
+            {
+                if (drone.ID == Did)
+                {
+
+                    return drone;
+                }
+
+            }
+
+            return new Drone();
+        }
+
+
+
+
 
         public static void CollectParcelByDrone(Parcel parcel)//איסוף חבילה ע"י רחפן
         {
@@ -114,19 +152,33 @@ namespace DalObject
         {
             drone.Status = DroneStatus.Maintenance;
             DroneCharge droneCharge = new DroneCharge();
-            DataSource.droneCharges[DataSource.config.DroneChargeIndexer++] = droneCharge;
+            DroneCharge[] newDronechage = new DroneCharge[DataSource.droneCharges.Length + 1];
+            for (int i = 0; i < DataSource.config.DroneChargeIndexer; i++)
+            {
+                newDronechage[i] = DataSource.droneCharges[i];
+            }
+            newDronechage[DataSource.config.DroneChargeIndexer] = droneCharge;
+            DataSource.droneCharges = newDronechage;
             droneCharge.DroneId = drone.ID;
             droneCharge.StationId = stationId;
         }
 
-        public static void ReleaseDroneFromChargeInStation(DroneCharge droneCharge)//שחרור רחפן מטעינה בתחנת בסיס
+        public static void ReleaseDroneFromChargeInStation(Drone drone)//שחרור רחפן מטעינה בתחנת בסיס
         {
-            for (int i = 0; i < DataSource.config.DronesIndexer; i++)
+
+
+            for (int i = 0; i < DataSource.config.DroneChargeIndexer; i++)
             {
-                if (DataSource.Drones[i].ID == droneCharge.DroneId)
+                if (DataSource.droneCharges[i].DroneId == drone.ID)
                 {
                     DataSource.Drones[i].Status = DroneStatus.Available;
                     DataSource.Drones[i].Battery = 100;
+
+                    for (int index = i; index < DataSource.config.DroneChargeIndexer; index++)
+                    {
+                        DataSource.droneCharges[i] = DataSource.droneCharges[i + 1];
+                    }
+                    DataSource.config.DroneChargeIndexer--;
                     break;
                 }
             }
@@ -215,7 +267,6 @@ namespace DalObject
             {
                 yield return parcel;
             }
-
         }
 
         public static IEnumerable<Parcel> ViewFreeParcelLists()//הצגת רשימת לקוחות שעוד לא שויכו לרחפן
@@ -225,7 +276,6 @@ namespace DalObject
                 if (parcel.DroneId == null)
                     yield return parcel;
             }
-
         }
 
         public static IEnumerable<Station> ViewAvailableStationLists()//הצגת תחנות בסיס עם עמדות טעינה פנויות

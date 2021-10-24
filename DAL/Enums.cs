@@ -21,21 +21,21 @@ public enum UserOptions
 
 public enum AddOptions
 {
-    AddStation, AddDrone, AddCustomer, AddParcel
+    AddStation = 1, AddDrone, AddCustomer, AddParcel
 }
 
 
 public enum UpdateOptions
 {
-    AssingParcelToDrone, CollectParcelByDrone, ProvideParcelToCustomer, SendDroneToChargeInStation, ReleaseDroneFromChargeInStation
+    AssingParcelToDrone = 1, CollectParcelByDrone, ProvideParcelToCustomer, SendDroneToChargeInStation, ReleaseDroneFromChargeInStation
 }
 
 public enum DisplayOptions
 {
-    DisplayStation, DisplayDrone, DisplayCustomer, DisplayParcel, ReleaseDroneFromChargeInStation
+    DisplayCustomer = 1, DisplayDrone, DisplayParcel, DisplayStation
 }
 
 public enum ListDisplayOptions
 {
-    ViewStationLists, ViewDroneLists, ViewCustomerLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
+    ViewStationLists = 1, ViewCustomerLists, ViewDroneLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
 }

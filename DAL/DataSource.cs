@@ -13,7 +13,7 @@ namespace DalObject
         static internal Drone[] Drones = new Drone[10];
         static internal Station[] Stations = new Station[5];
         static internal Customer[] Customers = new Customer[100];
-        static internal Parcel[] Parcels = new Parcel[1000];
+        static internal Parcel[] Parcels = new Parcel[100];
         static internal DroneCharge[] droneCharges = new DroneCharge[0];
         /// </arrays>
 
@@ -29,7 +29,7 @@ namespace DalObject
         static public void Initialize()
         {
             Random rand = new Random();
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Station station = new Station();
                 station.ID = config.StationsIndexer;
@@ -37,29 +37,32 @@ namespace DalObject
                 station.Longitude = rand.Next();
                 station.Latitude = rand.Next();
                 station.ChargeSlots = rand.Next(10); //כמה רחפנים יש?
-                Stations[config.StationsIndexer++] = station;
+                Stations[config.StationsIndexer] = station;
+                config.StationsIndexer++;
             }
 
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Drone drone = new Drone();
                 drone.ID = config.DronesIndexer;
                 drone.Model = $"{config.DronesIndexer}";
                 drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));
-                drone.Status = (DroneStatus)(rand.Next(0,2));
+                drone.Status = (DroneStatus)(rand.Next(0, 2));
                 drone.Battery = rand.Next(100);
-                Drones[config.DronesIndexer++] = drone;
+                Drones[config.DronesIndexer] = drone;
+                config.DronesIndexer++;
             }
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Customer customer = new Customer();
                 customer.ID = config.customersIndexer;
                 customer.Phone = $"{rand.Next(111111111, 999999999)}";
                 customer.Name = $"Customer{i}";
-                customer.longitude =  rand.Next();
-                customer.latitude =  rand.Next();
-                Customers[config.customersIndexer++] = customer;
+                customer.longitude = rand.Next();
+                customer.latitude = rand.Next();
+                Customers[config.customersIndexer] = customer;
+                config.customersIndexer++;
             }
 
             for (int i = 0; i < 10; i++)
@@ -70,13 +73,22 @@ namespace DalObject
                 parcel.TargetId = rand.Next() % config.customersIndexer;
                 parcel.Weight = (WeightCategories)(rand.Next(0, 2));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-                parcel.Requested = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
+                parcel.Requested = RandomDate();
                 parcel.DroneId = rand.Next() % config.DronesIndexer;
-                parcel.Scheduled = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
-                parcel.PickedUp = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
-                parcel.Delivered = new DateTime(rand.Next(2000, 2021), rand.Next(12), rand.Next(31), rand.Next(60), rand.Next(60), rand.Next(60));
-                Parcels[config.ParcelsIndexer++] = parcel;
+                parcel.Scheduled = RandomDate();
+                parcel.PickedUp = RandomDate();
+                parcel.Delivered = RandomDate();
+                Parcels[config.ParcelsIndexer] = parcel;
+                config.ParcelsIndexer++;
             }
+        }
+
+        public static DateTime RandomDate()
+        {
+            Random rand = new Random();
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Seconds;
+            return start.AddDays(rand.Next(range));
         }
     }
 }
