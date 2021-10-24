@@ -48,18 +48,21 @@ namespace ConsoleUI
                     }
                     break;
                 //==============================================
-                //UpddateOption
+                //UpdateOption
                 case (int)UserOptions.Update:
                     Console.WriteLine("please select:\n" +
-                        "1-Add base-station\n" +
-                        "2-Add Drone\n" +
-                        "3-Add a new costumer\n" +
-                        "4-Add a new Parcel to a costumer"
+                        "1-Assing parcel to drone\n" +
+                        "2-Collect parcel by drone\n" +
+                        "3-Provide parcel to customer\n" +
+                        "4-Release drone from charge  in station\n" +
+                        "5- Send drone to charge in station"
                        );
-                    int UpddateOption = int.Parse(Console.ReadLine());
-                    switch (UpddateOption)
+                    int UpdateOption = int.Parse(Console.ReadLine());
+                    switch (UpdateOption)
                     {
                         case (int)UpdateOptions.AssingParcelToDrone:
+                            DalObject.DalObject.AssingParcelToDrone();
+                            DalObject.DataSource.
                             break;
                         case (int)UpdateOptions.CollectParcelByDrone:
                             break;
