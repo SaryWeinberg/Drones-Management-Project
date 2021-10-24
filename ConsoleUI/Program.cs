@@ -9,6 +9,8 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
+            DalObject.DalObject d = new DalObject.DalObject();
+
             int Option;
             do
             {
@@ -36,7 +38,7 @@ namespace ConsoleUI
                 string Priority;
                 int DroneId;
                 int ChargeSlots;
-                int ParcelId;
+
 
                 switch (Option)
                 {
@@ -44,6 +46,7 @@ namespace ConsoleUI
                         break;
                     //==============================================
                     //AddOption
+
                     case (int)UserOptions.Add:
                         Console.WriteLine("please select:\n" +
                             "1-Add base-station\n" +
@@ -54,18 +57,14 @@ namespace ConsoleUI
                         int AddOption = int.Parse(Console.ReadLine());
                         switch (AddOption)
                         {
-                            case (int)AddOptions.AddCustomer:
-                                Console.WriteLine("Enter id");
-                                id = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter phone");
-                                phone = (Console.ReadLine());
-                                Console.WriteLine("Enter name");
-                                name = (Console.ReadLine());
+                            case (int)AddOptions.AddStation:
                                 Console.WriteLine("Enter Longitude");
                                 Longitude = int.Parse(Console.ReadLine());
                                 Console.WriteLine("Enter Latitude");
                                 Latitude = int.Parse(Console.ReadLine());
-                                DalObject.DalObject.AddCustomer(id, phone, name, Longitude, Latitude);
+                                Console.WriteLine("Enter Charge Slots");
+                                ChargeSlots = int.Parse(Console.ReadLine());
+                                DalObject.DalObject.AddStation(Longitude, Latitude, ChargeSlots);
                                 break;
                             case (int)AddOptions.AddDrone:
                                 Console.WriteLine("Enter Model");
@@ -80,6 +79,20 @@ namespace ConsoleUI
                                 Battery = int.Parse(Console.ReadLine());
                                 DalObject.DalObject.AddDrone(Model, maxWeight, status, Battery);
                                 break;
+                            case (int)AddOptions.AddCustomer:
+                                Console.WriteLine("Enter id");
+                                id = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Enter phone");
+                                phone = (Console.ReadLine());
+                                Console.WriteLine("Enter name");
+                                name = (Console.ReadLine());
+                                Console.WriteLine("Enter Longitude");
+                                Longitude = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Enter Latitude");
+                                Latitude = int.Parse(Console.ReadLine());
+                                DalObject.DalObject.AddCustomer(id, phone, name, Longitude, Latitude);
+                                break;
+
                             case (int)AddOptions.AddParcel:
                                 Console.WriteLine("Enter Sender Id");
                                 SenderId = int.Parse(Console.ReadLine());
@@ -95,15 +108,6 @@ namespace ConsoleUI
                                 DroneId = int.Parse(Console.ReadLine());
                                 DalObject.DalObject.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
                                 break;
-                            case (int)AddOptions.AddStation:
-                                Console.WriteLine("Enter Longitude");
-                                Longitude = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Latitude");
-                                Latitude = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Enter Charge Slots");
-                                ChargeSlots = int.Parse(Console.ReadLine());
-                                DalObject.DalObject.AddStation(Longitude, Latitude, ChargeSlots);
-                                break;
                             default:
                                 Console.WriteLine("ERROR");
                                 break;
@@ -115,8 +119,9 @@ namespace ConsoleUI
                         Console.WriteLine("please select:\n" +
                             "1-Assing a parcel to a drone\n" +
                             "2-Collect a parcel by a drone\n" +
-                            "3-Supply a parcel to a customer\n" +
-                            "4-Send a drone to charge in a station"
+                            "3-Provide parcel to customer\n" +
+                            "4-Send a drone to charge in a station\n" +
+                            "5-Release drone from charge in station" 
                        );
                         int UpddateOption = int.Parse(Console.ReadLine());
                         switch (UpddateOption)
@@ -130,7 +135,7 @@ namespace ConsoleUI
                             case (int)UpdateOptions.ProvideParcelToCustomer:
                                 DalObject.DalObject.ProvideParcelToCustomer(DalObject.DalObject.FindParcel());
                                 break;
-                           case (int)UpdateOptions.SendDroneToChargeInStation:
+                            case (int)UpdateOptions.SendDroneToChargeInStation:
                                 Console.WriteLine("Enter station id:");
                                 int StationId = int.Parse(Console.ReadLine());
                                 DalObject.DalObject.SendDroneToChargeInStation(DalObject.DalObject.FindDrone(), StationId);
@@ -184,17 +189,18 @@ namespace ConsoleUI
                     //ListDisplay
                     case (int)UserOptions.ListDisplay:
                         Console.WriteLine("please select:\n" +
-                           "1-View Available Station Lists\n" +
+                            "1-View Station Lists\n"+
                            "2-View Customer Lists\n" +
-                           "3-View Free Parcel Lists\n" +
+                           "3-View Drone Lists\n"+
                            "4-View Parcel Lists\n" +
-                           "5-View Station Lists"
+                           "5-View Free Parcel Lists\n" +
+                           "6-View Available Station Lists"
                           );
                         int ListDisplayOption = int.Parse(Console.ReadLine());
                         switch (ListDisplayOption)
                         {
-                            case (int)ListDisplayOptions.ViewAvailableStationLists:
-                                IEnumerable<Station> stations = DalObject.DalObject.ViewAvailableStationLists();
+                            case (int)ListDisplayOptions.ViewStationLists:
+                                IEnumerable<Station> stations = DalObject.DalObject.ViewStationLists();
                                 foreach (Station item in stations)
                                 {
                                     Console.WriteLine(item);
@@ -214,22 +220,22 @@ namespace ConsoleUI
                                     Console.WriteLine(item);
                                 }
                                 break;
-                            case (int)ListDisplayOptions.ViewFreeParcelLists:
-                                IEnumerable<Parcel> parcels = DalObject.DalObject.ViewFreeParcelLists();
-                                foreach (Parcel item in parcels)
-                                {
-                                    Console.WriteLine(item);
-                                }
-                                break;
                             case (int)ListDisplayOptions.ViewParcelLists:
-                                parcels = DalObject.DalObject.ViewParcelLists();
+                                IEnumerable<Parcel> parcels = DalObject.DalObject.ViewParcelLists();
+                                foreach (Parcel item in parcels)
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;                            
+                            case (int)ListDisplayOptions.ViewFreeParcelLists:
+                                parcels = DalObject.DalObject.ViewFreeParcelLists();
                                 foreach (Parcel item in parcels)
                                 {
                                     Console.WriteLine(item);
                                 }
                                 break;
-                            case (int)ListDisplayOptions.ViewStationLists:
-                                stations = DalObject.DalObject.ViewStationLists();
+                            case (int)ListDisplayOptions.ViewAvailableStationLists:
+                                stations = DalObject.DalObject.ViewAvailableStationLists();
                                 foreach (Station item in stations)
                                 {
                                     Console.WriteLine(item);
@@ -247,5 +253,5 @@ namespace ConsoleUI
                 }
             } while (Option != 0);
         }
-    }   
+    }
 }
