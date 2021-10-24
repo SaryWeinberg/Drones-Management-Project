@@ -19,4 +19,8 @@ namespace IDAL.DO
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
     }
+
+
+    
 }
+
