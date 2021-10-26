@@ -41,10 +41,10 @@ namespace ConsoleUI
                         int AddOption = int.Parse(Console.ReadLine());
                         switch (AddOption)
                         {
-                            case (int)AddOptions.AddStation: addStation(); break;
-                            case (int)AddOptions.AddDrone: addDrone(); break;
-                            case (int)AddOptions.AddCustomer: addCustomer(); break;
-                            case (int)AddOptions.AddParcel: addParcel(); break;
+                            case (int)AddOptions.AddStation: addStation(DalObj); break;
+                            case (int)AddOptions.AddDrone: addDrone(DalObj); break;
+                            case (int)AddOptions.AddCustomer: addCustomer(DalObj); break;
+                            case (int)AddOptions.AddParcel: addParcel(DalObj); break;
                             default: Error(); break;
                         }
                         break;
@@ -62,19 +62,19 @@ namespace ConsoleUI
                         switch (UpddateOption)
                         {
                             case (int)UpdateOptions.AssingParcelToDrone:
-                                DalObject.DalObject.AssingParcelToDrone(DalObject.DalObject.FindParcel());
+                                DalObj.AssingParcelToDrone(DalObj.FindParcel());
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
-                                DalObject.DalObject.CollectParcelByDrone(DalObject.DalObject.FindParcel());
+                                DalObj.CollectParcelByDrone(DalObj.FindParcel());
                                 break;
                             case (int)UpdateOptions.ProvideParcelToCustomer:
-                                DalObject.DalObject.ProvideParcelToCustomer(DalObject.DalObject.FindParcel());
+                                DalObj.ProvideParcelToCustomer(DalObj.FindParcel());
                                 break;
-                            case (int)UpdateOptions.SendDroneToChargeInStation:                                
-                                DalObject.DalObject.SendDroneToChargeInStation(DalObject.DalObject.FindDrone(), GetByID("Station"));
+                            case (int)UpdateOptions.SendDroneToChargeInStation:
+                                DalObj.SendDroneToChargeInStation(DalObj.FindDrone(), GetByID("Station"));
                                 break;
                             case (int)UpdateOptions.ReleaseDroneFromChargeInStation:
-                                DalObject.DalObject.ReleaseDroneFromChargeInStation(DalObject.DalObject.FindDrone());
+                                DalObj.ReleaseDroneFromChargeInStation(DalObj.FindDrone());
                                 break;
                             default: Error(); break;
                         }
@@ -92,16 +92,16 @@ namespace ConsoleUI
                         switch (DisplayOption)
                         {
                             case (int)DisplayOptions.DisplayCustomer:                              
-                                Console.WriteLine(DalObject.DalObject.DisplayCustomer(GetByID("Customer")));
+                                Console.WriteLine(DalObj.DisplayCustomer(GetByID("Customer")));
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
-                                Console.WriteLine(DalObject.DalObject.DisplayDrone(GetByID("Drone")));
+                                Console.WriteLine(DalObj.DisplayDrone(GetByID("Drone")));
                                 break;
                             case (int)DisplayOptions.DisplayParcel:                      
-                                Console.WriteLine(DalObject.DalObject.DisplayParcel(GetByID("Parcel")));
+                                Console.WriteLine(DalObj.DisplayParcel(GetByID("Parcel")));
                                 break;
                             case (int)DisplayOptions.DisplayStation:                              
-                                Console.WriteLine(DalObject.DalObject.DisplayStation(GetByID("Station")));
+                                Console.WriteLine(DalObj.DisplayStation(GetByID("Station")));
                                 break;
                             default: Error(); break;
                         }
@@ -121,32 +121,32 @@ namespace ConsoleUI
                         switch (ListDisplayOption)
                         {
                             case (int)ListDisplayOptions.ViewStationLists:
-                                IEnumerable<Station> stations = DalObject.DalObject.ViewStationLists();
+                                IEnumerable<Station> stations = DalObj.ViewStationLists();
                                 Station[] stationList = stations.Cast<Station>().ToArray();
                                 PrintLists(stationList); 
                                 break;
                             case (int)ListDisplayOptions.ViewCustomerLists:
-                                IEnumerable<Customer> customers = DalObject.DalObject.ViewCustomerLists();
+                                IEnumerable<Customer> customers = DalObj.ViewCustomerLists();
                                 Customer[] customerList = customers.Cast<Customer>().ToArray();
                                 PrintLists(customerList); 
                                 break;
                             case (int)ListDisplayOptions.ViewDroneLists:
-                                IEnumerable<Drone> drones = DalObject.DalObject.ViewDroneLists();
+                                IEnumerable<Drone> drones = DalObj.ViewDroneLists();
                                 Drone[] droneList = drones.Cast<Drone>().ToArray();
                                 PrintLists(droneList); 
                                 break;
                             case (int)ListDisplayOptions.ViewParcelLists:
-                                IEnumerable<Parcel> parcels = DalObject.DalObject.ViewParcelLists();
+                                IEnumerable<Parcel> parcels = DalObj.ViewParcelLists();
                                 Parcel[] parcelList = parcels.Cast<Parcel>().ToArray();
                                 PrintLists(parcelList); 
                                 break;
                             case (int)ListDisplayOptions.ViewFreeParcelLists:
-                                parcels = DalObject.DalObject.ViewFreeParcelLists();
+                                parcels = DalObj.ViewFreeParcelLists();
                                 parcelList = parcels.Cast<Parcel>().ToArray();
                                 PrintLists(parcelList); 
                                 break;
                             case (int)ListDisplayOptions.ViewAvailableStationLists:
-                                stations = DalObject.DalObject.ViewAvailableStationLists();
+                                stations = DalObj.ViewAvailableStationLists();
                                 stationList = stations.Cast<Station>().ToArray();
                                 PrintLists(stationList); 
                                 break;
@@ -162,7 +162,7 @@ namespace ConsoleUI
 
             //Functions for code readings
 
-            static void addStation()
+            static void addStation(DalObject.DalObject DalObj)
             {
                 Console.WriteLine("Enter Longitude");
                 int Longitude = int.Parse(Console.ReadLine());
@@ -170,10 +170,10 @@ namespace ConsoleUI
                 int Latitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Charge Slots");
                 int ChargeSlots = int.Parse(Console.ReadLine());
-                DalObject.DalObject.AddStation(Longitude, Latitude, ChargeSlots);
+                DalObj.AddStation(Longitude, Latitude, ChargeSlots);
             }
 
-            static void addDrone()
+            static void addDrone(DalObject.DalObject DalObj)
             {
                 Console.WriteLine("Enter Model");
                 string Model = (Console.ReadLine());
@@ -185,10 +185,10 @@ namespace ConsoleUI
                 DroneStatus status = (DroneStatus)Enum.Parse(typeof(DroneStatus), Status);
                 Console.WriteLine("Enter Battery");
                 int Battery = int.Parse(Console.ReadLine());
-                DalObject.DalObject.AddDrone(Model, maxWeight, status, Battery);
+                DalObj.AddDrone(Model, maxWeight, status, Battery);
             }
 
-            static void addCustomer()
+            static void addCustomer(DalObject.DalObject DalObj)
             {
                 Console.WriteLine("Enter id");
                 int id = int.Parse(Console.ReadLine());
@@ -200,10 +200,10 @@ namespace ConsoleUI
                 int Longitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Latitude");
                 int Latitude = int.Parse(Console.ReadLine());
-                DalObject.DalObject.AddCustomer(id, phone, name, Longitude, Latitude);
+                DalObj.AddCustomer(id, phone, name, Longitude, Latitude);
             }
 
-            static void addParcel()
+            static void addParcel(DalObject.DalObject DalObj)
             {
                 Console.WriteLine("Enter Sender Id");
                 int SenderId = int.Parse(Console.ReadLine());
@@ -217,7 +217,7 @@ namespace ConsoleUI
                 Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), Priority);
                 Console.WriteLine("Enter Drone Id");
                 int DroneId = int.Parse(Console.ReadLine());
-                DalObject.DalObject.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
+                DalObj.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
             }
             
             static int GetByID(string typeOfID)
