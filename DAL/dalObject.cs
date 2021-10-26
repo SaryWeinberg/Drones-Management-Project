@@ -152,7 +152,13 @@ namespace DalObject
         {
             drone.Status = DroneStatus.Maintenance;
             DroneCharge droneCharge = new DroneCharge();
-            DataSource.droneCharges[DataSource.config.DroneChargeIndexer++] = droneCharge;
+            DroneCharge[] newDronechage = new DroneCharge[DataSource.droneCharges.Length + 1];
+            for (int i = 0; i < DataSource.config.DroneChargeIndexer; i++)
+            {
+                newDronechage[i] = DataSource.droneCharges[i];
+            }
+            newDronechage[DataSource.config.DroneChargeIndexer] = droneCharge;
+            DataSource.droneCharges = newDronechage;
             droneCharge.DroneId = drone.ID;
             droneCharge.StationId = stationId;
         }
@@ -168,7 +174,7 @@ namespace DalObject
                     DataSource.Drones[i].Status = DroneStatus.Available;
                     DataSource.Drones[i].Battery = 100;
 
-                    for(int index =i;index< DataSource.config.DroneChargeIndexer; index++)
+                    for (int index = i; index < DataSource.config.DroneChargeIndexer; index++)
                     {
                         DataSource.droneCharges[i] = DataSource.droneCharges[i + 1];
                     }
