@@ -37,7 +37,7 @@ namespace ConsoleUI
                 int DroneId;
                 int ChargeSlots;
                 int ParcelId;
-
+                        DalObject.DalObject d = new DalObject.DalObject();
                 switch (Option)
                 {
                     case (int)UserOptions.Exit:
@@ -130,7 +130,7 @@ namespace ConsoleUI
                             case (int)UpdateOptions.ProvideParcelToCustomer:
                                 DalObject.DalObject.ProvideParcelToCustomer(DalObject.DalObject.FindParcel());
                                 break;
-                           case (int)UpdateOptions.SendDroneToChargeInStation:
+                            case (int)UpdateOptions.SendDroneToChargeInStation:
                                 Console.WriteLine("Enter station id:");
                                 int StationId = int.Parse(Console.ReadLine());
                                 DalObject.DalObject.SendDroneToChargeInStation(DalObject.DalObject.FindDrone(), StationId);
@@ -247,5 +247,5 @@ namespace ConsoleUI
                 }
             } while (Option != 0);
         }
-    }   
+    }
 }
