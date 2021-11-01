@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+using IDAL;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject : IDal
     {
         public DalObject()
         {
@@ -15,28 +16,27 @@ namespace DalObject
         }
 
         //Addings//
-        public static void AddStation(double longitude, double latitude, int chargeSlots)
+        public void AddStation(double longitude, double latitude, int chargeSlots)
         {
             Station station = new Station();
-            station.ID = DataSource.config.StationsIndexer;
-            station.Name = DataSource.config.StationsIndexer;
+            station.ID = DataSource.Stations.Count;
+            station.Name = DataSource.Stations.Count;
             station.Longitude = longitude;
             station.Latitude = latitude;
             station.ChargeSlots = chargeSlots;
-            DataSource.Stations[DataSource.config.StationsIndexer++] = station;
+            DataSource.Stations.Add(station);
         }
-
-        public static void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)
+        public void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)
         {
             Drone drone = new Drone();
-            drone.ID = DataSource.config.DronesIndexer;
+            drone.ID = DataSource.Drones.Count;
             drone.Model = model;
             drone.MaxWeight = maxWeight;
             drone.Status = status;
             drone.Battery = battery;
-            DataSource.Drones[DataSource.config.DronesIndexer++] = drone;
+            DataSource.Drones.Add(drone);
         }
-        public static void AddCustomer(int id, string phone, string name, double Longitude, double Latitude)
+        public void AddCustomer(int id, string phone, string name, double Longitude, double Latitude)
         {
             Customer customer = new Customer();
             customer.ID = id;
@@ -44,12 +44,13 @@ namespace DalObject
             customer.Name = name;
             customer.longitude = Longitude;
             customer.latitude = Latitude;
-            DataSource.Customers[DataSource.config.customersIndexer++] = customer;
+            DataSource.Customers.Add(customer);
         }
-        public static void AddParcel(int senderId, int targetId, WeightCategories weight, Priorities priority, DateTime requested, int droneId, DateTime scheduled, DateTime pickedUp, DateTime delivered)
+        public void AddParcel(int senderId, int targetId, WeightCategories weight, Priorities priority, DateTime requested, int droneId, DateTime scheduled, DateTime pickedUp, DateTime delivered)
         {
             Parcel parcel = new Parcel();
-            parcel.ID = DataSource.config.ParcelsIndexer;
+
+            parcel.ID = DataSource.Parcels.Count;
             parcel.SenderId = senderId;
             parcel.TargetId = targetId;
             parcel.Weight = weight;
@@ -59,45 +60,25 @@ namespace DalObject
             parcel.Scheduled = scheduled;
             parcel.PickedUp = pickedUp;
             parcel.Delivered = delivered;
-            DataSource.Parcels[DataSource.config.ParcelsIndexer++] = parcel;
+            DataSource.Parcels.Add(parcel);
         }
 
         //Updats//
 
-        public static void AssingParcelToDrone(Parcel parcel)//שיוך חבליה לרחפן
+        public void AssingParcelToDrone(Parcel parcel)
         {
-
-            for ( int i=0;i< DataSource.Drones.Length;i++)
-            {
-               
-                if (DataSource.Drones[i].Status == DroneStatus.Available && DataSource.Drones[i].MaxWeight >= parcel.Weight)
-                {
-
-                    for (int j = 0; j < DataSource.Parcels.Length; j++)
-                    {
-                        if (DataSource.Parcels[j].ID == parcel.ID)
-                        {
-          
-                            DataSource.Parcels[j].DroneId = DataSource.Drones[i].ID;
-                            DataSource.Parcels[j].Scheduled = DateTime.Now;
-                            DataSource.Parcels[j].DroneId = DataSource.Drones[i].ID;
-                            break;
-                        }
-                    }
-            
-            
-                    DataSource.Drones[i].Status = DroneStatus.Delivery;
-
-                    return;
-                }
-
-                
-            }
-
-
+            Drone drone = DataSource.Drones.Find(d =>
+            d.Status == DroneStatus.Available && d.MaxWeight >= parcel.Weight);
+            int indexP = DataSource.Parcels.IndexOf(parcel);
+            int indexD = DataSource.Drones.IndexOf(drone);
+            parcel.DroneId = drone.ID;
+            parcel.Scheduled = DateTime.Now;
+            DataSource.Parcels[indexP] = parcel;
+            drone.Status = DroneStatus.Delivery;
+            DataSource.Drones[indexD] = drone;
         }
 
-        public static Parcel FindParcel()
+        public Parcel FindParcel()
         {
             Console.WriteLine("Enter parcel id:");
             int Pid = int.Parse(Console.ReadLine());
@@ -105,16 +86,13 @@ namespace DalObject
             {
                 if (parcel.ID == Pid)
                 {
-
                     return parcel;
                 }
-
             }
-
             return new Parcel();
         }
 
-        public static Drone FindDrone()
+        public Drone FindDrone()
         {
             Console.WriteLine("Enter Drone id:");
             int Did = int.Parse(Console.ReadLine());
@@ -122,133 +100,77 @@ namespace DalObject
             {
                 if (drone.ID == Did)
                 {
-
                     return drone;
                 }
-
             }
-
             return new Drone();
         }
 
-
-
-
-
-        public static void CollectParcelByDrone(Parcel parcel)//איסוף חבילה ע"י רחפן
+        public void CollectParcelByDrone(Parcel parcel)
         {
-
-            for (int i = 0; i < DataSource.Drones.Length; i++)
-            {
-                if (DataSource.Drones[i].ID == parcel.DroneId)
-                {
-
-                    DataSource.Drones[i].Status = DroneStatus.Delivery;
-
-                    for (int j = 0; j < DataSource.Parcels.Length; j++)
-                    {
-                        if (DataSource.Parcels[j].ID == parcel.ID)
-                        {
-                            DataSource.Parcels[j].PickedUp = DateTime.Now;
-                            break;
-                        }
-                    }
-            
-                    break;
-                }
-            }
+            Drone drone = DataSource.Drones.Find(d =>
+            d.ID == parcel.DroneId);
+            int indexP = DataSource.Parcels.IndexOf(parcel);
+            int indexD = DataSource.Drones.IndexOf(drone);
+            parcel.DroneId = drone.ID;
+            parcel.PickedUp = DateTime.Now;
+            DataSource.Parcels[indexP] = parcel;
+            drone.Status = DroneStatus.Delivery;
+            DataSource.Drones[indexD] = drone;
         }
 
-        public static void ProvideParcelToCustomer(Parcel parcel)//אספקת חבילה לקוח
+        public void ProvideParcelToCustomer(Parcel parcel)
         {
-            for (int i = 0; i < DataSource.config.DronesIndexer; i++)
-            {
-                if (DataSource.Drones[i].ID == parcel.DroneId)
-                {
-                    DataSource.Drones[i].Status = DroneStatus.Available;
-
-                    break;
-                }
-            }
-            for (int i = 0; i < DataSource.Parcels.Length; i++)
-            {
-                if (DataSource.Parcels[i].ID == parcel.ID)
-                {
-                    DataSource.Parcels[i].Delivered = DateTime.Now;
-                    break;
-                }
-            }
-
-         
+            Drone drone = DataSource.Drones.Find(d =>
+            d.ID == parcel.DroneId);
+            int indexP = DataSource.Parcels.IndexOf(parcel);
+            int indexD = DataSource.Drones.IndexOf(drone);
+            parcel.DroneId = drone.ID;
+            parcel.Delivered = DateTime.Now;
+            DataSource.Parcels[indexP] = parcel;
+            drone.Status = DroneStatus.Available;
+            DataSource.Drones[indexD] = drone;
         }
 
 
-        public static void SendDroneToChargeInStation(Drone drone, int stationId)//שליחת רחפן לטעינה בתחנת בסיס
+        public void SendDroneToChargeInStation(Drone drone, int stationId)
         {
-           
             DroneCharge droneCharge = new DroneCharge();
-            DroneCharge[] newDronechage = new DroneCharge[DataSource.droneCharges.Length + 1];
-            for (int i = 0; i < DataSource.config.DroneChargeIndexer; i++)
-            {
-                newDronechage[i] = DataSource.droneCharges[i];
-            }
-
             droneCharge.DroneId = drone.ID;
             droneCharge.StationId = stationId;
-            newDronechage[DataSource.config.DroneChargeIndexer] = droneCharge;
-            DataSource.droneCharges = newDronechage;
-
-            for (int i = 0; i < DataSource.Drones.Length; i++)
-            {
-                if (DataSource.Drones[i].ID == drone.ID)
-                {
-                    DataSource.Drones[i].Status = DroneStatus.Maintenance;
-                    break;
-                }
-            }
-
+            DataSource.DroneCharges.Add(droneCharge);
+            int indexD = DataSource.Drones.IndexOf(drone);
+            drone.Status = DroneStatus.Maintenance;
+            DataSource.Drones[indexD] = drone;
         }
 
-        public static void ReleaseDroneFromChargeInStation(Drone drone)//שחרור רחפן מטעינה בתחנת בסיס
+        public void ReleaseDroneFromChargeInStation(Drone drone)
         {
+            DroneCharge droneCharge = DataSource.DroneCharges.Find(d =>
+            d.DroneId == drone.ID);
+            DataSource.DroneCharges.Remove(droneCharge);
+            int indexD = DataSource.Drones.IndexOf(drone);
+            drone.Status = DroneStatus.Available;
+            drone.Battery = 100;
+            DataSource.Drones[indexD] = drone;
+        }
 
-
-            for (int i = 0; i < DataSource.Drones.Length; i++)
-
-                if (DataSource.Drones[i].ID == drone.ID && DataSource.Drones[i].Status == DroneStatus.Maintenance)
-                {
-                    DataSource.Drones[i].Status = DroneStatus.Available;
-                    DataSource.Drones[i].Battery = 100;
-
-
-                    for(int j=0; DataSource.droneCharges[j].DroneId != drone.ID;j++)
-                   for (int index = j; index < DataSource.config.DroneChargeIndexer; index++)
-                    {
-                        DataSource.droneCharges[index] = DataSource.droneCharges[index + 1];
-                    }
-                    DataSource.config.DroneChargeIndexer--;
-                    break;
-                }
-        
-            }
-        
 
         //Display//
 
-        public static Station DisplayStation(int stationId)//תצוגת תחנת בסיס
+        public Station DisplayStation(int stationId)
         {
             foreach (Station station in DataSource.Stations)
             {
                 if (station.ID == stationId)
                 {
-
                     return station;
                 }
             }
             return new Station();
         }
 
-        public static Drone DisplayDrone(int droneId)//תצוגת רחפן
+        public Drone DisplayDrone(int droneId)
         {
             foreach (Drone drone in DataSource.Drones)
             {
@@ -260,7 +182,7 @@ namespace DalObject
             return new Drone();
         }
 
-        public static Customer DisplayCustomer(int customerId)//תצוגת לקוח
+        public Customer DisplayCustomer(int customerId)
         {
             foreach (Customer customer in DataSource.Customers)
             {
@@ -272,7 +194,7 @@ namespace DalObject
             return new Customer();
         }
 
-        public static Parcel DisplayParcel(int parcelId)//תצוגת חבילה
+        public Parcel DisplayParcel(int parcelId)
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
@@ -286,7 +208,7 @@ namespace DalObject
 
         //Display Lists//
 
-        public static IEnumerable<Station> ViewStationLists()//הצגת רשימת תחונת בסיס
+        public IEnumerable<Station> ViewStationLists()
         {
             foreach (Station station in DataSource.Stations)
             {
@@ -294,7 +216,7 @@ namespace DalObject
             }
         }
 
-        public static IEnumerable<Drone> ViewDroneLists()//הצגת שימות הרחפנים
+        public IEnumerable<Drone> ViewDroneLists()
         {
             foreach (Drone drone in DataSource.Drones)
             {
@@ -302,7 +224,7 @@ namespace DalObject
             }
         }
 
-        public static IEnumerable<Customer> ViewCustomerLists()//הצגת שימת הלקוחות
+        public IEnumerable<Customer> ViewCustomerLists()
         {
             foreach (Customer customer in DataSource.Customers)
             {
@@ -310,7 +232,7 @@ namespace DalObject
             }
         }
 
-        public static IEnumerable<Parcel> ViewParcelLists()//הצגת רשימת החבילות
+        public IEnumerable<Parcel> ViewParcelLists()
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
@@ -318,7 +240,7 @@ namespace DalObject
             }
         }
 
-        public static IEnumerable<Parcel> ViewFreeParcelLists()//הצגת רשימת לקוחות שעוד לא שויכו לרחפן
+        public IEnumerable<Parcel> ViewFreeParcelLists()
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
@@ -327,12 +249,12 @@ namespace DalObject
             }
         }
 
-        public static IEnumerable<Station> ViewAvailableStationLists()//הצגת תחנות בסיס עם עמדות טעינה פנויות
+        public IEnumerable<Station> ViewAvailableStationLists()
         {
             foreach (Station station in DataSource.Stations)
             {
                 int counter = 0;
-                foreach (DroneCharge droneCharge in DataSource.droneCharges)
+                foreach (DroneCharge droneCharge in DataSource.DroneCharges)
                 {
                     if (station.ID == droneCharge.StationId)
                         counter++;
