@@ -67,17 +67,34 @@ namespace DalObject
         public static void AssingParcelToDrone(Parcel parcel)//שיוך חבליה לרחפן
         {
 
-            foreach (Drone drone in DataSource.Drones)
+            for ( int i=0;i< DataSource.Drones.Length;i++)
             {
-                if (drone.Status == DroneStatus.Available && drone.MaxWeight >= parcel.Weight)
+               
+                if (DataSource.Drones[i].Status == DroneStatus.Available && DataSource.Drones[i].MaxWeight >= parcel.Weight)
                 {
-                    parcel.DroneId = drone.ID;
-                    //drone.Status = DroneStatus.Delivery;
-                    parcel.DroneId = drone.ID;
-                    parcel.Scheduled = DateTime.Now;
+
+                    for (int j = 0; j < DataSource.Parcels.Length; j++)
+                    {
+                        if (DataSource.Parcels[j].ID == parcel.ID)
+                        {
+          
+                            DataSource.Parcels[j].DroneId = DataSource.Drones[i].ID;
+                            DataSource.Parcels[j].Scheduled = DateTime.Now;
+                            DataSource.Parcels[j].DroneId = DataSource.Drones[i].ID;
+                            break;
+                        }
+                    }
+            
+            
+                    DataSource.Drones[i].Status = DroneStatus.Delivery;
+
                     return;
                 }
+
+                
             }
+
+
         }
 
         public static Parcel FindParcel()
@@ -121,13 +138,22 @@ namespace DalObject
         public static void CollectParcelByDrone(Parcel parcel)//איסוף חבילה ע"י רחפן
         {
 
-            for (int i = 0; i < DataSource.config.DronesIndexer; i++)
+            for (int i = 0; i < DataSource.Drones.Length; i++)
             {
                 if (DataSource.Drones[i].ID == parcel.DroneId)
                 {
 
                     DataSource.Drones[i].Status = DroneStatus.Delivery;
-                    parcel.PickedUp = DateTime.Now;
+
+                    for (int j = 0; j < DataSource.Parcels.Length; j++)
+                    {
+                        if (DataSource.Parcels[j].ID == parcel.ID)
+                        {
+                            DataSource.Parcels[j].PickedUp = DateTime.Now;
+                            break;
+                        }
+                    }
+            
                     break;
                 }
             }
@@ -144,45 +170,68 @@ namespace DalObject
                     break;
                 }
             }
-            parcel.Delivered = DateTime.Now;
+            for (int i = 0; i < DataSource.Parcels.Length; i++)
+            {
+                if (DataSource.Parcels[i].ID == parcel.ID)
+                {
+                    DataSource.Parcels[i].Delivered = DateTime.Now;
+                    break;
+                }
+            }
+
+         
         }
 
 
         public static void SendDroneToChargeInStation(Drone drone, int stationId)//שליחת רחפן לטעינה בתחנת בסיס
         {
-            drone.Status = DroneStatus.Maintenance;
+           
             DroneCharge droneCharge = new DroneCharge();
             DroneCharge[] newDronechage = new DroneCharge[DataSource.droneCharges.Length + 1];
             for (int i = 0; i < DataSource.config.DroneChargeIndexer; i++)
             {
                 newDronechage[i] = DataSource.droneCharges[i];
             }
-            newDronechage[DataSource.config.DroneChargeIndexer] = droneCharge;
-            DataSource.droneCharges = newDronechage;
+
             droneCharge.DroneId = drone.ID;
             droneCharge.StationId = stationId;
+            newDronechage[DataSource.config.DroneChargeIndexer] = droneCharge;
+            DataSource.droneCharges = newDronechage;
+
+            for (int i = 0; i < DataSource.Drones.Length; i++)
+            {
+                if (DataSource.Drones[i].ID == drone.ID)
+                {
+                    DataSource.Drones[i].Status = DroneStatus.Maintenance;
+                    break;
+                }
+            }
+
         }
 
         public static void ReleaseDroneFromChargeInStation(Drone drone)//שחרור רחפן מטעינה בתחנת בסיס
         {
 
 
-            for (int i = 0; i < DataSource.config.DroneChargeIndexer; i++)
-            {
-                if (DataSource.droneCharges[i].DroneId == drone.ID)
+            for (int i = 0; i < DataSource.Drones.Length; i++)
+
+                if (DataSource.Drones[i].ID == drone.ID && DataSource.Drones[i].Status == DroneStatus.Maintenance)
                 {
                     DataSource.Drones[i].Status = DroneStatus.Available;
                     DataSource.Drones[i].Battery = 100;
 
-                    for (int index = i; index < DataSource.config.DroneChargeIndexer; index++)
+
+                    for(int j=0; DataSource.droneCharges[j].DroneId != drone.ID;j++)
+                   for (int index = j; index < DataSource.config.DroneChargeIndexer; index++)
                     {
-                        DataSource.droneCharges[i] = DataSource.droneCharges[i + 1];
+                        DataSource.droneCharges[index] = DataSource.droneCharges[index + 1];
                     }
                     DataSource.config.DroneChargeIndexer--;
                     break;
                 }
+        
             }
-        }
+        
 
         //Display//
 
@@ -296,3 +345,4 @@ namespace DalObject
         }
     }
 }
+
