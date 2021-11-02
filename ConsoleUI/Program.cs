@@ -8,9 +8,12 @@ namespace ConsoleUI
 {
     class Program
     {
+
+
         static public void Main(string[] args)
         {
-            DalObject.DalObject DalObj = new DalObject.DalObject();
+/*            IDal DalObj = new IDal();
+*/            DalObject.DalObject DalObj = new DalObject.DalObject();
 
             int Option;
             do
@@ -23,6 +26,8 @@ namespace ConsoleUI
                     "0 - Exit.");
 
                 Option = int.Parse(Console.ReadLine());
+
+
 
                 switch (Option)
                 {
@@ -62,19 +67,19 @@ namespace ConsoleUI
                         switch (UpddateOption)
                         {
                             case (int)UpdateOptions.AssingParcelToDrone:
-                                DalObj.AssingParcelToDrone(DalObj.FindParcel());
+                                DalObj.AssingParcelToDrone(DalObj.FindParcel(GetByID("parcel")));
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
-                                DalObj.CollectParcelByDrone(DalObj.FindParcel());
+                                DalObj.CollectParcelByDrone(DalObj.FindParcel(GetByID("parcel"))) ;
                                 break;
                             case (int)UpdateOptions.ProvideParcelToCustomer:
-                                DalObj.ProvideParcelToCustomer(DalObj.FindParcel());
+                                DalObj.ProvideParcelToCustomer(DalObj.FindParcel(GetByID("parcel")));
                                 break;
                             case (int)UpdateOptions.SendDroneToChargeInStation:
-                                DalObj.SendDroneToChargeInStation(DalObj.FindDrone(), GetByID("Station"));
+                                DalObj.SendDroneToChargeInStation(DalObj.FindDrone(GetByID("drone")), GetByID("Station"));
                                 break;
                             case (int)UpdateOptions.ReleaseDroneFromChargeInStation:
-                                DalObj.ReleaseDroneFromChargeInStation(DalObj.FindDrone());
+                                DalObj.ReleaseDroneFromChargeInStation(DalObj.FindDrone(GetByID("drone")));
                                 break;
                             default: Error(); break;
                         }
@@ -239,6 +244,10 @@ namespace ConsoleUI
             {
                 Console.WriteLine("ERROR");
             }
+
+           
+
+ 
         }       
     }
 }

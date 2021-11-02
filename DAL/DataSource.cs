@@ -24,14 +24,18 @@ namespace DalObject
         //static internal DroneCharge[] droneCharges = new DroneCharge[0];
         /// </arrays>
 
-        //internal class config
-        //{
+        internal class config
+        {
+
+            static bool Available, Light, medium, heavy;
+            static int chargingRate;
+
         //    static internal int DronesIndexer = 0;
         //    static internal int StationsIndexer = 0;
         //    static internal int customersIndexer = 0;
         //    static internal int ParcelsIndexer = 0;
         //    static internal int DroneChargeIndexer = 0;
-        //}
+        }
 
         static public void Initialize()
         {
@@ -57,8 +61,8 @@ namespace DalObject
                 drone.ID = Drones.Count;
                 drone.Model = $"{Drones.Count}";
                 drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));
-                drone.Status = (DroneStatus)(rand.Next(0, 2));
-                drone.Battery = rand.Next(100);
+/*                drone.Status = (DroneStatus)(rand.Next(0, 2));
+                drone.Battery = rand.Next(100);*/
                 //Drones[config.DronesIndexer] = drone;
                 //config.DronesIndexer++;
                 Drones.Add(drone);

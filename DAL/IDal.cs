@@ -9,12 +9,11 @@ namespace IDAL.DO
     public interface IDal
     {
         public void AddStation(double longitude, double latitude, int chargeSlots);
-        public void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery);
-        public void AddCustomer(int id, string phone, string name, double Longitude, double Latitude);
+        public void AddDrone(string model, WeightCategories maxWeight);
+/*        public void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery);
+*/      public void AddCustomer(int id, string phone, string name, double Longitude, double Latitude);
         public void AddParcel(int senderId, int targetId, WeightCategories weight, Priorities priority, DateTime requested, int droneId, DateTime scheduled, DateTime pickedUp, DateTime delivered);
         public void AssingParcelToDrone(Parcel parcel);
-        public Parcel FindParcel();
-        public Drone FindDrone();
         public void CollectParcelByDrone(Parcel parcel);
         public void ProvideParcelToCustomer(Parcel parcel);
         public void SendDroneToChargeInStation(Drone drone, int stationId);
@@ -29,6 +28,7 @@ namespace IDAL.DO
         public IEnumerable<Parcel> ViewParcelLists();
         public IEnumerable<Parcel> ViewFreeParcelLists();
         public IEnumerable<Station> ViewAvailableStationLists();
+        public double[] ElectricalPowerRequest();           
     }
 }
 
