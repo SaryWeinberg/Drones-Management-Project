@@ -26,14 +26,15 @@ namespace DalObject
             station.ChargeSlots = chargeSlots;
             DataSource.Stations.Add(station);
         }
-        public void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)
+        public void AddDrone(string model, WeightCategories maxWeight)
+        /*     public void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)*/
         {
             Drone drone = new Drone();
             drone.ID = DataSource.Drones.Count;
             drone.Model = model;
             drone.MaxWeight = maxWeight;
-            drone.Status = status;
-            drone.Battery = battery;
+            /*            drone.Status = status;
+                        drone.Battery = battery;*/
             DataSource.Drones.Add(drone);
         }
         public void AddCustomer(int id, string phone, string name, double Longitude, double Latitude)
@@ -67,68 +68,69 @@ namespace DalObject
 
         public void AssingParcelToDrone(Parcel parcel)
         {
-            Drone drone = DataSource.Drones.Find(d =>
-            d.Status == DroneStatus.Available && d.MaxWeight >= parcel.Weight);
-            int indexP = DataSource.Parcels.IndexOf(parcel);
-            int indexD = DataSource.Drones.IndexOf(drone);
-            parcel.DroneId = drone.ID;
-            parcel.Scheduled = DateTime.Now;
-            DataSource.Parcels[indexP] = parcel;
-            drone.Status = DroneStatus.Delivery;
-            DataSource.Drones[indexD] = drone;
+            /* Drone drone = DataSource.Drones.Find(d =>
+             d.Status == DroneStatus.Available && d.MaxWeight >= parcel.Weight);
+             int indexP = DataSource.Parcels.IndexOf(parcel);
+             int indexD = DataSource.Drones.IndexOf(drone);//
+             parcel.DroneId = drone.ID;
+             parcel.Scheduled = DateTime.Now;
+             DataSource.Parcels[indexP] = parcel;
+             drone.Status = DroneStatus.Delivery;
+             DataSource.Drones[indexD] = drone;*/
         }
 
-        public Parcel FindParcel()
+        public Parcel FindParcel(int id)
         {
-            Console.WriteLine("Enter parcel id:");
-            int Pid = int.Parse(Console.ReadLine());
-            foreach (Parcel parcel in DataSource.Parcels)
-            {
-                if (parcel.ID == Pid)
-                {
-                    return parcel;
-                }
-            }
-            return new Parcel();
+
+            return DataSource.Parcels.First(p => p.ID == id);
+
+            /* foreach (Parcel parcel in DataSource.Parcels)
+             {
+                 if (parcel.ID == id)
+                 {
+                     return parcel;
+                 }
+             }
+             return new Parcel();*/
         }
 
-        public Drone FindDrone()
+        public Drone FindDrone(int id)
         {
-            Console.WriteLine("Enter Drone id:");
-            int Did = int.Parse(Console.ReadLine());
-            foreach (Drone drone in DataSource.Drones)
-            {
-                if (drone.ID == Did)
-                {
-                    return drone;
-                }
-            }
-            return new Drone();
+            return DataSource.Drones.First(d => d.ID == id);
+
+
+            /* foreach (Drone drone in DataSource.Drones)
+             {
+                 if (drone.ID == id)
+                 {
+                     return drone;
+                 }
+             }
+             return new Drone();*/
         }
 
         public void CollectParcelByDrone(Parcel parcel)
         {
-            Drone drone = DataSource.Drones.Find(d =>
+            Drone drone = DataSource.Drones.First(d =>
             d.ID == parcel.DroneId);
             int indexP = DataSource.Parcels.IndexOf(parcel);
             int indexD = DataSource.Drones.IndexOf(drone);
             parcel.DroneId = drone.ID;
             parcel.PickedUp = DateTime.Now;
             DataSource.Parcels[indexP] = parcel;
-            drone.Status = DroneStatus.Delivery;
+            /*         drone.Status = DroneStatus.Delivery;*/
             DataSource.Drones[indexD] = drone;
         }
 
         public void ProvideParcelToCustomer(Parcel parcel)
         {
-            Drone drone = DataSource.Drones.Find(d =>
-            d.ID == parcel.DroneId);
+            Drone drone = DataSource.Drones.First(d => d.ID == parcel.DroneId);
             int indexP = DataSource.Parcels.IndexOf(parcel);
             int indexD = DataSource.Drones.IndexOf(drone);
             parcel.DroneId = drone.ID;
             parcel.Delivered = DateTime.Now;
             DataSource.Parcels[indexP] = parcel;
-            drone.Status = DroneStatus.Available;
+            /*  drone.Status = DroneStatus.Available;*/
             DataSource.Drones[indexD] = drone;
         }
 
@@ -140,18 +142,18 @@ namespace DalObject
             droneCharge.StationId = stationId;
             DataSource.DroneCharges.Add(droneCharge);
             int indexD = DataSource.Drones.IndexOf(drone);
-            drone.Status = DroneStatus.Maintenance;
+            /*            drone.Status = DroneStatus.Maintenance;*/
             DataSource.Drones[indexD] = drone;
         }
 
         public void ReleaseDroneFromChargeInStation(Drone drone)
         {
-            DroneCharge droneCharge = DataSource.DroneCharges.Find(d =>
+            DroneCharge droneCharge = DataSource.DroneCharges.First(d =>
             d.DroneId == drone.ID);
             DataSource.DroneCharges.Remove(droneCharge);
             int indexD = DataSource.Drones.IndexOf(drone);
-            drone.Status = DroneStatus.Available;
-            drone.Battery = 100;
+            /*           drone.Status = DroneStatus.Available;
+                       drone.Battery = 100;*/
             DataSource.Drones[indexD] = drone;
         }
 
@@ -160,50 +162,50 @@ namespace DalObject
 
         public Station DisplayStation(int stationId)
         {
-            foreach (Station station in DataSource.Stations)
+            try
             {
-                if (station.ID == stationId)
-                {
-                    return station;
-                }
+                return DataSource.Stations.First(station => station.ID == stationId);
             }
-            return new Station();
+            catch
+            {
+                throw new Exception();
+            }
         }
 
         public Drone DisplayDrone(int droneId)
         {
-            foreach (Drone drone in DataSource.Drones)
+            try
             {
-                if (drone.ID == droneId)
-                {
-                    return drone;
-                }
+                return DataSource.Drones.First(drone => drone.ID == droneId);
             }
-            return new Drone();
+            catch
+            {
+                throw new Exception();
+            }
         }
 
         public Customer DisplayCustomer(int customerId)
         {
-            foreach (Customer customer in DataSource.Customers)
+            try
             {
-                if (customer.ID == customerId)
-                {
-                    return customer;
-                }
+                return DataSource.Customers.First(customer => customer.ID == customerId);
             }
-            return new Customer();
+            catch
+            {
+                throw new Exception();
+            }
         }
 
         public Parcel DisplayParcel(int parcelId)
         {
-            foreach (Parcel parcel in DataSource.Parcels)
+            try
             {
-                if (parcel.ID == parcelId)
-                {
-                    return parcel;
-                }
+                return DataSource.Parcels.First(parcel => parcel.ID == parcelId);
             }
-            return new Parcel();
+            catch
+            {
+                throw new Exception();
+            }
         }
 
         //Display Lists//
@@ -264,6 +266,11 @@ namespace DalObject
                     yield return station;
                 }
             }
+        }
+        public double[] ElectricalPowerRequest()
+        {
+            double[] arr = { 1, 2, 3, 4, 5 };
+            return arr;
         }
     }
 }
