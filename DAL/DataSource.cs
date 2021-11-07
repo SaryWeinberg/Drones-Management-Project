@@ -27,9 +27,7 @@ namespace DalObject
         internal class config
         {
 
-            static bool Available, Light, medium, heavy;
-            static int chargingRate;
-
+            static double Available, Light, medium, heavy, chargingRate;
         //    static internal int DronesIndexer = 0;
         //    static internal int StationsIndexer = 0;
         //    static internal int customersIndexer = 0;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Location
+    class DroneInCharge
     {
-        public double longitude { get; set; }
-        public double latitude { get; set; }
+        public int ID { get; set; }
+        public double BettaryStatus { get; set; }
     }
 }

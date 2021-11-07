@@ -28,7 +28,8 @@ namespace IDAL.DO
         public IEnumerable<Parcel> ViewParcelLists();
         public IEnumerable<Parcel> ViewFreeParcelLists();
         public IEnumerable<Station> ViewAvailableStationLists();
-        public double[] ElectricalPowerRequest();           
+        public double[] ElectricalPowerRequest();
+        List<Drone> getDrones();
     }
 }
 

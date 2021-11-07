@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Station
+    class StationToList
     {
         public int ID { get; set; }
-        public int Name { get; set; }
-        public Location location { get; set; }
-
+        public int Name { get; set; }     
         public double AveChargeSlots { get; set; }
-
-        public List<DroneInCharge> DronesInCharge = new List<DroneInCharge>();
-
+        public double FullChargeSlots { get; set; }
     }
 }

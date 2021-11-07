@@ -272,6 +272,11 @@ namespace DalObject
             double[] arr = { 1, 2, 3, 4, 5 };
             return arr;
         }
+
+        public List<Drone> getDrones()
+        {
+            return DataSource.Drones;
+        }
     }
 }
 

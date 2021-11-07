@@ -8,5 +8,10 @@ namespace IBL.BO
 {
     class DeliveryToCustomer
     {
+        public int ID { get; set; }
+        public WeightCategories weight { get; set; }
+        public Priorities property { get; set; }
+        public Status status { get; set; }
+        public CustomerInDelivery target { get; set; }
     }
 }
