@@ -30,6 +30,10 @@ namespace IDAL.DO
         public IEnumerable<Station> ViewAvailableStationLists();
         public double[] ElectricalPowerRequest();
         List<Drone> getDrones();
+        List<Station> getStations();
+        List<Parcel> getParcels();
+        List<Customer> getCustomers();
+
     }
 }
 

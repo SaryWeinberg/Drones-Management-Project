@@ -8,8 +8,6 @@ namespace IBL.BO
 {
     class DeliveryByTransfer
     {
-
-
         public int ID { get; set; }
         public double latitude { get; set; }
         public WeightCategories Weight { get; set; }

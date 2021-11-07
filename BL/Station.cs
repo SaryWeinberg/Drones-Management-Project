@@ -8,10 +8,19 @@ namespace IBL.BO
 {
     class Station
     {
-        public int ID { get; set; }
+        private int id;
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                //if ()
+                id = value;
+                //else throw new NotValidID("the ID already exist");
+            }
+        }
         public int Name { get; set; }
         public Location location { get; set; }
-
         public double AveChargeSlots { get; set; }
 
         public List<DroneInCharge> DronesInCharge = new List<DroneInCharge>();

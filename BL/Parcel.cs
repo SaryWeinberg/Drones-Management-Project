@@ -8,7 +8,17 @@ namespace IBL.BO
 {
     class Parcel
     {
-        public int ID  { get; set; }
+        private int id;
+        public int ID
+        {
+            get { return id; }
+            set
+            {            
+                //if ()
+                    id = value;
+                //else throw new NotValidID("the ID already exist");
+            }
+        }
         public Customer Sender { get; set; }
         public Customer Target { get; set; }
         public WeightCategories Weight { get; set; }

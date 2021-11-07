@@ -8,19 +8,26 @@ namespace IBL.BO
 {
     class Customer
     {
-        DAL.DO.Customer
-        public Customer()
+        private ulong id;
+        public ulong ID
         {
-        cutomer = new IDAL.DO.Customer(); 
+            get { return id; }
+            set
+            {
+                //if (value > 100000000 && value < 999999999 && validateIDNumber(id))
+                    id = value;
+                //else
+                //throw new NotValidID("Id not in the right lenght");
+            }
         }
-        public int ID { get; set; }
+       
         public string Name { get; set; }
         public double PhoneNum { get; set; }
         public Location location { get; set; }
 
         public List<DeliveryToCustomer> DeliveryToCustomer = new List<DeliveryToCustomer>();
+
         public List<DeliveryToCustomer> DeliveryFromCustomer = new List<DeliveryToCustomer>();
-
-
     }
 }
+

@@ -8,7 +8,17 @@ namespace IBL.BO
 {
     class Drone
     {
-        public int ID { get; set; }
+        private int id;
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                //if ()
+                id = value;
+                //else throw new NotValidID("the ID already exist");
+            }
+        }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
         public double BatteryStatus { get; set; }

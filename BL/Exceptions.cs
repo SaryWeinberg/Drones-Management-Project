@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
+namespace BL
 {
-    interface IBL
+    class Exceptions : Exception
     {
+        public void NotValidID(string exc)
+        {
 
+        }
     }
 }

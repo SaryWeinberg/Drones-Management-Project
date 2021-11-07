@@ -50,7 +50,6 @@ namespace DalObject
         public void AddParcel(int senderId, int targetId, WeightCategories weight, Priorities priority, DateTime requested, int droneId, DateTime scheduled, DateTime pickedUp, DateTime delivered)
         {
             Parcel parcel = new Parcel();
-
             parcel.ID = DataSource.Parcels.Count;
             parcel.SenderId = senderId;
             parcel.TargetId = targetId;
@@ -276,6 +275,19 @@ namespace DalObject
         public List<Drone> getDrones()
         {
             return DataSource.Drones;
+        }
+
+        public List<Parcel> getParcels()
+        {
+            return DataSource.Parcels;
+        }
+        public List<Station> getStations()
+        {
+            return DataSource.Stations;
+        }
+        public List<Customer> getCustomers()
+        {
+            return DataSource.Customers;
         }
     }
 }
