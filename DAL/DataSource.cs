@@ -69,8 +69,8 @@ namespace DalObject
             for (int i = 0; i < 10; i++)
             {
                 Customer customer = new Customer();
-                customer.ID = Customers.Count;
-                customer.Phone = $"{rand.Next(111111111, 999999999)}";
+                customer.ID = (ulong)(Customers.Count);
+                customer.Phone = (ulong)rand.Next(111111111, 999999999);
                 customer.Name = $"Customer{i}";
                 customer.longitude = rand.Next();
                 customer.latitude = rand.Next();
@@ -86,8 +86,8 @@ namespace DalObject
 
                 //parcel.ID = config.ParcelsIndexer;
                 //------------------------------------------------
-                parcel.SenderId = rand.Next() % Customers.Count;
-                parcel.TargetId = rand.Next() % Customers.Count;
+                parcel.SenderId = (ulong)(rand.Next() % Customers.Count);
+                parcel.TargetId = (ulong)(rand.Next() % Customers.Count);
 
 
                 parcel.Weight = (WeightCategories)(rand.Next(0, 2));

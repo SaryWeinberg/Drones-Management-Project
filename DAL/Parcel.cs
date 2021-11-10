@@ -9,8 +9,8 @@ namespace IDAL.DO
     public struct Parcel
     {
         public int ID { get; set; }
-        public int SenderId { get; set; }
-        public int TargetId { get; set; }
+        public ulong SenderId { get; set; }
+        public ulong TargetId { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public DateTime Requested { get; set; }

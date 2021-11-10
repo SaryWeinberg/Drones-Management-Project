@@ -8,8 +8,6 @@ namespace ConsoleUI
 {
     class Program
     {
-
-
         static public void Main(string[] args)
         {
 /*            IDal DalObj = new IDal();
@@ -26,8 +24,6 @@ namespace ConsoleUI
                     "0 - Exit.");
 
                 Option = int.Parse(Console.ReadLine());
-
-
 
                 switch (Option)
                 {
@@ -97,16 +93,16 @@ namespace ConsoleUI
                         switch (DisplayOption)
                         {
                             case (int)DisplayOptions.DisplayCustomer:                              
-                                Console.WriteLine(DalObj.DisplayCustomer(GetByID("Customer")));
+                                Console.WriteLine(DalObj.GetSpesificCustomer((ulong)GetByID("Customer")));
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
-                                Console.WriteLine(DalObj.DisplayDrone(GetByID("Drone")));
+                                Console.WriteLine(DalObj.GetSpesificDrone(GetByID("Drone")));
                                 break;
                             case (int)DisplayOptions.DisplayParcel:                      
-                                Console.WriteLine(DalObj.DisplayParcel(GetByID("Parcel")));
+                                Console.WriteLine(DalObj.GetSpesificParcel(GetByID("Parcel")));
                                 break;
                             case (int)DisplayOptions.DisplayStation:                              
-                                Console.WriteLine(DalObj.DisplayStation(GetByID("Station")));
+                                Console.WriteLine(DalObj.GetSpesificStation(GetByID("Station")));
                                 break;
                             default: Error(); break;
                         }
@@ -126,32 +122,32 @@ namespace ConsoleUI
                         switch (ListDisplayOption)
                         {
                             case (int)ListDisplayOptions.ViewStationLists:
-                                IEnumerable<Station> stations = DalObj.ViewStationLists();
+                                IEnumerable<Station> stations = DalObj.GetStationLists();
                                 Station[] stationList = stations.Cast<Station>().ToArray();
                                 PrintLists(stationList); 
                                 break;
                             case (int)ListDisplayOptions.ViewCustomerLists:
-                                IEnumerable<Customer> customers = DalObj.ViewCustomerLists();
+                                IEnumerable<Customer> customers = DalObj.GetCustomerLists();
                                 Customer[] customerList = customers.Cast<Customer>().ToArray();
                                 PrintLists(customerList); 
                                 break;
                             case (int)ListDisplayOptions.ViewDroneLists:
-                                IEnumerable<Drone> drones = DalObj.ViewDroneLists();
+                                IEnumerable<Drone> drones = DalObj.GetDroneLists();
                                 Drone[] droneList = drones.Cast<Drone>().ToArray();
                                 PrintLists(droneList); 
                                 break;
                             case (int)ListDisplayOptions.ViewParcelLists:
-                                IEnumerable<Parcel> parcels = DalObj.ViewParcelLists();
+                                IEnumerable<Parcel> parcels = DalObj.GetParcelLists();
                                 Parcel[] parcelList = parcels.Cast<Parcel>().ToArray();
                                 PrintLists(parcelList); 
                                 break;
                             case (int)ListDisplayOptions.ViewFreeParcelLists:
-                                parcels = DalObj.ViewFreeParcelLists();
+                                parcels = DalObj.GetFreeParcelLists();
                                 parcelList = parcels.Cast<Parcel>().ToArray();
                                 PrintLists(parcelList); 
                                 break;
                             case (int)ListDisplayOptions.ViewAvailableStationLists:
-                                stations = DalObj.ViewAvailableStationLists();
+                                stations = DalObj.GatAvailableStationLists();
                                 stationList = stations.Cast<Station>().ToArray();
                                 PrintLists(stationList); 
                                 break;

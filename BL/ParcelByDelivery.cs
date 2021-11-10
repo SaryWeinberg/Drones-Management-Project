@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class DeliveryByTransfer
+    class ParcelByDelivery
     {
         public int ID { get; set; }
         public double latitude { get; set; }
