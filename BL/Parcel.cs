@@ -14,9 +14,9 @@ namespace IBL.BO
             get { return id; }
             set
             {            
-                //if ()
+                if (value != null)
                     id = value;
-                //else throw new NotValidID("the ID already exist");
+                else throw new InvalidID();
             }
         }
         public Customer Sender { get; set; }
