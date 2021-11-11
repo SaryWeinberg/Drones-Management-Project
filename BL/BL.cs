@@ -415,7 +415,7 @@ namespace BL
 
         public List<IBL.BO.Drone> GetDronesBL()
         {
-            List<IDAL.DO.Drone> dronesDal = dalObj.getDrones();
+            List<IDAL.DO.Drone> dronesDal = dalObj.GetDrones();
             List<IBL.BO.Drone> dronesBL = new List<IBL.BO.Drone>();
             dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));            
             return dronesBL;
@@ -423,7 +423,7 @@ namespace BL
 
         public List<IBL.BO.Parcel> GetParcelsBL()
         {
-            List<IDAL.DO.Parcel> parcelsDal = dalObj.getParcels();
+            List<IDAL.DO.Parcel> parcelsDal = dalObj.GetParcels();
             List<IBL.BO.Parcel> parcelsBL = new List<IBL.BO.Parcel>();
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p))) ;
             return parcelsBL;
@@ -431,7 +431,7 @@ namespace BL
 
         public List<IBL.BO.Station> GetStationsBL()
         {
-            List<IDAL.DO.Station> stationsDal = dalObj.getStations();
+            List<IDAL.DO.Station> stationsDal = dalObj.GetStations();
             List<IBL.BO.Station> stationsBL = new List<IBL.BO.Station>();
             stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s))) ;
             return stationsBL;
@@ -439,7 +439,7 @@ namespace BL
 
         public List<IBL.BO.Customer> GetCustomers()
         {
-            List<IDAL.DO.Customer> customersDal = dalObj.getCustomers();
+            List<IDAL.DO.Customer> customersDal = dalObj.GetCustomers();
             List<IBL.BO.Customer> customersBL = new List<IBL.BO.Customer>();
             customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c))) ;
             return customersBL;

@@ -147,7 +147,7 @@ namespace ConsoleUI
                                 PrintLists(parcelList); 
                                 break;
                             case (int)ListDisplayOptions.ViewAvailableStationLists:
-                                stations = DalObj.GatAvailableStationLists();
+                                stations = DalObj.GetAvailableStationLists();
                                 stationList = stations.Cast<Station>().ToArray();
                                 PrintLists(stationList); 
                                 break;
