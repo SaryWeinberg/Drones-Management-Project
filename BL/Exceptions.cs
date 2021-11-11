@@ -4,13 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace IBL.BO
 {
-    class Exceptions : Exception
+    public class InvalidID : Exception
     {
-        public void NotValidID(string exc)
-        {
+        public InvalidID() : base(String.Format("Incorrect ID number")) { }
+    }
 
-        }
+    public class InvalidPhoneNumber : Exception
+    {
+        public InvalidPhoneNumber() : base(String.Format("The phone number is incorrect")) { }
+    }
+
+
+    public class InvalidName : Exception
+    {
+        public InvalidName() : base(String.Format("The name is incorrect")) { }
     }
 }

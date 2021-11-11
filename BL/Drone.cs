@@ -14,9 +14,10 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                //if ()
-                id = value;
-                //else throw new NotValidID("the ID already exist");
+                if (value != null)
+                    id = value;
+                else 
+                    throw new InvalidID();
             }
         }
         public string Model { get; set; }
