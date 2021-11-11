@@ -16,27 +16,54 @@ namespace DalObject
         }
 
         //Addings//
-        public void AddStation(Station station)
+        public void AddStation(double longitude, double latitude, int chargeSlots)
         {
+            Station station = new Station();
+            station.ID = DataSource.Stations.Count;
+            station.Name = DataSource.Stations.Count;
+            station.Longitude = longitude;
+            station.Latitude = latitude;
+            station.ChargeSlots = chargeSlots;
             DataSource.Stations.Add(station);
         }
-        public void AddDrone(Drone drone)
+        public void AddDrone(string model, WeightCategories maxWeight)
+        /*     public void AddDrone(string model, WeightCategories maxWeight, DroneStatus status, double battery)*/
         {
+            Drone drone = new Drone();
+            drone.ID = DataSource.Drones.Count;
+            drone.Model = model;
+            drone.MaxWeight = maxWeight;
+            /*            drone.Status = status;
+                        drone.Battery = battery;*/
             DataSource.Drones.Add(drone);
         }
-        public void AddCustomer(Customer customer)
+        public void AddCustomer(int id, string phone, string name, double Longitude, double Latitude)
         {
+            Customer customer = new Customer();
+            customer.ID = id;
+            customer.Phone = phone;
+            customer.Name = name;
+            customer.longitude = Longitude;
+            customer.latitude = Latitude;
             DataSource.Customers.Add(customer);
         }
-        public void AddParcel(Parcel parcel)
+        public void AddParcel(int senderId, int targetId, WeightCategories weight, Priorities priority, DateTime requested, int droneId, DateTime scheduled, DateTime pickedUp, DateTime delivered)
         {
+            Parcel parcel = new Parcel();
+
+            parcel.ID = DataSource.Parcels.Count;
+            parcel.SenderId = senderId;
+            parcel.TargetId = targetId;
+            parcel.Weight = weight;
+            parcel.Priority = priority;
+            parcel.Requested = requested;
+            parcel.DroneId = droneId;
+            parcel.Scheduled = scheduled;
+            parcel.PickedUp = pickedUp;
+            parcel.Delivered = delivered;
             DataSource.Parcels.Add(parcel);
         }
 
-        public void AddDroneCharge(DroneCharge droneCharge)
-        {
-            DataSource.DroneCharges.Add(droneCharge);
-        }
         //Updats//
 
         public void AssingParcelToDrone(Parcel parcel)
@@ -133,7 +160,7 @@ namespace DalObject
 
         //Display//
 
-        public Station GetSpesificStation(int stationId)
+        public Station DisplayStation(int stationId)
         {
             try
             {
@@ -145,7 +172,7 @@ namespace DalObject
             }
         }
 
-        public Drone GetSpesificDrone(int droneId)
+        public Drone DisplayDrone(int droneId)
         {
             try
             {
@@ -157,7 +184,7 @@ namespace DalObject
             }
         }
 
-        public Customer GetSpesificCustomer(ulong customerId)
+        public Customer DisplayCustomer(int customerId)
         {
             try
             {
@@ -169,7 +196,7 @@ namespace DalObject
             }
         }
 
-        public Parcel GetSpesificParcel(int parcelId)
+        public Parcel DisplayParcel(int parcelId)
         {
             try
             {
@@ -183,7 +210,7 @@ namespace DalObject
 
         //Display Lists//
 
-        public IEnumerable<Station> GetStationLists()
+        public IEnumerable<Station> ViewStationLists()
         {
             foreach (Station station in DataSource.Stations)
             {
@@ -191,7 +218,7 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Drone> GetDroneLists()
+        public IEnumerable<Drone> ViewDroneLists()
         {
             foreach (Drone drone in DataSource.Drones)
             {
@@ -199,7 +226,7 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Customer> GetCustomerLists()
+        public IEnumerable<Customer> ViewCustomerLists()
         {
             foreach (Customer customer in DataSource.Customers)
             {
@@ -207,7 +234,7 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Parcel> GetParcelLists()
+        public IEnumerable<Parcel> ViewParcelLists()
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
@@ -215,7 +242,7 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Parcel> GetFreeParcelLists()
+        public IEnumerable<Parcel> ViewFreeParcelLists()
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
@@ -224,7 +251,7 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Station> GatAvailableStationLists()
+        public IEnumerable<Station> ViewAvailableStationLists()
         {
             foreach (Station station in DataSource.Stations)
             {
@@ -244,24 +271,6 @@ namespace DalObject
         {
             double[] arr = { 1, 2, 3, 4, 5 };
             return arr;
-        }
-
-        public List<Drone> getDrones()
-        {
-            return DataSource.Drones;
-        }
-
-        public List<Parcel> getParcels()
-        {
-            return DataSource.Parcels;
-        }
-        public List<Station> getStations()
-        {
-            return DataSource.Stations;
-        }
-        public List<Customer> getCustomers()
-        {
-            return DataSource.Customers;
         }
     }
 }
