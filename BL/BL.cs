@@ -30,6 +30,7 @@ namespace BL
             List<Customer> CustomerList = dalObj.getCustomers();*/
         }
 
+
         /// <summary>
         /// Function for checking the correctness of an ID number
         /// </summary>
@@ -107,7 +108,7 @@ namespace BL
                 droneBL.location.longitude = station.Longitude;
                 droneBL.location.latitude = station.Latitude;
             }
-            catch (Exception e)
+            catch (InvalidID e)
             {
                 throw e;
             }
@@ -153,7 +154,11 @@ namespace BL
                 station.location.latitude = location.latitude;
                 station.AveChargeSlots = chargeSlots;
             }
-            catch (Exception e)
+            catch (InvalidID e)
+            {
+                throw e;
+            }
+            catch (InvalidName e)
             {
                 throw e;
             }
@@ -197,7 +202,15 @@ namespace BL
                 customer.location.longitude = location.longitude;
                 customer.location.latitude = location.latitude;
             }
-            catch (Exception e)
+            catch (InvalidID e)
+            {
+                throw e;
+            }
+            catch (InvalidName e)
+            {
+                throw e;
+            }
+            catch (InvalidPhoneNumber e)
             {
                 throw e;
             }
@@ -246,7 +259,7 @@ namespace BL
                 parcel.PickedUp = new DateTime();
                 parcel.Delivered = new DateTime();
             }
-            catch (Exception e)
+            catch (InvalidID e)
             {
                 throw e;
             }
@@ -301,13 +314,17 @@ namespace BL
 
         public void SendDroneToCharge(int droneId)
         {
-            try
-            {
+           
                 IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
                 droneInCharge.ID = droneId;
-            }
+         
         }
 
+        /// <summary>
+        /// Convert from dal station to BL station
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public IBL.BO.Station ConvertDalStationToBL(IDAL.DO.Station s)
         {
             return new IBL.BO.Station { 
@@ -318,6 +335,11 @@ namespace BL
             };
         }
 
+        /// <summary>
+        /// Convert from dal customer to BL customer
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
         public IBL.BO.Customer ConvertDalCustomerToBL(IDAL.DO.Customer c)
         {
             return new IBL.BO.Customer
@@ -329,6 +351,11 @@ namespace BL
             };
         }
 
+        /// <summary>
+        /// Convert from dal drone to BL drone
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public IBL.BO.Drone ConvertDalDroneToBL(IDAL.DO.Drone d)
         {
             return new IBL.BO.Drone
@@ -338,13 +365,13 @@ namespace BL
                 Model = d.Model
             };
                 /*BatteryStatus*/
-
-
-
-
-
         }
 
+        /// <summary>
+        /// Convert from dal parcel to BL parcel
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public IBL.BO.Parcel ConvertDalParcelToBL(IDAL.DO.Parcel p)
         {
             return new IBL.BO.Parcel
@@ -363,6 +390,12 @@ namespace BL
         }
 
         //display by id
+
+        /// <summary>
+        /// Returning a specific station by ID number
+        /// </summary>
+        /// <param name="stationId"></param>
+        /// <returns></returns>
         public IBL.BO.Station GetSpesificStationBL(int stationId)
         {
             try
@@ -375,6 +408,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Returning a specific drone by ID number
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
         public IBL.BO.Drone GetSpesificDroneBL(int droneId)
         {
             try
@@ -387,6 +425,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Returning a specific customer by ID number
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public IBL.BO.Customer GetSpesificCustomerBL(ulong customerId)
         {
             try
@@ -399,6 +442,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Returning a specific parcel by ID number
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns></returns>
         public IBL.BO.Parcel GetSpesificParcelBL(int parcelId)
         {
             try
@@ -411,8 +459,13 @@ namespace BL
             }
         }
 
+
         //display lists
 
+        /// <summary>
+        /// Returning the drone list
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.Drone> GetDronesBL()
         {
             List<IDAL.DO.Drone> dronesDal = dalObj.GetDrones();
@@ -421,6 +474,10 @@ namespace BL
             return dronesBL;
         }
 
+        /// <summary>
+        /// Returning the parcel list
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.Parcel> GetParcelsBL()
         {
             List<IDAL.DO.Parcel> parcelsDal = dalObj.GetParcels();
@@ -429,6 +486,10 @@ namespace BL
             return parcelsBL;
         }
 
+        /// <summary>
+        /// Returning the station list
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.Station> GetStationsBL()
         {
             List<IDAL.DO.Station> stationsDal = dalObj.GetStations();
@@ -437,6 +498,10 @@ namespace BL
             return stationsBL;
         }
 
+        /// <summary>
+        /// Returning the customer list
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.Customer> GetCustomers()
         {
             List<IDAL.DO.Customer> customersDal = dalObj.GetCustomers();
