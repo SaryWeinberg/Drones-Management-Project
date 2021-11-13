@@ -152,7 +152,7 @@ namespace BL
                 station.Name = name;
                 station.location.longitude = location.longitude;
                 station.location.latitude = location.latitude;
-                station.AveChargeSlots = chargeSlots;
+                station.aveChargeSlots = chargeSlots;
             }
             catch (InvalidID e)
             {
@@ -331,7 +331,7 @@ namespace BL
                 ID = s.ID, 
                 Name = s.Name,
                 location = new Location { latitude = s.Latitude, longitude = s.Longitude },
-                AveChargeSlots = s.ChargeSlots
+                aveChargeSlots = s.ChargeSlots
             };
         }
 

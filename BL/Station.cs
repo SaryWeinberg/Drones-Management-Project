@@ -31,9 +31,8 @@ namespace IBL.BO
             }
         }
         public Location location { get; set; }
-        public double AveChargeSlots { get; set; }
+        public double aveChargeSlots { get; set; }
 
-        public List<DroneInCharge> DronesInCharge = new List<DroneInCharge>();
-
+        public List<DroneInCharge> dronesInChargelist = new List<DroneInCharge>();
     }
 }

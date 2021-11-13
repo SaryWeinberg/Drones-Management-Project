@@ -19,11 +19,13 @@ namespace IBL.BO
                 else throw new InvalidID();
             }
         }
-        public Customer Sender { get; set; }
-        public Customer Target { get; set; }
+        
+
+        public CustomerInParcel Sender { get; set; }
+        public CustomerInParcel Target { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public Drone Drone { get; set; }
+        public DroneInParcel Drone { get; set; }
         public DateTime Created { get; set; }
         public DateTime Associated { get; set; }
         public DateTime PickedUp { get; set; }

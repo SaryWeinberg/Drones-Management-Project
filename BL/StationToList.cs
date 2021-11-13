@@ -10,9 +10,7 @@ namespace IBL.BO
     {
         public int ID { get; set; }
         public int Name { get; set; }
-        public Location location { get; set; }
         public double AveChargeSlots { get; set; }
-
-        public List<DroneInCharge> DronesInCharge = new List<DroneInCharge>();
+        public double ChargeSlots { get; set; }
     }
 }

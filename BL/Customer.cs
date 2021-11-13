@@ -51,9 +51,9 @@ namespace IBL.BO
         }
         public Location location { get; set; }
 
-        public List<DeliveryToCustomer> DeliveryToCustomer = new List<DeliveryToCustomer>();
+        public List<ParcelsAtTheCustomer> DeliveryToCustomer = new List<ParcelsAtTheCustomer>();
 
-        public List<DeliveryToCustomer> DeliveryFromCustomer = new List<DeliveryToCustomer>();
+        public List<ParcelsAtTheCustomer> DeliveryFromCustomer = new List<ParcelsAtTheCustomer>();
     }
 }
 
