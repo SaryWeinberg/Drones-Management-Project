@@ -289,11 +289,11 @@ namespace BL
         /// <param name="ChargeSlots"></param>
         public void UpdateStationData(int id, int name = 0, int ChargeSlots = 0)
         {
-           IDAL.DO.Station station = dalObj.GetSpesificStation(id);
-           if (name != 0)
-               station.Name = name;
-           if (ChargeSlots != 0)
-               station.ChargeSlots = ChargeSlots;
+            IDAL.DO.Station station = dalObj.GetSpesificStation(id);
+            if (name != 0)
+                station.Name = name;
+            if (ChargeSlots != 0)
+                station.ChargeSlots = ChargeSlots;
         }
 
         /// <summary>
@@ -314,10 +314,8 @@ namespace BL
 
         public void SendDroneToCharge(int droneId)
         {
-           
-                IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
-                droneInCharge.id = droneId;
-         
+            IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
+            droneInCharge.id = droneId;
         }
 
         /// <summary>
@@ -327,8 +325,9 @@ namespace BL
         /// <returns></returns>
         public IBL.BO.Station ConvertDalStationToBL(IDAL.DO.Station s)
         {
-            return new IBL.BO.Station { 
-                id = s.ID, 
+            return new IBL.BO.Station
+            {
+                id = s.ID,
                 name = s.Name,
                 location = new Location { latitude = s.Latitude, longitude = s.Longitude },
                 aveChargeSlots = s.ChargeSlots
@@ -347,7 +346,7 @@ namespace BL
                 id = c.ID,
                 name = c.Name,
                 phoneNum = c.Phone,
-                location = new Location { latitude = c.latitude, longitude = c.longitude }               
+                location = new Location { latitude = c.latitude, longitude = c.longitude }
             };
         }
 
@@ -364,7 +363,7 @@ namespace BL
                 maxWeight = d.MaxWeight,
                 model = d.Model
             };
-                /*BatteryStatus*/
+            /*BatteryStatus*/
         }
 
         /// <summary>
@@ -378,13 +377,13 @@ namespace BL
             {
                 id = p.ID,
                 drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.DroneId)),
-                associated = p.Requested, 
-                created= p.PickedUp, 
-                delivered= p.Delivered, 
-                pickedUp= p.PickedUp, 
-                priority= p.Priority, 
-                sender= ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)), 
-                target= ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)), 
+                associated = p.Requested,
+                created = p.PickedUp,
+                delivered = p.Delivered,
+                pickedUp = p.PickedUp,
+                priority = p.Priority,
+                sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)),
+                target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)),
                 weight = p.Weight
             };
         }
@@ -470,7 +469,7 @@ namespace BL
         {
             List<IDAL.DO.Drone> dronesDal = dalObj.GetDrones();
             List<IBL.BO.Drone> dronesBL = new List<IBL.BO.Drone>();
-            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));            
+            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
         }
 
@@ -482,7 +481,7 @@ namespace BL
         {
             List<IDAL.DO.Parcel> parcelsDal = dalObj.GetParcels();
             List<IBL.BO.Parcel> parcelsBL = new List<IBL.BO.Parcel>();
-            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p))) ;
+            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
             return parcelsBL;
         }
 
@@ -494,7 +493,7 @@ namespace BL
         {
             List<IDAL.DO.Station> stationsDal = dalObj.GetStations();
             List<IBL.BO.Station> stationsBL = new List<IBL.BO.Station>();
-            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s))) ;
+            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
             return stationsBL;
         }
 
@@ -506,7 +505,7 @@ namespace BL
         {
             List<IDAL.DO.Customer> customersDal = dalObj.GetCustomers();
             List<IBL.BO.Customer> customersBL = new List<IBL.BO.Customer>();
-            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c))) ;
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
             return customersBL;
         }
     }
