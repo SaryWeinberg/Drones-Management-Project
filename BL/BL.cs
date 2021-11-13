@@ -334,8 +334,7 @@ namespace BL
 
 
                     List<IBL.BO.Station> stations = GetStationsBL();
-                    foreach
-                        
+                    
 
                 }
             }
@@ -356,7 +355,7 @@ namespace BL
             {
                 id = s.ID,
                 name = s.Name,
-                location = new Location { latitude = s.Latitude, longitude = s.Longitude },
+                location = new Location { latitude = s.Latitude, longitude = s.Longitude},
                 aveChargeSlots = s.ChargeSlots
             };
         }
