@@ -8,12 +8,12 @@ namespace IBL.BO
 {
     class DroneToList
     {
-        public int ID { get; set; }
-        public string Model { get; set; }
-        public WeightCategories MaxWeight { get; set; }
-        public double BatteryStatus { get; set; }
-        public DroneStatus Status { get; set; }
+        public int id { get; set; }
+        public string model { get; set; }
+        public WeightCategories maxWeight { get; set; }
+        public double batteryStatus { get; set; }
+        public DroneStatus status { get; set; }
         public Location location { get; set; }
-        public ParcelByDelivery Parcel { get; set; }
+        public ParcelByDelivery parcel { get; set; }
     }
 }

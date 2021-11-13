@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using IDAL.DO;
 using DalObject;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
-/*            IDal DalObj = new IDal();
-*/            DalObject.DalObject DalObj = new DalObject.DalObject();
+*//*            IDal DalObj = new IDal();
+*//*            DalObject.DalObject DalObj = new DalObject.DalObject();
 
             int Option;
             do
@@ -171,7 +171,7 @@ namespace ConsoleUI
                 int Latitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Charge Slots");
                 int ChargeSlots = int.Parse(Console.ReadLine());
-                DalObj.AddStation(Longitude, Latitude, ChargeSlots);
+               // DalObj.AddStation(Longitude, Latitude, ChargeSlots);
             }
 
             static void addDrone(DalObject.DalObject DalObj)
@@ -183,10 +183,10 @@ namespace ConsoleUI
                 WeightCategories maxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), MaxWeight);
                 Console.WriteLine("Enter Status");
                 string Status = (Console.ReadLine());
-                DroneStatus status = (DroneStatus)Enum.Parse(typeof(DroneStatus), Status);
+                //DroneStatus status = (DroneStatus)Enum.Parse(typeof(DroneStatus), Status);
                 Console.WriteLine("Enter Battery");
                 int Battery = int.Parse(Console.ReadLine());
-                DalObj.AddDrone(Model, maxWeight, status, Battery);
+                //DalObj.AddDrone(Model, maxWeight, Battery);
             }
 
             static void addCustomer(DalObject.DalObject DalObj)
@@ -201,7 +201,7 @@ namespace ConsoleUI
                 int Longitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Latitude");
                 int Latitude = int.Parse(Console.ReadLine());
-                DalObj.AddCustomer(id, phone, name, Longitude, Latitude);
+                //DalObj.AddCustomer(id, phone, name, Longitude, Latitude);
             }
 
             static void addParcel(DalObject.DalObject DalObj)
@@ -218,7 +218,7 @@ namespace ConsoleUI
                 Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), Priority);
                 Console.WriteLine("Enter Drone Id");
                 int DroneId = int.Parse(Console.ReadLine());
-                DalObj.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
+              //  DalObj.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
             }
             
             static int GetByID(string typeOfID)
@@ -246,4 +246,4 @@ namespace ConsoleUI
  
         }       
     }
-}
+}*/

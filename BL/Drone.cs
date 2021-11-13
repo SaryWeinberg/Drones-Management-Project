@@ -8,23 +8,23 @@ namespace IBL.BO
 {
     class Drone
     {
-        private int id;
-        public int ID
+        private int pid;
+        public int id
         {
-            get { return id; }
+            get { return pid; }
             set
             {
                 if (value != null)
-                    id = value;
+                    pid = value;
                 else 
                     throw new InvalidID();
             }
         }
-        public string Model { get; set; }
-        public WeightCategories MaxWeight { get; set; }
-        public double BatteryStatus { get; set; }
-        public DroneStatus Status { get; set; }
-        public ParcelByDelivery Parcel { get; set; }
+        public string model { get; set; }
+        public WeightCategories maxWeight { get; set; }
+        public double batteryStatus { get; set; }
+        public DroneStatus status { get; set; }
+        public ParcelByDelivery parcel { get; set; }
         public Location location { get; set; }
     }
 }

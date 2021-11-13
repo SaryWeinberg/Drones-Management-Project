@@ -8,15 +8,11 @@ namespace IBL.BO
 {
     class ParcelToList
     {
-        public int ID { get; set; }
-        public Customer Sender { get; set; }
-        public Customer Target { get; set; }
-        public WeightCategories Weight { get; set; }
-        public Priorities Priority { get; set; }
-        public Drone Drone { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Associated { get; set; }
-        public DateTime PickedUp { get; set; }
-        public DateTime Delivered { get; set; }
+        public int id { get; set; }
+        public string senderName { get; set; }
+        public string targetName { get; set; }
+        public WeightCategories weight { get; set; }
+        public Priorities priority { get; set; }
+        public Status status { get; set; }
     }
 }

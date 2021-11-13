@@ -9,51 +9,51 @@ namespace IBL.BO
 {
     class Customer
     {
-        private ulong id;
-        private string name;
-        private ulong phoneNum;
+        private ulong pid;
+        private string pname;
+        private ulong pphoneNum;
 
-        public ulong ID
+        public ulong id
         {
-            get { return id; }
+            get { return pid; }
             set
             {
-                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id))
-                    id = value;
+                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(pid))
+                    pid = value;
                 else
                     throw new InvalidID();
             }
         }
 
-        public string Name
+        public string name
         {
-            get { return name; }
+            get { return pname; }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
-                    name = value;
+                    pname = value;
                 else
                     throw new InvalidName();
 
             }
         }
 
-        public ulong PhoneNum
+        public ulong phoneNum
         {
-            get { return phoneNum; }
+            get { return pphoneNum; }
             set
             {
                 if (value > 100000 && value < 10000000000)
-                    id = value;
+                    pid = value;
                 else
                     throw new InvalidPhoneNumber();
             }
         }
         public Location location { get; set; }
 
-        public List<DeliveryToCustomer> DeliveryToCustomer = new List<DeliveryToCustomer>();
+        public List<ParcelsAtTheCustomer> deliveryToCustomer = new List<ParcelsAtTheCustomer>();
 
-        public List<DeliveryToCustomer> DeliveryFromCustomer = new List<DeliveryToCustomer>();
+        public List<ParcelsAtTheCustomer> deliveryFromCustomer = new List<ParcelsAtTheCustomer>();
     }
 }
 

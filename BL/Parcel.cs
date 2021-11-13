@@ -1,32 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IBL.BO
 {
     class Parcel
     {
-        private int id;
-        public int ID
+        private int pid;
+        public int id
         {
-            get { return id; }
+            get { return pid; }
             set
             {            
                 if (value != null)
-                    id = value;
+                    pid = value;
                 else throw new InvalidID();
             }
         }
-        public Customer Sender { get; set; }
-        public Customer Target { get; set; }
-        public WeightCategories Weight { get; set; }
-        public Priorities Priority { get; set; }
-        public Drone Drone { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Associated { get; set; }
-        public DateTime PickedUp { get; set; }
-        public DateTime Delivered { get; set; }
+        
+
+        public CustomerInParcel sender { get; set; }
+        public CustomerInParcel target { get; set; }
+        public WeightCategories weight { get; set; }
+        public Priorities priority { get; set; }
+        public DroneInParcel drone { get; set; }
+        public DateTime created { get; set; }
+        public DateTime associated { get; set; }
+        public DateTime pickedUp { get; set; }
+        public DateTime delivered { get; set; }
     }
 }
