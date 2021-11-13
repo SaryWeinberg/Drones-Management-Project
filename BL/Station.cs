@@ -8,25 +8,25 @@ namespace IBL.BO
 {
     class Station
     {
-        private int id;
-        private int name;
-        public int ID
+        private int pid;
+        private int pname;
+        public int id
         {
-            get { return id; }
+            get { return pid; }
             set
             {
                 if (value != null)
-                    id = value;
+                    pid = value;
                 else throw new InvalidID();
             }
         }
-        public int Name
+        public int name
         {
-            get { return name; }
+            get { return pname; }
             set
             {
                 if (value != null)
-                    name = value;
+                    pname = value;
                 else throw new InvalidName();
             }
         }

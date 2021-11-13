@@ -98,11 +98,11 @@ namespace BL
             IBL.BO.Drone droneBL = new IBL.BO.Drone();
             try
             {
-                droneBL.ID = id;
-                droneBL.Model = model;
-                droneBL.MaxWeight = maxWeight;
-                droneBL.BatteryStatus = rand.Next(20, 40);
-                droneBL.Status = DroneStatus.Maintenance;
+                droneBL.id = id;
+                droneBL.model = model;
+                droneBL.maxWeight = maxWeight;
+                droneBL.batteryStatus = rand.Next(20, 40);
+                droneBL.status = DroneStatus.Maintenance;
 
                 IDAL.DO.Station station = dalObj.GetSpesificStation(id);
                 droneBL.location.longitude = station.Longitude;
@@ -148,8 +148,8 @@ namespace BL
             IBL.BO.Station station = new IBL.BO.Station();
             try
             {
-                station.ID = id;
-                station.Name = name;
+                station.id = id;
+                station.name = name;
                 station.location.longitude = location.longitude;
                 station.location.latitude = location.latitude;
                 station.aveChargeSlots = chargeSlots;
@@ -196,9 +196,9 @@ namespace BL
             IBL.BO.Customer customer = new IBL.BO.Customer();
             try
             {
-                customer.ID = id;
-                customer.PhoneNum = phone;
-                customer.Name = name;
+                customer.id = id;
+                customer.phoneNum = phone;
+                customer.name = name;
                 customer.location.longitude = location.longitude;
                 customer.location.latitude = location.latitude;
             }
@@ -249,15 +249,15 @@ namespace BL
             IBL.BO.Parcel parcel = new IBL.BO.Parcel();
             try
             {
-                parcel.Sender.ID = senderId;
-                parcel.Target.ID = targetId;
-                parcel.Weight = weight;
-                parcel.Priority = priority;
-                parcel.Drone = null;
-                parcel.Associated = new DateTime();
-                parcel.Created = DateTime.Now;
-                parcel.PickedUp = new DateTime();
-                parcel.Delivered = new DateTime();
+                parcel.sender.id = senderId;
+                parcel.target.id = targetId;
+                parcel.weight = weight;
+                parcel.priority = priority;
+                parcel.drone = null;
+                parcel.associated = new DateTime();
+                parcel.created = DateTime.Now;
+                parcel.pickedUp = new DateTime();
+                parcel.delivered = new DateTime();
             }
             catch (InvalidID e)
             {
@@ -316,7 +316,7 @@ namespace BL
         {
            
                 IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
-                droneInCharge.ID = droneId;
+                droneInCharge.id = droneId;
          
         }
 
@@ -328,8 +328,8 @@ namespace BL
         public IBL.BO.Station ConvertDalStationToBL(IDAL.DO.Station s)
         {
             return new IBL.BO.Station { 
-                ID = s.ID, 
-                Name = s.Name,
+                id = s.ID, 
+                name = s.Name,
                 location = new Location { latitude = s.Latitude, longitude = s.Longitude },
                 aveChargeSlots = s.ChargeSlots
             };
@@ -344,9 +344,9 @@ namespace BL
         {
             return new IBL.BO.Customer
             {
-                ID = c.ID,
-                Name = c.Name,
-                PhoneNum = c.Phone,
+                id = c.ID,
+                name = c.Name,
+                phoneNum = c.Phone,
                 location = new Location { latitude = c.latitude, longitude = c.longitude }               
             };
         }
@@ -360,9 +360,9 @@ namespace BL
         {
             return new IBL.BO.Drone
             {
-                ID = d.ID,
-                MaxWeight = d.MaxWeight,
-                Model = d.Model
+                id = d.ID,
+                maxWeight = d.MaxWeight,
+                model = d.Model
             };
                 /*BatteryStatus*/
         }
@@ -376,16 +376,16 @@ namespace BL
         {
             return new IBL.BO.Parcel
             {
-                ID = p.ID,
-                Drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.DroneId)),
-                Associated = p.Requested, 
-                Created= p.PickedUp, 
-                Delivered= p.Delivered, 
-                PickedUp= p.PickedUp, 
-                Priority= p.Priority, 
-                Sender= ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)), 
-                Target= ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)), 
-                Weight = p.Weight
+                id = p.ID,
+                drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.DroneId)),
+                associated = p.Requested, 
+                created= p.PickedUp, 
+                delivered= p.Delivered, 
+                pickedUp= p.PickedUp, 
+                priority= p.Priority, 
+                sender= ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)), 
+                target= ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)), 
+                weight = p.Weight
             };
         }
 

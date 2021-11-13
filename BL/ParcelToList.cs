@@ -8,11 +8,11 @@ namespace IBL.BO
 {
     class ParcelToList
     {
-        public int ID { get; set; }
-        public string SenderName { get; set; }
-        public string TargetName { get; set; }
-        public WeightCategories Weight { get; set; }
-        public Priorities Priority { get; set; }
+        public int id { get; set; }
+        public string senderName { get; set; }
+        public string targetName { get; set; }
+        public WeightCategories weight { get; set; }
+        public Priorities priority { get; set; }
         public Status status { get; set; }
     }
 }

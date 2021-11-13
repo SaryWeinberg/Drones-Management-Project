@@ -8,9 +8,9 @@ namespace IBL.BO
 {
     class CustomerToList
     {
-        public ulong ID { get; set; }
-        public string Name { get; set; }
-        public ulong PhoneNum { get; set; }
+        public ulong id { get; set; }
+        public string name { get; set; }
+        public ulong phoneNum { get; set; }
         public int parcelSentAndDelivered { get; set; }
         public int parcelSentsentButNotDelivered { get; set; }
         public int parcelReceived { get; set; }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using IDAL.DO;
 using DalObject;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
-/*            IDal DalObj = new IDal();
-*/            DalObject.DalObject DalObj = new DalObject.DalObject();
+*//*            IDal DalObj = new IDal();
+*//*            DalObject.DalObject DalObj = new DalObject.DalObject();
 
             int Option;
             do
@@ -246,4 +246,4 @@ namespace ConsoleUI
  
         }       
     }
-}
+}*/

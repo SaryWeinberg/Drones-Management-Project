@@ -8,20 +8,20 @@ namespace IBL.BO
 {
     class DroneInCharge
     {
-        private int id;
-        public int ID {
+        private int pid;
+        public int id {
 
 
-            get { return id; }
+            get { return pid; }
             set
             {
                 if (value != null)
-                    id = value;
+                    pid = value;
                 else
                     throw new InvalidID();
             }
         }
             
-        public double BettaryStatus { get; set; }
+        public double bettaryStatus { get; set; }
     }
 }

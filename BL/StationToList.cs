@@ -8,9 +8,9 @@ namespace IBL.BO
 {
     class StationToList
     {
-        public int ID { get; set; }
-        public int Name { get; set; }
-        public double AveChargeSlots { get; set; }
-        public double ChargeSlots { get; set; }
+        public int id { get; set; }
+        public int name { get; set; }
+        public double aveChargeSlots { get; set; }
+        public double fullChargeSlots { get; set; }
     }
 }
