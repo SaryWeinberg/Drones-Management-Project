@@ -53,6 +53,12 @@ namespace BL
             return false;
         }
 
+        /// <summary>
+        /// Function that finds a distance between 2 points
+        /// </summary>
+        /// <param name="location1"></param>
+        /// <param name="location2"></param>
+        /// <returns></returns>
         public static double Distance(Location location1, Location location2)
         {
             int x1 = location1.latitude;
