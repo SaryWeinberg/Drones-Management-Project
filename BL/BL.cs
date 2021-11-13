@@ -81,9 +81,9 @@ namespace BL
         public void AddDroneDal(int id, string model, WeightCategories maxWeight)
         {
             IDAL.DO.Drone droneDal = new IDAL.DO.Drone();
-            droneDal.ID = id;
-            droneDal.Model = model;
-            droneDal.MaxWeight = maxWeight;
+            droneDal.id = id;
+            droneDal.model = model;
+            droneDal.maxWeight = maxWeight;
             dalObj.AddDrone(droneDal);
         }
 
@@ -120,8 +120,8 @@ namespace BL
                 droneBL.status = DroneStatus.Maintenance;
 
                 IDAL.DO.Station station = dalObj.GetSpesificStation(id);
-                droneBL.location.longitude = station.Longitude;
-                droneBL.location.latitude = station.Latitude;
+                droneBL.location.longitude = station.longitude;
+                droneBL.location.latitude = station.latitude;
             }
             catch (InvalidID e)
             {
@@ -142,11 +142,11 @@ namespace BL
         public void AddStationDal(int id, int name, Location location, int chargeSlots)
         {
             IDAL.DO.Station station = new IDAL.DO.Station();
-            station.ID = id;
-            station.Name = name;
-            station.Longitude = location.longitude;
-            station.Latitude = location.latitude;
-            station.ChargeSlots = chargeSlots;
+            station.id = id;
+            station.name = name;
+            station.longitude = location.longitude;
+            station.latitude = location.latitude;
+            station.chargeSlots = chargeSlots;
             dalObj.AddStation(station);
         }
 
@@ -190,9 +190,9 @@ namespace BL
         public void AddCustomerDal(ulong id, ulong phone, string name, Location location)
         {
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
-            customer.ID = id;
-            customer.Phone = phone;
-            customer.Name = name;
+            customer.id = id;
+            customer.phoneNum = phone;
+            customer.name = name;
             customer.longitude = location.longitude;
             customer.latitude = location.latitude;
             dalObj.AddCustomer(customer);
@@ -243,10 +243,10 @@ namespace BL
         {
             IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
             //parcel.ID = ;
-            parcel.SenderId = senderId;
-            parcel.TargetId = targetId;
-            parcel.Weight = weight;
-            parcel.Priority = priority;
+            parcel.senderId = senderId;
+            parcel.targetId = targetId;
+            parcel.weight = weight;
+            parcel.priority = priority;
             //parcel.DroneId = droneId;
             dalObj.AddParcel(parcel);
         }
@@ -293,7 +293,7 @@ namespace BL
         public void UpdateDroneName(int id, string model)
         {
             IDAL.DO.Drone drone = dalObj.GetSpesificDrone(id);
-            drone.Model = model;
+            drone.model = model;
         }
 
         /// <summary>
@@ -306,9 +306,9 @@ namespace BL
         {
             IDAL.DO.Station station = dalObj.GetSpesificStation(id);
             if (name != 0)
-                station.Name = name;
+                station.name = name;
             if (ChargeSlots != 0)
-                station.ChargeSlots = ChargeSlots;
+                station.chargeSlots = ChargeSlots;
         }
 
         /// <summary>
@@ -321,9 +321,9 @@ namespace BL
         {
             IDAL.DO.Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null)
-                customer.Name = name;
+                customer.name = name;
             if (phoneNum != 0)
-                customer.Phone = phoneNum;
+                customer.phoneNum = phoneNum;
         }
 
 
@@ -360,10 +360,10 @@ namespace BL
         {
             return new IBL.BO.Station
             {
-                id = s.ID,
-                name = s.Name,
-                location = new Location { latitude = s.Latitude, longitude = s.Longitude },
-                aveChargeSlots = s.ChargeSlots
+                id = s.id,
+                name = s.name,
+                location = new Location { latitude = s.latitude, longitude = s.longitude },
+                aveChargeSlots = s.chargeSlots
             };
         }
 
@@ -376,9 +376,9 @@ namespace BL
         {
             return new IBL.BO.Customer
             {
-                id = c.ID,
-                name = c.Name,
-                phoneNum = c.Phone,
+                id = c.id,
+                name = c.name,
+                phoneNum = c.phoneNum,
                 location = new Location { latitude = c.latitude, longitude = c.longitude }
             };
         }
@@ -392,9 +392,9 @@ namespace BL
         {
             return new IBL.BO.Drone
             {
-                id = d.ID,
-                maxWeight = d.MaxWeight,
-                model = d.Model
+                id = d.id,
+                maxWeight = d.maxWeight,
+                model = d.model
             };
             /*BatteryStatus*/
         }
@@ -408,16 +408,16 @@ namespace BL
         {
             return new IBL.BO.Parcel
             {
-                id = p.ID,
-                drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.DroneId)),
-                associated = p.Requested,
-                created = p.PickedUp,
-                delivered = p.Delivered,
-                pickedUp = p.PickedUp,
-                priority = p.Priority,
-                sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)),
-                target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)),
-                weight = p.Weight
+                id = p.id,
+                drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
+                associated = p.requested,
+                created = p.pickedUp,
+                delivered = p.delivered,
+                pickedUp = p.pickedUp,
+                priority = p.priority,
+                sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.senderId)),
+                target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.targetId)),
+                weight = p.weight
             };
         }
 
