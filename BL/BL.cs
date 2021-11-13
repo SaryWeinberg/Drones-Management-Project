@@ -53,6 +53,15 @@ namespace BL
             return false;
         }
 
+        public static double Distance(Location location1, Location location2)
+        {
+            int x1 = location1.latitude;
+            int x2 = location1.longitude;
+            int y1 = location2.latitude;
+            int y2 = location2.longitude;
+            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+        }
+
         //====================
         //Functions for adding
         //====================
