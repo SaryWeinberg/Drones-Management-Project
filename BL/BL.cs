@@ -340,8 +340,7 @@ namespace BL
 
 
                     List<IBL.BO.Station> stations = GetStationsBL();
-                    foreach
-                        
+                    
 
                 }
             }
