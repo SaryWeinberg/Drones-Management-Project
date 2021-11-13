@@ -315,8 +315,26 @@ namespace BL
         public void SendDroneToCharge(int droneId)
         {
             IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
+
+            try
+            {
+
+                IBL.BO.Drone drone = GetSpesificDroneBL(droneId);
+                if(drone.status == DroneStatus.Available)
+                {
+
+
+                    List<IBL.BO.Station> stations = GetStationsBL();
+                    foreach
+                        
+
+                }
+            }
             droneInCharge.id = droneId;
         }
+
+
+       
 
         /// <summary>
         /// Convert from dal station to BL station
@@ -412,6 +430,11 @@ namespace BL
         /// </summary>
         /// <param name="droneId"></param>
         /// <returns></returns>
+        /// 
+
+
+
+
         public IBL.BO.Drone GetSpesificDroneBL(int droneId)
         {
             try
@@ -457,6 +480,7 @@ namespace BL
                 throw new Exception();
             }
         }
+
 
 
         //display lists
