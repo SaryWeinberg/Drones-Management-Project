@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using IBL.BO;
-
+using IBL;
+using BL;
 namespace ConsoleUI
 {
     class Program
     {
         static public void Main(string[] args)
         {
-            IBL.IBL bl = new BL.BL;
+            //IBL.IBL bl = new BL.BL;
             int Option;
             do
             {
@@ -39,16 +40,16 @@ namespace ConsoleUI
                         int AddOption = int.Parse(Console.ReadLine());
                         switch (AddOption)
                         {
-                            case (int)AddOptions.AddStation: addStation(DalObj); break;
-                            case (int)AddOptions.AddDrone: addDrone(DalObj); break;
-                            case (int)AddOptions.AddCustomer: addCustomer(DalObj); break;
-                            case (int)AddOptions.AddParcel: addParcel(DalObj); break;
+                            case (int)AddOptions.AddStation: addStation(); break;
+                            case (int)AddOptions.AddDrone: addDrone(); break;
+                            case (int)AddOptions.AddCustomer: addCustomer(); break;
+                            case (int)AddOptions.AddParcel: addParcel(); break;
                             default: Error(); break;
                         }
                         break;
                     //==============================================
                     //UpddateOption
-                    case (int)UserOptions.Update:
+                   *//* case (int)UserOptions.Update:
                         Console.WriteLine("please select:\n" +
                             "1-Assing a parcel to a drone\n" +
                             "2-Collect a parcel by a drone\n" +
@@ -76,10 +77,10 @@ namespace ConsoleUI
                                 break;
                             default: Error(); break;
                         }
-                        break;
+                        break;*//*
                     //==============================================
                     //DisplayOptions
-                    case (int)UserOptions.Display:
+                   *//* case (int)UserOptions.Display:
                         Console.WriteLine("please select:\n" +
                            "1-Display specific customer\n" +
                            "2-Display specific drone\n" +
@@ -90,23 +91,23 @@ namespace ConsoleUI
                         switch (DisplayOption)
                         {
                             case (int)DisplayOptions.DisplayCustomer:
-                                Console.WriteLine(DalObj.GetSpesificCustomer((ulong)GetByID("Customer")));
+                                Console.WriteLine(BL.BL.GetSpesificCustomerBL());
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
-                                Console.WriteLine(DalObj.GetSpesificDrone(GetByID("Drone")));
+                                Console.WriteLine(GetSpesificDrone(GetByID("Drone")));
                                 break;
                             case (int)DisplayOptions.DisplayParcel:
-                                Console.WriteLine(DalObj.GetSpesificParcel(GetByID("Parcel")));
+                                Console.WriteLine(GetSpesificParcel(GetByID("Parcel")));
                                 break;
                             case (int)DisplayOptions.DisplayStation:
-                                Console.WriteLine(DalObj.GetSpesificStation(GetByID("Station")));
+                                Console.WriteLine(GetSpesificStation(GetByID("Station")));
                                 break;
                             default: Error(); break;
                         }
-                        break;
+                        break;*//*
                     //==============================================
                     //ListDisplay
-                    case (int)UserOptions.ListDisplay:
+                   *//* case (int)UserOptions.ListDisplay:
                         Console.WriteLine("please select:\n" +
                             "1-View Station Lists\n" +
                            "2-View Customer Lists\n" +
@@ -150,7 +151,7 @@ namespace ConsoleUI
                                 break;
                             default: Error(); break;
                         }
-                        break;
+                        break;*//*
                     //==============================================
                     default: Error(); break;
                 }
@@ -160,15 +161,19 @@ namespace ConsoleUI
 
             //Functions for code readings
 
-            static void addStation(DalObject.DalObject DalObj)
+            static void addStation(BL.BL bl)
             {
+                Console.WriteLine("Enter ID");
+                int ID = int.Parse(Console.ReadLine()); 
+                Console.WriteLine("Enter Name");
+                int Name = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Longitude");
                 int Longitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Latitude");
                 int Latitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Charge Slots");
                 int ChargeSlots = int.Parse(Console.ReadLine());
-                // DalObj.AddStation(Longitude, Latitude, ChargeSlots);
+                BL.BL.AddStationBL(ID, Name, new Location { Latitude, ChargeSlots }, ChargeSlots);
             }
 
             static void addDrone(DalObject.DalObject DalObj)
@@ -237,10 +242,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine("ERROR");
             }
-
-
-
-
         }
     }
 }*/

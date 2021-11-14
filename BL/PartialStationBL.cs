@@ -36,7 +36,7 @@ namespace BL
         /// <param name="name"></param>
         /// <param name="location"></param>
         /// <param name="chargeSlots"></param>
-        public void AddStation(int id, int name, Location location, int chargeSlots)
+        public void AddStationBL(int id, int name, Location location, int chargeSlots)
         {
             StationBL station = new StationBL();
             try

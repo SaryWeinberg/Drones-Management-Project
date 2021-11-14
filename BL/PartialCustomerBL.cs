@@ -38,7 +38,7 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
-        public void AddCustomer(int id, int phone, string name, Location location)
+        public void AddCustomerBL(int id, int phone, string name, Location location)
         {
             CustomerBL customer = new CustomerBL();
             try

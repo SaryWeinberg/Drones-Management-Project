@@ -46,7 +46,7 @@ namespace BL
         /// <param name="model"></param>
         /// <param name="maxWeight"></param>
         /// <param name="stationID"></param>
-        public void AddDrone(int id, string model, WeightCategories maxWeight, int stationID)
+        public void AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
         {
             DroneBL droneBL = new DroneBL();
             try

@@ -37,7 +37,7 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
-        public void AddParcel(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority)
+        public void AddParcelBL(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority)
         {
             ParcelBL parcel = new ParcelBL();
             try
