@@ -11,6 +11,7 @@ namespace IDAL.DO
         public int id { get; set; }
         public string model { get; set; }
         public WeightCategories maxWeight { get; set; }
+        public int active { get; set; }
 
         public override string ToString()
         {

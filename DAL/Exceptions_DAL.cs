@@ -8,6 +8,6 @@ namespace IDAL.DO
 {
     public class ObjectDoesNotExist : Exception
     {
-        public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID- {id} does not exist")) { }
+        public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID - {id} does not exist")) { }
     }
 } 

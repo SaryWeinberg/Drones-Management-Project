@@ -102,7 +102,6 @@ namespace DalObject
                 Parcels.Add(parcel);
             }
         }
-
         public static DateTime RandomDate()
         {
             Random rand = new Random();

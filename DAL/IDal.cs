@@ -33,10 +33,10 @@ namespace IDAL.DO
         List<Station> GetStations();
         List<Parcel> GetParcels();
         List<Customer> GetCustomers();
-        public void updateDrone(Drone drone);
-        public void updateCustomer(Customer customer);
-        public void updateStation(Station station);
-        public void updateParcel(Parcel parcel);
+        public void UpdateDrone(Drone drone);
+        public void UpdateCustomer(Customer customer);
+        public void UpdateStation(Station station);
+        public void UpdateParcel(Parcel parcel);
         
     }
 }

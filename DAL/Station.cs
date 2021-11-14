@@ -13,7 +13,7 @@ namespace IDAL.DO
         public int longitude { get; set; }
         public int latitude { get; set; }
         public int chargeSlots { get; set; }
-
+        public int active { get; set; }
         public override string ToString()
         {
             return "Station: " + id + " " + name +" " + longitude + " " + latitude + " " + chargeSlots;

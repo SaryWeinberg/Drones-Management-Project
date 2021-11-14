@@ -18,6 +18,7 @@ namespace IDAL.DO
         public DateTime scheduled { get; set; }
         public DateTime pickedUp { get; set; }
         public DateTime delivered { get; set; }
+        public int active { get; set; }
 
         public override string ToString()
         {

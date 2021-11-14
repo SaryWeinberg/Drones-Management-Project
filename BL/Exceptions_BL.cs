@@ -16,7 +16,6 @@ namespace IBL.BO
         public InvalidPhoneNumber() : base(String.Format("The phone number is incorrect")) { }
     }
 
-
     public class InvalidName : Exception
     {
         public InvalidName() : base(String.Format("The name is incorrect")) { }
