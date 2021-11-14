@@ -16,9 +16,18 @@ namespace IBL.BO
         public InvalidPhoneNumber() : base(String.Format("The phone number is incorrect")) { }
     }
 
-
     public class InvalidName : Exception
     {
         public InvalidName() : base(String.Format("The name is incorrect")) { }
+    }
+
+    public class NoBatteryToReachChargingStation : Exception
+    {
+        public NoBatteryToReachChargingStation() : base(String.Format("No battery to reach charging station")) { }
+    }
+
+    public class ThereAreNoAvelableChargeSlots : Exception
+    {
+        public ThereAreNoAvelableChargeSlots() : base(String.Format("There are no avelable charge slots")) { }
     }
 }

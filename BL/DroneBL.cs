@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Drone
+    class DroneBL
     {
         private int pid;
         public int id

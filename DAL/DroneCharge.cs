@@ -11,5 +11,7 @@ namespace IDAL.DO
     {
         public int DroneId { get; set; }
         public int StationId { get; set; }
+        public int active { get; set; }
+
     }
 }
