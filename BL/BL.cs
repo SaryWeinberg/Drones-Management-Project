@@ -36,7 +36,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static bool ValidateIDNumber(ulong id)
+        public static bool ValidateIDNumber(int id)
         {
             int sum = 0, digit;
             for (int i = 0; i < 9; i++)
@@ -187,7 +187,7 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
-        public void AddCustomerDal(ulong id, ulong phone, string name, Location location)
+        public void AddCustomerDal(int id, int phone, string name, Location location)
         {
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
             customer.id = id;
@@ -206,7 +206,7 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
-        public void AddCustomer(ulong id, ulong phone, string name, Location location)
+        public void AddCustomer(int id, int phone, string name, Location location)
         {
             IBL.BO.Customer customer = new IBL.BO.Customer();
             try
@@ -317,7 +317,7 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
-        public void UpdateCustomerData(ulong id, string name = null, ulong phoneNum = 0)
+        public void UpdateCustomerData(int id, string name = null, int phoneNum = 0)
         {
             IDAL.DO.Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null)
@@ -331,27 +331,38 @@ namespace BL
         {
             IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
 
-            try
+            IBL.BO.Drone drone = GetSpesificDroneBL(droneId);
+            if (drone.status == DroneStatus.Available)
             {
-
-                IBL.BO.Drone drone = GetSpesificDroneBL(droneId);
-                if (drone.status == DroneStatus.Available)
+                double minDistance = 0;
+                IBL.BO.Station station = null;
+                List<IBL.BO.Station> stations = GetStationsBL();
+                foreach (IBL.BO.Station currentStation in stations)
                 {
-
-
-                    List<IBL.BO.Station> stations = GetStationsBL();
-
-
+                    if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, drone.location) < minDistance)
+                    {
+                        minDistance = Distance(currentStation.location, drone.location);
+                        station = currentStation;
+                    }
+                    else
+                    {
+                        throw new ThereAreNoAvelableChargeSlots();
+                    }
                 }
-            }
-            catch
-            {
+                if (drone.batteryStatus - dalObj.ElectricalPowerRequest()[0] * minDistance < 0)
+                {
+                    throw new NoBatteryToReachChargingStation();
+                }
 
+                drone.batteryStatus -= dalObj.ElectricalPowerRequest()[0] * minDistance;
+                drone.location = station.location;
+                drone.status = DroneStatus.Maintenance;
+
+                station.aveChargeSlots -= 1;
+
+                droneInCharge.bettaryStatus = drone.batteryStatus;
             }
-            droneInCharge.id = droneId;
         }
-
-
 
 
         /// <summary>
@@ -454,7 +465,7 @@ namespace BL
             {
                 return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));
             }
-            catch(ObjectDoesNotExist e)
+            catch (ObjectDoesNotExist e)
             {
                 throw e;
             }
@@ -465,7 +476,7 @@ namespace BL
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public IBL.BO.Customer GetSpesificCustomerBL(ulong customerId)
+        public IBL.BO.Customer GetSpesificCustomerBL(int customerId)
         {
             try
             {

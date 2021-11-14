@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
+    public enum DroneStatus
+    {
+        Available, Maintenance, Delivery
+    }
 
-
-        public enum DroneStatus
-        {
-            Available, Maintenance, Delivery
-        }
-
-
-        public enum Status
-        {
-            created, associated, collected, provided
-        }
-    
+    public enum Status
+    {
+        created, associated, collected, provided
+    }
 }

@@ -134,6 +134,29 @@ namespace DalObject
             DataSource.Drones[indexD] = drone;
         }
 
+        public void updateDrone(Drone drone)
+        {
+            int index = DataSource.Drones.FindIndex(d => d.id == drone.id);
+            DataSource.Drones[index] = drone;
+        }
+
+        public void updateCustomer(Customer customer)
+        {
+            int index = DataSource.Customers.FindIndex(d => d.id == customer.id);
+            DataSource.Customers[index] = customer;
+        }
+
+        public void updateStation(Station station)
+        {
+            int index = DataSource.Stations.FindIndex(d => d.id == station.id);
+            DataSource.Stations[index] = station;
+        }
+
+        public void updateParcel(Parcel parcel)
+        {
+            int index = DataSource.Parcels.FindIndex(d => d.id == parcel.id);
+            DataSource.Parcels[index] = parcel;
+        }
 
         //Display//
 
@@ -161,7 +184,7 @@ namespace DalObject
             }
         }
 
-        public Customer GetSpesificCustomer(ulong customerId)
+        public Customer GetSpesificCustomer(int customerId)
         {
             try
             {
@@ -264,7 +287,7 @@ namespace DalObject
 
         public double[] ElectricalPowerRequest()
         {
-            double[] arr = { 1, 2, 3, 4, 5 };
+            double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy ,DataSource.config.chargingRate};
             return arr;
         }
     }

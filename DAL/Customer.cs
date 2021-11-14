@@ -3,8 +3,8 @@ namespace IDAL.DO
 {
     public struct Customer
     {
-        public ulong id { get; set; }
-        public ulong phoneNum { get; set; }
+        public int id { get; set; }
+        public int phoneNum { get; set; }
         public string name { get; set; }
         public int longitude { get; set; }
         public int latitude { get; set; }

@@ -9,11 +9,11 @@ namespace IBL.BO
 {
     class Customer
     {
-        private ulong pid;
+        private int pid;
         private string pname;
-        private ulong pphoneNum;
+        private int pphoneNum;
 
-        public ulong id
+        public int id
         {
             get { return pid; }
             set
@@ -38,7 +38,7 @@ namespace IBL.BO
             }
         }
 
-        public ulong phoneNum
+        public int phoneNum
         {
             get { return pphoneNum; }
             set
