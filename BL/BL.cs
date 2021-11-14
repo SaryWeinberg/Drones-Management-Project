@@ -335,20 +335,24 @@ namespace BL
             {
 
                 IBL.BO.Drone drone = GetSpesificDroneBL(droneId);
-                if(drone.status == DroneStatus.Available)
+                if (drone.status == DroneStatus.Available)
                 {
 
 
                     List<IBL.BO.Station> stations = GetStationsBL();
-                    
+
 
                 }
+            }
+            catch
+            {
+
             }
             droneInCharge.id = droneId;
         }
 
 
-       
+
 
         /// <summary>
         /// Convert from dal station to BL station
@@ -408,14 +412,14 @@ namespace BL
             return new IBL.BO.Parcel
             {
                 id = p.id,
-                drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
+                // drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
                 associated = p.requested,
                 created = p.pickedUp,
                 delivered = p.delivered,
                 pickedUp = p.pickedUp,
                 priority = p.priority,
-                sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.senderId)),
-                target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.targetId)),
+                //sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.senderId)),
+                // target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.targetId)),
                 weight = p.weight
             };
         }
@@ -433,9 +437,9 @@ namespace BL
             {
                 return ConvertDalStationToBL(dalObj.GetSpesificStation(stationId));
             }
-            catch
+            catch (ObjectDoesNotExist e)
             {
-                throw new Exception();
+                throw e;
             }
         }
 
@@ -444,20 +448,15 @@ namespace BL
         /// </summary>
         /// <param name="droneId"></param>
         /// <returns></returns>
-        /// 
-
-
-
-
         public IBL.BO.Drone GetSpesificDroneBL(int droneId)
         {
             try
             {
                 return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));
             }
-            catch
+            catch(ObjectDoesNotExist e)
             {
-                throw new Exception();
+                throw e;
             }
         }
 
@@ -472,9 +471,9 @@ namespace BL
             {
                 return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
             }
-            catch
+            catch (ObjectDoesNotExist e)
             {
-                throw new Exception();
+                throw e;
             }
         }
 
@@ -489,13 +488,11 @@ namespace BL
             {
                 return ConvertDalParcelToBL(dalObj.GetSpesificParcel(parcelId));
             }
-            catch
+            catch (ObjectDoesNotExist e)
             {
-                throw new Exception();
+                throw e;
             }
         }
-
-
 
         //display lists
 

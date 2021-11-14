@@ -59,7 +59,7 @@ namespace DalObject
         public Parcel FindParcel(int id)
         {
 
-            return DataSource.Parcels.First(p => p.ID == id);
+            return DataSource.Parcels.First(p => p.id == id);
 
             /* foreach (Parcel parcel in DataSource.Parcels)
              {
@@ -73,7 +73,7 @@ namespace DalObject
 
         public Drone FindDrone(int id)
         {
-            return DataSource.Drones.First(d => d.ID == id);
+            return DataSource.Drones.First(d => d.id == id);
 
 
             /* foreach (Drone drone in DataSource.Drones)
@@ -89,11 +89,11 @@ namespace DalObject
         public void CollectParcelByDrone(Parcel parcel)
         {
             Drone drone = DataSource.Drones.First(d =>
-            d.ID == parcel.DroneId);
+            d.id == parcel.droneId);
             int indexP = DataSource.Parcels.IndexOf(parcel);
             int indexD = DataSource.Drones.IndexOf(drone);
-            parcel.DroneId = drone.ID;
-            parcel.PickedUp = DateTime.Now;
+            parcel.droneId = drone.id;
+            parcel.pickedUp = DateTime.Now;
             DataSource.Parcels[indexP] = parcel;
             /*         drone.Status = DroneStatus.Delivery;*/
             DataSource.Drones[indexD] = drone;
@@ -101,11 +101,11 @@ namespace DalObject
 
         public void ProvideParcelToCustomer(Parcel parcel)
         {
-            Drone drone = DataSource.Drones.First(d => d.ID == parcel.DroneId);
+            Drone drone = DataSource.Drones.First(d => d.id == parcel.droneId);
             int indexP = DataSource.Parcels.IndexOf(parcel);
             int indexD = DataSource.Drones.IndexOf(drone);
-            parcel.DroneId = drone.ID;
-            parcel.Delivered = DateTime.Now;
+            parcel.droneId = drone.id;
+            parcel.delivered = DateTime.Now;
             DataSource.Parcels[indexP] = parcel;
             /*  drone.Status = DroneStatus.Available;*/
             DataSource.Drones[indexD] = drone;
@@ -115,7 +115,7 @@ namespace DalObject
         public void SendDroneToChargeInStation(Drone drone, int stationId)
         {
             DroneCharge droneCharge = new DroneCharge();
-            droneCharge.DroneId = drone.ID;
+            droneCharge.DroneId = drone.id;
             droneCharge.StationId = stationId;
             DataSource.DroneCharges.Add(droneCharge);
             int indexD = DataSource.Drones.IndexOf(drone);
@@ -126,7 +126,7 @@ namespace DalObject
         public void ReleaseDroneFromChargeInStation(Drone drone)
         {
             DroneCharge droneCharge = DataSource.DroneCharges.First(d =>
-            d.DroneId == drone.ID);
+            d.DroneId == drone.id);
             DataSource.DroneCharges.Remove(droneCharge);
             int indexD = DataSource.Drones.IndexOf(drone);
             /*           drone.Status = DroneStatus.Available;
@@ -141,11 +141,11 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Stations.First(station => station.ID == stationId);
+                return DataSource.Stations.First(station => station.id == stationId);
             }
             catch
             {
-                throw new Exception();
+                throw new ObjectDoesNotExist("Station", stationId);
             }
         }
 
@@ -153,11 +153,11 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Drones.First(drone => drone.ID == droneId);
+                return DataSource.Drones.First(drone => drone.id == droneId);
             }
             catch
             {
-                throw new Exception();
+                throw new ObjectDoesNotExist("Drone", droneId);
             }
         }
 
@@ -165,11 +165,11 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Customers.First(customer => customer.ID == customerId);
+                return DataSource.Customers.First(customer => customer.id == customerId);
             }
             catch
             {
-                throw new Exception();
+                throw new ObjectDoesNotExist("Customer", customerId);
             }
         }
 
@@ -177,11 +177,11 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Parcels.First(parcel => parcel.ID == parcelId);
+                return DataSource.Parcels.First(parcel => parcel.id == parcelId);
             }
             catch
             {
-                throw new Exception();
+                throw new ObjectDoesNotExist("Parcel", parcelId);
             }
         }
 
@@ -223,7 +223,7 @@ namespace DalObject
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
-                if (parcel.DroneId == null)
+                if (parcel.droneId == null)
                     yield return parcel;
             }
         }
@@ -235,10 +235,10 @@ namespace DalObject
                 int counter = 0;
                 foreach (DroneCharge droneCharge in DataSource.DroneCharges)
                 {
-                    if (station.ID == droneCharge.StationId)
+                    if (station.id == droneCharge.StationId)
                         counter++;
                 }
-                if (station.ChargeSlots - counter > 0)
+                if (station.chargeSlots - counter > 0)
                 {
                     yield return station;
                 }

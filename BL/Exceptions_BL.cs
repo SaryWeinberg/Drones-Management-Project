@@ -20,10 +20,5 @@ namespace IBL.BO
     public class InvalidName : Exception
     {
         public InvalidName() : base(String.Format("The name is incorrect")) { }
-    }
-
-    public class ObjectDoesNotExist : Exception
-    {
-        public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID- {id} does not exist")) { }
-    }
+    }   
 }
