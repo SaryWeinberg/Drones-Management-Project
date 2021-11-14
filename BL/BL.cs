@@ -12,7 +12,7 @@ namespace BL
     partial class BL : IBL.IBL
     {
         IDal dalObj;
-        List<IBL.BO.Drone> droneBlList;
+        List<IBL.BO.DroneBL> droneBlList;
         Random rand = new Random();
 
         public BL()
@@ -73,13 +73,13 @@ namespace BL
         {
             IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
 
-            IBL.BO.Drone drone = GetSpesificDroneBL(droneId);
+            IBL.BO.DroneBL drone = GetSpesificDroneBL(droneId);
             if (drone.status == DroneStatus.Available)
             {
                 double minDistance = 0;
-                IBL.BO.Station station = null;
-                List<IBL.BO.Station> stations = GetStationsBL();
-                foreach (IBL.BO.Station currentStation in stations)
+                IBL.BO.StationBL station = null;
+                List<IBL.BO.StationBL> stations = GetStationsBL();
+                foreach (IBL.BO.StationBL currentStation in stations)
                 {
                     if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, drone.location) < minDistance)
                     {

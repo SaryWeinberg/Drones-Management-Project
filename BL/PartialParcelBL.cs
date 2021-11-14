@@ -19,7 +19,7 @@ namespace BL
         /// <param name="priority"></param>
         public void AddParcelDal(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority)
         {
-            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+            Parcel parcel = new Parcel();
             //parcel.ID = ;
             parcel.senderId = senderId;
             parcel.targetId = targetId;
@@ -39,7 +39,7 @@ namespace BL
         /// <param name="priority"></param>
         public void AddParcel(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority)
         {
-            IBL.BO.Parcel parcel = new IBL.BO.Parcel();
+            ParcelBL parcel = new ParcelBL();
             try
             {
                 parcel.sender.id = senderId;
@@ -64,9 +64,9 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public IBL.BO.Parcel ConvertDalParcelToBL(IDAL.DO.Parcel p)
+        public ParcelBL ConvertDalParcelToBL(Parcel p)
         {
-            return new IBL.BO.Parcel
+            return new ParcelBL
             {
                 id = p.id,
                 // drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
@@ -86,7 +86,7 @@ namespace BL
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns></returns>
-        public IBL.BO.Parcel GetSpesificParcelBL(int parcelId)
+        public ParcelBL GetSpesificParcelBL(int parcelId)
         {
             try
             {
@@ -102,10 +102,10 @@ namespace BL
         /// Returning the parcel list
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.Parcel> GetParcelsBL()
+        public List<ParcelBL> GetParcelsBL()
         {
-            List<IDAL.DO.Parcel> parcelsDal = dalObj.GetParcels();
-            List<IBL.BO.Parcel> parcelsBL = new List<IBL.BO.Parcel>();
+            List<Parcel> parcelsDal = dalObj.GetParcels();
+            List<ParcelBL> parcelsBL = new List<ParcelBL>();
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
             return parcelsBL;
         }

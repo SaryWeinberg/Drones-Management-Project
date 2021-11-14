@@ -18,7 +18,7 @@ namespace BL
         /// <param name="maxWeight"></param>
         public void AddDroneDal(int id, string model, WeightCategories maxWeight)
         {
-            IDAL.DO.Drone droneDal = new IDAL.DO.Drone();
+            Drone droneDal = new Drone();
             droneDal.id = id;
             droneDal.model = model;
             droneDal.maxWeight = maxWeight;
@@ -31,7 +31,7 @@ namespace BL
         /// <param name="stationID"></param>
         public void AddDroneChargeDAL(int stationID)
         {
-            IDAL.DO.DroneCharge droneCharge = new IDAL.DO.DroneCharge();
+            DroneCharge droneCharge = new DroneCharge();
             droneCharge.DroneId = stationID;
             droneCharge.StationId = stationID;
             dalObj.AddDroneCharge(droneCharge);
@@ -48,7 +48,7 @@ namespace BL
         /// <param name="stationID"></param>
         public void AddDrone(int id, string model, WeightCategories maxWeight, int stationID)
         {
-            IBL.BO.Drone droneBL = new IBL.BO.Drone();
+            DroneBL droneBL = new DroneBL();
             try
             {
                 droneBL.id = id;
@@ -57,7 +57,7 @@ namespace BL
                 droneBL.batteryStatus = rand.Next(20, 40);
                 droneBL.status = DroneStatus.Maintenance;
 
-                IDAL.DO.Station station = dalObj.GetSpesificStation(id);
+                Station station = dalObj.GetSpesificStation(id);
                 droneBL.location.longitude = station.longitude;
                 droneBL.location.latitude = station.latitude;
             }
@@ -77,7 +77,7 @@ namespace BL
         /// <param name="model"></param>
         public void UpdateDroneName(int id, string model)
         {
-            IDAL.DO.Drone drone = dalObj.GetSpesificDrone(id);
+            Drone drone = dalObj.GetSpesificDrone(id);
             drone.model = model;
         }
 
@@ -86,9 +86,9 @@ namespace BL
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        public IBL.BO.Drone ConvertDalDroneToBL(IDAL.DO.Drone d)
+        public DroneBL ConvertDalDroneToBL(Drone d)
         {
-            return new IBL.BO.Drone
+            return new DroneBL
             {
                 id = d.id,
                 maxWeight = d.maxWeight,
@@ -102,7 +102,7 @@ namespace BL
         /// </summary>
         /// <param name="droneId"></param>
         /// <returns></returns>
-        public IBL.BO.Drone GetSpesificDroneBL(int droneId)
+        public DroneBL GetSpesificDroneBL(int droneId)
         {
             try
             {
@@ -118,10 +118,10 @@ namespace BL
         /// Returning the drone list
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.Drone> GetDronesBL()
+        public List<DroneBL> GetDronesBL()
         {
-            List<IDAL.DO.Drone> dronesDal = dalObj.GetDrones();
-            List<IBL.BO.Drone> dronesBL = new List<IBL.BO.Drone>();
+            List<Drone> dronesDal = dalObj.GetDrones();
+            List<DroneBL> dronesBL = new List<DroneBL>();
             dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
         }

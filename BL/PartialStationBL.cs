@@ -19,7 +19,7 @@ namespace BL
         /// <param name="chargeSlots"></param>
         public void AddStationDal(int id, int name, Location location, int chargeSlots)
         {
-            IDAL.DO.Station station = new IDAL.DO.Station();
+            Station station = new Station();
             station.id = id;
             station.name = name;
             station.longitude = location.longitude;
@@ -38,7 +38,7 @@ namespace BL
         /// <param name="chargeSlots"></param>
         public void AddStation(int id, int name, Location location, int chargeSlots)
         {
-            IBL.BO.Station station = new IBL.BO.Station();
+            StationBL station = new StationBL();
             try
             {
                 station.id = id;
@@ -66,7 +66,7 @@ namespace BL
         /// <param name="ChargeSlots"></param>
         public void UpdateStationData(int id, int name = 0, int ChargeSlots = 0)
         {
-            IDAL.DO.Station station = dalObj.GetSpesificStation(id);
+            Station station = dalObj.GetSpesificStation(id);
             if (name != 0)
                 station.name = name;
             if (ChargeSlots != 0)
@@ -78,9 +78,9 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public IBL.BO.Station ConvertDalStationToBL(IDAL.DO.Station s)
+        public StationBL ConvertDalStationToBL(Station s)
         {
-            return new IBL.BO.Station
+            return new StationBL
             {
                 id = s.id,
                 name = s.name,
@@ -94,7 +94,7 @@ namespace BL
         /// </summary>
         /// <param name="stationId"></param>
         /// <returns></returns>
-        public IBL.BO.Station GetSpesificStationBL(int stationId)
+        public StationBL GetSpesificStationBL(int stationId)
         {
             try
             {
@@ -110,10 +110,10 @@ namespace BL
         /// Returning the station list
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.Station> GetStationsBL()
+        public List<StationBL> GetStationsBL()
         {
-            List<IDAL.DO.Station> stationsDal = dalObj.GetStations();
-            List<IBL.BO.Station> stationsBL = new List<IBL.BO.Station>();
+            List<Station> stationsDal = dalObj.GetStations();
+            List<StationBL> stationsBL = new List<StationBL>();
             stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
             return stationsBL;
         }

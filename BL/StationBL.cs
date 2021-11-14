@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Station
+    class StationBL
     {
         private int pid;
         private int pname;

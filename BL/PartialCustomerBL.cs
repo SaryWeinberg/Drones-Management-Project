@@ -21,7 +21,7 @@ namespace BL
         /// <param name="location"></param>
         public void AddCustomerDal(int id, int phone, string name, Location location)
         {
-            IDAL.DO.Customer customer = new IDAL.DO.Customer();
+            Customer customer = new Customer();
             customer.id = id;
             customer.phoneNum = phone;
             customer.name = name;
@@ -40,7 +40,7 @@ namespace BL
         /// <param name="location"></param>
         public void AddCustomer(int id, int phone, string name, Location location)
         {
-            IBL.BO.Customer customer = new IBL.BO.Customer();
+            CustomerBL customer = new CustomerBL();
             try
             {
                 customer.id = id;
@@ -72,7 +72,7 @@ namespace BL
         /// <param name="phoneNum"></param>
         public void UpdateCustomerData(int id, string name = null, int phoneNum = 0)
         {
-            IDAL.DO.Customer customer = dalObj.GetSpesificCustomer(id);
+            Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null)
                 customer.name = name;
             if (phoneNum != 0)
@@ -84,9 +84,9 @@ namespace BL
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public IBL.BO.Customer ConvertDalCustomerToBL(IDAL.DO.Customer c)
+        public CustomerBL ConvertDalCustomerToBL(Customer c)
         {
-            return new IBL.BO.Customer
+            return new CustomerBL
             {
                 id = c.id,
                 name = c.name,
@@ -100,7 +100,7 @@ namespace BL
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public IBL.BO.Customer GetSpesificCustomerBL(int customerId)
+        public CustomerBL GetSpesificCustomerBL(int customerId)
         {
             try
             {
@@ -116,10 +116,10 @@ namespace BL
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.Customer> GetCustomers()
+        public List<CustomerBL> GetCustomers()
         {
-            List<IDAL.DO.Customer> customersDal = dalObj.GetCustomers();
-            List<IBL.BO.Customer> customersBL = new List<IBL.BO.Customer>();
+            List<Customer> customersDal = dalObj.GetCustomers();
+            List<CustomerBL> customersBL = new List<CustomerBL>();
             customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
             return customersBL;
         }

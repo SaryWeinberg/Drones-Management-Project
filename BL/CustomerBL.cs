@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class Customer
+    class CustomerBL
     {
         private int pid;
         private string pname;

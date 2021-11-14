@@ -2,7 +2,7 @@
 
 namespace IBL.BO
 {
-    class Parcel
+    class ParcelBL
     {
         private int pid;
         public int id
