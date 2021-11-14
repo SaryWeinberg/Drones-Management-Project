@@ -340,6 +340,17 @@ namespace BL
 
 
                     List<IBL.BO.Station> stations = GetStationsBL();
+                    double minD = 0;
+                    foreach (IBL.BO.Station s in stations)
+                    {
+                       if(//לבדוק כאן שיש תחנות פנויות  &
+                       Distance(s.location,drone.location) < minD)
+                        {
+                            minD = Distance(s.location, drone.location);
+                        }
+                       
+                    }
+             
                     
 
                 }
