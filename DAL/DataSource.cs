@@ -26,8 +26,7 @@ namespace DalObject
 
         internal class config
         {
-
-            static double Available, Light, medium, heavy, chargingRate;
+            public static double Available, Light, medium, heavy, chargingRate;
         //    static internal int DronesIndexer = 0;
         //    static internal int StationsIndexer = 0;
         //    static internal int customersIndexer = 0;
@@ -69,8 +68,8 @@ namespace DalObject
             for (int i = 0; i < 10; i++)
             {
                 Customer customer = new Customer();
-                customer.id = (ulong)(Customers.Count);
-                customer.phoneNum = (ulong)rand.Next(111111111, 999999999);
+                customer.id = Customers.Count;
+                customer.phoneNum = rand.Next(111111111, 999999999);
                 customer.name = $"Customer{i}";
                 customer.longitude = rand.Next();
                 customer.latitude = rand.Next();

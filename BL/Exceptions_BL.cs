@@ -22,8 +22,13 @@ namespace IBL.BO
         public InvalidName() : base(String.Format("The name is incorrect")) { }
     }
 
-    public class ObjectDoesNotExist : Exception
+    public class NoBatteryToReachChargingStation : Exception
     {
-        public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID- {id} does not exist")) { }
+        public NoBatteryToReachChargingStation() : base(String.Format("No battery to reach charging station")) { }
+    }
+
+    public class ThereAreNoAvelableChargeSlots : Exception
+    {
+        public ThereAreNoAvelableChargeSlots() : base(String.Format("There are no avelable charge slots")) { }
     }
 }

@@ -20,7 +20,7 @@ namespace IDAL.DO
         public void ReleaseDroneFromChargeInStation(Drone drone);
         public Station GetSpesificStation(int stationId);
         public Drone GetSpesificDrone(int droneId);
-        public Customer GetSpesificCustomer(ulong customerId);
+        public Customer GetSpesificCustomer(int customerId);
         public Parcel GetSpesificParcel(int parcelId);
         public IEnumerable<Station> GetStationLists();
         public IEnumerable<Drone> GetDroneLists();
@@ -33,6 +33,11 @@ namespace IDAL.DO
         List<Station> GetStations();
         List<Parcel> GetParcels();
         List<Customer> GetCustomers();
+        public void updateDrone(Drone drone);
+        public void updateCustomer(Customer customer);
+        public void updateStation(Station station);
+        public void updateParcel(Parcel parcel);
+        
     }
 }
 

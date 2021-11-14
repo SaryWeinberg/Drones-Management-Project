@@ -10,8 +10,6 @@ namespace IBL.BO
     {
         private int pid;
         public int id {
-
-
             get { return pid; }
             set
             {
@@ -20,8 +18,7 @@ namespace IBL.BO
                 else
                     throw new InvalidID();
             }
-        }
-            
+        }            
         public double bettaryStatus { get; set; }
     }
 }
