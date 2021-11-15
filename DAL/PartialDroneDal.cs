@@ -16,7 +16,7 @@ namespace DalObject
         /// <param name="drone"></param>
         public void AddDrone(Drone drone)
         {
-            DataSource.Drones.Add(drone);
+            DataSource.Drones.Add(drone.Clone());
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace DalObject
         /// <param name="droneCharge"></param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
-            DataSource.DroneCharges.Add(droneCharge);
+            DataSource.DroneCharges.Add(droneCharge.Clone());
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace DalObject
         public void UpdateDrone(Drone drone)
         {
             int index = DataSource.Drones.FindIndex(d => d.id == drone.id);
-            DataSource.Drones[index] = drone;
+            DataSource.Drones[index] = drone.Clone();
         }
 
         /// <summary>

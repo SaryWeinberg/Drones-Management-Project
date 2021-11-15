@@ -16,7 +16,7 @@ namespace DalObject
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
-            DataSource.Stations.Add(station);
+            DataSource.Stations.Add(station.Clone());
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace DalObject
         public void UpdateStation(Station station)
         {
             int index = DataSource.Stations.FindIndex(d => d.id == station.id);
-            DataSource.Stations[index] = station;
+            DataSource.Stations[index] = station.Clone();
         }
 
         /// <summary>
