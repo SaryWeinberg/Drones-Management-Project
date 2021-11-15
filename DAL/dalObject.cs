@@ -15,6 +15,17 @@ namespace DalObject
             DataSource.Initialize();
         }
 
+        static DalObject instance;
+
+        public static DalObject GetInstance {
+            get
+            {
+                if (instance == null)
+                    instance = new DalObject();
+                return instance;
+            }
+        }
+
         public void AssingParcelToDrone(Parcel parcel)
         {
             /* Drone drone = DataSource.Drones.Find(d =>
