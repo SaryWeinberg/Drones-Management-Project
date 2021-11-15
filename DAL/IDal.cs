@@ -18,6 +18,7 @@ namespace IDAL.DO
         public void ProvideParcelToCustomer(Parcel parcel);
         public void SendDroneToChargeInStation(Drone drone, int stationId);
         public void ReleaseDroneFromChargeInStation(Drone drone);
+        public void RemoveDroneInCharge(int droneID);
         public Customer GetSpesificCustomer(int customerId);
         public Drone GetSpesificDrone(int droneId);
         public Parcel GetSpesificParcel(int parcelId);

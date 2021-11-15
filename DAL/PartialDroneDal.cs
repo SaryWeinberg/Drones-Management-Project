@@ -28,6 +28,13 @@ namespace DalObject
             DataSource.DroneCharges.Add(droneCharge.Clone());
         }
 
+
+
+        public void RemoveDroneInCharge(int droneId)
+        {
+            DataSource.DroneCharges.RemoveAt(DataSource.DroneCharges.FindIndex(Dich => Dich.DroneId == droneId));
+        }
+
         /// <summary>
         /// Update drone in DataBase
         /// </summary>
@@ -75,5 +82,8 @@ namespace DalObject
         {
             return DataSource.Drones;
         }
+
+
+
     }
 }

@@ -76,7 +76,7 @@ namespace BL
                 throw new TheDroneNotAvailable();
             }
             double minDistance = 0;
-            StationB station = null;
+            StationBL station = null;
             List<StationBL> stations = GetStationsBL();
             foreach (StationBL currentStation in stations)
             {
@@ -107,19 +107,57 @@ namespace BL
         public void ReleaseDroneFromCharge(int droneId, int timeInCharge)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
+
             if (droneBL.status != DroneStatus.Maintenance)
             {
                 throw new TheDroneNotInCharge();
             }
             droneBL.batteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
             droneBL.status = DroneStatus.Available;
-            
+
             List<Station> stations = dalObj.GetStations();
-            stations.ForEach(s => s.)
+            //try
+
+            Station station = stations.Find(s => s.latitude == droneBL.location.latitude && s.longitude == droneBL.location.longitude);
+            station.chargeSlots += 1;
+
+            ///////////////////////////////////////////////////
+            /*  }
+              throw new //זרוק שגיאה, לא קיימת תחנה כזאת
+              }*/
+            /////////////////////////////////////////
+            ///
+            dalObj.RemoveDroneInCharge(droneId);
         }
+
 
         public void AssignParcelToDrone(int droneId)
         {
+            DroneBL droneBL = GetSpesificDroneBL(droneId);
+
+            if (droneBL.status != DroneStatus.Available)
+            {
+                throw new TheDroneNotAvailable();
+            }
+
+            List<Parcel> parcels = dalObj.GetParcels();
+
+
+              List<Parcel> objListOrder =
+    
+                
+                parcels.OrderBy(p => p.priority).ThenBy(p => (p.weight < droneBL.maxWeight) ).ToList();
+
+
+            foreach (Parcel p in parcels)
+            {
+
+                if (droneBL.batteryStatus > Distance(p.))
+            }
+
+
+
+
 
         }
 

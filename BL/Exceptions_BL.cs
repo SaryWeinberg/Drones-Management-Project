@@ -33,7 +33,7 @@ namespace IBL.BO
 
     public class TheDroneNotAvailable : Exception
     {
-        public TheDroneNotAvailable() : base(String.Format("The drone cannot be charged because it is not available")) { }
+        public TheDroneNotAvailable() : base(String.Format("The drone is not available")) { }
     }
 
     public class TheDroneNotInCharge : Exception
