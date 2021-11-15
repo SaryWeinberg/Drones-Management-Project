@@ -69,41 +69,53 @@ namespace BL
 
         public void SendDroneToCharge(int droneId)
         {
-            IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
-
-            IBL.BO.DroneBL drone = GetSpesificDroneBL(droneId);
-            if (drone.status == DroneStatus.Available)
+            DroneCharge droneCharge = new DroneCharge();
+            DroneBL drone = GetSpesificDroneBL(droneId);
+            if (drone.status != DroneStatus.Available)
             {
-                double minDistance = 0;
-                IBL.BO.StationBL station = null;
-                List<IBL.BO.StationBL> stations = GetStationsBL();
-                foreach (IBL.BO.StationBL currentStation in stations)
-                {
-                    if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, drone.location) < minDistance)
-                    {
-                        minDistance = Distance(currentStation.location, drone.location);
-                        station = currentStation;
-                    }
-                    else { throw new ThereAreNoAvelableChargeSlots(); }
-                }
-                if (drone.batteryStatus - dalObj.ElectricalPowerRequest()[0] * minDistance < 0)
-                {
-                    throw new NoBatteryToReachChargingStation();
-                }
-
-                drone.batteryStatus -= dalObj.ElectricalPowerRequest()[0] * minDistance;
-                drone.location = station.location;
-                drone.status = DroneStatus.Maintenance;
-
-                station.aveChargeSlots -= 1;
-
-                droneInCharge.bettaryStatus = drone.batteryStatus;
+                throw new TheDroneNotAvailable();
             }
+            double minDistance = 0;
+            StationB station = null;
+            List<StationBL> stations = GetStationsBL();
+            foreach (StationBL currentStation in stations)
+            {
+                if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, drone.location) < minDistance)
+                {
+                    minDistance = Distance(currentStation.location, drone.location);
+                    station = currentStation;
+                }
+                else { throw new ThereAreNoAvelableChargeSlots(); }
+            }
+            if (drone.batteryStatus - dalObj.ElectricalPowerRequest()[0] * minDistance < 0)
+            {
+                throw new NoBatteryToReachChargingStation();
+            }
+
+            drone.batteryStatus -= dalObj.ElectricalPowerRequest()[0] * minDistance;
+            drone.location = station.location;
+            drone.status = DroneStatus.Maintenance;
+
+            station.aveChargeSlots -= 1;
+
+            droneCharge.StationId = station.id;
+            droneCharge.DroneId = drone.id;
+            /*UpdateDrone(drone);*/
+
         }
 
         public void ReleaseDroneFromCharge(int droneId, int timeInCharge)
         {
-
+            DroneBL droneBL = GetSpesificDroneBL(droneId);
+            if (droneBL.status != DroneStatus.Maintenance)
+            {
+                throw new TheDroneNotInCharge();
+            }
+            droneBL.batteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
+            droneBL.status = DroneStatus.Available;
+            
+            List<Station> stations = dalObj.GetStations();
+            stations.ForEach(s => s.)
         }
 
         public void AssignParcelToDrone(int droneId)
