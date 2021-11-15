@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class StationToList
+    class DroneInParcel
     {
         public int id { get; set; }
-        public int name { get; set; }
-        public double aveChargeSlots { get; set; }
-        public double fullChargeSlots { get; set; }
+        public double bettaryStatus { get; set; }      
+        public Location location { get; set; }
     }
 }

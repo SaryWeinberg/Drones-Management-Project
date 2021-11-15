@@ -9,8 +9,17 @@ namespace IBL.BO
 {
     class DroneInCharge
     {
-        public int ID {get; set;}
-            
-        public double BettaryStatus { get; set; }
+        private int pid;
+        public int id {
+            get { return pid; }
+            set
+            {
+                if (value != null)
+                    pid = value;
+                else
+                    throw new InvalidID();
+            }
+        }            
+        public double bettaryStatus { get; set; }
     }
 }

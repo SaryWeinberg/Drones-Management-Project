@@ -3,11 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL.BO;
+using IDAL.DO;
 
 namespace IBL
 {
     interface IBL
     {
-
+        public void AddCustomerDal(int id, int phone, string name, Location location);
+        public void AddDroneDal(int id, string model, WeightCategories maxWeight);
+        public void AddParcelDal(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority);
+        public void AddStationDal(int id, int name, Location location, int chargeSlots);
+        public void AddDroneChargeDAL(int stationID);
+        public void AddCustomerBL(int id, int phone, string name, Location location);
+        public void AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID);
+        public void AddParcelBL(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority);
+        public void AddStationBL(int id, int name, Location location, int chargeSlots);
+        public void UpdateCustomerData(int id, string name = null, int phoneNum = 0);
+        public void UpdateDroneName(int id, string model);
+        public void UpdateStationData(int id, int name = 0, int ChargeSlots = 0);
+        public CustomerBL ConvertDalCustomerToBL(Customer c);
+        public DroneBL ConvertDalDroneToBL(Drone d);
+        public ParcelBL ConvertDalParcelToBL(Parcel p);
+        public StationBL ConvertDalStationToBL(Station s);
+        public CustomerBL GetSpesificCustomerBL(int customerId);
+        public DroneBL GetSpesificDroneBL(int droneId);
+        public ParcelBL GetSpesificParcelBL(int parcelId);
+        public StationBL GetSpesificStationBL(int stationId);
+        public List<CustomerBL> GetCustomers();
+        public List<DroneBL> GetDronesBL();
+        public List<ParcelBL> GetParcelsBL();
+        public List<StationBL> GetStationsBL();
     }
 }

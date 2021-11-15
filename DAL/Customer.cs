@@ -3,14 +3,16 @@ namespace IDAL.DO
 {
     public struct Customer
     {
-        public ulong ID { get; set; }
-        public ulong Phone { get; set; }
-        public string Name { get; set; }
-        public double longitude { get; set; }
-        public double latitude { get; set; }
+        public int id { get; set; }
+        public int phoneNum { get; set; }
+        public string name { get; set; }
+        public int longitude { get; set; }
+        public int latitude { get; set; }
+        public int active { get; set; }
+
         public override string ToString()
         {
-            return "Customer: " + ID + " " + Phone + " " + Name + " " + longitude + " " + latitude;
+            return "Customer: " + id + " " + phoneNum + " " + name + " " + longitude + " " + latitude;
         }
     }
 }

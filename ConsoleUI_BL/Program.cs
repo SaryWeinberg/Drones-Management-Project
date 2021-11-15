@@ -1,8 +1,9 @@
 ﻿/*using System;
-using IDAL.DO;
-using DalObject;
 using System.Collections.Generic;
 using System.Linq;
+using IBL.BO;
+using IBL;
+using BL;
 
 namespace ConsoleUI
 {
@@ -10,9 +11,7 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
-            IDal DalObj = new IDal();
-            DalObject.DalObject DalObj = new DalObject.DalObject();
-
+            IBL.IBL.BL bl = new BL.BL.BL;
             int Option;
             do
             {
@@ -42,13 +41,27 @@ namespace ConsoleUI
                         int AddOption = int.Parse(Console.ReadLine());
                         switch (AddOption)
                         {
-                            case (int)AddOptions.AddStation: addStation(DalObj); break;
-                            case (int)AddOptions.AddDrone: addDrone(DalObj); break;
-                            case (int)AddOptions.AddCustomer: addCustomer(DalObj); break;
-                            case (int)AddOptions.AddParcel: addParcel(DalObj); break;
-                            default: Error(); break;
+                            case (int)AddOptions.AddStation:
+                                try { addStation(); }
+                                catch (InvalidID e) { Console.WriteLine(e); }
+                                break;
+                            case (int)AddOptions.AddDrone:
+                                try { addDrone(); }
+                                catch (InvalidID e) { Console.WriteLine(e); }
+                                break;
+                            case (int)AddOptions.AddCustomer:
+                                try { addCustomer(); }
+                                catch (InvalidID e) { Console.WriteLine(e); }
+                                catch (InvalidName e) { Console.WriteLine(e); }
+                                break;
+                            case (int)AddOptions.AddParcel:
+                                try { addParcel(); }
+                                catch (InvalidID e) { Console.WriteLine(e); }
+                                break;
+                            default:
+                                Error(); break;
+                                break;
                         }
-                        break;
                     //==============================================
                     //UpddateOption
                     case (int)UserOptions.Update:
@@ -93,16 +106,16 @@ namespace ConsoleUI
                         switch (DisplayOption)
                         {
                             case (int)DisplayOptions.DisplayCustomer:
-                                Console.WriteLine(DalObj.GetSpesificCustomer((ulong)GetByID("Customer")));
+                                Console.WriteLine(BL.BL.GetSpesificCustomerBL());
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
-                                Console.WriteLine(DalObj.GetSpesificDrone(GetByID("Drone")));
+                                Console.WriteLine(GetSpesificDrone(GetByID("Drone")));
                                 break;
                             case (int)DisplayOptions.DisplayParcel:
-                                Console.WriteLine(DalObj.GetSpesificParcel(GetByID("Parcel")));
+                                Console.WriteLine(GetSpesificParcel(GetByID("Parcel")));
                                 break;
                             case (int)DisplayOptions.DisplayStation:
-                                Console.WriteLine(DalObj.GetSpesificStation(GetByID("Station")));
+                                Console.WriteLine(GetSpesificStation(GetByID("Station")));
                                 break;
                             default: Error(); break;
                         }
@@ -163,15 +176,19 @@ namespace ConsoleUI
 
             //Functions for code readings
 
-            static void addStation(DalObject.DalObject DalObj)
+            static void addStation(BL.BL bl)
             {
+                Console.WriteLine("Enter ID");
+                int ID = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Name");
+                int Name = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Longitude");
                 int Longitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Latitude");
                 int Latitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Charge Slots");
                 int ChargeSlots = int.Parse(Console.ReadLine());
-                // DalObj.AddStation(Longitude, Latitude, ChargeSlots);
+                BL.BL.AddStationBL(ID, Name, new Location { Latitude, ChargeSlots }, ChargeSlots);
             }
 
             static void addDrone(DalObject.DalObject DalObj)
@@ -240,10 +257,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine("ERROR");
             }
-
-
-
-
         }
     }
 }*/

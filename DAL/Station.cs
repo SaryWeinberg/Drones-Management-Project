@@ -8,15 +8,15 @@ namespace IDAL.DO
 {
     public struct Station
     {
-        public int ID { get; set; }
-        public int Name { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
-        public int ChargeSlots { get; set; }
-
+        public int id { get; set; }
+        public int name { get; set; }
+        public int longitude { get; set; }
+        public int latitude { get; set; }
+        public int chargeSlots { get; set; }
+        public int active { get; set; }
         public override string ToString()
         {
-            return "Station: " + ID + " " + Name +" " + Longitude + " " + Latitude + " " + ChargeSlots;
+            return "Station: " + id + " " + name +" " + longitude + " " + latitude + " " + chargeSlots;
         }
     }
 }

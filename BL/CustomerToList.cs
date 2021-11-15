@@ -8,12 +8,13 @@ namespace IBL.BO
 {
     class CustomerToList
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public double PhoneNum { get; set; }
-        public int ProvidedParcels { get; set; }
-        public int NotProvidedParcels { get; set; }
-        public int recievedParcels { get; set; }
-        public int OnTheWayParcels { get; set; }
+        public ulong id { get; set; }
+        public string name { get; set; }
+        public ulong phoneNum { get; set; }
+        public int parcelSentAndDelivered { get; set; }
+        public int parcelSentsentButNotDelivered { get; set; }
+        public int parcelReceived { get; set; }
+        public int parcelOnTheWayToCustomer { get; set; }
+
     }
 }
