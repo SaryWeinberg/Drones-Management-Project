@@ -66,7 +66,7 @@ namespace BL
             int y1 = location2.latitude;
             int y2 = location2.longitude;
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
-        }      
+        }
 
 
         public void SendDroneToCharge(int droneId)
@@ -86,10 +86,7 @@ namespace BL
                         minDistance = Distance(currentStation.location, drone.location);
                         station = currentStation;
                     }
-                    else
-                    {
-                        throw new ThereAreNoAvelableChargeSlots();
-                    }
+                    else { throw new ThereAreNoAvelableChargeSlots(); }
                 }
                 if (drone.batteryStatus - dalObj.ElectricalPowerRequest()[0] * minDistance < 0)
                 {
@@ -104,6 +101,26 @@ namespace BL
 
                 droneInCharge.bettaryStatus = drone.batteryStatus;
             }
+        }
+
+        public void ReleaseDroneFromCharge(int droneId, int timeInCharge)
+        {
+
+        }
+
+        public void AssignParcelToDrone(int droneId)
+        {
+
+        }
+
+        public void CollectParcelByDrone(int droneId)
+        {
+
+        }
+
+        public void DeliveryParcelByDrone(int droneId)
+        {
+
         }
     }
 }
