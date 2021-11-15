@@ -210,9 +210,14 @@ namespace BL
 
         public void SendDroneToCharge(int droneId)
         {
+            IBL.BO.Drone droneBL = droneBlList.First(d => d.ID == droneId);
+            if(droneBL.Status == DroneStatus.Available )
 
+                
+            
             try
             {
+            
 
                 IBL.BO.DroneInCharge droneInCharge = new IBL.BO.DroneInCharge();
                 droneInCharge.ID = droneId;
