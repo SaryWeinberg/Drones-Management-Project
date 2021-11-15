@@ -30,7 +30,6 @@ namespace BL
             List<Customer> CustomerList = dalObj.getCustomers();*/
         }
 
-
         /// <summary>
         /// Function for checking the correctness of an ID number
         /// </summary>
@@ -67,7 +66,6 @@ namespace BL
             int y2 = location2.longitude;
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
-
 
         public void SendDroneToCharge(int droneId)
         {

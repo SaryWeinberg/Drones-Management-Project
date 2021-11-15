@@ -14,8 +14,7 @@ namespace IBL.BO
                     pid = value;
                 else throw new InvalidID();
             }
-        }
-        
+        }        
 
         public CustomerInParcel sender { get; set; }
         public CustomerInParcel target { get; set; }
