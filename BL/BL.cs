@@ -75,36 +75,30 @@ namespace BL
             {
                 throw new TheDroneNotAvailable();
             }
-
             StationBL station = GetNearestAvailableStation(drone.location);
             drone.batteryStatus -= dalObj.ElectricalPowerRequest()[0] * Distance(drone.location, station.location);
             drone.location = station.location;
             drone.status = DroneStatus.Maintenance;
-
             station.aveChargeSlots -= 1;
-
             droneCharge.StationId = station.id;
             droneCharge.DroneId = drone.id;
-            /*UpdateDrone(drone);*/
-
+            dalObj.UpdateDrone(ConvertBLDroneToDAL(drone));
+            dalObj.UpdateStation(ConvertBLStationToDAL(station));
+            dalObj.AddDroneCharge(droneCharge);
         }
 
         public void ReleaseDroneFromCharge(int droneId, int timeInCharge)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
-
             if (droneBL.status != DroneStatus.Maintenance)
             {
                 throw new TheDroneNotInCharge();
             }
             droneBL.batteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
             droneBL.status = DroneStatus.Available;
-
             List<Station> stations = dalObj.GetStations();
-
             Station station = stations.Find(s => s.latitude == droneBL.location.latitude && s.longitude == droneBL.location.longitude);
-            station.chargeSlots += 1;
-            
+            station.chargeSlots += 1;            
             dalObj.RemoveDroneInCharge(droneId);
         }
 
@@ -155,9 +149,7 @@ namespace BL
                         }
                     }
                 }
-
             }
-
             throw new CanNotAssignParcelToDrone();
         }
 
@@ -177,6 +169,7 @@ namespace BL
                 droneBL.batteryStatus = Distance(droneBL.location, senderCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.maxWeight];
                 droneBL.location = senderCustomer.location;
                 currentParcel.pickedUp = DateTime.Now;
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
             }
         }
 
@@ -196,6 +189,7 @@ namespace BL
                 droneBL.location = targetCustomer.location;
                 droneBL.status = DroneStatus.Available;
                 currentParcel.delivered = DateTime.Now;
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
             }
         }
     }
