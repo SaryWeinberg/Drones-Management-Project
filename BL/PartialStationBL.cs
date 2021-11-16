@@ -8,7 +8,7 @@ using IBL.BO;
 
 namespace BL
 {
-   partial class BL : IBL.IBL
+    partial class BL : IBL.IBL
     {
         /// <summary>
         /// Functions for adding a station to DAL
@@ -116,6 +116,29 @@ namespace BL
             List<StationBL> stationsBL = new List<StationBL>();
             stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
             return stationsBL;
+        }
+
+
+        public StationBL GetNearestAvailableStation( Location Targlocation)
+        {
+
+            double minDistance = 0;
+            StationBL station = null;
+            List<StationBL> stations = GetStationsBL();
+            foreach (StationBL currentStation in stations)
+            {
+                if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, Targlocation) < minDistance)
+                {
+                    minDistance = Distance(currentStation.location, Targlocation);
+                    station = currentStation;
+                }
+                else
+                {
+                    throw new ThereAreNoAvelableChargeSlots();
+                }
+            }
+
+            return station;
         }
     }
 }

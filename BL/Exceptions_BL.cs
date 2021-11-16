@@ -41,4 +41,13 @@ namespace IBL.BO
         public TheDroneNotInCharge() : base(String.Format("The drone cannot be released because it is not charged")) { }
     }
 
+
+    public class CanNotAssignParcelToDrone : Exception
+    {
+        public CanNotAssignParcelToDrone() : base(String.Format("The drone can't take any parcel")) { }
+    }
+
+
+    
+
 }

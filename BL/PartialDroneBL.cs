@@ -97,6 +97,31 @@ namespace BL
             /*BatteryStatus*/
         }
 
+
+
+        /// <summary>
+        /// Convert from bl drone to dal drone
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public Drone ConvertBLDroneToDAL(DroneBL d)
+        {
+            return new Drone
+            {
+                id = d.id,
+                maxWeight = d.maxWeight,
+                model = d.model
+                
+
+
+            };
+            /*BatteryStatus*/
+        }
+
+
+
+
+
         /// <summary>
         /// Returning a specific drone by ID number
         /// </summary>
