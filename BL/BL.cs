@@ -75,24 +75,9 @@ namespace BL
             {
                 throw new TheDroneNotAvailable();
             }
-            double minDistance = 0;
-            StationBL station = null;
-            List<StationBL> stations = GetStationsBL();
-            foreach (StationBL currentStation in stations)
-            {
-                if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, drone.location) < minDistance)
-                {
-                    minDistance = Distance(currentStation.location, drone.location);
-                    station = currentStation;
-                }
-                else { throw new ThereAreNoAvelableChargeSlots(); }
-            }
-            if (drone.batteryStatus - dalObj.ElectricalPowerRequest()[0] * minDistance < 0)
-            {
-                throw new NoBatteryToReachChargingStation();
-            }
 
-            drone.batteryStatus -= dalObj.ElectricalPowerRequest()[0] * minDistance;
+            StationBL station = GetNearestAvailableStation(drone.location);
+            drone.batteryStatus -= dalObj.ElectricalPowerRequest()[0] * Distance(drone.location, station.location);
             drone.location = station.location;
             drone.status = DroneStatus.Maintenance;
 
@@ -132,45 +117,48 @@ namespace BL
             {
                 throw new TheDroneNotAvailable();
             }
-
-            List<Parcel> parcels = dalObj.GetParcels();
-
-
-            List<Parcel> objListOrder =
-
-
-              parcels.OrderBy(p => p.priority).ThenBy(p => (p.weight < droneBL.maxWeight)).ToList();
-
-
-            foreach (Parcel p in parcels)
+            List<ParcelBL> parcels = GetParcelsBL();
+            ParcelBL BestParcel = parcels[0];
+            foreach (ParcelBL parcel in parcels)
             {
+                if (parcel.weight > droneBL.maxWeight && BestParcel.priority <= parcel.priority)
+                {
+                    if (BestParcel.priority < parcel.priority)
+                        BestParcel = parcel;
+                    else
+                    {
+                        if (parcel.weight >= BestParcel.weight)
+                        {
+                            if (parcel.weight > BestParcel.weight)
+                                BestParcel = parcel;
+                            else
+                            {
+                                if (Distance(droneBL.location, GetSpesificCustomerBL(parcel.sender.id).location) <=//מרחק חבילה הנוכחית לעומת הטובה ביותר
+                                Distance(droneBL.location, GetSpesificCustomerBL(BestParcel.sender.id).location))
+                                {
 
-                if (droneBL.batteryStatus > Distance(p.))
+                                    if (
+                                        (Distance(droneBL.location, GetSpesificCustomerBL(parcel.sender.id).location)) * dalObj.ElectricalPowerRequest()[0]//מרחק שולח מהרחפן*צריכה כשהוא ריק 
+                                        + (Distance(GetSpesificCustomerBL(parcel.sender.id).location, GetSpesificCustomerBL(parcel.target.id).location)) * dalObj.ElectricalPowerRequest()[(int)parcel.weight]
+                                        + (Distance(GetSpesificCustomerBL(parcel.target.id).location, GetNearestAvailableStation(GetSpesificCustomerBL(parcel.target.id).location).location)) * dalObj.ElectricalPowerRequest()[0] < droneBL.batteryStatus)
+                                    {
+                                        BestParcel = parcel;
+                                        droneBL.status = DroneStatus.Delivery;
+                                        BestParcel.drone.id = droneBL.id;
+                                        BestParcel.drone.location = droneBL.location;
+                                        BestParcel.drone.bettaryStatus = droneBL.batteryStatus;
+                                        BestParcel.associated = DateTime.Now;
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
 
-
-
-
-
-            if (droneBL.status != DroneStatus.Available)
-            {
-                throw new TheDroneNotAvailable();
-            }
-
-            List<Parcel> parcels = dalObj.GetParcels();
-
-
-            List<Parcel> objListOrder =
-
-
-              parcels.OrderBy(p => p.priority).ThenBy(p => (p.weight < droneBL.maxWeight)).ToList();
-
-
-            foreach (Parcel p in parcels)
-            {
-
-                if (droneBL.batteryStatus > Distance(p.))
-            }
+            throw new CanNotAssignParcelToDrone();
         }
 
 
