@@ -60,7 +60,29 @@ namespace BL
         }
 
         /// <summary>
-        /// Convert from dal parcel to BL parcel
+        /// Convert from BL parcel to DAL parcel
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public Parcel ConvertBLParcelToDAL(ParcelBL p)
+        {
+            return new Parcel
+            {
+                id = p.id, 
+                delivered = p.delivered, 
+                droneId = p.drone.id, 
+                pickedUp = p.pickedUp, 
+                priority = p.priority, 
+                requested = p.associated, 
+                senderId = p.sender.id, 
+                targetId= p.target.id, 
+                weight = p.weight, 
+                scheduled = p.associated                 
+            };
+        }
+
+        /// <summary>
+        /// Convert from DAL parcel to BL parcel
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>

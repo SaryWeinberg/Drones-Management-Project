@@ -78,7 +78,24 @@ namespace BL
         }
 
         /// <summary>
-        /// Convert from dal customer to BL customer
+        /// Convert from BL customer to DAL customer
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public Customer ConvertBLCustomerToDAL(CustomerBL c)
+        {
+            return new Customer
+            {
+                id = c.id, 
+                latitude = c.location.latitude, 
+                longitude = c.location.longitude, 
+                name= c.name, 
+                phoneNum= c.phoneNum                
+            };
+        }
+
+        /// <summary>
+        /// Convert from DAL customer to BL customer
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>

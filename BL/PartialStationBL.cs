@@ -74,7 +74,24 @@ namespace BL
         }
 
         /// <summary>
-        /// Convert from dal station to BL station
+        /// Convert from BL station to DAL station
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public Station ConvertBLStationToDAL(StationBL s)
+        {
+            return new Station
+            {
+                id = s.id, 
+                chargeSlots= (int)s.aveChargeSlots, 
+                latitude = s.location.latitude, 
+                longitude = s.location.longitude, 
+                name= s.name                 
+            };
+        }
+
+        /// <summary>
+        /// Convert from DAL station to BL station
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>

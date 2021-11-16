@@ -97,8 +97,6 @@ namespace BL
             /*BatteryStatus*/
         }
 
-
-
         /// <summary>
         /// Convert from bl drone to dal drone
         /// </summary>
@@ -110,17 +108,9 @@ namespace BL
             {
                 id = d.id,
                 maxWeight = d.maxWeight,
-                model = d.model
-                
-
-
+                model = d.model 
             };
-            /*BatteryStatus*/
         }
-
-
-
-
 
         /// <summary>
         /// Returning a specific drone by ID number
@@ -150,6 +140,5 @@ namespace BL
             dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
         }
-
     }
 }
