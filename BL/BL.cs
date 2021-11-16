@@ -67,6 +67,10 @@ namespace BL
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
+        /// <summary>
+        /// function for Sending a drone for charging
+        /// </summary>
+        /// <param name="droneId"></param>
         public void SendDroneToCharge(int droneId)
         {
             DroneCharge droneCharge = new DroneCharge();
@@ -82,11 +86,16 @@ namespace BL
             station.AveChargeSlots -= 1;
             droneCharge.StationId = station.ID;
             droneCharge.DroneId = drone.ID;
-            dalObj.UpdateDrone(ConvertBLDroneToDAL(drone));
-            dalObj.UpdateStation(ConvertBLStationToDAL(station));
+            dalObj.UpdateDrone(ConvertBLDroneToDAL(drone.Clone()));
+            dalObj.UpdateStation(ConvertBLStationToDAL(station.Clone()));
             dalObj.AddDroneCharge(droneCharge);
         }
 
+        /// <summary>
+        /// Function for releasing drone from charging
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="timeInCharge"></param>
         public void ReleaseDroneFromCharge(int droneId, int timeInCharge)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
@@ -102,7 +111,10 @@ namespace BL
             //dalObj.RemoveDroneInCharge(droneId);
         }
 
-
+        /// <summary>
+        /// Function for assigning a parcel to a drone
+        /// </summary>
+        /// <param name="droneId"></param>
         public void AssignParcelToDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
@@ -142,7 +154,7 @@ namespace BL
                                         BestParcel.Drone.Location = droneBL.Location;
                                         BestParcel.Drone.BettaryStatus = droneBL.BatteryStatus;
                                         BestParcel.Associated = DateTime.Now;
-                                        dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
+                                        dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel.Clone()));
                                         return;
                                     }
                                 }
@@ -154,7 +166,10 @@ namespace BL
             throw new CanNotAssignParcelToDrone();
         }
 
-
+        /// <summary>
+        /// Function for collecting a parcel by drone
+        /// </summary>
+        /// <param name="droneId"></param>
         public void CollectParcelByDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
@@ -170,10 +185,14 @@ namespace BL
                 droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
                 droneBL.Location = senderCustomer.Location;
                 currentParcel.PickedUp = DateTime.Now;
-                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel.Clone()));
             }
         }
 
+        /// <summary>
+        /// Function for delivering a parcel by drone
+        /// </summary>
+        /// <param name="droneId"></param>
         public void DeliveryParcelByDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
@@ -190,7 +209,7 @@ namespace BL
                 droneBL.Location = targetCustomer.Location;
                 droneBL.Status = DroneStatus.Available;
                 currentParcel.Delivered = DateTime.Now;
-                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel.Clone()));
             }
         }
     }

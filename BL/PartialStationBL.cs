@@ -25,7 +25,7 @@ namespace BL
             station.Longitude = location.Longitude;
             station.Latitude = location.Latitude;
             station.ChargeSlots = chargeSlots;
-            dalObj.AddStation(station);
+            dalObj.AddStation(station.Clone());
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace BL
         {
             List<Station> stationsDal = dalObj.GetStations();
             List<StationBL> stationsBL = new List<StationBL>();
-            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
+            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s.Clone())));
             return stationsBL;
         }
 

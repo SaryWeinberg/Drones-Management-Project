@@ -25,7 +25,7 @@ namespace BL
             customer.Name = name;
             customer.Longitude = location.Longitude;
             customer.Latitude = location.Latitude;
-            dalObj.AddCustomer(customer);
+            dalObj.AddCustomer(customer.Clone());
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace BL
         {
             List<Customer> customersDal = dalObj.GetCustomers();
             List<CustomerBL> customersBL = new List<CustomerBL>();
-            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c.Clone())));
             return customersBL;
         }
     }

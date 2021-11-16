@@ -22,7 +22,7 @@ namespace BL
             droneDal.ID = id;
             droneDal.Model = model;
             droneDal.MaxWeight = maxWeight;
-            dalObj.AddDrone(droneDal);
+            dalObj.AddDrone(droneDal.Clone());
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BL
             DroneCharge droneCharge = new DroneCharge();
             droneCharge.DroneId = stationID;
             droneCharge.StationId = stationID;
-            dalObj.AddDroneCharge(droneCharge);
+            dalObj.AddDroneCharge(droneCharge.Clone());
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace BL
             {
                 throw e;
             }
-            droneBlList.Add(droneBL);
+            droneBlList.Add(droneBL.Clone());
             AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
         }
@@ -137,7 +137,7 @@ namespace BL
         {
             List<Drone> dronesDal = dalObj.GetDrones();
             List<DroneBL> dronesBL = new List<DroneBL>();
-            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
+            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d.Clone())));
             return dronesBL;
         }
     }

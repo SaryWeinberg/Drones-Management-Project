@@ -26,7 +26,7 @@ namespace BL
             parcel.Weight = weight;
             parcel.Priority = priority;
             //parcel.DroneId = droneId;
-            dalObj.AddParcel(parcel);
+            dalObj.AddParcel(parcel.Clone());
         }
 
         /// <summary>
@@ -91,14 +91,14 @@ namespace BL
             return new ParcelBL
             {
                 ID = p.ID,
-                // drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
+                //Drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
                 Associated = p.Requested,
                 Created = p.PickedUp,
                 Delivered = p.Delivered,
                 PickedUp = p.PickedUp,
                 Priority = p.Priority,
-                //sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.senderId)),
-                // target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.targetId)),
+                //Sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)),
+                //Target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)),
                 Weight = p.Weight
             };
         }
@@ -128,9 +128,8 @@ namespace BL
         {
             List<Parcel> parcelsDal = dalObj.GetParcels();
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
-            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
+            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p.Clone())));
             return parcelsBL;
         }
-
     }
 }
