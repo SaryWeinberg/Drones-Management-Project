@@ -155,6 +155,7 @@ namespace BL
             }
         }
 
+
         public void CollectParcelByDrone(int droneId)
         {
 
