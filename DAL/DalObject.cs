@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
-
-
 namespace DalObject
 {
     public partial class DalObject : IDal
@@ -38,12 +36,9 @@ namespace DalObject
              drone.Status = DroneStatus.Delivery;
              DataSource.Drones[indexD] = drone;*/
         }
-
         public Parcel FindParcel(int id)
         {
-
             return DataSource.Parcels.First(p => p.id == id);
-
             /* foreach (Parcel parcel in DataSource.Parcels)
              {
                  if (parcel.ID == id)
@@ -53,12 +48,9 @@ namespace DalObject
              }
              return new Parcel();*/
         }
-
         public Drone FindDrone(int id)
         {
             return DataSource.Drones.First(d => d.id == id);
-
-
             /* foreach (Drone drone in DataSource.Drones)
              {
                  if (drone.ID == id)
@@ -68,7 +60,6 @@ namespace DalObject
              }
              return new Drone();*/
         }
-
         public void CollectParcelByDrone(Parcel parcel)
         {
             Drone drone = DataSource.Drones.First(d =>
@@ -81,7 +72,6 @@ namespace DalObject
             /*         drone.Status = DroneStatus.Delivery;*/
             DataSource.Drones[indexD] = drone;
         }
-
         public void ProvideParcelToCustomer(Parcel parcel)
         {
             Drone drone = DataSource.Drones.First(d => d.id == parcel.droneId);
@@ -93,8 +83,6 @@ namespace DalObject
             /*  drone.Status = DroneStatus.Available;*/
             DataSource.Drones[indexD] = drone;
         }
-
-
         public void SendDroneToChargeInStation(Drone drone, int stationId)
         {
             DroneCharge droneCharge = new DroneCharge();
@@ -105,7 +93,6 @@ namespace DalObject
             /*            drone.Status = DroneStatus.Maintenance;*/
             DataSource.Drones[indexD] = drone;
         }
-
         public void ReleaseDroneFromChargeInStation(Drone drone)
         {
             DroneCharge droneCharge = DataSource.DroneCharges.First(d =>
@@ -116,16 +103,10 @@ namespace DalObject
                        drone.Battery = 100;*/
             DataSource.Drones[indexD] = drone;
         }
-
-
         public double[] ElectricalPowerRequest()
         {
-            double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy ,DataSource.config.chargingRate};
+            double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };
             return arr;
         }
     }
 }
-
-
-
-

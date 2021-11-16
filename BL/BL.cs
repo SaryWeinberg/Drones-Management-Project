@@ -130,9 +130,34 @@ namespace BL
             dalObj.RemoveDroneInCharge(droneId);
         }
 
+
         public void AssignParcelToDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
+
+            if (droneBL.status != DroneStatus.Available)
+            {
+                throw new TheDroneNotAvailable();
+            }
+
+            List<Parcel> parcels = dalObj.GetParcels();
+
+
+              List<Parcel> objListOrder =
+    
+                
+                parcels.OrderBy(p => p.priority).ThenBy(p => (p.weight < droneBL.maxWeight) ).ToList();
+
+
+            foreach (Parcel p in parcels)
+            {
+
+                if (droneBL.batteryStatus > Distance(p.))
+            }
+
+
+
+
 
             if (droneBL.status != DroneStatus.Available)
             {
