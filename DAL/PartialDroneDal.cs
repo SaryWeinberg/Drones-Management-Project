@@ -41,7 +41,7 @@ namespace DalObject
         /// <param name="drone"></param>
         public void UpdateDrone(Drone drone)
         {
-            int index = DataSource.Drones.FindIndex(d => d.id == drone.id);
+            int index = DataSource.Drones.FindIndex(d => d.ID == drone.ID);
             DataSource.Drones[index] = drone.Clone();
         }
 
@@ -54,7 +54,7 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Drones.First(drone => drone.id == droneId);
+                return DataSource.Drones.First(drone => drone.ID == droneId);
             }
             catch
             {

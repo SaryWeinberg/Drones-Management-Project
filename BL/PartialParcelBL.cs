@@ -21,10 +21,10 @@ namespace BL
         {
             Parcel parcel = new Parcel();
             //parcel.ID = ;
-            parcel.senderId = senderId;
-            parcel.targetId = targetId;
-            parcel.weight = weight;
-            parcel.priority = priority;
+            parcel.SenderId = senderId;
+            parcel.TargetId = targetId;
+            parcel.Weight = weight;
+            parcel.Priority = priority;
             //parcel.DroneId = droneId;
             dalObj.AddParcel(parcel);
         }
@@ -42,15 +42,15 @@ namespace BL
             ParcelBL parcel = new ParcelBL();
             try
             {
-                parcel.sender.id = senderId;
-                parcel.target.id = targetId;
-                parcel.weight = weight;
-                parcel.priority = priority;
-                parcel.drone = null;
-                parcel.associated = new DateTime();
-                parcel.created = DateTime.Now;
-                parcel.pickedUp = new DateTime();
-                parcel.delivered = new DateTime();
+                parcel.Sender.ID = senderId;
+                parcel.Target.ID = targetId;
+                parcel.Weight = weight;
+                parcel.Priority = priority;
+                parcel.Drone = null;
+                parcel.Associated = new DateTime();
+                parcel.Created = DateTime.Now;
+                parcel.PickedUp = new DateTime();
+                parcel.Delivered = new DateTime();
             }
             catch (InvalidID e)
             {
@@ -68,16 +68,16 @@ namespace BL
         {
             return new Parcel
             {
-                id = p.id, 
-                delivered = p.delivered, 
-                droneId = p.drone.id, 
-                pickedUp = p.pickedUp, 
-                priority = p.priority, 
-                requested = p.associated, 
-                senderId = p.sender.id, 
-                targetId= p.target.id, 
-                weight = p.weight, 
-                scheduled = p.associated                 
+                ID = p.ID, 
+                Delivered = p.Delivered, 
+                DroneId = p.Drone.ID, 
+                PickedUp = p.PickedUp, 
+                Priority = p.Priority, 
+                Requested = p.Associated, 
+                SenderId = p.Sender.ID, 
+                TargetId= p.Target.ID, 
+                Weight = p.Weight, 
+                Scheduled = p.Associated                 
             };
         }
 
@@ -90,16 +90,16 @@ namespace BL
         {
             return new ParcelBL
             {
-                id = p.id,
+                ID = p.ID,
                 // drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
-                associated = p.requested,
-                created = p.pickedUp,
-                delivered = p.delivered,
-                pickedUp = p.pickedUp,
-                priority = p.priority,
+                Associated = p.Requested,
+                Created = p.PickedUp,
+                Delivered = p.Delivered,
+                PickedUp = p.PickedUp,
+                Priority = p.Priority,
                 //sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.senderId)),
                 // target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.targetId)),
-                weight = p.weight
+                Weight = p.Weight
             };
         }
 

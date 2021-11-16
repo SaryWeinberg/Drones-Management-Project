@@ -38,7 +38,7 @@ namespace DalObject
         }
         public Parcel FindParcel(int id)
         {
-            return DataSource.Parcels.First(p => p.id == id);
+            return DataSource.Parcels.First(p => p.ID == id);
             /* foreach (Parcel parcel in DataSource.Parcels)
              {
                  if (parcel.ID == id)
@@ -50,7 +50,7 @@ namespace DalObject
         }
         public Drone FindDrone(int id)
         {
-            return DataSource.Drones.First(d => d.id == id);
+            return DataSource.Drones.First(d => d.ID == id);
             /* foreach (Drone drone in DataSource.Drones)
              {
                  if (drone.ID == id)
@@ -63,22 +63,22 @@ namespace DalObject
         public void CollectParcelByDrone(Parcel parcel)
         {
             Drone drone = DataSource.Drones.First(d =>
-            d.id == parcel.droneId);
+            d.ID == parcel.DroneId);
             int indexP = DataSource.Parcels.IndexOf(parcel);
             int indexD = DataSource.Drones.IndexOf(drone);
-            parcel.droneId = drone.id;
-            parcel.pickedUp = DateTime.Now;
+            parcel.DroneId = drone.ID;
+            parcel.PickedUp = DateTime.Now;
             DataSource.Parcels[indexP] = parcel;
             /*         drone.Status = DroneStatus.Delivery;*/
             DataSource.Drones[indexD] = drone;
         }
         public void ProvideParcelToCustomer(Parcel parcel)
         {
-            Drone drone = DataSource.Drones.First(d => d.id == parcel.droneId);
+            Drone drone = DataSource.Drones.First(d => d.ID == parcel.DroneId);
             int indexP = DataSource.Parcels.IndexOf(parcel);
             int indexD = DataSource.Drones.IndexOf(drone);
-            parcel.droneId = drone.id;
-            parcel.delivered = DateTime.Now;
+            parcel.DroneId = drone.ID;
+            parcel.Delivered = DateTime.Now;
             DataSource.Parcels[indexP] = parcel;
             /*  drone.Status = DroneStatus.Available;*/
             DataSource.Drones[indexD] = drone;
@@ -86,7 +86,7 @@ namespace DalObject
         public void SendDroneToChargeInStation(Drone drone, int stationId)
         {
             DroneCharge droneCharge = new DroneCharge();
-            droneCharge.DroneId = drone.id;
+            droneCharge.DroneId = drone.ID;
             droneCharge.StationId = stationId;
             DataSource.DroneCharges.Add(droneCharge);
             int indexD = DataSource.Drones.IndexOf(drone);
@@ -96,7 +96,7 @@ namespace DalObject
         public void ReleaseDroneFromChargeInStation(Drone drone)
         {
             DroneCharge droneCharge = DataSource.DroneCharges.First(d =>
-            d.DroneId == drone.id);
+            d.DroneId == drone.ID);
             DataSource.DroneCharges.Remove(droneCharge);
             int indexD = DataSource.Drones.IndexOf(drone);
             /*           drone.Status = DroneStatus.Available;

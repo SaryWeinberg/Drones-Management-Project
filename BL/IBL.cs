@@ -24,9 +24,12 @@ namespace IBL
         public void UpdateStationData(int id, int name = 0, int ChargeSlots = 0);
         public CustomerBL ConvertDalCustomerToBL(Customer c);
         public DroneBL ConvertDalDroneToBL(Drone d);
-        public Drone ConvertBLDroneToDAL(DroneBL d);
         public ParcelBL ConvertDalParcelToBL(Parcel p);
         public StationBL ConvertDalStationToBL(Station s);
+        public Customer ConvertBLCustomerToDAL(CustomerBL c);
+        public Drone ConvertBLDroneToDAL(DroneBL d);
+        public Parcel ConvertBLParcelToDAL(ParcelBL p);
+        public Station ConvertBLStationToDAL(StationBL s);
         public CustomerBL GetSpesificCustomerBL(int customerId);
         public DroneBL GetSpesificDroneBL(int droneId);
         public ParcelBL GetSpesificParcelBL(int parcelId);

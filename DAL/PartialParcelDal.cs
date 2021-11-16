@@ -25,7 +25,7 @@ namespace DalObject
         /// <param name="parcel"></param>
         public void UpdateParcel(Parcel parcel)
         {
-            int index = DataSource.Parcels.FindIndex(d => d.id == parcel.id);
+            int index = DataSource.Parcels.FindIndex(d => d.ID == parcel.ID);
             DataSource.Parcels[index] = parcel.Clone();
         }
 
@@ -38,7 +38,7 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Parcels.First(parcel => parcel.id == parcelId);
+                return DataSource.Parcels.First(parcel => parcel.ID == parcelId);
             }
             catch
             {
@@ -66,7 +66,7 @@ namespace DalObject
         {
             foreach (Parcel parcel in DataSource.Parcels)
             {
-                if (parcel.droneId == null)
+                if (parcel.DroneId == null)
                     yield return parcel;
             }
         }

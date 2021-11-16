@@ -20,11 +20,11 @@ namespace BL
         public void AddStationDal(int id, int name, Location location, int chargeSlots)
         {
             Station station = new Station();
-            station.id = id;
-            station.name = name;
-            station.longitude = location.longitude;
-            station.latitude = location.latitude;
-            station.chargeSlots = chargeSlots;
+            station.ID = id;
+            station.Name = name;
+            station.Longitude = location.Longitude;
+            station.Latitude = location.Latitude;
+            station.ChargeSlots = chargeSlots;
             dalObj.AddStation(station);
         }
 
@@ -41,11 +41,11 @@ namespace BL
             StationBL station = new StationBL();
             try
             {
-                station.id = id;
-                station.name = name;
-                station.location.longitude = location.longitude;
-                station.location.latitude = location.latitude;
-                station.aveChargeSlots = chargeSlots;
+                station.ID = id;
+                station.Name = name;
+                station.Location.Longitude = location.Longitude;
+                station.Location.Latitude = location.Latitude;
+                station.AveChargeSlots = chargeSlots;
             }
             catch (InvalidID e)
             {
@@ -68,9 +68,9 @@ namespace BL
         {
             Station station = dalObj.GetSpesificStation(id);
             if (name != 0)
-                station.name = name;
+                station.Name = name;
             if (ChargeSlots != 0)
-                station.chargeSlots = ChargeSlots;
+                station.ChargeSlots = ChargeSlots;
         }
 
         /// <summary>
@@ -82,11 +82,11 @@ namespace BL
         {
             return new Station
             {
-                id = s.id, 
-                chargeSlots= (int)s.aveChargeSlots, 
-                latitude = s.location.latitude, 
-                longitude = s.location.longitude, 
-                name= s.name                 
+                ID = s.ID, 
+                ChargeSlots= (int)s.AveChargeSlots, 
+                Latitude = s.Location.Latitude, 
+                Longitude = s.Location.Longitude, 
+                Name= s.Name                 
             };
         }
 
@@ -99,10 +99,10 @@ namespace BL
         {
             return new StationBL
             {
-                id = s.id,
-                name = s.name,
-                location = new Location { latitude = s.latitude, longitude = s.longitude },
-                aveChargeSlots = s.chargeSlots
+                ID = s.ID,
+                Name = s.Name,
+                Location = new Location { Latitude = s.Latitude, Longitude = s.Longitude },
+                AveChargeSlots = s.ChargeSlots
             };
         }
 
@@ -144,9 +144,9 @@ namespace BL
             List<StationBL> stations = GetStationsBL();
             foreach (StationBL currentStation in stations)
             {
-                if (currentStation.aveChargeSlots > 0 && Distance(currentStation.location, Targlocation) < minDistance)
+                if (currentStation.AveChargeSlots > 0 && Distance(currentStation.Location, Targlocation) < minDistance)
                 {
-                    minDistance = Distance(currentStation.location, Targlocation);
+                    minDistance = Distance(currentStation.Location, Targlocation);
                     station = currentStation;
                 }
                 else

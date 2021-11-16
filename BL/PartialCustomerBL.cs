@@ -20,11 +20,11 @@ namespace BL
         public void AddCustomerDal(int id, int phone, string name, Location location)
         {
             Customer customer = new Customer();
-            customer.id = id;
-            customer.phoneNum = phone;
-            customer.name = name;
-            customer.longitude = location.longitude;
-            customer.latitude = location.latitude;
+            customer.ID = id;
+            customer.PhoneNum = phone;
+            customer.Name = name;
+            customer.Longitude = location.Longitude;
+            customer.Latitude = location.Latitude;
             dalObj.AddCustomer(customer);
         }
 
@@ -41,11 +41,11 @@ namespace BL
             CustomerBL customer = new CustomerBL();
             try
             {
-                customer.id = id;
-                customer.phoneNum = phone;
-                customer.name = name;
-                customer.location.longitude = location.longitude;
-                customer.location.latitude = location.latitude;
+                customer.ID = id;
+                customer.PhoneNum = phone;
+                customer.Name = name;
+                customer.Location.Longitude = location.Longitude;
+                customer.Location.Latitude = location.Latitude;
             }
             catch (InvalidID e)
             {
@@ -72,9 +72,9 @@ namespace BL
         {
             Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null)
-                customer.name = name;
+                customer.Name = name;
             if (phoneNum != 0)
-                customer.phoneNum = phoneNum;
+                customer.PhoneNum = phoneNum;
         }
 
         /// <summary>
@@ -86,11 +86,11 @@ namespace BL
         {
             return new Customer
             {
-                id = c.id, 
-                latitude = c.location.latitude, 
-                longitude = c.location.longitude, 
-                name= c.name, 
-                phoneNum= c.phoneNum                
+                ID = c.ID, 
+                Latitude = c.Location.Latitude, 
+                Longitude = c.Location.Longitude, 
+                Name= c.Name, 
+                PhoneNum= c.PhoneNum                
             };
         }
 
@@ -103,10 +103,10 @@ namespace BL
         {
             return new CustomerBL
             {
-                id = c.id,
-                name = c.name,
-                phoneNum = c.phoneNum,
-                location = new Location { latitude = c.latitude, longitude = c.longitude }
+                ID = c.ID,
+                Name = c.Name,
+                PhoneNum = c.PhoneNum,
+                Location = new Location { Latitude = c.Latitude, Longitude = c.Longitude }
             };
         }
 
