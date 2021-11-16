@@ -11,7 +11,13 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
-            IBL bl = new BL.BL.BL;
+
+
+
+
+
+       public static IBL.IBL bl =new BL.BL();
+
             int Option;
             do
             {

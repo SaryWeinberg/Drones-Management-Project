@@ -8,7 +8,7 @@ using IDAL.DO;
 
 namespace IBL
 {
-    interface IBL
+   public interface IBL
     {
         public void AddCustomerDal(int id, int phone, string name, Location location);
         public void AddDroneDal(int id, string model, WeightCategories maxWeight);

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class StationBL
+    public class StationBL
     {
         private int pid;
         private int pname;
-        public int id
-        {
+        public int id {
             get { return pid; }
             set
             {
@@ -20,8 +19,7 @@ namespace IBL.BO
                 else throw new InvalidID();
             }
         }
-        public int name
-        {
+        public int name {
             get { return pname; }
             set
             {

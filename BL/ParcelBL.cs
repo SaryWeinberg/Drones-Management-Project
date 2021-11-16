@@ -2,19 +2,18 @@
 
 namespace IBL.BO
 {
-    class ParcelBL
+    public class ParcelBL
     {
         private int pid;
-        public int id
-        {
+        public int id {
             get { return pid; }
             set
-            {            
+            {
                 if (value != null)
                     pid = value;
                 else throw new InvalidID();
             }
-        }        
+        }
         public CustomerInParcel sender { get; set; }
         public CustomerInParcel target { get; set; }
         public WeightCategories weight { get; set; }

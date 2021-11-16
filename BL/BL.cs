@@ -9,7 +9,7 @@ using IBL.BO;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    public partial class BL : IBL.IBL
     {
         IDal dalObj;
         List<IBL.BO.DroneBL> droneBlList;
@@ -104,7 +104,7 @@ namespace BL
 
             Station station = stations.Find(s => s.latitude == droneBL.location.latitude && s.longitude == droneBL.location.longitude);
             station.chargeSlots += 1;
-            
+
             dalObj.RemoveDroneInCharge(droneId);
         }
 
@@ -148,6 +148,7 @@ namespace BL
                                         BestParcel.drone.location = droneBL.location;
                                         BestParcel.drone.bettaryStatus = droneBL.batteryStatus;
                                         BestParcel.associated = DateTime.Now;
+                                        dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
                                         return;
                                     }
                                 }
@@ -165,7 +166,7 @@ namespace BL
         public void CollectParcelByDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
-            List<ParcelBL> parcels = GetParcelsBL();           
+            List<ParcelBL> parcels = GetParcelsBL();
             foreach (ParcelBL currentParcel in parcels)
             {
                 if (currentParcel.drone.id == droneId || currentParcel.associated != new DateTime() || currentParcel.pickedUp == new DateTime())

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class DroneInCharge
+    public class DroneInCharge
     {
         private int pid;
         public int id {
@@ -19,7 +19,7 @@ namespace IBL.BO
                 else
                     throw new InvalidID();
             }
-        }            
+        }
         public double bettaryStatus { get; set; }
     }
 }

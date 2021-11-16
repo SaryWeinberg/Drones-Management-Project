@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class CustomerBL
+    public class CustomerBL
     {
         private int pid;
         private string pname;
         private int pphoneNum;
 
-        public int id
-        {
+        public int id {
             get { return pid; }
             set
             {
@@ -25,8 +24,7 @@ namespace IBL.BO
             }
         }
 
-        public string name
-        {
+        public string name {
             get { return pname; }
             set
             {
@@ -38,8 +36,7 @@ namespace IBL.BO
             }
         }
 
-        public int phoneNum
-        {
+        public int phoneNum {
             get { return pphoneNum; }
             set
             {

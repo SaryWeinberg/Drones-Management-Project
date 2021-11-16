@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class DroneBL
+    public class DroneBL
     {
         private int pid;
-        public int id
-        {
+        public int id {
             get { return pid; }
             set
             {
                 if (value != null)
                     pid = value;
-                else 
+                else
                     throw new InvalidID();
             }
         }

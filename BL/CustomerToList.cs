@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class CustomerToList
+    public class CustomerToList
     {
         public ulong id { get; set; }
         public string name { get; set; }
