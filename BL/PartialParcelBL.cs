@@ -17,7 +17,7 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
-        public void AddParcelDal(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority)
+        public void AddParcelDal(int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
             Parcel parcel = new Parcel();
             //parcel.ID = ;
@@ -37,7 +37,7 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
-        public void AddParcelBL(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority)
+        public void AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
             ParcelBL parcel = new ParcelBL();
             try

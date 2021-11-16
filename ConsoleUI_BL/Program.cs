@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using IBL.BO;
@@ -11,7 +11,7 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
-            IBL.IBL.BL bl = new BL.BL.BL;
+            IBL bl = new BL.BL.BL;
             int Option;
             do
             {
@@ -259,4 +259,4 @@ namespace ConsoleUI
             }
         }
     }
-}*/
+}

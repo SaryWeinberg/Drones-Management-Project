@@ -85,8 +85,8 @@ namespace DalObject
 
                 //parcel.ID = config.ParcelsIndexer;
                 //------------------------------------------------
-                parcel.senderId = (ulong)(rand.Next() % Customers.Count);
-                parcel.targetId = (ulong)(rand.Next() % Customers.Count);
+                parcel.senderId = rand.Next() % Customers.Count;
+                parcel.targetId = rand.Next() % Customers.Count;
 
 
                 parcel.weight = (WeightCategories)(rand.Next(0, 2));

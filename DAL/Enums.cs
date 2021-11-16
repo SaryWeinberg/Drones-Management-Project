@@ -2,7 +2,7 @@
 
 public enum WeightCategories
 {
-    Light, Medium, Heavy
+    Light = 1, Medium, Heavy
 }
 
 public enum Priorities

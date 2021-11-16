@@ -114,7 +114,7 @@ namespace BL
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
-        public List<CustomerBL> GetCustomers()
+        public List<CustomerBL> GetCustomersBL()
         {
             List<Customer> customersDal = dalObj.GetCustomers();
             List<CustomerBL> customersBL = new List<CustomerBL>();

@@ -12,12 +12,12 @@ namespace IBL
     {
         public void AddCustomerDal(int id, int phone, string name, Location location);
         public void AddDroneDal(int id, string model, WeightCategories maxWeight);
-        public void AddParcelDal(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority);
+        public void AddParcelDal(int senderId, int targetId, WeightCategories weight, Priorities priority);
         public void AddStationDal(int id, int name, Location location, int chargeSlots);
         public void AddDroneChargeDAL(int stationID);
         public void AddCustomerBL(int id, int phone, string name, Location location);
         public void AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID);
-        public void AddParcelBL(ulong senderId, ulong targetId, WeightCategories weight, Priorities priority);
+        public void AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority);
         public void AddStationBL(int id, int name, Location location, int chargeSlots);
         public void UpdateCustomerData(int id, string name = null, int phoneNum = 0);
         public void UpdateDroneName(int id, string model);
@@ -30,7 +30,7 @@ namespace IBL
         public DroneBL GetSpesificDroneBL(int droneId);
         public ParcelBL GetSpesificParcelBL(int parcelId);
         public StationBL GetSpesificStationBL(int stationId);
-        public List<CustomerBL> GetCustomers();
+        public List<CustomerBL> GetCustomersBL();
         public List<DroneBL> GetDronesBL();
         public List<ParcelBL> GetParcelsBL();
         public List<StationBL> GetStationsBL();

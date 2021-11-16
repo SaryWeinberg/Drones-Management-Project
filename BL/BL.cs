@@ -116,17 +116,10 @@ namespace BL
             droneBL.status = DroneStatus.Available;
 
             List<Station> stations = dalObj.GetStations();
-            //try
 
             Station station = stations.Find(s => s.latitude == droneBL.location.latitude && s.longitude == droneBL.location.longitude);
             station.chargeSlots += 1;
-
-            ///////////////////////////////////////////////////
-            /*  }
-              throw new //זרוק שגיאה, לא קיימת תחנה כזאת
-              }*/
-            /////////////////////////////////////////
-            ///
+            
             dalObj.RemoveDroneInCharge(droneId);
         }
 
@@ -143,10 +136,10 @@ namespace BL
             List<Parcel> parcels = dalObj.GetParcels();
 
 
-              List<Parcel> objListOrder =
-    
-                
-                parcels.OrderBy(p => p.priority).ThenBy(p => (p.weight < droneBL.maxWeight) ).ToList();
+            List<Parcel> objListOrder =
+
+
+              parcels.OrderBy(p => p.priority).ThenBy(p => (p.weight < droneBL.maxWeight)).ToList();
 
 
             foreach (Parcel p in parcels)
@@ -183,12 +176,39 @@ namespace BL
 
         public void CollectParcelByDrone(int droneId)
         {
-
+            DroneBL droneBL = GetSpesificDroneBL(droneId);
+            List<ParcelBL> parcels = GetParcelsBL();           
+            foreach (ParcelBL currentParcel in parcels)
+            {
+                if (currentParcel.drone.id == droneId || currentParcel.associated != new DateTime() || currentParcel.pickedUp == new DateTime())
+                {
+                    throw new TheParcelCouldNotCollectedOrDelivered(currentParcel.id, "collected");
+                }
+                List<CustomerBL> customers = GetCustomersBL();
+                CustomerBL senderCustomer = customers.Find(c => c.id == currentParcel.sender.id);
+                droneBL.batteryStatus = Distance(droneBL.location, senderCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.maxWeight];
+                droneBL.location = senderCustomer.location;
+                currentParcel.pickedUp = DateTime.Now;
+            }
         }
 
         public void DeliveryParcelByDrone(int droneId)
         {
-
+            DroneBL droneBL = GetSpesificDroneBL(droneId);
+            List<ParcelBL> parcels = GetParcelsBL();
+            foreach (ParcelBL currentParcel in parcels)
+            {
+                if (currentParcel.drone.id != droneId || currentParcel.pickedUp == new DateTime() || currentParcel.delivered != new DateTime())
+                {
+                    throw new TheParcelCouldNotCollectedOrDelivered(currentParcel.id, "delivered");
+                }
+                List<CustomerBL> customers = GetCustomersBL();
+                CustomerBL targetCustomer = customers.Find(c => c.id == currentParcel.sender.id);
+                droneBL.batteryStatus = Distance(droneBL.location, targetCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.maxWeight];
+                droneBL.location = targetCustomer.location;
+                droneBL.status = DroneStatus.Available;
+                currentParcel.delivered = DateTime.Now;
+            }
         }
     }
 }

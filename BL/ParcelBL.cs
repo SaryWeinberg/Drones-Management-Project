@@ -15,7 +15,6 @@ namespace IBL.BO
                 else throw new InvalidID();
             }
         }        
-
         public CustomerInParcel sender { get; set; }
         public CustomerInParcel target { get; set; }
         public WeightCategories weight { get; set; }
