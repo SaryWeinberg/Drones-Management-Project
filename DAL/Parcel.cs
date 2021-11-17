@@ -8,21 +8,21 @@ namespace IDAL.DO
 {
     public struct Parcel
     {
-        public int id { get; set; }
-        public int senderId { get; set; }
-        public int targetId { get; set; }
-        public WeightCategories weight { get; set; }
-        public Priorities priority { get; set; }
-        public DateTime requested { get; set; }
-        public int droneId { get; set; }
-        public DateTime scheduled { get; set; }
-        public DateTime pickedUp { get; set; }
-        public DateTime delivered { get; set; }
-        public int active { get; set; }
+        public int ID { get; set; }
+        public int SenderId { get; set; }
+        public int TargetId { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public DateTime Requested { get; set; }
+        public int DroneId { get; set; }
+        public DateTime Scheduled { get; set; }
+        public DateTime PickedUp { get; set; }
+        public DateTime Delivered { get; set; }
+        public int Active { get; set; }
 
         public override string ToString()
         {
-            return "Parcel: " + id + " " + senderId + " " + targetId + " " + weight + " " + priority + " " + requested + " " + droneId + " " + scheduled + " " + pickedUp + " " + delivered;
+            return "Parcel: " + ID + " " + SenderId + " " + TargetId + " " + Weight + " " + Priority + " " + Requested + " " + DroneId + " " + Scheduled + " " + PickedUp + " " + Delivered;
         }
     }
 

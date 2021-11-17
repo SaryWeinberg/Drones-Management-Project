@@ -49,6 +49,5 @@ namespace IBL.BO
     public class TheParcelCouldNotCollectedOrDelivered : Exception
     {
         public TheParcelCouldNotCollectedOrDelivered(int id, string str) : base(String.Format($"The parcel ID - {id} could not be {str}")) { }
-    }   
-    
+    }       
 }

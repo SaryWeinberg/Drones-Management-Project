@@ -4,24 +4,24 @@ namespace IBL.BO
 {
     public class ParcelBL
     {
-        private int pid;
-        public int id {
-            get { return pid; }
+        private int id;
+        public int ID {
+            get { return id; }
             set
             {
                 if (value != null)
-                    pid = value;
+                    id = value;
                 else throw new InvalidID();
             }
         }
-        public CustomerInParcel sender { get; set; }
-        public CustomerInParcel target { get; set; }
-        public WeightCategories weight { get; set; }
-        public Priorities priority { get; set; }
-        public DroneInParcel drone { get; set; }
-        public DateTime created { get; set; }
-        public DateTime associated { get; set; }
-        public DateTime pickedUp { get; set; }
-        public DateTime delivered { get; set; }
+        public CustomerInParcel Sender { get; set; }
+        public CustomerInParcel Target { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public DroneInParcel Drone { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Associated { get; set; }
+        public DateTime PickedUp { get; set; }
+        public DateTime Delivered { get; set; }
     }
 }

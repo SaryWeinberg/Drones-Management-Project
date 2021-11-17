@@ -25,7 +25,7 @@ namespace DalObject
         /// <param name="station"></param>
         public void UpdateStation(Station station)
         {
-            int index = DataSource.Stations.FindIndex(d => d.id == station.id);
+            int index = DataSource.Stations.FindIndex(d => d.ID == station.ID);
             DataSource.Stations[index] = station.Clone();
         }
 
@@ -38,7 +38,7 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Stations.First(station => station.id == stationId);
+                return DataSource.Stations.First(station => station.ID == stationId);
             }
             catch
             {
@@ -69,10 +69,10 @@ namespace DalObject
                 int counter = 0;
                 foreach (DroneCharge droneCharge in DataSource.DroneCharges)
                 {
-                    if (station.id == droneCharge.StationId)
+                    if (station.ID == droneCharge.StationId)
                         counter++;
                 }
-                if (station.chargeSlots - counter > 0)
+                if (station.ChargeSlots - counter > 0)
                 {
                     yield return station;
                 }

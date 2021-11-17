@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDAL.DO
 {
-    static class CloningDal
+    public static class Cloning
     {
         public static T Clone<T>(this T original)
         {
