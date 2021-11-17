@@ -98,7 +98,8 @@ namespace BL
             droneBL.status = DroneStatus.Available;
             List<Station> stations = dalObj.GetStations();
             Station station = stations.Find(s => s.latitude == droneBL.location.latitude && s.longitude == droneBL.location.longitude);
-            station.chargeSlots += 1;            
+            station.chargeSlots += 1;
+            
             dalObj.RemoveDroneInCharge(droneId);
         }
 
