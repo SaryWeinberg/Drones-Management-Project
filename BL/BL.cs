@@ -190,6 +190,7 @@ namespace BL
                 dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel.Clone()));
                 return "The parcel was successfully collected by the drone!";
             }
+            return "";
         }
 
         /// <summary>
@@ -215,6 +216,7 @@ namespace BL
                 dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel.Clone()));
                 return "The parcel was successfully delivered by the drone!";
             }
+            return "";
         }
     }
 }

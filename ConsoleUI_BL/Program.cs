@@ -68,15 +68,17 @@ namespace ConsoleUI
                     //UpddateOption
                     case (int)UserOptions.Update:
                         Console.WriteLine("please select:\n" +
-                            "1-Assing a parcel to a drone\n" +
-                            "2-Collect a parcel by a drone\n" +
-                            "3-Provide parcel to customer\n" +
+                            "1-Update customer data\n" +
+                            "2-Update drone name\n" +
+                            "3-Update station data\n" +
                             "4-Send a drone to charge in a station\n" +
-                            "5-Release drone from charge in station"
+                            "5-Release drone from charge in station" +
+                            "6-Assing a parcel to a drone\n" +
+                            "7-Collect a parcel by a drone\n" +
+                            "8-Delivery parcel by drone"
                        );
                         int UpddateOption = int.Parse(Console.ReadLine());
-                        switch (UpddateOption)
-                        {
+                        switch (UpddateOption)                        {
 
                             case (int)UpdateOptions.UpdateCustomerData:
                                 Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID")));
@@ -195,7 +197,7 @@ namespace ConsoleUI
                 int Longitude = GetInt("station", "longitude");
                 int Latitude = GetInt("station", "latitude");
                 int ChargeSlots = GetInt("station", "charge slots");
-                Console.WriteLine( bl.AddStationBL(ID, Name, new Location { Longitude = Longitude, Latitude = Latitude }, ChargeSlots));
+                Console.WriteLine(bl.AddStationBL(ID, Name, new Location { Longitude = Longitude, Latitude = Latitude }, ChargeSlots));
             }
 
             static void addDrone(IBL.IBL bl)
@@ -205,7 +207,7 @@ namespace ConsoleUI
                 string MaxWeight = GetString("drone", "max weight");
                 WeightCategories maxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), MaxWeight);
                 int stationID = GetInt("station", "ID");
-                Console.WriteLine( bl.AddDroneBL(ID, Model, maxWeight, stationID));
+                Console.WriteLine(bl.AddDroneBL(ID, Model, maxWeight, stationID));
             }
 
             static void addCustomer(IBL.IBL bl)
@@ -213,9 +215,9 @@ namespace ConsoleUI
                 int id = GetInt("customer", "ID");
                 int phone = GetInt("customer", "phone");
                 string name = GetString("customer", "name");
-                int Longitude = GetInt("customer", "longitude"); 
+                int Longitude = GetInt("customer", "longitude");
                 int Latitude = GetInt("customer", "latitude");
-                Console.WriteLine( bl.AddCustomerBL(id, phone, name, new Location { Longitude = Longitude, Latitude = Latitude }));
+                Console.WriteLine(bl.AddCustomerBL(id, phone, name, new Location { Longitude = Longitude, Latitude = Latitude }));
             }
 
             static void addParcel(IBL.IBL bl)
@@ -226,7 +228,7 @@ namespace ConsoleUI
                 WeightCategories weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Weight);
                 string Priority = GetString("parcel", "priority");
                 Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), Priority);
-                Console.WriteLine( bl.AddParcelBL(SenderId, TargetId, weight, priority));
+                Console.WriteLine(bl.AddParcelBL(SenderId, TargetId, weight, priority));
             }
 
             static int GetInt(string typeOfInt, string item)
