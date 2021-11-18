@@ -56,6 +56,7 @@ namespace BL
                 throw e;
             }
             AddStationDal(id, name, location, chargeSlots);
+            return "Station added successfully!";
         }
 
         /// <summary>
@@ -64,13 +65,14 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="ChargeSlots"></param>
-        public void UpdateStationData(int id, int name = 0, int ChargeSlots = 0)
+        public string UpdateStationData(int id, int name = 0, int ChargeSlots = 0)
         {
             Station station = dalObj.GetSpesificStation(id);
             if (name != 0)
                 station.Name = name;
             if (ChargeSlots != 0)
                 station.ChargeSlots = ChargeSlots;
+            return "The update was successful!";
         }
 
         /// <summary>

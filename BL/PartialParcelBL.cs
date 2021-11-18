@@ -37,7 +37,7 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
-        public void AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority)
+        public string AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
             ParcelBL parcel = new ParcelBL();
             try
@@ -57,6 +57,7 @@ namespace BL
                 throw e;
             }
             AddParcelDal(senderId, targetId, weight, priority);
+            return "Parcel added successfully!";
         }
 
         /// <summary>

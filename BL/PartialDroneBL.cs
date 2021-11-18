@@ -46,7 +46,7 @@ namespace BL
         /// <param name="model"></param>
         /// <param name="maxWeight"></param>
         /// <param name="stationID"></param>
-        public void AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
+        public string AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
         {
             DroneBL droneBL = new DroneBL();
             try
@@ -68,6 +68,7 @@ namespace BL
             droneBlList.Add(droneBL.Clone());
             AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
+            return "Drone added successfully!";
         }
 
         /// <summary>
@@ -75,10 +76,11 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public void UpdateDroneName(int id, string model)
+        public string UpdateDroneName(int id, string model)
         {
             Drone drone = dalObj.GetSpesificDrone(id);
             drone.Model = model;
+            return "The update was successful!";
         }
 
         /// <summary>

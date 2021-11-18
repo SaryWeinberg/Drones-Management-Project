@@ -15,4 +15,29 @@ namespace IBL.BO
     {
         created, associated, collected, provided
     }
+
+    public enum UserOptions
+    {
+        Exit, Add, Update, Display, ListDisplay
+    }
+
+    public enum AddOptions
+    {
+        AddStation = 1, AddDrone, AddCustomer, AddParcel
+    }
+
+    public enum UpdateOptions
+    {
+        UpdateCustomerData = 1, UpdateDroneName, UpdateStationData, SendDroneToCharge, ReleaseDroneFromCharge, AssignParcelToDrone, CollectParcelByDrone, DeliveryParcelByDrone
+    }
+
+    public enum DisplayOptions
+    {
+        DisplayCustomer = 1, DisplayDrone, DisplayParcel, DisplayStation
+    }
+
+    public enum ListDisplayOptions
+    {
+        ViewStationLists = 1, ViewCustomerLists, ViewDroneLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
+    }
 }

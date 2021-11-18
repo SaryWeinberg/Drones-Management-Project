@@ -77,20 +77,30 @@ namespace ConsoleUI
                         int UpddateOption = int.Parse(Console.ReadLine());
                         switch (UpddateOption)
                         {
-                            case (int)UpdateOptions.AssingParcelToDrone:
-                                //DalObj.AssingParcelToDrone(DalObj.FindParcel(GetByID("parcel")));
+
+                            case (int)UpdateOptions.UpdateCustomerData:
+                                Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID")));
+                                break;
+                            case (int)UpdateOptions.UpdateDroneName:
+                                Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name")));
+                                break;
+                            case (int)UpdateOptions.UpdateStationData:
+                                Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID")));
+                                break;
+                            case (int)UpdateOptions.SendDroneToCharge:
+                                Console.WriteLine(bl.SendDroneToCharge(GetInt("drone", "ID")));
+                                break;
+                            case (int)UpdateOptions.ReleaseDroneFromCharge:
+                                Console.WriteLine(bl.ReleaseDroneFromCharge(GetInt("drone", "ID"), GetInt("charging", "time")));
+                                break;
+                            case (int)UpdateOptions.AssignParcelToDrone:
+                                Console.WriteLine(bl.AssignParcelToDrone(GetInt("drone", "ID")));
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
-                                //DalObj.CollectParcelByDrone(DalObj.FindParcel(GetByID("parcel")));
+                                Console.WriteLine(bl.CollectParcelByDrone(GetInt("drone", "ID")));
                                 break;
-                            case (int)UpdateOptions.ProvideParcelToCustomer:
-                                //DalObj.ProvideParcelToCustomer(DalObj.FindParcel(GetByID("parcel")));
-                                break;
-                            case (int)UpdateOptions.SendDroneToChargeInStation:
-                               // DalObj.SendDroneToChargeInStation(DalObj.FindDrone(GetByID("drone")), GetByID("Station"));
-                                break;
-                            case (int)UpdateOptions.ReleaseDroneFromChargeInStation:
-                                //DalObj.ReleaseDroneFromChargeInStation(DalObj.FindDrone(GetByID("drone")));
+                            case (int)UpdateOptions.DeliveryParcelByDrone:
+                                Console.WriteLine(bl.DeliveryParcelByDrone(GetInt("drone", "ID")));
                                 break;
                             default: Error(); break;
                         }
@@ -108,16 +118,16 @@ namespace ConsoleUI
                         switch (DisplayOption)
                         {
                             case (int)DisplayOptions.DisplayCustomer:
-                                //Console.WriteLine(BL.BL.GetSpesificCustomerBL());
+                                Console.WriteLine(bl.GetSpesificCustomerBL(GetInt("customer", "ID")));
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
-                                //Console.WriteLine(GetSpesificDrone(GetByID("Drone")));
+                                Console.WriteLine(bl.GetSpesificDroneBL(GetInt("drone", "ID")));
                                 break;
                             case (int)DisplayOptions.DisplayParcel:
-                                //Console.WriteLine(GetSpesificParcel(GetByID("Parcel")));
+                                Console.WriteLine(bl.GetSpesificParcelBL(GetInt("parcel", "ID")));
                                 break;
                             case (int)DisplayOptions.DisplayStation:
-                                //Console.WriteLine(GetSpesificStation(GetByID("Station")));
+                                Console.WriteLine(bl.GetSpesificStationBL(GetInt("station", "ID")));
                                 break;
                             default: Error(); break;
                         }
@@ -137,9 +147,9 @@ namespace ConsoleUI
                         switch (ListDisplayOption)
                         {
                             case (int)ListDisplayOptions.ViewStationLists:
-                               /* IEnumerable<Station> stations = DalObj.GetStationLists();
-                                Station[] stationList = stations.Cast<Station>().ToArray();
-                                PrintLists(stationList);*/
+                                /* IEnumerable<Station> stations = DalObj.GetStationLists();
+                                 Station[] stationList = stations.Cast<Station>().ToArray();
+                                 PrintLists(stationList);*/
                                 break;
                             case (int)ListDisplayOptions.ViewCustomerLists:
                                 /*IEnumerable<Customer> customers = DalObj.GetCustomerLists();
@@ -152,14 +162,14 @@ namespace ConsoleUI
                                 PrintLists(droneList);*/
                                 break;
                             case (int)ListDisplayOptions.ViewParcelLists:
-                               /* IEnumerable<Parcel> parcels = DalObj.GetParcelLists();
-                                Parcel[] parcelList = parcels.Cast<Parcel>().ToArray();
-                                PrintLists(parcelList);*/
+                                /* IEnumerable<Parcel> parcels = DalObj.GetParcelLists();
+                                 Parcel[] parcelList = parcels.Cast<Parcel>().ToArray();
+                                 PrintLists(parcelList);*/
                                 break;
                             case (int)ListDisplayOptions.ViewFreeParcelLists:
-                               /* parcels = DalObj.GetFreeParcelLists();
-                                parcelList = parcels.Cast<Parcel>().ToArray();
-                                PrintLists(parcelList);*/
+                                /* parcels = DalObj.GetFreeParcelLists();
+                                 parcelList = parcels.Cast<Parcel>().ToArray();
+                                 PrintLists(parcelList);*/
                                 break;
                             case (int)ListDisplayOptions.ViewAvailableStationLists:
                                 /*stations = DalObj.GetAvailableStationLists();
@@ -180,76 +190,57 @@ namespace ConsoleUI
 
             static void addStation(IBL.IBL bl)
             {
-                Console.WriteLine("Enter ID");
-                int ID = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Name");
-                int Name = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Longitude");
-                int Longitude = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Latitude");
-                int Latitude = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Charge Slots");
-                int ChargeSlots = int.Parse(Console.ReadLine());
-                Location x = new Location { Longitude = Longitude, Latitude = Latitude };
-                bl.AddStationBL(ID, Name, x, ChargeSlots);
+                int ID = GetInt("station", "ID");
+                int Name = GetInt("station", "name");
+                int Longitude = GetInt("station", "longitude");
+                int Latitude = GetInt("station", "latitude");
+                int ChargeSlots = GetInt("station", "charge slots");
+                Console.WriteLine( bl.AddStationBL(ID, Name, new Location { Longitude = Longitude, Latitude = Latitude }, ChargeSlots));
             }
 
             static void addDrone(IBL.IBL bl)
             {
-                Console.WriteLine("Enter ID");
-                int ID = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Model");
-                string Model = (Console.ReadLine());
-                Console.WriteLine("Enter Max Weight");
-                string MaxWeight = (Console.ReadLine());
+                int ID = GetInt("drone", "ID");
+                string Model = GetString("drone", "model");
+                string MaxWeight = GetString("drone", "max weight");
                 WeightCategories maxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), MaxWeight);
-                /*Console.WriteLine("Enter Battery Status");
-                double BatteryStatus = double.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Status");
-                string Status = (Console.ReadLine());
-                DroneStatus status = (DroneStatus)Enum.Parse(typeof(DroneStatus), Status);
-                Console.WriteLine("Enter Battery");
-                int Battery = int.Parse(Console.ReadLine());*/
-                Console.WriteLine("Enter Station ID");
-                int stationID = int.Parse(Console.ReadLine());
-                bl.AddDroneBL(ID, Model, maxWeight, stationID);
+                int stationID = GetInt("station", "ID");
+                Console.WriteLine( bl.AddDroneBL(ID, Model, maxWeight, stationID));
             }
 
             static void addCustomer(IBL.IBL bl)
             {
-                Console.WriteLine("Enter id");
-                int id = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter phone");
-                int phone = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter name");
-                string name = (Console.ReadLine());
-                Console.WriteLine("Enter Longitude");
-                int Longitude = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Latitude");
-                int Latitude = int.Parse(Console.ReadLine());
-                bl.AddCustomerBL(id, phone, name, new Location { Longitude = Longitude, Latitude = Latitude });
+                int id = GetInt("customer", "ID");
+                int phone = GetInt("customer", "phone");
+                string name = GetString("customer", "name");
+                int Longitude = GetInt("customer", "longitude"); 
+                int Latitude = GetInt("customer", "latitude");
+                Console.WriteLine( bl.AddCustomerBL(id, phone, name, new Location { Longitude = Longitude, Latitude = Latitude }));
             }
 
             static void addParcel(IBL.IBL bl)
             {
-                Console.WriteLine("Enter Sender Id");
-                int SenderId = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Target Id");
-                int TargetId = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Weight");
-                string Weight = (Console.ReadLine());
+                int SenderId = GetInt("sender", "ID");
+                int TargetId = GetInt("target", "ID");
+                string Weight = GetString("parcel", "weight");
                 WeightCategories weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), Weight);
-                Console.WriteLine("Enter Priority");
-                string Priority = (Console.ReadLine());
+                string Priority = GetString("parcel", "priority");
                 Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), Priority);
-                bl.AddParcelBL(SenderId, TargetId, weight, priority);
+                Console.WriteLine( bl.AddParcelBL(SenderId, TargetId, weight, priority));
             }
 
-            static int GetByID(string typeOfID)
+            static int GetInt(string typeOfInt, string item)
             {
-                Console.WriteLine($"Enter {typeOfID} ID");
-                int id = int.Parse(Console.ReadLine());
-                return id;
+                Console.WriteLine($"Enter {typeOfInt} {item}");
+                int integer = int.Parse(Console.ReadLine());
+                return integer;
+            }
+
+            static string GetString(string typeOfString, string item)
+            {
+                Console.WriteLine($"Enter {typeOfString} {item}");
+                string str = Console.ReadLine();
+                return str;
             }
 
             static void PrintLists<T>(T[] list)
