@@ -59,24 +59,6 @@ namespace BL
                     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-                    /*       List<DroneBL> DroneBLList = GetDronesBL();*/
-
-                    DroneList.
-                    List<Station> StationList = dalObj.getStations();
-                    List<Parcel> ParcelList = dalObj.getParcels();
-                    List<Customer> CustomerList = dalObj.getCustomers();
                 }
             }
         }

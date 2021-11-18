@@ -159,7 +159,7 @@ namespace ConsoleUI
                                 foreach (StationBL station in bl.GetStationsBL()) { Console.WriteLine(station); }
                                 break;
                             case (int)ListDisplayOptions.DisplayCustomersList:
-                                try { foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); } }
+                              foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); }
                                 break;
                             case (int)ListDisplayOptions.DisplayDronesList:
                                 foreach (DroneBL drone in bl.GetDronesBL()) { Console.WriteLine(drone); }
