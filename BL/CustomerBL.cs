@@ -7,53 +7,50 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class CustomerBL
+    public class CustomerBL
     {
-        private int pid;
-        private string pname;
-        private int pphoneNum;
+        private int id;
+        private string name;
+        private int phoneNum;
 
-        public int id
-        {
-            get { return pid; }
+        public int ID {
+            get { return id; }
             set
             {
-                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(pid))
-                    pid = value;
+                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id))
+                    id = value;
                 else
                     throw new InvalidID();
             }
         }
 
-        public string name
-        {
-            get { return pname; }
+        public string Name {
+            get { return name; }
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
-                    pname = value;
+                    name = value;
                 else
                     throw new InvalidName();
 
             }
         }
 
-        public int phoneNum
-        {
-            get { return pphoneNum; }
+        public int PhoneNum {
+            get { return phoneNum; }
             set
             {
                 if (value > 100000 && value < 10000000000)
-                    pid = value;
+                    id = value;
                 else
                     throw new InvalidPhoneNumber();
             }
         }
-        public Location location { get; set; }
+        public Location Location { get; set; }
 
-        public List<ParcelsAtTheCustomer> deliveryToCustomer = new List<ParcelsAtTheCustomer>();
+        public List<ParcelsAtTheCustomer> DeliveryToCustomer = new List<ParcelsAtTheCustomer>();
 
-        public List<ParcelsAtTheCustomer> deliveryFromCustomer = new List<ParcelsAtTheCustomer>();
+        public List<ParcelsAtTheCustomer> DeliveryFromCustomer = new List<ParcelsAtTheCustomer>();
     }
 }
 

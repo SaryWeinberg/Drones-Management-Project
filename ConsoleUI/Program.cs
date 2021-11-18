@@ -10,8 +10,8 @@ namespace ConsoleUI
     {
         static public void Main(string[] args)
         {
-*//*            IDal DalObj = new IDal();
-*//*            DalObject.DalObject DalObj = new DalObject.DalObject();
+            IDal DalObj = new IDal();
+            DalObject.DalObject DalObj = new DalObject.DalObject();
 
             int Option;
             do
@@ -57,7 +57,7 @@ namespace ConsoleUI
                             "2-Collect a parcel by a drone\n" +
                             "3-Provide parcel to customer\n" +
                             "4-Send a drone to charge in a station\n" +
-                            "5-Release drone from charge in station" 
+                            "5-Release drone from charge in station"
                        );
                         int UpddateOption = int.Parse(Console.ReadLine());
                         switch (UpddateOption)
@@ -66,7 +66,7 @@ namespace ConsoleUI
                                 DalObj.AssingParcelToDrone(DalObj.FindParcel(GetByID("parcel")));
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
-                                DalObj.CollectParcelByDrone(DalObj.FindParcel(GetByID("parcel"))) ;
+                                DalObj.CollectParcelByDrone(DalObj.FindParcel(GetByID("parcel")));
                                 break;
                             case (int)UpdateOptions.ProvideParcelToCustomer:
                                 DalObj.ProvideParcelToCustomer(DalObj.FindParcel(GetByID("parcel")));
@@ -92,16 +92,16 @@ namespace ConsoleUI
                         int DisplayOption = int.Parse(Console.ReadLine());
                         switch (DisplayOption)
                         {
-                            case (int)DisplayOptions.DisplayCustomer:                              
+                            case (int)DisplayOptions.DisplayCustomer:
                                 Console.WriteLine(DalObj.GetSpesificCustomer((ulong)GetByID("Customer")));
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
                                 Console.WriteLine(DalObj.GetSpesificDrone(GetByID("Drone")));
                                 break;
-                            case (int)DisplayOptions.DisplayParcel:                      
+                            case (int)DisplayOptions.DisplayParcel:
                                 Console.WriteLine(DalObj.GetSpesificParcel(GetByID("Parcel")));
                                 break;
-                            case (int)DisplayOptions.DisplayStation:                              
+                            case (int)DisplayOptions.DisplayStation:
                                 Console.WriteLine(DalObj.GetSpesificStation(GetByID("Station")));
                                 break;
                             default: Error(); break;
@@ -111,9 +111,9 @@ namespace ConsoleUI
                     //ListDisplay
                     case (int)UserOptions.ListDisplay:
                         Console.WriteLine("please select:\n" +
-                            "1-View Station Lists\n"+
+                            "1-View Station Lists\n" +
                            "2-View Customer Lists\n" +
-                           "3-View Drone Lists\n"+
+                           "3-View Drone Lists\n" +
                            "4-View Parcel Lists\n" +
                            "5-View Free Parcel Lists\n" +
                            "6-View Available Station Lists"
@@ -124,32 +124,32 @@ namespace ConsoleUI
                             case (int)ListDisplayOptions.ViewStationLists:
                                 IEnumerable<Station> stations = DalObj.GetStationLists();
                                 Station[] stationList = stations.Cast<Station>().ToArray();
-                                PrintLists(stationList); 
+                                PrintLists(stationList);
                                 break;
                             case (int)ListDisplayOptions.ViewCustomerLists:
                                 IEnumerable<Customer> customers = DalObj.GetCustomerLists();
                                 Customer[] customerList = customers.Cast<Customer>().ToArray();
-                                PrintLists(customerList); 
+                                PrintLists(customerList);
                                 break;
                             case (int)ListDisplayOptions.ViewDroneLists:
                                 IEnumerable<Drone> drones = DalObj.GetDroneLists();
                                 Drone[] droneList = drones.Cast<Drone>().ToArray();
-                                PrintLists(droneList); 
+                                PrintLists(droneList);
                                 break;
                             case (int)ListDisplayOptions.ViewParcelLists:
                                 IEnumerable<Parcel> parcels = DalObj.GetParcelLists();
                                 Parcel[] parcelList = parcels.Cast<Parcel>().ToArray();
-                                PrintLists(parcelList); 
+                                PrintLists(parcelList);
                                 break;
                             case (int)ListDisplayOptions.ViewFreeParcelLists:
                                 parcels = DalObj.GetFreeParcelLists();
                                 parcelList = parcels.Cast<Parcel>().ToArray();
-                                PrintLists(parcelList); 
+                                PrintLists(parcelList);
                                 break;
                             case (int)ListDisplayOptions.ViewAvailableStationLists:
                                 stations = DalObj.GetAvailableStationLists();
                                 stationList = stations.Cast<Station>().ToArray();
-                                PrintLists(stationList); 
+                                PrintLists(stationList);
                                 break;
                             default: Error(); break;
                         }
@@ -171,7 +171,7 @@ namespace ConsoleUI
                 int Latitude = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Charge Slots");
                 int ChargeSlots = int.Parse(Console.ReadLine());
-               // DalObj.AddStation(Longitude, Latitude, ChargeSlots);
+                // DalObj.AddStation(Longitude, Latitude, ChargeSlots);
             }
 
             static void addDrone(DalObject.DalObject DalObj)
@@ -218,9 +218,9 @@ namespace ConsoleUI
                 Priorities priority = (Priorities)Enum.Parse(typeof(Priorities), Priority);
                 Console.WriteLine("Enter Drone Id");
                 int DroneId = int.Parse(Console.ReadLine());
-              //  DalObj.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
+                //  DalObj.AddParcel(SenderId, TargetId, weight, priority, DateTime.Now, DroneId, DateTime.Now, DateTime.Now, DateTime.Now);
             }
-            
+
             static int GetByID(string typeOfID)
             {
                 Console.WriteLine($"Enter {typeOfID} ID");
@@ -241,9 +241,9 @@ namespace ConsoleUI
                 Console.WriteLine("ERROR");
             }
 
-           
 
- 
-        }       
+
+
+        }
     }
 }*/

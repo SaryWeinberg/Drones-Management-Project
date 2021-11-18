@@ -10,8 +10,6 @@ namespace BL
 {
     partial class BL : IBL.IBL
     {
-
-
         /// <summary>
         /// Functions for adding a customer to DAL
         /// </summary>
@@ -22,12 +20,12 @@ namespace BL
         public void AddCustomerDal(int id, int phone, string name, Location location)
         {
             Customer customer = new Customer();
-            customer.id = id;
-            customer.phoneNum = phone;
-            customer.name = name;
-            customer.longitude = location.longitude;
-            customer.latitude = location.latitude;
-            dalObj.AddCustomer(customer);
+            customer.ID = id;
+            customer.PhoneNum = phone;
+            customer.Name = name;
+            customer.Longitude = location.Longitude;
+            customer.Latitude = location.Latitude;
+            dalObj.AddCustomer(customer.Clone());
         }
 
         /// <summary>
@@ -38,16 +36,16 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
-        public void AddCustomerBL(int id, int phone, string name, Location location)
+        public string AddCustomerBL(int id, int phone, string name, Location location)
         {
             CustomerBL customer = new CustomerBL();
             try
             {
-                customer.id = id;
-                customer.phoneNum = phone;
-                customer.name = name;
-                customer.location.longitude = location.longitude;
-                customer.location.latitude = location.latitude;
+                customer.ID = id;
+                customer.PhoneNum = phone;
+                customer.Name = name;
+                customer.Location.Longitude = location.Longitude;
+                customer.Location.Latitude = location.Latitude;
             }
             catch (InvalidID e)
             {
@@ -62,6 +60,7 @@ namespace BL
                 throw e;
             }
             AddCustomerDal(id, phone, name, location);
+            return "Customer added successfully!";
         }
 
         /// <summary>
@@ -70,17 +69,35 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
-        public void UpdateCustomerData(int id, string name = null, int phoneNum = 0)
+        public string UpdateCustomerData(int id, string name = null, int phoneNum = 0)
         {
             Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null)
-                customer.name = name;
+                customer.Name = name;
             if (phoneNum != 0)
-                customer.phoneNum = phoneNum;
+                customer.PhoneNum = phoneNum;
+            return "The update was successful!";
         }
 
         /// <summary>
-        /// Convert from dal customer to BL customer
+        /// Convert from BL customer to DAL customer
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public Customer ConvertBLCustomerToDAL(CustomerBL c)
+        {
+            return new Customer
+            {
+                ID = c.ID, 
+                Latitude = c.Location.Latitude, 
+                Longitude = c.Location.Longitude, 
+                Name= c.Name, 
+                PhoneNum= c.PhoneNum                
+            };
+        }
+
+        /// <summary>
+        /// Convert from DAL customer to BL customer
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
@@ -88,10 +105,10 @@ namespace BL
         {
             return new CustomerBL
             {
-                id = c.id,
-                name = c.name,
-                phoneNum = c.phoneNum,
-                location = new Location { latitude = c.latitude, longitude = c.longitude }
+                ID = c.ID,
+                Name = c.Name,
+                PhoneNum = c.PhoneNum,
+                Location = new Location { Latitude = c.Latitude, Longitude = c.Longitude }
             };
         }
 
@@ -116,11 +133,11 @@ namespace BL
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
-        public List<CustomerBL> GetCustomers()
+        public List<CustomerBL> GetCustomersBL()
         {
             List<Customer> customersDal = dalObj.GetCustomers();
             List<CustomerBL> customersBL = new List<CustomerBL>();
-            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c.Clone())));
             return customersBL;
         }
     }

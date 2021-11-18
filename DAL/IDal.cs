@@ -36,8 +36,7 @@ namespace IDAL.DO
         public void UpdateDrone(Drone drone);
         public void UpdateCustomer(Customer customer);
         public void UpdateStation(Station station);
-        public void UpdateParcel(Parcel parcel);
-        
+        public void UpdateParcel(Parcel parcel);        
     }
 }
 

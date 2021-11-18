@@ -16,7 +16,7 @@ namespace DalObject
         /// <param name="customer"></param>
         public void AddCustomer(Customer customer)
         {
-            DataSource.Customers.Add(customer);
+            DataSource.Customers.Add(customer.Clone());
         }
 
         /// <summary>
@@ -25,8 +25,8 @@ namespace DalObject
         /// <param name="customer"></param>
         public void UpdateCustomer(Customer customer)
         {
-            int index = DataSource.Customers.FindIndex(d => d.id == customer.id);
-            DataSource.Customers[index] = customer;
+            int index = DataSource.Customers.FindIndex(d => d.ID == customer.ID);
+            DataSource.Customers[index] = customer.Clone();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Customers.First(customer => customer.id == customerId);
+                return DataSource.Customers.First(customer => customer.ID == customerId);
             }
             catch
             {

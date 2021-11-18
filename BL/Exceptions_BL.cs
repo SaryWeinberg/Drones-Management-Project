@@ -30,4 +30,24 @@ namespace IBL.BO
     {
         public ThereAreNoAvelableChargeSlots() : base(String.Format("There are no avelable charge slots")) { }
     }
+
+    public class TheDroneNotAvailable : Exception
+    {
+        public TheDroneNotAvailable() : base(String.Format("The drone is not available")) { }
+    }
+
+    public class TheDroneNotInCharge : Exception
+    {
+        public TheDroneNotInCharge() : base(String.Format("The drone cannot be released because it is not charged")) { }
+    }
+
+    public class CanNotAssignParcelToDrone : Exception
+    {
+        public CanNotAssignParcelToDrone() : base(String.Format("The drone can not take any parcel")) { }
+    }    
+
+    public class TheParcelCouldNotCollectedOrDelivered : Exception
+    {
+        public TheParcelCouldNotCollectedOrDelivered(int id, string str) : base(String.Format($"The parcel ID - {id} could not be {str}")) { }
+    }       
 }

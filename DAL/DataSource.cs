@@ -40,11 +40,11 @@ namespace DalObject
             for (int i = 0; i < 2; i++)
             {
                 Station station = new Station();
-                station.id = Stations.Count; 
-                station.name = Stations.Count; 
-                station.longitude = rand.Next();
-                station.latitude = rand.Next();
-                station.chargeSlots = rand.Next(10); //כמה רחפנים יש?
+                station.ID = Stations.Count; 
+                station.Name = Stations.Count; 
+                station.Longitude = rand.Next();
+                station.Latitude = rand.Next();
+                station.ChargeSlots = rand.Next(10); //כמה רחפנים יש?
 
                 //======================================================
                 Stations.Add(station);
@@ -55,9 +55,9 @@ namespace DalObject
             for (int i = 0; i < 5; i++)
             {
                 Drone drone = new Drone();
-                drone.id = Drones.Count;
-                drone.model = $"{Drones.Count}";
-                drone.maxWeight = (WeightCategories)(rand.Next(0, 2));
+                drone.ID = Drones.Count;
+                drone.Model = $"{Drones.Count}";
+                drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));
 /*                drone.Status = (DroneStatus)(rand.Next(0, 2));
                 drone.Battery = rand.Next(100);*/
                 //Drones[config.DronesIndexer] = drone;
@@ -68,11 +68,11 @@ namespace DalObject
             for (int i = 0; i < 10; i++)
             {
                 Customer customer = new Customer();
-                customer.id = Customers.Count;
-                customer.phoneNum = rand.Next(111111111, 999999999);
-                customer.name = $"Customer{i}";
-                customer.longitude = rand.Next();
-                customer.latitude = rand.Next();
+                customer.ID = Customers.Count;
+                customer.PhoneNum = rand.Next(111111111, 999999999);
+                customer.Name = $"Customer{i}";
+                customer.Longitude = rand.Next();
+                customer.Latitude = rand.Next();
                 //Customers[config.customersIndexer] = customer;
                 //config.customersIndexer++;
                 Customers.Add(customer);
@@ -81,22 +81,22 @@ namespace DalObject
             for (int i = 0; i < 10; i++)
             {
                 Parcel parcel = new Parcel();
-                parcel.id = Parcels.Count;
+                parcel.ID = Parcels.Count;
 
                 //parcel.ID = config.ParcelsIndexer;
                 //------------------------------------------------
-                parcel.senderId = (ulong)(rand.Next() % Customers.Count);
-                parcel.targetId = (ulong)(rand.Next() % Customers.Count);
+                parcel.SenderId = rand.Next() % Customers.Count;
+                parcel.TargetId = rand.Next() % Customers.Count;
 
 
-                parcel.weight = (WeightCategories)(rand.Next(0, 2));
-                parcel.priority = (Priorities)(rand.Next(0, 2));
-                parcel.requested = RandomDate();
+                parcel.Weight = (WeightCategories)(rand.Next(0, 2));
+                parcel.Priority = (Priorities)(rand.Next(0, 2));
+                parcel.Requested = RandomDate();
                 //---------------------------------------------------------
-                parcel.droneId = rand.Next() % Drones.Count;
-                parcel.scheduled = RandomDate();
-                parcel.pickedUp = RandomDate();
-                parcel.delivered = RandomDate();
+                parcel.DroneId = rand.Next() % Drones.Count;
+                parcel.Scheduled = RandomDate();
+                parcel.PickedUp = RandomDate();
+                parcel.Delivered = RandomDate();
                 //Parcels[config.ParcelsIndexer] = parcel;
                 //config.ParcelsIndexer++;
                 Parcels.Add(parcel);

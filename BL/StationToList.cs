@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class StationToList
+    public class StationToList
     {
-        public int id { get; set; }
-        public int name { get; set; }
-        public double aveChargeSlots { get; set; }
-        public double fullChargeSlots { get; set; }
+        public int ID { get; set; }
+        public int Name { get; set; }
+        public double AveChargeSlots { get; set; }
+        public double FullChargeSlots { get; set; }
     }
 }

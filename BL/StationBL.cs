@@ -6,33 +6,31 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class StationBL
+    public class StationBL
     {
-        private int pid;
-        private int pname;
-        public int id
-        {
-            get { return pid; }
+        private int id;
+        private int name;
+        public int ID {
+            get { return id; }
             set
             {
                 if (value != null)
-                    pid = value;
+                    id = value;
                 else throw new InvalidID();
             }
         }
-        public int name
-        {
-            get { return pname; }
+        public int Name {
+            get { return name; }
             set
             {
                 if (value != null)
-                    pname = value;
+                    name = value;
                 else throw new InvalidName();
             }
         }
-        public Location location { get; set; }
-        public double aveChargeSlots { get; set; }
+        public Location Location { get; set; }
+        public double AveChargeSlots { get; set; }
 
-        public List<DroneInCharge> dronesInChargelist = new List<DroneInCharge>();
+        public List<DroneInCharge> DronesInChargelist = new List<DroneInCharge>();
     }
 }

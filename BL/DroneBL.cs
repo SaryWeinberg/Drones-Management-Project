@@ -6,26 +6,25 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class DroneBL
+    public class DroneBL
     {
-        private int pid;
-        public int id
-        {
-            get { return pid; }
+        private int id;
+        public int ID {
+            get { return id; }
             set
             {
                 if (value != null)
-                    pid = value;
-                else 
+                    id = value;
+                else
                     throw new InvalidID();
             }
         }
-        public string model { get; set; }
-        public WeightCategories maxWeight { get; set; }
-        public double batteryStatus { get; set; }
-        public DroneStatus status { get; set; }
-        public ParcelByDelivery parcel { get; set; }
-        public Location location { get; set; }
+        public string Model { get; set; }
+        public WeightCategories MaxWeight { get; set; }
+        public double BatteryStatus { get; set; }
+        public DroneStatus Status { get; set; }
+        public ParcelByDelivery Parcel { get; set; }
+        public Location Location { get; set; }
     }
 }
 

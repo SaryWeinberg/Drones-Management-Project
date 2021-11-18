@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace IBL.BO
 {
-    class DroneInCharge
+    public class DroneInCharge
     {
-        private int pid;
-        public int id {
-            get { return pid; }
+        private int id;
+        public int ID {
+            get { return id; }
             set
             {
                 if (value != null)
-                    pid = value;
+                    id = value;
                 else
                     throw new InvalidID();
             }
-        }            
-        public double bettaryStatus { get; set; }
+        }
+        public double BettaryStatus { get; set; }
     }
 }

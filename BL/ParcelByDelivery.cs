@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class ParcelByDelivery
+    public class ParcelByDelivery
     {
-        public int id { get; set; }
-        public bool deliveryStatus { get; set; }
-        public double latitude { get; set; }
-        public WeightCategories weight { get; set; }
-        public Priorities property  { get; set; }
-        public CustomerInParcel sender { get; set; }
-        public CustomerInParcel target { get; set; }
-        public Location pickUpLocation { get; set; }
-        public Location targetLocation { get; set; }
-        public double distance { get; set; }
+        public int ID { get; set; }
+        public bool DeliveryStatus { get; set; }
+        public double Latitude { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Property { get; set; }
+        public CustomerInParcel Sender { get; set; }
+        public CustomerInParcel Target { get; set; }
+        public Location PickUpLocation { get; set; }
+        public Location TargetLocation { get; set; }
+        public double Distance { get; set; }
 
     }
 }

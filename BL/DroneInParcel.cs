@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class DroneInParcel
+    public class DroneInParcel
     {
-        public int id { get; set; }
-        public double bettaryStatus { get; set; }      
-        public Location location { get; set; }
+        public int ID { get; set; }
+        public double BettaryStatus { get; set; }
+        public Location Location { get; set; }
     }
 }
