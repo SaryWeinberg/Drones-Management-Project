@@ -38,6 +38,8 @@ namespace IBL
         public List<DroneBL> GetDronesBL();
         public List<ParcelBL> GetParcelsBL();
         public List<StationBL> GetStationsBL();
+        public List<ParcelBL> GetParcelsNotYetAssignedDroneList();
+        public List<StationBL> GEtAvailableStationsList();
         public StationBL GetNearestAvailableStation( Location Targlocation);
         public string SendDroneToCharge(int droneId);
         public string ReleaseDroneFromCharge(int droneId, int timeInCharge);

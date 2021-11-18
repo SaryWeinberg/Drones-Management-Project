@@ -137,10 +137,30 @@ namespace BL
             return stationsBL;
         }
 
-
-        public StationBL GetNearestAvailableStation( Location Targlocation)
+        /// <summary>
+        /// Returns stations with available charge slots
+        /// </summary>
+        /// <returns></returns>
+        public List<StationBL> GEtAvailableStationsList()
         {
+            List<StationBL> stationsBL = new List<StationBL>();
+            foreach(Station station in dalObj.GetStationLists())
+            {
+                if(station.ChargeSlots > 0)
+                {
+                    stationsBL.Add(ConvertDalStationToBL(station.Clone()));
+                }
+            }
+            return stationsBL;
+        }
 
+        /// <summary>
+        /// Returns the station in the location closest to the received location
+        /// </summary>
+        /// <param name="Targlocation"></param>
+        /// <returns></returns>
+        public StationBL GetNearestAvailableStation(Location Targlocation)
+        {
             double minDistance = 0;
             StationBL station = null;
             List<StationBL> stations = GetStationsBL();
@@ -156,7 +176,6 @@ namespace BL
                     throw new ThereAreNoAvelableChargeSlots();
                 }
             }
-
             return station;
         }
     }

@@ -138,45 +138,51 @@ namespace ConsoleUI
                     //ListDisplay
                     case (int)UserOptions.ListDisplay:
                         Console.WriteLine("please select:\n" +
-                            "1-View Station Lists\n" +
-                           "2-View Customer Lists\n" +
-                           "3-View Drone Lists\n" +
-                           "4-View Parcel Lists\n" +
-                           "5-View Free Parcel Lists\n" +
-                           "6-View Available Station Lists"
+                           "1-Display Stations List\n" +
+                           "2-Display Customers List\n" +
+                           "3-Display Drones List\n" +
+                           "4-Display Parcels List\n" +
+                           "5-Display Parcels Not Yet Assigned Drone List\n" +
+                           "6-Display Available Stations List"
                           );
                         int ListDisplayOption = int.Parse(Console.ReadLine());
                         switch (ListDisplayOption)
                         {
-                            case (int)ListDisplayOptions.ViewStationLists:
-                                /* IEnumerable<Station> stations = DalObj.GetStationLists();
-                                 Station[] stationList = stations.Cast<Station>().ToArray();
-                                 PrintLists(stationList);*/
+                            case (int)ListDisplayOptions.DisplayStationsList: 
+                                foreach(StationBL station in bl.GetStationsBL())
+                                {
+                                    Console.WriteLine(station);
+                                }
                                 break;
-                            case (int)ListDisplayOptions.ViewCustomerLists:
-                                /*IEnumerable<Customer> customers = DalObj.GetCustomerLists();
-                                Customer[] customerList = customers.Cast<Customer>().ToArray();
-                                PrintLists(customerList);*/
+                            case (int)ListDisplayOptions.DisplayCustomersList:
+                                foreach (CustomerBL customer in bl.GetCustomersBL())
+                                {
+                                    Console.WriteLine(customer);
+                                }
                                 break;
-                            case (int)ListDisplayOptions.ViewDroneLists:
-                                /*IEnumerable<Drone> drones = DalObj.GetDroneLists();
-                                Drone[] droneList = drones.Cast<Drone>().ToArray();
-                                PrintLists(droneList);*/
+                            case (int)ListDisplayOptions.DisplayDronesList:
+                                foreach (DroneBL drone in bl.GetDronesBL())
+                                {
+                                    Console.WriteLine(drone);
+                                }
                                 break;
-                            case (int)ListDisplayOptions.ViewParcelLists:
-                                /* IEnumerable<Parcel> parcels = DalObj.GetParcelLists();
-                                 Parcel[] parcelList = parcels.Cast<Parcel>().ToArray();
-                                 PrintLists(parcelList);*/
+                            case (int)ListDisplayOptions.DisplayParcelsList:
+                                foreach (ParcelBL parcel in bl.GetParcelsBL())
+                                {
+                                    Console.WriteLine(parcel);
+                                }
                                 break;
-                            case (int)ListDisplayOptions.ViewFreeParcelLists:
-                                /* parcels = DalObj.GetFreeParcelLists();
-                                 parcelList = parcels.Cast<Parcel>().ToArray();
-                                 PrintLists(parcelList);*/
+                            case (int)ListDisplayOptions.DisplayParcelsNotYetAssignedDroneList:
+                                foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList())
+                                {
+                                    Console.WriteLine(parcel);
+                                }
                                 break;
-                            case (int)ListDisplayOptions.ViewAvailableStationLists:
-                                /*stations = DalObj.GetAvailableStationLists();
-                                stationList = stations.Cast<Station>().ToArray();
-                                PrintLists(stationList);*/
+                            case (int)ListDisplayOptions.DisplayAvailableStationsList:
+                                foreach (StationBL station in bl.GEtAvailableStationsList())
+                                {
+                                    Console.WriteLine(station);
+                                }
                                 break;
                             default: Error(); break;
                         }

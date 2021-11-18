@@ -132,5 +132,22 @@ namespace BL
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p.Clone())));
             return parcelsBL;
         }
+
+        /// <summary>
+        /// Returns a list of parcels that have not yet been associated with a drone
+        /// </summary>
+        /// <returns></returns>
+        public List<ParcelBL> GetParcelsNotYetAssignedDroneList()
+        {
+            List<ParcelBL> parcelsBL = new List<ParcelBL>();
+            foreach (Parcel parcel in dalObj.GetParcels())
+            {
+                if(parcel.Requested == new DateTime())
+                {
+                    parcelsBL.Add(ConvertDalParcelToBL(parcel.Clone()));
+                }
+            }
+            return parcelsBL;
+        }
     }
 }
