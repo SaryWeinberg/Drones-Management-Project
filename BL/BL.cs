@@ -103,6 +103,8 @@ namespace BL
                 station.aveChargeSlots -= 1;
 
                 droneInCharge.bettaryStatus = drone.batteryStatus;
+
+
             }
         }
     }
