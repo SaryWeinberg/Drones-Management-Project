@@ -240,14 +240,6 @@ namespace ConsoleUI
                 return str;
             }
 
-            static void PrintLists<T>(T[] list)
-            {
-                foreach (T item in list)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-
             static void Error()
             {
                 Console.WriteLine("ERROR");

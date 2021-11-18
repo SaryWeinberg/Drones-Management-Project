@@ -74,11 +74,11 @@ namespace BL
                 DroneId = p.Drone.ID, 
                 PickedUp = p.PickedUp, 
                 Priority = p.Priority, 
-                Requested = p.Associated, 
+                Created = p.Associated, 
                 SenderId = p.Sender.ID, 
                 TargetId= p.Target.ID, 
                 Weight = p.Weight, 
-                Scheduled = p.Associated                 
+                Associated = p.Associated                 
             };
         }
 
@@ -93,7 +93,7 @@ namespace BL
             {
                 ID = p.ID,
                 //Drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
-                Associated = p.Requested,
+                Associated = p.Created,
                 Created = p.PickedUp,
                 Delivered = p.Delivered,
                 PickedUp = p.PickedUp,
@@ -142,7 +142,7 @@ namespace BL
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
             foreach (Parcel parcel in dalObj.GetParcels())
             {
-                if(parcel.Requested == new DateTime())
+                if(parcel.Created == new DateTime())
                 {
                     parcelsBL.Add(ConvertDalParcelToBL(parcel.Clone()));
                 }

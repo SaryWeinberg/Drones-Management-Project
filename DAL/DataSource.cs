@@ -91,10 +91,10 @@ namespace DalObject
 
                 parcel.Weight = (WeightCategories)(rand.Next(0, 2));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-                parcel.Requested = RandomDate();
+                parcel.Created = RandomDate();
                 //---------------------------------------------------------
                 parcel.DroneId = rand.Next() % Drones.Count;
-                parcel.Scheduled = RandomDate();
+                parcel.Associated = RandomDate();
                 parcel.PickedUp = RandomDate();
                 parcel.Delivered = RandomDate();
                 //Parcels[config.ParcelsIndexer] = parcel;
