@@ -141,7 +141,7 @@ namespace BL
         /// Returns stations with available charge slots
         /// </summary>
         /// <returns></returns>
-        public List<StationBL> GEtAvailableStationsList()
+        public List<StationBL> GetAvailableStationsList()
         {
             List<StationBL> stationsBL = new List<StationBL>();
             foreach(Station station in dalObj.GetStationLists())
