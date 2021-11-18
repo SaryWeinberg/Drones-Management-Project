@@ -117,7 +117,7 @@ namespace BL
             }
             catch (ObjectDoesNotExist e)
             {
-                throw e;
+                throw new ObjectNotExist(e.Message);
             }
         }
 
