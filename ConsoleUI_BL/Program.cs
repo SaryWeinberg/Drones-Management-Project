@@ -44,20 +44,20 @@ namespace ConsoleUI
                         {
                             case (int)AddOptions.AddStation:
                                 try { addStation(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e); }
+                                catch (InvalidID e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)AddOptions.AddDrone:
                                 try { addDrone(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e); }
+                                catch (InvalidID e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)AddOptions.AddCustomer:
                                 try { addCustomer(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e); }
-                                catch (InvalidName e) { Console.WriteLine(e); }
+                                catch (InvalidID e) { Console.WriteLine(e.Message); }
+                                catch (InvalidName e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)AddOptions.AddParcel:
                                 try { addParcel(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e); }
+                                catch (InvalidID e) { Console.WriteLine(e.Message); }
                                 break;
                             default:
                                 Error(); break;
@@ -72,13 +72,14 @@ namespace ConsoleUI
                             "2-Update drone name\n" +
                             "3-Update station data\n" +
                             "4-Send a drone to charge in a station\n" +
-                            "5-Release drone from charge in station" +
+                            "5-Release drone from charge in station\n" +
                             "6-Assing a parcel to a drone\n" +
                             "7-Collect a parcel by a drone\n" +
                             "8-Delivery parcel by drone"
                        );
                         int UpddateOption = int.Parse(Console.ReadLine());
-                        switch (UpddateOption)                        {
+                        switch (UpddateOption)
+                        {
 
                             case (int)UpdateOptions.UpdateCustomerData:
                                 Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID")));
@@ -87,16 +88,20 @@ namespace ConsoleUI
                                 Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name")));
                                 break;
                             case (int)UpdateOptions.UpdateStationData:
-                                Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID")));
+                                try { Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID"))); }
+                                catch (IDAL.DO.ObjectDoesNotExist e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.SendDroneToCharge:
-                                Console.WriteLine(bl.SendDroneToCharge(GetInt("drone", "ID")));
+                                try { Console.WriteLine(bl.SendDroneToCharge(GetInt("drone", "ID"))); }
+                                catch (ThereAreNoAvelableChargeSlots e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.ReleaseDroneFromCharge:
-                                Console.WriteLine(bl.ReleaseDroneFromCharge(GetInt("drone", "ID"), GetInt("charging", "time")));
+                                try { Console.WriteLine(bl.ReleaseDroneFromCharge(GetInt("drone", "ID"), GetInt("charging", "time"))); }
+                                catch (TheDroneNotInCharge e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.AssignParcelToDrone:
-                                Console.WriteLine(bl.AssignParcelToDrone(GetInt("drone", "ID")));
+                                try { Console.WriteLine(bl.AssignParcelToDrone(GetInt("drone", "ID"))); }
+                                catch (CanNotAssignParcelToDrone e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
                                 Console.WriteLine(bl.CollectParcelByDrone(GetInt("drone", "ID")));
@@ -120,7 +125,9 @@ namespace ConsoleUI
                         switch (DisplayOption)
                         {
                             case (int)DisplayOptions.DisplayCustomer:
-                                Console.WriteLine(bl.GetSpesificCustomerBL(GetInt("customer", "ID")));
+                                try { Console.WriteLine(bl.GetSpesificCustomerBL(GetInt("customer", "ID"))); }
+                                catch (InvalidID e) { Console.WriteLine(e.Message); }
+                                catch (IDAL.DO.ObjectDoesNotExist e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
                                 Console.WriteLine(bl.GetSpesificDroneBL(GetInt("drone", "ID")));
@@ -148,41 +155,24 @@ namespace ConsoleUI
                         int ListDisplayOption = int.Parse(Console.ReadLine());
                         switch (ListDisplayOption)
                         {
-                            case (int)ListDisplayOptions.DisplayStationsList: 
-                                foreach(StationBL station in bl.GetStationsBL())
-                                {
-                                    Console.WriteLine(station);
-                                }
+                            case (int)ListDisplayOptions.DisplayStationsList:
+                                foreach (StationBL station in bl.GetStationsBL()) { Console.WriteLine(station); }
                                 break;
                             case (int)ListDisplayOptions.DisplayCustomersList:
-                                foreach (CustomerBL customer in bl.GetCustomersBL())
-                                {
-                                    Console.WriteLine(customer);
-                                }
+                                try { foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); } }
+                                catch (InvalidID e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayDronesList:
-                                foreach (DroneBL drone in bl.GetDronesBL())
-                                {
-                                    Console.WriteLine(drone);
-                                }
+                                foreach (DroneBL drone in bl.GetDronesBL()) { Console.WriteLine(drone); }
                                 break;
                             case (int)ListDisplayOptions.DisplayParcelsList:
-                                foreach (ParcelBL parcel in bl.GetParcelsBL())
-                                {
-                                    Console.WriteLine(parcel);
-                                }
+                                foreach (ParcelBL parcel in bl.GetParcelsBL()) { Console.WriteLine(parcel); }
                                 break;
                             case (int)ListDisplayOptions.DisplayParcelsNotYetAssignedDroneList:
-                                foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList())
-                                {
-                                    Console.WriteLine(parcel);
-                                }
+                                foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList()) { Console.WriteLine(parcel); }
                                 break;
                             case (int)ListDisplayOptions.DisplayAvailableStationsList:
-                                foreach (StationBL station in bl.GEtAvailableStationsList())
-                                {
-                                    Console.WriteLine(station);
-                                }
+                                foreach (StationBL station in bl.GetAvailableStationsList()) { Console.WriteLine(station); }
                                 break;
                             default: Error(); break;
                         }
