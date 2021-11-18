@@ -25,15 +25,12 @@ namespace BL
             double heavy = ElectricUse[3];
             double chargingRate = ElectricUse[4];
             List<DroneBL> DroneList = GetDronesBL();
-
             List<Parcel> parcels = dalObj.GetParcels();
-    
             foreach (DroneBL drone in DroneList)
             {
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
                 if (!parcel.Equals(null) && parcel.Delivered != new DateTime())//ישנה חבילה ששויכה אך לא סופקה
                 {
-
                     drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
                     drone.Status = DroneStatus.Delivery;
                     if (parcel.PickedUp != new DateTime())//חבילה שלא נאספה
@@ -45,47 +42,67 @@ namespace BL
                         drone.Location = GetSpesificCustomerBL(parcel.SenderId).Location;
                     }
 
-
                 }
-
                 else
                 {
                     drone.Status = (DroneStatus)rand.Next(0, 1);
                     if (drone.Status == 0)
                     {
-
                         List<CustomerBL> customerBLs = GetCustomersBL();
-                        List<CustomerBL> customerBLhaveProvidedParcels;
+                        List<CustomerBL> customersWithParcelProvided;
+                        foreach (CustomerBL customer in customerBLs)
+                        {
+                            int counter = 0;
+                            foreach (ParcelsAtTheCustomer pac in customer.DeliveryToCustomer)
+                            {
+                                if (pac.Status == Status.provided)
+                                    counter++;
+                            }
+                            if (counter > 0)
+                                customersWithParcelProvided.Add(customer);
+
+
+                        }
+                        {
+
+                        }
+
+
+
                         foreach (CustomerBL customer in customerBLs)
                         {
                             if (customer.DeliveryToCustomer.status.)
 
-                        } } 
-
+                        }
+                    }
                     else
                     {
-
+                        drone.BatteryStatus = rand.Next(0, 20);
+                        List<StationBL> stationBLs = GetStationsBL();
+                        drone.Location = stationBLs[rand.Next(stationBLs.Count())].Location;
                     }
 
 
 
 
-                    }
 
 
+
+
+
+
+
+
+
+
+                    /*       List<DroneBL> DroneBLList = GetDronesBL();*/
+
+                    DroneList.
+                    List<Station> StationList = dalObj.getStations();
+                    List<Parcel> ParcelList = dalObj.getParcels();
+                    List<Customer> CustomerList = dalObj.getCustomers();
                 }
-
-
-
-
-
             }
-            /*       List<DroneBL> DroneBLList = GetDronesBL();*/
-
-            DroneList.
-            List<Station> StationList = dalObj.getStations();
-            List<Parcel> ParcelList = dalObj.getParcels();
-            List<Customer> CustomerList = dalObj.getCustomers();
         }
 
         /// <summary>
