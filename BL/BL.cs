@@ -48,32 +48,8 @@ namespace BL
                     drone.Status = (DroneStatus)rand.Next(0, 1);
                     if (drone.Status == 0)
                     {
-                        List<CustomerBL> customerBLs = GetCustomersBL();
-                        List<CustomerBL> customersWithParcelProvided;
-                        foreach (CustomerBL customer in customerBLs)
-                        {
-                            int counter = 0;
-                            foreach (ParcelsAtTheCustomer pac in customer.DeliveryToCustomer)
-                            {
-                                if (pac.Status == Status.provided)
-                                    counter++;
-                            }
-                            if (counter > 0)
-                                customersWithParcelProvided.Add(customer);
-
-
-                        }
-                        {
-
-                        }
-
-
-
-                        foreach (CustomerBL customer in customerBLs)
-                        {
-                            if (customer.DeliveryToCustomer.status.)
-
-                        }
+                        List<Parcel> parcelprovided = parcels.FindAll(p => !(p.PickedUp != new DateTime()));
+                        drone.Location = GetSpesificCustomerBL(parcelprovided[rand.Next(parcelprovided.Count())].TargetId).Location;
                     }
                     else
                     {
