@@ -46,5 +46,6 @@ namespace IBL
         public string AssignParcelToDrone(int droneId);
         public string CollectParcelByDrone(int droneId);
         public string DeliveryParcelByDrone(int droneId);
+        public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
     }
 }

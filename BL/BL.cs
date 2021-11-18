@@ -24,10 +24,68 @@ namespace BL
             double medium = ElectricUse[2];
             double heavy = ElectricUse[3];
             double chargingRate = ElectricUse[4];
-            /*List<Drone> DroneList = dalObj.getDrones();
+            List<DroneBL> DroneList = GetDronesBL();
+
+            List<Parcel> parcels = dalObj.GetParcels();
+    
+            foreach (DroneBL drone in DroneList)
+            {
+                Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
+                if (!parcel.Equals(null) && parcel.Delivered != new DateTime())//ישנה חבילה ששויכה אך לא סופקה
+                {
+
+                    drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
+                    drone.Status = DroneStatus.Delivery;
+                    if (parcel.PickedUp != new DateTime())//חבילה שלא נאספה
+                    {
+                        drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).Location).Location;
+                    }
+                    else//חייב להיות חבילה שלא סופקה 
+                    {
+                        drone.Location = GetSpesificCustomerBL(parcel.SenderId).Location;
+                    }
+
+
+                }
+
+                else
+                {
+                    drone.Status = (DroneStatus)rand.Next(0, 1);
+                    if (drone.Status == 0)
+                    {
+
+                        List<CustomerBL> customerBLs = GetCustomersBL();
+                        List<CustomerBL> customerBLhaveProvidedParcels;
+                        foreach (CustomerBL customer in customerBLs)
+                        {
+                            if (customer.DeliveryToCustomer.status.)
+
+                        } } 
+
+                    else
+                    {
+
+                    }
+
+
+
+
+                    }
+
+
+                }
+
+
+
+
+
+            }
+            /*       List<DroneBL> DroneBLList = GetDronesBL();*/
+
+            DroneList.
             List<Station> StationList = dalObj.getStations();
             List<Parcel> ParcelList = dalObj.getParcels();
-            List<Customer> CustomerList = dalObj.getCustomers();*/
+            List<Customer> CustomerList = dalObj.getCustomers();
         }
 
         /// <summary>
