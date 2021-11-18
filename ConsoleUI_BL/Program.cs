@@ -89,7 +89,7 @@ namespace ConsoleUI
                                 break;
                             case (int)UpdateOptions.UpdateStationData:
                                 try { Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID"))); }
-                                catch (IDAL.DO.ObjectDoesNotExist e) { Console.WriteLine(e.Message); }
+                                catch (ObjectNotExist e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.SendDroneToCharge:
                                 try { Console.WriteLine(bl.SendDroneToCharge(GetInt("drone", "ID"))); }
@@ -127,7 +127,7 @@ namespace ConsoleUI
                             case (int)DisplayOptions.DisplayCustomer:
                                 try { Console.WriteLine(bl.GetSpesificCustomerBL(GetInt("customer", "ID"))); }
                                 catch (InvalidID e) { Console.WriteLine(e.Message); }
-                                catch (IDAL.DO.ObjectDoesNotExist e) { Console.WriteLine(e.Message); }
+                                catch (ObjectNotExist e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
                                 Console.WriteLine(bl.GetSpesificDroneBL(GetInt("drone", "ID")));
@@ -160,7 +160,6 @@ namespace ConsoleUI
                                 break;
                             case (int)ListDisplayOptions.DisplayCustomersList:
                                 try { foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); } }
-                                catch (InvalidID e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayDronesList:
                                 foreach (DroneBL drone in bl.GetDronesBL()) { Console.WriteLine(drone); }
@@ -227,26 +226,18 @@ namespace ConsoleUI
                 Console.WriteLine(bl.AddParcelBL(SenderId, TargetId, weight, priority));
             }
 
-            static int GetInt(string typeOfInt, string item)
+            static int GetInt(string typeOf, string item)
             {
-                Console.WriteLine($"Enter {typeOfInt} {item}");
+                Console.WriteLine($"Enter {typeOf} {item}");
                 int integer = int.Parse(Console.ReadLine());
                 return integer;
             }
 
-            static string GetString(string typeOfString, string item)
+            static string GetString(string typeOf, string item)
             {
-                Console.WriteLine($"Enter {typeOfString} {item}");
+                Console.WriteLine($"Enter {typeOf} {item}");
                 string str = Console.ReadLine();
                 return str;
-            }
-
-            static void PrintLists<T>(T[] list)
-            {
-                foreach (T item in list)
-                {
-                    Console.WriteLine(item);
-                }
             }
 
             static void Error()
