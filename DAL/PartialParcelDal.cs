@@ -16,7 +16,7 @@ namespace DalObject
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
-            DataSource.Parcels.Add(parcel.Clone());
+            DataSource.Parcels.Add(parcel);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace DalObject
         public void UpdateParcel(Parcel parcel)
         {
             int index = DataSource.Parcels.FindIndex(d => d.ID == parcel.ID);
-            DataSource.Parcels[index] = parcel.Clone();
+            DataSource.Parcels[index] = parcel;
         }
 
         /// <summary>

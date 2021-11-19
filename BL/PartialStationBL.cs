@@ -25,7 +25,7 @@ namespace BL
             station.Longitude = location.Longitude;
             station.Latitude = location.Latitude;
             station.ChargeSlots = chargeSlots;
-            dalObj.AddStation(station.Clone());
+            dalObj.AddStation(station);
         }
 
         /// <summary>
@@ -84,11 +84,11 @@ namespace BL
         {
             return new Station
             {
-                ID = s.ID, 
-                ChargeSlots= (int)s.AveChargeSlots, 
-                Latitude = s.Location.Latitude, 
-                Longitude = s.Location.Longitude, 
-                Name= s.Name                 
+                ID = s.ID,
+                ChargeSlots = (int)s.AveChargeSlots,
+                Latitude = s.Location.Latitude,
+                Longitude = s.Location.Longitude,
+                Name = s.Name
             };
         }
 
@@ -133,7 +133,7 @@ namespace BL
         {
             List<Station> stationsDal = dalObj.GetStations();
             List<StationBL> stationsBL = new List<StationBL>();
-            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s.Clone())));
+            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
             return stationsBL;
         }
 
@@ -144,11 +144,11 @@ namespace BL
         public List<StationBL> GetAvailableStationsList()
         {
             List<StationBL> stationsBL = new List<StationBL>();
-            foreach(Station station in dalObj.GetStationLists())
+            foreach (Station station in dalObj.GetStationLists())
             {
-                if(station.ChargeSlots > 0)
+                if (station.ChargeSlots > 0)
                 {
-                    stationsBL.Add(ConvertDalStationToBL(station.Clone()));
+                    stationsBL.Add(ConvertDalStationToBL(station));
                 }
             }
             return stationsBL;
@@ -161,6 +161,7 @@ namespace BL
         /// <returns></returns>
         public StationBL GetNearestAvailableStation(Location Targlocation)
         {
+            bool flag = false;
             double minDistance = 0;
             StationBL station = null;
             List<StationBL> stations = GetStationsBL();
@@ -170,11 +171,12 @@ namespace BL
                 {
                     minDistance = Distance(currentStation.Location, Targlocation);
                     station = currentStation;
+                    flag = true;
                 }
-                else
-                {
-                    throw new ThereAreNoAvelableChargeSlots();
-                }
+            }
+            if (!flag)
+            {
+                throw new ThereAreNoAvelableChargeSlots();
             }
             return station;
         }

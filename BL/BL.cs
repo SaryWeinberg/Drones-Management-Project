@@ -41,15 +41,14 @@ namespace BL
                     {
                         drone.Location = GetSpesificCustomerBL(parcel.SenderId).Location;
                     }
-
                 }
                 else
                 {
                     drone.Status = (DroneStatus)rand.Next(0, 1);
                     if (drone.Status == 0)
                     {
-                        List<Parcel> parcelprovided = parcels.FindAll(p => !(p.PickedUp != new DateTime()));
-                        drone.Location = GetSpesificCustomerBL(parcelprovided[rand.Next(parcelprovided.Count())].TargetId).Location;
+                        List<Parcel> parcelProvided = parcels.FindAll(p => !(p.PickedUp != new DateTime()));
+                        drone.Location = GetSpesificCustomerBL(parcelProvided[rand.Next(parcelProvided.Count())].TargetId).Location;
                     }
                     else
                     {
@@ -57,8 +56,6 @@ namespace BL
                         List<StationBL> stationBLs = GetStationsBL();
                         drone.Location = stationBLs[rand.Next(stationBLs.Count())].Location;
                     }
-
-
                 }
             }
         }
@@ -119,8 +116,8 @@ namespace BL
             station.AveChargeSlots -= 1;
             droneCharge.StationId = station.ID;
             droneCharge.DroneId = drone.ID;
-            dalObj.UpdateDrone(ConvertBLDroneToDAL(drone.Clone()));
-            dalObj.UpdateStation(ConvertBLStationToDAL(station.Clone()));
+            dalObj.UpdateDrone(ConvertBLDroneToDAL(drone));
+            dalObj.UpdateStation(ConvertBLStationToDAL(station));
             dalObj.AddDroneCharge(droneCharge);
             return "The drone was sent for charging successfully!";
         }
@@ -189,7 +186,7 @@ namespace BL
                                         BestParcel.Drone.Location = droneBL.Location;
                                         BestParcel.Drone.BettaryStatus = droneBL.BatteryStatus;
                                         BestParcel.Associated = DateTime.Now;
-                                        dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel.Clone()));
+                                        dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
                                         return "The parcel was successfully associated with the drone!";
                                     }
                                 }
@@ -220,7 +217,7 @@ namespace BL
                 droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
                 droneBL.Location = senderCustomer.Location;
                 currentParcel.PickedUp = DateTime.Now;
-                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel.Clone()));
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
                 return "The parcel was successfully collected by the drone!";
             }
             return "";
@@ -246,7 +243,7 @@ namespace BL
                 droneBL.Location = targetCustomer.Location;
                 droneBL.Status = DroneStatus.Available;
                 currentParcel.Delivered = DateTime.Now;
-                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel.Clone()));
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
                 return "The parcel was successfully delivered by the drone!";
             }
             return "";

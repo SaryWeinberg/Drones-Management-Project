@@ -22,7 +22,7 @@ namespace BL
             droneDal.ID = id;
             droneDal.Model = model;
             droneDal.MaxWeight = maxWeight;
-            dalObj.AddDrone(droneDal.Clone());
+            dalObj.AddDrone(droneDal);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BL
             DroneCharge droneCharge = new DroneCharge();
             droneCharge.DroneId = stationID;
             droneCharge.StationId = stationID;
-            dalObj.AddDroneCharge(droneCharge.Clone());
+            dalObj.AddDroneCharge(droneCharge);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace BL
             {
                 throw e;
             }
-            droneBlList.Add(droneBL.Clone());
+            droneBlList.Add(droneBL);
             AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
             return "Drone added successfully!";
@@ -94,9 +94,14 @@ namespace BL
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
-                Model = d.Model
+                Model = d.Model, 
+                //צריך לאתחל את כל אלו בצורה נורמלית, עכשיו זה רק כדי שירוץ
+                BatteryStatus = 0, 
+                Location = new Location { Latitude = 0, Longitude = 0}, 
+                Parcel = new ParcelByDelivery(), 
+                Status = 0
+                //
             };
-            /*BatteryStatus*/
         }
 
         /// <summary>
@@ -139,21 +144,26 @@ namespace BL
         {
             List<Drone> dronesDal = dalObj.GetDrones();
             List<DroneBL> dronesBL = new List<DroneBL>();
-            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d.Clone())));
+            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
         }
 
-
-
+        /// <summary>
+        /// The function returns the total battery usage
+        /// </summary>
+        /// <param name="senderId"></param>
+        /// <param name="targetId"></param>
+        /// <param name="parcelweight"></param>
+        /// <param name="droneLocation"></param>
+        /// <returns></returns>
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation)
         {
-
             return ((Distance(droneLocation,
             GetSpesificCustomerBL(senderId).Location) * dalObj.ElectricalPowerRequest()[0])//מרחק שולח מהרחפן*צריכה כשהוא ריק 
-        + (Distance(GetSpesificCustomerBL(senderId).Location, GetSpesificCustomerBL(targetId).Location) * dalObj.ElectricalPowerRequest()[parcelweight])
-        + (Distance(GetSpesificCustomerBL(targetId).Location, GetNearestAvailableStation(GetSpesificCustomerBL(targetId).Location).Location) * dalObj.ElectricalPowerRequest()[0]));
+            + (Distance(GetSpesificCustomerBL(senderId).Location, GetSpesificCustomerBL(targetId).Location) * dalObj.ElectricalPowerRequest()[parcelweight])
+            + (Distance(GetSpesificCustomerBL(targetId).Location, GetNearestAvailableStation(GetSpesificCustomerBL(targetId).Location).Location) * dalObj.ElectricalPowerRequest()[0]));
         }
     }
 }
-    
-    
+
+

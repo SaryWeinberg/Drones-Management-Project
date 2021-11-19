@@ -44,20 +44,19 @@ namespace ConsoleUI
                         {
                             case (int)AddOptions.AddStation:
                                 try { addStation(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)AddOptions.AddDrone:
                                 try { addDrone(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)AddOptions.AddCustomer:
                                 try { addCustomer(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e.Message); }
-                                catch (InvalidName e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)AddOptions.AddParcel:
                                 try { addParcel(bl); }
-                                catch (InvalidID e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             default:
                                 Error(); break;
@@ -80,7 +79,6 @@ namespace ConsoleUI
                         int UpddateOption = int.Parse(Console.ReadLine());
                         switch (UpddateOption)
                         {
-
                             case (int)UpdateOptions.UpdateCustomerData:
                                 Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID")));
                                 break;
@@ -89,19 +87,19 @@ namespace ConsoleUI
                                 break;
                             case (int)UpdateOptions.UpdateStationData:
                                 try { Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID"))); }
-                                catch (ObjectNotExist e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.SendDroneToCharge:
                                 try { Console.WriteLine(bl.SendDroneToCharge(GetInt("drone", "ID"))); }
-                                catch (ThereAreNoAvelableChargeSlots e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.ReleaseDroneFromCharge:
                                 try { Console.WriteLine(bl.ReleaseDroneFromCharge(GetInt("drone", "ID"), GetInt("charging", "time"))); }
-                                catch (TheDroneNotInCharge e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.AssignParcelToDrone:
                                 try { Console.WriteLine(bl.AssignParcelToDrone(GetInt("drone", "ID"))); }
-                                catch (CanNotAssignParcelToDrone e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
                                 Console.WriteLine(bl.CollectParcelByDrone(GetInt("drone", "ID")));
@@ -126,8 +124,7 @@ namespace ConsoleUI
                         {
                             case (int)DisplayOptions.DisplayCustomer:
                                 try { Console.WriteLine(bl.GetSpesificCustomerBL(GetInt("customer", "ID"))); }
-                                catch (InvalidID e) { Console.WriteLine(e.Message); }
-                                catch (ObjectNotExist e) { Console.WriteLine(e.Message); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
                                 Console.WriteLine(bl.GetSpesificDroneBL(GetInt("drone", "ID")));
@@ -159,7 +156,7 @@ namespace ConsoleUI
                                 foreach (StationBL station in bl.GetStationsBL()) { Console.WriteLine(station); }
                                 break;
                             case (int)ListDisplayOptions.DisplayCustomersList:
-                              foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); }
+                                foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); }
                                 break;
                             case (int)ListDisplayOptions.DisplayDronesList:
                                 foreach (DroneBL drone in bl.GetDronesBL()) { Console.WriteLine(drone); }

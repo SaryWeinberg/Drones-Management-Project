@@ -26,7 +26,7 @@ namespace BL
             parcel.Weight = weight;
             parcel.Priority = priority;
             //parcel.DroneId = droneId;
-            dalObj.AddParcel(parcel.Clone());
+            dalObj.AddParcel(parcel);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace BL
         {
             List<Parcel> parcelsDal = dalObj.GetParcels();
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
-            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p.Clone())));
+            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
             return parcelsBL;
         }
 
@@ -144,7 +144,7 @@ namespace BL
             {
                 if(parcel.Created == new DateTime())
                 {
-                    parcelsBL.Add(ConvertDalParcelToBL(parcel.Clone()));
+                    parcelsBL.Add(ConvertDalParcelToBL(parcel));
                 }
             }
             return parcelsBL;

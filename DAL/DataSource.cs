@@ -8,30 +8,16 @@ using IDAL.DO;
 namespace DalObject
 {
     public class DataSource
-    {
-        /// <arrays>
-        /// 
+    {        
         static internal List<Drone> Drones = new List<Drone>();
         static internal List<Station> Stations = new List<Station>();
         static internal List<Customer> Customers = new List<Customer>();
         static internal List<Parcel> Parcels = new List<Parcel>();
         static internal List<DroneCharge> DroneCharges = new List<DroneCharge>();
 
-        //static internal Drone[] Drones = new Drone[10];
-        //static internal Station[] Stations = new Station[5];
-        //static internal Customer[] Customers = new Customer[100];
-        //static internal Parcel[] Parcels = new Parcel[100];
-        //static internal DroneCharge[] droneCharges = new DroneCharge[0];
-        /// </arrays>
-
         internal class config
         {
-            public static double Available, Light, medium, heavy, chargingRate;
-        //    static internal int DronesIndexer = 0;
-        //    static internal int StationsIndexer = 0;
-        //    static internal int customersIndexer = 0;
-        //    static internal int ParcelsIndexer = 0;
-        //    static internal int DroneChargeIndexer = 0;
+            public static double Available, Light, medium, heavy, chargingRate;       
         }
 
         static public void Initialize()
@@ -44,12 +30,8 @@ namespace DalObject
                 station.Name = Stations.Count; 
                 station.Longitude = rand.Next();
                 station.Latitude = rand.Next();
-                station.ChargeSlots = rand.Next(10); //כמה רחפנים יש?
-
-                //======================================================
-                Stations.Add(station);
-                //Stations[config.StationsIndexer] = station;
-                //config.StationsIndexer++;
+                station.ChargeSlots = rand.Next(100);
+                Stations.Add(station);                
             }
 
             for (int i = 0; i < 5; i++)
@@ -57,24 +39,18 @@ namespace DalObject
                 Drone drone = new Drone();
                 drone.ID = Drones.Count;
                 drone.Model = $"{Drones.Count}";
-                drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));
-/*                drone.Status = (DroneStatus)(rand.Next(0, 2));
-                drone.Battery = rand.Next(100);*/
-                //Drones[config.DronesIndexer] = drone;
-                //config.DronesIndexer++;
+                drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));                
                 Drones.Add(drone);
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 11; i++)
             {
                 Customer customer = new Customer();
-                customer.ID = Customers.Count;
+                customer.ID = rand.Next(100000000, 999999999); 
                 customer.PhoneNum = rand.Next(111111111, 999999999);
                 customer.Name = $"Customer{i}";
                 customer.Longitude = rand.Next();
-                customer.Latitude = rand.Next();
-                //Customers[config.customersIndexer] = customer;
-                //config.customersIndexer++;
+                customer.Latitude = rand.Next();                
                 Customers.Add(customer);
             }
 
@@ -82,23 +58,15 @@ namespace DalObject
             {
                 Parcel parcel = new Parcel();
                 parcel.ID = Parcels.Count;
-
-                //parcel.ID = config.ParcelsIndexer;
-                //------------------------------------------------
-                parcel.SenderId = rand.Next() % Customers.Count;
-                parcel.TargetId = rand.Next() % Customers.Count;
-
-
+                parcel.SenderId = Customers[i].ID;
+                parcel.TargetId = Customers[i+1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(0, 2));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
                 parcel.Created = RandomDate();
-                //---------------------------------------------------------
                 parcel.DroneId = rand.Next() % Drones.Count;
                 parcel.Associated = RandomDate();
                 parcel.PickedUp = RandomDate();
-                parcel.Delivered = RandomDate();
-                //Parcels[config.ParcelsIndexer] = parcel;
-                //config.ParcelsIndexer++;
+                parcel.Delivered = RandomDate();                
                 Parcels.Add(parcel);
             }
         }
