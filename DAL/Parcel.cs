@@ -24,9 +24,6 @@ namespace IDAL.DO
         {
             return "Parcel: " + ID + " " + SenderId + " " + TargetId + " " + Weight + " " + Priority + " " + Created + " " + DroneId + " " + Associated + " " + PickedUp + " " + Delivered;
         }
-    }
-
-
-    
+    }    
 }
 

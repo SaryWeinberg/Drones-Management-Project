@@ -23,5 +23,10 @@ namespace IBL.BO
         public DateTime Associated { get; set; }
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
+
+        public override string ToString()
+        {
+            return "Parcel: " + ID + " " + Sender + " " + Target + " " + Weight + " " + Priority + " " + Drone + " " + Created + " " + Associated + " " + PickedUp + " " + Delivered;
+        }
     }
 }

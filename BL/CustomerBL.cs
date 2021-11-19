@@ -51,6 +51,11 @@ namespace IBL.BO
         public List<ParcelsAtTheCustomer> DeliveryToCustomer = new List<ParcelsAtTheCustomer>();
 
         public List<ParcelsAtTheCustomer> DeliveryFromCustomer = new List<ParcelsAtTheCustomer>();
+
+        public override string ToString()
+        {
+            return "Customer: " + ID + " " + PhoneNum + " " + Name + " " + Location;
+        }
     }
 }
 

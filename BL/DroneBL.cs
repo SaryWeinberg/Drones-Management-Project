@@ -25,6 +25,11 @@ namespace IBL.BO
         public DroneStatus Status { get; set; }
         public ParcelByDelivery Parcel { get; set; }
         public Location Location { get; set; }
+
+        public override string ToString()
+        {
+            return "Drone: " + ID + " " + Model + " " + MaxWeight + " " + BatteryStatus + " " + Status + " " + Parcel + " " + Location;
+        }
     }
 }
 

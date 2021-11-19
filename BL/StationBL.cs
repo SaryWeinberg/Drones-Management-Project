@@ -32,5 +32,10 @@ namespace IBL.BO
         public double AveChargeSlots { get; set; }
 
         public List<DroneInCharge> DronesInChargelist = new List<DroneInCharge>();
+
+        public override string ToString()
+        {
+            return "Station: " + ID + " " + Name + " " + Location + " " + AveChargeSlots;
+        }
     }
 }
