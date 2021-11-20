@@ -35,7 +35,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return "Station: " + ID + " " + Name + " " + Location + " " + AveChargeSlots;
+            return "Station:id:  " + ID + " Name: " + Name + " Location: " + Location + " Avelable ChargeSlots: " + AveChargeSlots;
         }
     }
 }

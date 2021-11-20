@@ -26,7 +26,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return "Parcel: " + ID + " " + Sender + " " + Target + " " + Weight + " " + Priority + " " + Drone + " " + Created + " " + Associated + " " + PickedUp + " " + Delivered;
+            return "Parcel: id: " + ID + " Sender:  " + Sender + "  Target:  " + Target + " Weight: " + Weight + " Priority: " + Priority + " Drone: " + Drone + "\nCreated: " + Created + " Associated: " + Associated + " PickedUp: " + PickedUp + " Delivered: " + Delivered;
         }
     }
 }

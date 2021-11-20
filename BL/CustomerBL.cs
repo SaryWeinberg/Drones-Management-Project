@@ -41,7 +41,7 @@ namespace IBL.BO
             set
             {
                 if (value > 100000 && value < 10000000000)
-                    id = value;
+                  phoneNum = value;
                 else
                     throw new InvalidPhoneNumber();
             }
@@ -54,7 +54,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return "Customer: " + ID + " " + PhoneNum + " " + Name + " " + Location;
+            return "Customer: id: " + ID + " Phone number: " + PhoneNum + " name: " + Name + " location: " + Location;
         }
     }
 }

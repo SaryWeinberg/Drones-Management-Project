@@ -58,14 +58,18 @@ namespace BL
                 droneBL.Status = DroneStatus.Maintenance;
 
                 Station station = dalObj.GetSpesificStation(id);
-                droneBL.Location.Longitude = station.Longitude;
-                droneBL.Location.Latitude = station.Latitude;
+                Location Slocation = new Location();
+                Slocation.Longitude = station.Longitude; ;
+                Slocation.Latitude = station.Latitude;
+                droneBL.Location = Slocation;
+              
             }
             catch (InvalidID e)
             {
                 throw e;
             }
-            droneBlList.Add(droneBL);
+            
+/*            droneBlList.Add(droneBL);*/
             AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
             return "Drone added successfully!";
@@ -76,10 +80,15 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public string UpdateDroneName(int id, string model)
+        public string UpdateDroneName(int id, string model ="")
         {
-            Drone drone = dalObj.GetSpesificDrone(id);
-            drone.Model = model;
+            
+            if (model != "")
+            {
+                Drone drone = dalObj.GetSpesificDrone(id);
+                drone.Model = model;
+                dalObj.UpdateDrone(drone);
+            }
             return "The update was successful!";
         }
 
@@ -126,14 +135,14 @@ namespace BL
         /// <returns></returns>
         public DroneBL GetSpesificDroneBL(int droneId)
         {
-            try
-            {
+           /* try
+            {*/
                 return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));
-            }
-            catch (ObjectDoesNotExist e)
+           /* }*/
+          /*  catch (ObjectDoesNotExist e)
             {
                 throw new ObjectNotExist(e.Message);
-            }
+            }*/
         }
 
         /// <summary>

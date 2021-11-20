@@ -36,14 +36,12 @@ namespace DalObject
         /// <returns></returns>
         public Station GetSpesificStation(int stationId)
         {
-            try
-            {
+            
+            
                 return DataSource.Stations.First(station => station.ID == stationId);
-            }
-            catch
-            {
-                throw new ObjectDoesNotExist("Station", stationId);
-            }
+             
+            
+           
         }
 
         /// <summary>

@@ -17,14 +17,15 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
-        public void AddParcelDal(int senderId, int targetId, WeightCategories weight, Priorities priority)
+        public void AddParcelDal(int id,int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
             Parcel parcel = new Parcel();
-            //parcel.ID = ;
+            parcel.ID = id;
             parcel.SenderId = senderId;
             parcel.TargetId = targetId;
             parcel.Weight = weight;
             parcel.Priority = priority;
+            parcel.Created = DateTime.Now;
             //parcel.DroneId = droneId;
             dalObj.AddParcel(parcel);
         }
@@ -42,8 +43,19 @@ namespace BL
             ParcelBL parcel = new ParcelBL();
             try
             {
-                parcel.Sender.ID = senderId;
-                parcel.Target.ID = targetId;
+
+                CustomerInParcel Scustomer = new CustomerInParcel();
+                Scustomer.ID = senderId;
+                Scustomer.Name = GetSpesificCustomerBL(senderId).Name;
+
+
+                CustomerInParcel Tcustomer = new CustomerInParcel();
+                Tcustomer.ID = targetId;
+                Tcustomer.Name = GetSpesificCustomerBL(targetId).Name;
+
+                parcel.ID = GetCustomersBL().Count();
+                parcel.Sender = Scustomer;
+                parcel.Target= Tcustomer;
                 parcel.Weight = weight;
                 parcel.Priority = priority;
                 parcel.Drone = null;
@@ -56,7 +68,7 @@ namespace BL
             {
                 throw e;
             }
-            AddParcelDal(senderId, targetId, weight, priority);
+            AddParcelDal(parcel.ID,senderId, targetId, weight, priority);
             return "Parcel added successfully!";
         }
 
@@ -69,16 +81,16 @@ namespace BL
         {
             return new Parcel
             {
-                ID = p.ID, 
-                Delivered = p.Delivered, 
-                DroneId = p.Drone.ID, 
-                PickedUp = p.PickedUp, 
-                Priority = p.Priority, 
-                Created = p.Associated, 
-                SenderId = p.Sender.ID, 
-                TargetId= p.Target.ID, 
-                Weight = p.Weight, 
-                Associated = p.Associated                 
+                ID = p.ID,
+                Delivered = p.Delivered,
+                DroneId = p.Drone.ID,
+                PickedUp = p.PickedUp,
+                Priority = p.Priority,
+                Created = p.Associated,
+                SenderId = p.Sender.ID,
+                TargetId = p.Target.ID,
+                Weight = p.Weight,
+                Associated = p.Associated
             };
         }
 
@@ -89,8 +101,19 @@ namespace BL
         /// <returns></returns>
         public ParcelBL ConvertDalParcelToBL(Parcel p)
         {
+            CustomerInParcel Scustomer = new CustomerInParcel();
+            Scustomer.ID = p.SenderId;
+            Scustomer.Name = GetSpesificCustomerBL(p.SenderId).Name;
+
+
+            CustomerInParcel Tcustomer = new CustomerInParcel();
+            Tcustomer.ID = p.TargetId;
+            Tcustomer.Name = GetSpesificCustomerBL(p.TargetId).Name;
             return new ParcelBL
+
             {
+
+
                 ID = p.ID,
                 //Drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
                 Associated = p.Created,
@@ -100,7 +123,10 @@ namespace BL
                 Priority = p.Priority,
                 //Sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)),
                 //Target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)),
-                Weight = p.Weight
+                Weight = p.Weight,
+                Sender = Scustomer,
+                Target = Tcustomer
+                
             };
         }
 
@@ -142,7 +168,7 @@ namespace BL
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
             foreach (Parcel parcel in dalObj.GetParcels())
             {
-                if(parcel.Created == new DateTime())
+                if (parcel.Created == new DateTime())
                 {
                     parcelsBL.Add(ConvertDalParcelToBL(parcel));
                 }

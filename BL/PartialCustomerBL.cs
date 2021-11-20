@@ -44,8 +44,8 @@ namespace BL
                 customer.ID = id;
                 customer.PhoneNum = phone;
                 customer.Name = name;
-                customer.Location.Longitude = location.Longitude;
-                customer.Location.Latitude = location.Latitude;
+                customer.Location= location;
+
             }
             catch (InvalidID e)
             {
@@ -72,10 +72,12 @@ namespace BL
         public string UpdateCustomerData(int id, string name = null, int phoneNum = 0)
         {
             Customer customer = dalObj.GetSpesificCustomer(id);
-            if (name != null)
+            if (name != null && name != "")
                 customer.Name = name;
-            if (phoneNum != 0)
+            if (phoneNum != 0 && phoneNum != null)
                 customer.PhoneNum = phoneNum;
+
+            dalObj.UpdateCustomer(customer);
             return "The update was successful!";
         }
 
@@ -119,14 +121,16 @@ namespace BL
         /// <returns></returns>
         public CustomerBL GetSpesificCustomerBL(int customerId)
         {
-            try
-            {
-                return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
-            }
-            catch (ObjectDoesNotExist e)
-            {
-                throw new ObjectNotExist(e.Message);
-            }
+
+
+            /*    try
+                {*/
+            return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+            /* }*/
+            /*            catch (ObjectDoesNotExist e)
+                        {
+                            throw new ObjectNotExist(e.Message);
+                        }*/
         }
 
         /// <summary>

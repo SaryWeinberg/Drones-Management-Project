@@ -43,8 +43,9 @@ namespace BL
             {
                 station.ID = id;
                 station.Name = name;
-                station.Location.Longitude = location.Longitude;
-                station.Location.Latitude = location.Latitude;
+               
+                station.Location = location;
+     /*           station.Location.Latitude = location.Latitude;*/
                 station.AveChargeSlots = chargeSlots;
             }
             catch (InvalidID e)
@@ -72,6 +73,7 @@ namespace BL
                 station.Name = name;
             if (ChargeSlots != 0)
                 station.ChargeSlots = ChargeSlots;
+            dalObj.UpdateStation(station);
             return "The update was successful!";
         }
 
@@ -161,20 +163,21 @@ namespace BL
         /// <returns></returns>
         public StationBL GetNearestAvailableStation(Location Targlocation)
         {
-            bool flag = false;
-            double minDistance = 0;
+           
             StationBL station = null;
             List<StationBL> stations = GetStationsBL();
+
+            double minDistance = Distance(stations[0].Location, Targlocation);
             foreach (StationBL currentStation in stations)
             {
-                if (currentStation.AveChargeSlots > 0 && Distance(currentStation.Location, Targlocation) < minDistance)
+                if (currentStation.AveChargeSlots > 0 && Distance(currentStation.Location, Targlocation) <= minDistance)
                 {
                     minDistance = Distance(currentStation.Location, Targlocation);
                     station = currentStation;
-                    flag = true;
+                   
                 }
             }
-            if (!flag)
+            if (station == null)
             {
                 throw new ThereAreNoAvelableChargeSlots();
             }

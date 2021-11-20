@@ -52,14 +52,17 @@ namespace DalObject
         /// <returns></returns>
         public Drone GetSpesificDrone(int droneId)
         {
-            try
-            {
-                return DataSource.Drones.First(drone => drone.ID == droneId);
-            }
-            catch
-            {
+            
+
+                foreach (Drone d in DataSource.Drones)
+                {
+                    if (d.ID == droneId)
+                        return d;
+                }
                 throw new ObjectDoesNotExist("Drone", droneId);
-            }
+
+            
+
         }
 
         /// <summary>

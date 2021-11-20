@@ -28,9 +28,10 @@ namespace BL
             List<Parcel> parcels = dalObj.GetParcels();
             foreach (DroneBL drone in DroneList)
             {
-                Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
-                if (!parcel.Equals(null) && parcel.Delivered != new DateTime())//ישנה חבילה ששויכה אך לא סופקה
-                {
+                Parcel parcel = parcels.Find(p => p.DroneId == drone.ID) ;//לעשות כאן בדיקה
+                if (!parcel.Equals(null)&&parcel.Delivered > new DateTime())//ישנה חבילה ששויכה אך לא סופקה
+             /*       if (!parcel.Equals(null) && parcel.Delivered != new DateTime())//ישנה חבילה ששויכה אך לא סופקה*/
+                    {
                     drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
                     drone.Status = DroneStatus.Delivery;
                     if (parcel.PickedUp != new DateTime())//חבילה שלא נאספה
@@ -44,11 +45,17 @@ namespace BL
                 }
                 else
                 {
-                    drone.Status = (DroneStatus)rand.Next(0, 1);
+                    drone.Status = (DroneStatus)rand.Next(0, 2);
                     if (drone.Status == 0)
                     {
-                        List<Parcel> parcelProvided = parcels.FindAll(p => !(p.PickedUp != new DateTime()));
-                        drone.Location = GetSpesificCustomerBL(parcelProvided[rand.Next(parcelProvided.Count())].TargetId).Location;
+
+                    
+                        
+                            List<Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp > new DateTime());
+                            double randIDX = rand.Next(0, parcelProvided.Count() - 1);
+                            drone.Location = GetSpesificCustomerBL(parcelProvided[(int)randIDX].TargetId).Location;
+                       
+                        
                     }
                     else
                     {

@@ -39,7 +39,7 @@ namespace DalObject
                 Drone drone = new Drone();
                 drone.ID = Drones.Count;
                 drone.Model = $"{Drones.Count}";
-                drone.MaxWeight = (WeightCategories)(rand.Next(0, 2));                
+                drone.MaxWeight = (WeightCategories)(rand.Next(1, 4));                
                 Drones.Add(drone);
             }
 
@@ -60,7 +60,7 @@ namespace DalObject
                 parcel.ID = Parcels.Count;
                 parcel.SenderId = Customers[i].ID;
                 parcel.TargetId = Customers[i+1].ID;
-                parcel.Weight = (WeightCategories)(rand.Next(0, 2));
+                parcel.Weight = (WeightCategories)(rand.Next(1, 4));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
                 parcel.Created = RandomDate();
                 parcel.DroneId = rand.Next() % Drones.Count;
@@ -72,10 +72,15 @@ namespace DalObject
         }
         public static DateTime RandomDate()
         {
-            Random rand = new Random();
+
             DateTime start = new DateTime(1995, 1, 1);
-            int range = (DateTime.Today - start).Seconds;
+            Random rand = new Random();
+            int range = (DateTime.Today - start).Days;
             return start.AddDays(rand.Next(range));
         }
+
+
+
+
     }
 }

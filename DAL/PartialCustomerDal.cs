@@ -36,14 +36,14 @@ namespace DalObject
         /// <returns></returns>
         public Customer GetSpesificCustomer(int customerId)
         {
-            try
-            {
+  /*          try
+            {*/
                 return DataSource.Customers.First(customer => customer.ID == customerId);
-            }
-            catch
-            {
+          /*  }
+            catch*/
+/*            {
                 throw new ObjectDoesNotExist("Customer", customerId);
-            }
+            }*/
         }
 
         /// <summary>
