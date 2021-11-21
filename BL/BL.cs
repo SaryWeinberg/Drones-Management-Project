@@ -29,7 +29,7 @@ namespace BL
             List<Parcel> parcels = dalObj.GetParcels();
             foreach (DroneBL drone in dronesBList)
             {
-                drone.Location = null;/* new Location {Longitude= rand.Next(1, 41),Latitude = rand.Next(1, 41)};*/
+                drone.Location = new Location { Longitude = rand.Next(0, 40), Latitude = rand.Next(0, 40) };
 
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
                 if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
@@ -148,7 +148,9 @@ namespace BL
             {
                 throw new TheDroneNotInChargeException();
             }
-            droneBL.BatteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
+            if (dalObj.ElectricalPowerRequest()[4] * timeInCharge + droneBL.BatteryStatus >= 100)
+            { droneBL.BatteryStatus = 100; }
+            else { droneBL.BatteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge; }
             droneBL.Status = DroneStatus.Available;
             List<Station> stations = dalObj.GetStations();
             Station station = stations.Find(s => s.Latitude == droneBL.Location.Latitude && s.Longitude == droneBL.Location.Longitude);
