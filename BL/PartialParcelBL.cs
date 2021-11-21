@@ -158,16 +158,16 @@ namespace BL
         public List<ParcelBL> GetParcelsNotYetAssignedDroneList()
         {
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
-            if (!dalObj.GetParcels().Any())
-            {
-                throw new ObjectNotExistException("There are no parcels that not yet assigned to drone");
-            }
             foreach (Parcel parcel in dalObj.GetParcels())
             {
-                if (parcel.Created == new DateTime())
+                if (parcel.Associated == DateTime.MinValue)
                 {
                     parcelsBL.Add(ConvertDalParcelToBL(parcel));
                 }
+            }
+            if (!parcelsBL.Any())
+            {
+                throw new ObjectNotExistException("There are no parcels that not yet assigned to drone");
             }
             return parcelsBL;
         }

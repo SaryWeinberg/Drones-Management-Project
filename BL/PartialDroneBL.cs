@@ -154,7 +154,7 @@ namespace BL
         }
 
         /// <summary>
-        /// Returning the drone list
+        /// Returning the drone list from DAL
         /// </summary>
         /// <returns></returns>
         public List<DroneBL> GetDronesBL()
@@ -165,13 +165,14 @@ namespace BL
             return dronesBL;
         }
 
+        /// <summary>
+        /// Returning the drone list from BL
+        /// </summary>
+        /// <returns></returns>
         public List<DroneBL> GetDronesBLList()
         {
-
             return dronesBList;
         }
-
-
 
         /// <summary>
         /// The function returns the total battery usage

@@ -29,12 +29,12 @@ namespace BL
             List<Parcel> parcels = dalObj.GetParcels();
             foreach (DroneBL drone in dronesBList)
             {
-                drone.Location = new Location {Longitude= rand.Next(0, 40),Latitude =rand.Next(0, 40)};
-             
+                drone.Location = new Location { Longitude = rand.Next(0, 40), Latitude = rand.Next(0, 40) };
+
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
                 if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
                 {
-                    
+
                     if (parcel.PickedUp == DateTime.MinValue)//חבילה שלא נאספה
                     {
                         drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).Location).Location;
@@ -117,7 +117,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             StationBL station = GetNearestAvailableStation(drone.Location);
-            if (dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) < drone.BatteryStatus)
+            if (dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) > drone.BatteryStatus)
             {
                 throw new NoBatteryToReachChargingStationException();
             }
@@ -145,7 +145,9 @@ namespace BL
             {
                 throw new TheDroneNotInChargeException();
             }
-            droneBL.BatteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
+            if (dalObj.ElectricalPowerRequest()[4] * timeInCharge + droneBL.BatteryStatus >= 100)
+            { droneBL.BatteryStatus = 100; }
+            else { droneBL.BatteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge; }
             droneBL.Status = DroneStatus.Available;
             List<Station> stations = dalObj.GetStations();
             Station station = stations.Find(s => s.Latitude == droneBL.Location.Latitude && s.Longitude == droneBL.Location.Longitude);
@@ -188,7 +190,7 @@ namespace BL
                                 Distance(droneBL.Location, GetSpesificCustomerBL(BestParcel.Sender.ID).Location))
                                 {
 
-                                    if (TotalBatteryUsage(parcel.Sender.ID,parcel.Target.ID,(int)parcel.Weight,droneBL.Location) < droneBL.BatteryStatus)
+                                    if (TotalBatteryUsage(parcel.Sender.ID, parcel.Target.ID, (int)parcel.Weight, droneBL.Location) < droneBL.BatteryStatus)
                                     {
                                         BestParcel = parcel;
                                         droneBL.Status = DroneStatus.Delivery;
