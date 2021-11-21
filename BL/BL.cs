@@ -298,17 +298,20 @@ namespace BL
             List<ParcelBL> parcels = GetParcelsBL();
             foreach (ParcelBL currentParcel in parcels)
             {
-                if (currentParcel.Drone.ID == droneId || currentParcel.Associated != DateTime.MinValue || currentParcel.PickedUp == DateTime.MinValue)
+                if (currentParcel.Drone.ID == droneId)
                 {
-                    throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
+                    if (currentParcel.Associated != DateTime.MinValue || currentParcel.PickedUp == DateTime.MinValue)
+                    {
+                        throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
+                    }
+                    List<CustomerBL> customers = GetCustomersBL();
+                    CustomerBL senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
+                    droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
+                    droneBL.Location = senderCustomer.Location;
+                    currentParcel.PickedUp = DateTime.Now;
+                    dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                    return "The parcel was successfully collected by the drone!";
                 }
-                List<CustomerBL> customers = GetCustomersBL();
-                CustomerBL senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
-                droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
-                droneBL.Location = senderCustomer.Location;
-                currentParcel.PickedUp = DateTime.Now;
-                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
-                return "The parcel was successfully collected by the drone!";
             }
             return "";
         }
@@ -323,18 +326,21 @@ namespace BL
             List<ParcelBL> parcels = GetParcelsBL();
             foreach (ParcelBL currentParcel in parcels)
             {
-                if (currentParcel.Drone.ID != droneId || currentParcel.PickedUp == DateTime.MinValue || currentParcel.Delivered != DateTime.MinValue)
+                if (currentParcel.Drone.ID == droneId)
                 {
-                    throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "delivered");
+                    if (currentParcel.PickedUp == DateTime.MinValue || currentParcel.Delivered != DateTime.MinValue)
+                    {
+                        throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "delivered");
+                    }
+                    List<CustomerBL> customers = GetCustomersBL();
+                    CustomerBL targetCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
+                    droneBL.BatteryStatus = Distance(droneBL.Location, targetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
+                    droneBL.Location = targetCustomer.Location;
+                    droneBL.Status = DroneStatus.Available;
+                    currentParcel.Delivered = DateTime.Now;
+                    dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                    return "The parcel was successfully delivered by the drone!";
                 }
-                List<CustomerBL> customers = GetCustomersBL();
-                CustomerBL targetCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
-                droneBL.BatteryStatus = Distance(droneBL.Location, targetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
-                droneBL.Location = targetCustomer.Location;
-                droneBL.Status = DroneStatus.Available;
-                currentParcel.Delivered = DateTime.Now;
-                dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
-                return "The parcel was successfully delivered by the drone!";
             }
             return "";
         }

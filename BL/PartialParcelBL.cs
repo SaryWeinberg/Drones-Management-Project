@@ -100,6 +100,8 @@ namespace BL
         /// <returns></returns>
         public ParcelBL ConvertDalParcelToBL(Parcel p)
         {
+            DroneBL droneBL = GetDronesBLList().Find(d => d.ID == p.DroneId);
+
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
             Scustomer.Name = GetSpesificCustomerBL(p.SenderId).Name;
@@ -107,6 +109,11 @@ namespace BL
             CustomerInParcel Tcustomer = new CustomerInParcel();
             Tcustomer.ID = p.TargetId;
             Tcustomer.Name = GetSpesificCustomerBL(p.TargetId).Name;
+
+            DroneInParcel droneInparcel = new DroneInParcel();
+            droneInparcel.ID = droneBL.ID;
+            droneInparcel.Location = droneBL.Location;
+            droneInparcel.BatteryStatus = droneBL.BatteryStatus;
 
             return new ParcelBL
             {
@@ -118,7 +125,8 @@ namespace BL
                 Priority = p.Priority,
                 Weight = p.Weight,
                 Sender = Scustomer,
-                Target = Tcustomer
+                Target = Tcustomer,
+                Drone = droneInparcel
             };
         }
 
