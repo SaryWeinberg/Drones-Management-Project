@@ -109,7 +109,7 @@ namespace BL
             DroneBL drone = GetSpesificDroneBL(droneId);
             if (drone.Status != DroneStatus.Available)
             {
-                throw new TheDroneNotAvailable();
+                throw new TheDroneNotAvailableException();
             }
             StationBL station = GetNearestAvailableStation(drone.Location);
             drone.BatteryStatus -= dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location);
@@ -134,7 +134,7 @@ namespace BL
             DroneBL droneBL = GetSpesificDroneBL(droneId);
             if (droneBL.Status != DroneStatus.Maintenance)
             {
-                throw new TheDroneNotInCharge();
+                throw new TheDroneNotInChargeException();
             }
             droneBL.BatteryStatus += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
             droneBL.Status = DroneStatus.Available;
@@ -157,7 +157,7 @@ namespace BL
 
             if (droneBL.Status != DroneStatus.Available)
             {
-                throw new TheDroneNotAvailable();
+                throw new TheDroneNotAvailableException();
             }
             List<ParcelBL> parcels = GetParcelsBL();
             ParcelBL BestParcel = parcels[0];
@@ -185,7 +185,7 @@ namespace BL
                                         droneBL.Status = DroneStatus.Delivery;
                                         BestParcel.Drone.ID = droneBL.ID;
                                         BestParcel.Drone.Location = droneBL.Location;
-                                        BestParcel.Drone.BettaryStatus = droneBL.BatteryStatus;
+                                        BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;
                                         BestParcel.Associated = DateTime.Now;
                                         dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
                                         return "The parcel was successfully associated with the drone!";
@@ -196,7 +196,7 @@ namespace BL
                     }
                 }
             }
-            throw new CanNotAssignParcelToDrone();
+            throw new CanNotAssignParcelToDroneException();
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace BL
             {
                 if (currentParcel.Drone.ID == droneId || currentParcel.Associated != DateTime.MinValue || currentParcel.PickedUp == DateTime.MinValue)
                 {
-                    throw new TheParcelCouldNotCollectedOrDelivered(currentParcel.ID, "collected");
+                    throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
                 }
                 List<CustomerBL> customers = GetCustomersBL();
                 CustomerBL senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
@@ -236,7 +236,7 @@ namespace BL
             {
                 if (currentParcel.Drone.ID != droneId || currentParcel.PickedUp == DateTime.MinValue || currentParcel.Delivered != DateTime.MinValue)
                 {
-                    throw new TheParcelCouldNotCollectedOrDelivered(currentParcel.ID, "delivered");
+                    throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "delivered");
                 }
                 List<CustomerBL> customers = GetCustomersBL();
                 CustomerBL targetCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);

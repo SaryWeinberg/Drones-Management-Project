@@ -39,5 +39,5 @@ namespace IBL.BO
     public enum ListDisplayOptions
     {
         DisplayStationsList = 1, DisplayCustomersList, DisplayDronesList, DisplayParcelsList, DisplayParcelsNotYetAssignedDroneList, DisplayAvailableStationsList
-    }
+    }   
 }

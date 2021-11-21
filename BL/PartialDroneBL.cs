@@ -48,6 +48,10 @@ namespace BL
         /// <param name="stationID"></param>
         public string AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
         {
+            if (GetDronesBLList().Any(d => d.ID == id))
+            {
+                throw new ObjectAlreadyExistException("drone", id);
+            }
             DroneBL droneBL = new DroneBL();
             try
             {
@@ -59,16 +63,12 @@ namespace BL
 
                 Station station = dalObj.GetSpesificStation(id);
                 Location Slocation = new Location();
-                Slocation.Longitude = station.Longitude; ;
+                Slocation.Longitude = station.Longitude;
                 Slocation.Latitude = station.Latitude;
                 droneBL.Location = Slocation;
-              
             }
-            catch (InvalidID e)
-            {
-                throw e;
-            }
-                        AddDroneDal(id, model, maxWeight);
+            catch (InvalidObjException e) { throw e; }
+            AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
             return "Drone added successfully!";
         }
@@ -78,9 +78,9 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public string UpdateDroneName(int id, string model ="")
+        public string UpdateDroneName(int id, string model = "")
         {
-            
+
             if (model != "")
             {
                 Drone drone = dalObj.GetSpesificDrone(id);
@@ -97,9 +97,7 @@ namespace BL
         /// <returns></returns>
         public DroneBL ConvertDalDroneToBL(Drone d)
         {
-
-            
-            return  new DroneBL
+            return new DroneBL
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
@@ -134,7 +132,7 @@ namespace BL
             //להוסיף try
             int idx = dronesBList.FindIndex(d => d.ID == droneBL.ID);
             dronesBList[idx] = droneBL;
-            dalObj.UpdateDrone(ConvertBLDroneToDAL( droneBL));
+            dalObj.UpdateDrone(ConvertBLDroneToDAL(droneBL));
             return "The update was successful!";
         }
 
@@ -145,16 +143,14 @@ namespace BL
         /// <returns></returns>
         public DroneBL GetSpesificDroneBL(int droneId)
         {
-            /* try
-             {*/
-
-           return dronesBList.Find(d => d.ID == droneId);
- /*               return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));*/
-           /* }*/
-          /*  catch (ObjectDoesNotExist e)
+            try
             {
-                throw new ObjectNotExist(e.Message);
-            }*/
+                return dronesBList.Find(d => d.ID == droneId);
+            }
+            catch (ArgumentNullException)
+            {
+                throw new ObjectNotExistException($"There is no drone with ID - {droneId}");
+            }
         }
 
         /// <summary>

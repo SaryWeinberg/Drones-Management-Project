@@ -17,11 +17,10 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                //CustomerBL S = IBL.IBL.GetCustomersBL().ForEach(c => c.ID == value);               
-                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id)) //&& C != null)
+                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id))
                     id = value;
                 else
-                    throw new InvalidID();
+                    throw new InvalidObjException("ID");
             }
         }
 
@@ -32,7 +31,7 @@ namespace IBL.BO
                 if (!String.IsNullOrWhiteSpace(value))
                     name = value;
                 else
-                    throw new InvalidName();
+                    throw new InvalidObjException("name");
 
             }
         }
@@ -44,7 +43,7 @@ namespace IBL.BO
                 if (value > 100000 && value < 10000000000)
                   phoneNum = value;
                 else
-                    throw new InvalidPhoneNumber();
+                    throw new InvalidObjException("phone number");
             }
         }
         public Location Location { get; set; }

@@ -17,8 +17,12 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
-        public void AddParcelDal(int id,int senderId, int targetId, WeightCategories weight, Priorities priority)
+        public void AddParcelDal(int id, int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
+            if (dalObj.GetParcels().Any(p => p.ID == id))
+            {
+                throw new ObjectAlreadyExistException("Parcel", id);
+            }
             Parcel parcel = new Parcel();
             parcel.ID = id;
             parcel.SenderId = senderId;
@@ -43,11 +47,9 @@ namespace BL
             ParcelBL parcel = new ParcelBL();
             try
             {
-
                 CustomerInParcel Scustomer = new CustomerInParcel();
                 Scustomer.ID = senderId;
                 Scustomer.Name = GetSpesificCustomerBL(senderId).Name;
-
 
                 CustomerInParcel Tcustomer = new CustomerInParcel();
                 Tcustomer.ID = targetId;
@@ -55,7 +57,7 @@ namespace BL
 
                 parcel.ID = GetCustomersBL().Count();
                 parcel.Sender = Scustomer;
-                parcel.Target= Tcustomer;
+                parcel.Target = Tcustomer;
                 parcel.Weight = weight;
                 parcel.Priority = priority;
                 parcel.Drone = null;
@@ -64,11 +66,8 @@ namespace BL
                 parcel.PickedUp = new DateTime();
                 parcel.Delivered = new DateTime();
             }
-            catch (InvalidID e)
-            {
-                throw e;
-            }
-            AddParcelDal(parcel.ID,senderId, targetId, weight, priority);
+            catch (InvalidObjException e) { throw e; }
+            AddParcelDal(parcel.ID, senderId, targetId, weight, priority);
             return "Parcel added successfully!";
         }
 
@@ -105,28 +104,21 @@ namespace BL
             Scustomer.ID = p.SenderId;
             Scustomer.Name = GetSpesificCustomerBL(p.SenderId).Name;
 
-
             CustomerInParcel Tcustomer = new CustomerInParcel();
             Tcustomer.ID = p.TargetId;
             Tcustomer.Name = GetSpesificCustomerBL(p.TargetId).Name;
+
             return new ParcelBL
-
             {
-
-
                 ID = p.ID,
-                //Drone = ConvertDalDroneToBL(dalObj.GetSpesificDrone(p.droneId)),
                 Associated = p.Created,
                 Created = p.PickedUp,
                 Delivered = p.Delivered,
                 PickedUp = p.PickedUp,
                 Priority = p.Priority,
-                //Sender = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.SenderId)),
-                //Target = ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(p.TargetId)),
                 Weight = p.Weight,
                 Sender = Scustomer,
                 Target = Tcustomer
-                
             };
         }
 
@@ -143,7 +135,7 @@ namespace BL
             }
             catch (ObjectDoesNotExist e)
             {
-                throw new ObjectNotExist(e.Message);
+                throw new ObjectNotExistException(e.Message);
             }
         }
 
@@ -166,6 +158,10 @@ namespace BL
         public List<ParcelBL> GetParcelsNotYetAssignedDroneList()
         {
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
+            if (!dalObj.GetParcels().Any())
+            {
+                throw new ObjectNotExistException("There are no parcels that not yet assigned to drone");
+            }
             foreach (Parcel parcel in dalObj.GetParcels())
             {
                 if (parcel.Created == new DateTime())

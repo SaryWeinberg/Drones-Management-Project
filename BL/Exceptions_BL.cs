@@ -6,58 +6,58 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public class InvalidID : Exception
+    public class InvalidObjException : Exception
     {
-        public InvalidID() : base(String.Format("Incorrect ID number")) { }
+        public InvalidObjException(string obj) : base(String.Format($"Incorrect {obj}")) { }
     }
 
-    public class InvalidPhoneNumber : Exception
+    public class InvalidPhoneNumberException : Exception
     {
-        public InvalidPhoneNumber() : base(String.Format("The phone number is incorrect")) { }
+        public InvalidPhoneNumberException() : base(String.Format("The phone number is incorrect")) { }
     }
 
-    public class InvalidName : Exception
+    public class InvalidNameException : Exception
     {
-        public InvalidName() : base(String.Format("The name is incorrect")) { }
+        public InvalidNameException() : base(String.Format("The name is incorrect")) { }
     }
 
-    public class NoBatteryToReachChargingStation : Exception
+    public class NoBatteryToReachChargingStationException : Exception
     {
-        public NoBatteryToReachChargingStation() : base(String.Format("No battery to reach charging station")) { }
+        public NoBatteryToReachChargingStationException() : base(String.Format("No battery to reach charging station")) { }
     }
 
-    public class ThereAreNoAvelableChargeSlots : Exception
+    public class ThereAreNoAvelableChargeSlotsException : Exception
     {
-        public ThereAreNoAvelableChargeSlots() : base(String.Format("There are no avelable charge slots")) { }
+        public ThereAreNoAvelableChargeSlotsException() : base(String.Format("There are no avelable charge slots")) { }
     }
 
-    public class TheDroneNotAvailable : Exception
+    public class TheDroneNotAvailableException : Exception
     {
-        public TheDroneNotAvailable() : base(String.Format("The drone is not available")) { }
+        public TheDroneNotAvailableException() : base(String.Format("The drone is not available")) { }
     }
 
-    public class TheDroneNotInCharge : Exception
+    public class TheDroneNotInChargeException : Exception
     {
-        public TheDroneNotInCharge() : base(String.Format("The drone cannot be released because it is not charged")) { }
+        public TheDroneNotInChargeException() : base(String.Format("The drone cannot be released because it is not charged")) { }
     }
 
-    public class CanNotAssignParcelToDrone : Exception
+    public class CanNotAssignParcelToDroneException : Exception
     {
-        public CanNotAssignParcelToDrone() : base(String.Format("The drone can not take any parcel")) { }
-    }    
-
-    public class TheParcelCouldNotCollectedOrDelivered : Exception
-    {
-        public TheParcelCouldNotCollectedOrDelivered(int id, string str) : base(String.Format($"The parcel ID - {id} could not be {str}")) { }
+        public CanNotAssignParcelToDroneException() : base(String.Format("The drone can not take any parcel")) { }
     }
 
-    public class ObjectNotExist : Exception
+    public class TheParcelCouldNotCollectedOrDeliveredException : Exception
     {
-        public ObjectNotExist(string msg) : base(String.Format($"{msg}")) { }
+        public TheParcelCouldNotCollectedOrDeliveredException(int id, string str) : base(String.Format($"The parcel ID - {id} could not be {str}")) { }
     }
 
-/*    public class ObjectDoesNotExist : Exception
+    public class ObjectNotExistException : Exception
     {
-        public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID - {id} does not exist")) { }
-    }*/
+        public ObjectNotExistException(string msg) : base(String.Format($"{msg}")) { }
+    }
+
+    public class ObjectAlreadyExistException : Exception
+    {
+        public ObjectAlreadyExistException(string obj, int id) : base(String.Format($"{obj}, ID - {id} already exist")) { }
+    }
 }

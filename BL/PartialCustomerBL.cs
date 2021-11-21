@@ -38,26 +38,19 @@ namespace BL
         /// <param name="location"></param>
         public string AddCustomerBL(int id, int phone, string name, Location location)
         {
+            if (dalObj.GetCustomers().Any(c => c.ID == id))
+            {
+                throw new ObjectAlreadyExistException("Customer", id);
+            }
             CustomerBL customer = new CustomerBL();
             try
             {
                 customer.ID = id;
                 customer.PhoneNum = phone;
                 customer.Name = name;
-                customer.Location= location;
-
+                customer.Location = location;
             }
-            catch (InvalidID e)
-            {
-                throw e;
-            }catch (InvalidName e)
-            {
-                throw e;
-            }
-            catch (InvalidPhoneNumber e)
-            {
-                throw e;
-            }
+            catch (InvalidObjException e) { throw e; }            
             AddCustomerDal(id, phone, name, location);
             return "Customer added successfully!";
         }
@@ -89,11 +82,11 @@ namespace BL
         {
             return new Customer
             {
-                ID = c.ID, 
-                Latitude = c.Location.Latitude, 
-                Longitude = c.Location.Longitude, 
-                Name= c.Name, 
-                PhoneNum= c.PhoneNum                
+                ID = c.ID,
+                Latitude = c.Location.Latitude,
+                Longitude = c.Location.Longitude,
+                Name = c.Name,
+                PhoneNum = c.PhoneNum
             };
         }
 
@@ -120,16 +113,14 @@ namespace BL
         /// <returns></returns>
         public CustomerBL GetSpesificCustomerBL(int customerId)
         {
-
-
-            /*    try
-                {*/
-            return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
-            /* }*/
-            /*            catch (ObjectDoesNotExist e)
-                        {
-                            throw new ObjectNotExist(e.Message);
-                        }*/
+            try
+            {
+                return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+            }
+            catch (ObjectDoesNotExist e)
+            {
+                throw new ObjectNotExistException(e.Message);
+            }
         }
 
         /// <summary>

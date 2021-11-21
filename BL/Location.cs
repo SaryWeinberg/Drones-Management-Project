@@ -8,13 +8,35 @@ namespace IBL.BO
 {
     public class Location
     {
-        public int Longitude { get; set; }
-        public int Latitude { get; set; }
 
+        private int longitude;
+        private int latitude;
 
+        public int Longitude {
+            get { return longitude; }
+            set
+            {
+                if (value > 0 && value < 36)
+                    longitude = value;
+                else
+                    throw new InvalidObjException("longitude");
+            }
+        }
+
+        public int Latitude {
+            get { return latitude; }
+            set
+            {
+                if (value > 0 && value < 36)
+                    latitude = value;
+                else
+                    throw new InvalidObjException("latitude");
+            }
+        }
 
         public override string ToString()
         {
-            return " Longitude: " + Longitude + " Latitude: " + Latitude + " " ;
-        } }
+            return " Longitude: " + Longitude + " Latitude: " + Latitude + " ";
+        }
+    }
 }

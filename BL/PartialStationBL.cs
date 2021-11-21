@@ -38,24 +38,20 @@ namespace BL
         /// <param name="chargeSlots"></param>
         public string AddStationBL(int id, int name, Location location, int chargeSlots)
         {
+            if (dalObj.GetStations().Any(s => s.ID == id))
+            {
+                throw new ObjectAlreadyExistException("Station", id);
+            }
             StationBL station = new StationBL();
             try
             {
                 station.ID = id;
                 station.Name = name;
-               
+
                 station.Location = location;
-     /*           station.Location.Latitude = location.Latitude;*/
                 station.AveChargeSlots = chargeSlots;
             }
-            catch (InvalidID e)
-            {
-                throw e;
-            }
-            catch (InvalidName e)
-            {
-                throw e;
-            }
+            catch (InvalidObjException e) { throw e; }
             AddStationDal(id, name, location, chargeSlots);
             return "Station added successfully!";
         }
@@ -123,7 +119,7 @@ namespace BL
             }
             catch (ObjectDoesNotExist e)
             {
-                throw new ObjectNotExist(e.Message);
+                throw new ObjectNotExistException(e.Message);
             }
         }
 
@@ -163,7 +159,7 @@ namespace BL
         /// <returns></returns>
         public StationBL GetNearestAvailableStation(Location Targlocation)
         {
-           
+
             StationBL station = null;
             List<StationBL> stations = GetStationsBL();
 
@@ -174,12 +170,12 @@ namespace BL
                 {
                     minDistance = Distance(currentStation.Location, Targlocation);
                     station = currentStation;
-                   
+
                 }
             }
             if (station == null)
             {
-                throw new ThereAreNoAvelableChargeSlots();
+                throw new ThereAreNoAvelableChargeSlotsException();
             }
             return station;
         }
