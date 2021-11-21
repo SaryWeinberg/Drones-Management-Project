@@ -9,20 +9,42 @@ namespace IBL.BO
     public class DroneBL
     {
         private int id;
+        private double batteryStatus;
+        private WeightCategories maxWeight;
         public int ID {
             get { return id; }
             set
             {
-                //DroneBL D = IBL.IBL.GetDronesBL().ForEach(d => d.ID == value);
-                if (value != null)//&& D != null)
+                if (value != null)
                     id = value;
                 else
-                    throw new InvalidID();
+                    throw new InvalidObjException("ID");
             }
         }
+
         public string Model { get; set; }
-        public WeightCategories MaxWeight { get; set; }
-        public double BatteryStatus { get; set; }
+        public WeightCategories MaxWeight {
+            get { return maxWeight; }
+            set
+            {
+                if (value > 0)
+                    maxWeight = value;
+                else
+                    throw new InvalidObjException("maxWeight");
+            }
+        }
+
+        public double BatteryStatus {
+            get { return batteryStatus; }
+            set
+            {
+                if (value > 0)
+                    batteryStatus = value;
+                else
+                    throw new InvalidObjException("maxWeight");
+            }
+        }
+
         public DroneStatus Status { get; set; }
         public ParcelByDelivery Parcel { get; set; }
         public Location Location { get; set; }

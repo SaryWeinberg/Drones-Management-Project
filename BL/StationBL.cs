@@ -10,27 +10,37 @@ namespace IBL.BO
     {
         private int id;
         private int name;
+        private double aveChargeSlots;
         public int ID {
             get { return id; }
             set
             {
-                //StationBL S = IBL.IBL.GetStationsBL().ForEach(s => s.ID == value);
-                if (value != null )//&& S != null)
+                if (value != null)
                     id = value;
-                else throw new InvalidID();
+                else throw new InvalidObjException("ID");
             }
         }
+
         public int Name {
             get { return name; }
             set
             {
                 if (value != null)
                     name = value;
-                else throw new InvalidName();
+                else throw new InvalidObjException("name");
             }
         }
+
         public Location Location { get; set; }
-        public double AveChargeSlots { get; set; }
+        public double AveChargeSlots {
+            get { return aveChargeSlots; }
+            set
+            {
+                if (value > 0)
+                    aveChargeSlots = value;
+                else throw new InvalidObjException("aveChargeSlots");
+            }
+        }
 
         public List<DroneInCharge> DronesInChargelist = new List<DroneInCharge>();
 

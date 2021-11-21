@@ -8,13 +8,36 @@ namespace IBL.BO
 {
     public class DroneInParcel
     {
-        public int ID { get; set; }
-        public double BettaryStatus { get; set; }
+        private int id;
+        private double batteryStatus;
+
+        public int ID {
+            get { return id; }
+            set
+            {
+                if (value > 0)
+                    id = value;
+                else
+                    throw new InvalidObjException("ID");
+            }
+        }
+
+        public double BatteryStatus {
+            get { return batteryStatus; }
+            set
+            {
+                if (value > 0)
+                    batteryStatus = value;
+                else
+                    throw new InvalidObjException("maxWeight");
+            }
+        }
+
         public Location Location { get; set; }
 
         public override string ToString()
         {
-            return "Drone: id: " + ID + " BettaryStatus:  " + BettaryStatus + " Location: " + Location;
+            return "Drone: id: " + ID + " BettaryStatus:  " + BatteryStatus + " Location: " + Location;
         }
     }
 }

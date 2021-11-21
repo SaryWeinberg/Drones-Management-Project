@@ -10,6 +10,7 @@ namespace IBL.BO
     public class DroneInCharge
     {
         private int id;
+        private double batteryStatus;
         public int ID {
             get { return id; }
             set
@@ -17,9 +18,18 @@ namespace IBL.BO
                 if (value != null)
                     id = value;
                 else
-                    throw new InvalidID();
+                    throw new InvalidObjException("ID");
             }
         }
-        public double BettaryStatus { get; set; }
+        public double BatteryStatus {
+            get { return batteryStatus; }
+            set
+            {
+                if (value > 0)
+                    batteryStatus = value;
+                else
+                    throw new InvalidObjException("maxWeight");
+            }
+        }
     }
 }

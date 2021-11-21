@@ -9,10 +9,9 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                //ParcelBL P = IBL.IBL.GetParcelsBL().ForEach(p => p.ID == value);
-                if (value != null)//&& P != null)
+                if (value != null)
                     id = value;
-                else throw new InvalidID();
+                else throw new InvalidObjException("ID");
             }
         }
         public CustomerInParcel Sender { get; set; }
