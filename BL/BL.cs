@@ -117,6 +117,10 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             StationBL station = GetNearestAvailableStation(drone.Location);
+            if (dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) < drone.BatteryStatus)
+            {
+                throw new NoBatteryToReachChargingStationException();
+            }
             drone.BatteryStatus -= dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location);
             drone.Location = station.Location;
             drone.Status = DroneStatus.Maintenance;

@@ -16,10 +16,10 @@ namespace IBL.BO
             get { return longitude; }
             set
             {
-                if (value > 0 && value < 36)
+                if (value >= 0 && value < 41)
                     longitude = value;
                 else
-                    throw new InvalidObjException("longitude");
+                    throw new InvalidObjException($"longitude {value}");
             }
         }
 
@@ -27,10 +27,10 @@ namespace IBL.BO
             get { return latitude; }
             set
             {
-                if (value > 0 && value < 36)
+                if (value >= 0 && value < 41)
                     latitude = value;
                 else
-                    throw new InvalidObjException("latitude");
+                    throw new InvalidObjException($"latitude {value}");
             }
         }
 

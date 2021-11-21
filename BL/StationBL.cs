@@ -15,7 +15,7 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                if (value >= 0)
                     id = value;
                 else throw new InvalidObjException("ID");
             }
@@ -25,7 +25,7 @@ namespace IBL.BO
             get { return name; }
             set
             {
-                if (value != null)
+                if (value >= 0)
                     name = value;
                 else throw new InvalidObjException("name");
             }
@@ -38,7 +38,7 @@ namespace IBL.BO
             {
                 if (value > 0)
                     aveChargeSlots = value;
-                else throw new InvalidObjException("aveChargeSlots");
+                else throw new InvalidObjException("available charge slots");
             }
         }
 

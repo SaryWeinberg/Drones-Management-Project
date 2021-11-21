@@ -15,7 +15,7 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                     id = value;
                 else
                     throw new InvalidObjException("ID");
@@ -26,10 +26,10 @@ namespace IBL.BO
             get { return batteryStatus; }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                     batteryStatus = value;
                 else
-                    throw new InvalidObjException("maxWeight");
+                    throw new InvalidObjException("batteryStatus");
             }
         }
 
