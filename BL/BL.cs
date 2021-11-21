@@ -29,7 +29,7 @@ namespace BL
             List<Parcel> parcels = dalObj.GetParcels();
             foreach (DroneBL drone in dronesBList)
             {
-                drone.Location = new Location {Longitude= rand.Next(0, 40),Latitude =rand.Next(0, 40)};
+                drone.Location = null;/* new Location {Longitude= rand.Next(1, 41),Latitude = rand.Next(1, 41)};*/
              
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
                 if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
@@ -53,13 +53,14 @@ namespace BL
                     drone.Status = (DroneStatus)rand.Next(0, 2);
                     if (drone.Status == 0)
                     {
+
                         List<Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp > new DateTime());
-                        double randIDX = rand.Next(0, parcelProvided.Count() - 1);
+                        double randIDX = rand.Next(0, parcelProvided.Count()- 1);
                         drone.Location = GetSpesificCustomerBL(parcelProvided[(int)randIDX].TargetId).Location;
                     }
                     else
                     {
-                        drone.BatteryStatus = rand.Next(0, 20);
+                        drone.BatteryStatus = rand.Next(1, 20);
                         List<StationBL> stationBLs = GetStationsBL();
                         drone.Location = stationBLs[rand.Next(stationBLs.Count())].Location;
                     }

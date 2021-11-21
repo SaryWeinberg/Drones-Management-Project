@@ -38,7 +38,7 @@ namespace IBL.BO
             get { return batteryStatus; }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                     batteryStatus = value;
                 else
                     throw new InvalidObjException("maxWeight");
