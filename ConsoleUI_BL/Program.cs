@@ -80,10 +80,12 @@ namespace ConsoleUI
                         switch (UpddateOption)
                         {
                             case (int)UpdateOptions.UpdateCustomerData:
-                                Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID"), GetString("new customer", "name"),  GetString("new customer", "phone number")));
+                                try { Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID"), GetString("new customer", "name"), GetString("new customer", "phone number"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.UpdateDroneName:
-                                Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name")));
+                                try { Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.UpdateStationData:
                                 try { Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID"), GetInt("station", "name"), GetInt("station", "charge slots"))); }
@@ -129,13 +131,16 @@ namespace ConsoleUI
                                 catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)DisplayOptions.DisplayDrone:
-                                Console.WriteLine(bl.GetSpesificDroneBL(GetInt("drone", "ID")));
+                                try { Console.WriteLine(bl.GetSpesificDroneBL(GetInt("drone", "ID"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)DisplayOptions.DisplayParcel:
-                                Console.WriteLine(bl.GetSpesificParcelBL(GetInt("parcel", "ID")));
+                                try { Console.WriteLine(bl.GetSpesificParcelBL(GetInt("parcel", "ID"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)DisplayOptions.DisplayStation:
-                                Console.WriteLine(bl.GetSpesificStationBL(GetInt("station", "ID")));
+                                try { Console.WriteLine(bl.GetSpesificStationBL(GetInt("station", "ID"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             default: Error(); break;
                         }
@@ -155,22 +160,28 @@ namespace ConsoleUI
                         switch (ListDisplayOption)
                         {
                             case (int)ListDisplayOptions.DisplayStationsList:
-                                foreach (StationBL station in bl.GetStationsBL()) { Console.WriteLine(station); }
+                                try { foreach (StationBL station in bl.GetStationsBL()) { Console.WriteLine(station); } }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayCustomersList:
-                                foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); }
+                                try { foreach (CustomerBL customer in bl.GetCustomersBL()) { Console.WriteLine(customer); } }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayDronesList:
-                                foreach (DroneBL drone in bl.GetDronesBLList()) { Console.WriteLine(drone); }
+                                try { foreach (DroneBL drone in bl.GetDronesBLList()) { Console.WriteLine(drone); } }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayParcelsList:
-                                foreach (ParcelBL parcel in bl.GetParcelsBL()) { Console.WriteLine(parcel); }
+                                try { foreach (ParcelBL parcel in bl.GetParcelsBL()) { Console.WriteLine(parcel); } }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayParcelsNotYetAssignedDroneList:
-                                foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList()) { Console.WriteLine(parcel); }
+                                try { foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList()) { Console.WriteLine(parcel); } }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)ListDisplayOptions.DisplayAvailableStationsList:
-                                foreach (StationBL station in bl.GetAvailableStationsList()) { Console.WriteLine(station); }
+                                try { foreach (StationBL station in bl.GetAvailableStationsList()) { Console.WriteLine(station); } }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             default: Error(); break;
                         }
