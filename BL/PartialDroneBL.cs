@@ -103,12 +103,12 @@ namespace BL
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
-                Model = d.Model, 
+                Model = d.Model,
                 //צריך לאתחל את כל אלו בצורה נורמלית, עכשיו זה רק כדי שירוץ
-                BatteryStatus = 0, 
-                Location = new Location { Latitude = 0, Longitude = 0}, 
-                Parcel = new ParcelByDelivery(), 
-                Status = 0
+                BatteryStatus = 0,
+                Location = new Location { Latitude = 0, Longitude = 0 },
+                Parcel = new ParcelByDelivery(),
+                Status = (DroneStatus)1
                 //
             };
         }

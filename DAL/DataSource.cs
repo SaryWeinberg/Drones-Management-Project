@@ -70,6 +70,7 @@ namespace DalObject
                 Parcels.Add(parcel);
             }
         }
+
         public static DateTime RandomDate()
         {
 
@@ -78,9 +79,5 @@ namespace DalObject
             int range = (DateTime.Today - start).Days;
             return start.AddDays(rand.Next(range));
         }
-
-
-
-
     }
 }

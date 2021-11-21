@@ -17,7 +17,8 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id))
+                //CustomerBL S = IBL.IBL.GetCustomersBL().ForEach(c => c.ID == value);               
+                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id)) //&& C != null)
                     id = value;
                 else
                     throw new InvalidID();

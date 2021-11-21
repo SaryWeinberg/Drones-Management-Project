@@ -80,7 +80,7 @@ namespace ConsoleUI
                         switch (UpddateOption)
                         {
                             case (int)UpdateOptions.UpdateCustomerData:
-                                Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID"),GetString("new customer","name"), GetInt("new customer", "phone")));
+                                Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID"), GetString("new customer", "name"), GetInt("new customer", "phone")));
                                 break;
                             case (int)UpdateOptions.UpdateDroneName:
                                 Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name")));
@@ -102,10 +102,12 @@ namespace ConsoleUI
                                 catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.CollectParcelByDrone:
-                                Console.WriteLine(bl.CollectParcelByDrone(GetInt("drone", "ID")));
+                                try { Console.WriteLine(bl.CollectParcelByDrone(GetInt("drone", "ID"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.DeliveryParcelByDrone:
-                                Console.WriteLine(bl.DeliveryParcelByDrone(GetInt("drone", "ID")));
+                                try { Console.WriteLine(bl.DeliveryParcelByDrone(GetInt("drone", "ID"))); }
+                                catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             default: Error(); break;
                         }

@@ -14,7 +14,8 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                //StationBL S = IBL.IBL.GetStationsBL().ForEach(s => s.ID == value);
+                if (value != null )//&& S != null)
                     id = value;
                 else throw new InvalidID();
             }

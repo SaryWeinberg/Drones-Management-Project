@@ -13,7 +13,8 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                //DroneBL D = IBL.IBL.GetDronesBL().ForEach(d => d.ID == value);
+                if (value != null)//&& D != null)
                     id = value;
                 else
                     throw new InvalidID();
@@ -28,7 +29,7 @@ namespace IBL.BO
 
         public override string ToString()
         {
-            return "Drone: id:  " + ID + " model:  " + Model + " MaxWeight: " + MaxWeight + " BatteryStatus: " + BatteryStatus + " Status: " + Status + " Parcel: " + Parcel + " Location: " + Location;
+            return "Drone: id: " + ID + " model:  " + Model + " MaxWeight: " + MaxWeight + " BatteryStatus: " + BatteryStatus + " Status: " + Status + " Parcel: " + Parcel + " Location: " + Location;
         }
     }
 }

@@ -28,8 +28,10 @@ namespace DalObject
             DataSource.DroneCharges.Add(droneCharge);
         }
 
-
-
+        /// <summary>
+        /// Removing a drone charge from the DataBase
+        /// </summary>
+        /// <param name="droneId"></param>
         public void RemoveDroneInCharge(int droneId)
         {
             DataSource.DroneCharges.RemoveAt(DataSource.DroneCharges.FindIndex(Dich => Dich.DroneId == droneId));
@@ -52,17 +54,12 @@ namespace DalObject
         /// <returns></returns>
         public Drone GetSpesificDrone(int droneId)
         {
-            
-
-                foreach (Drone d in DataSource.Drones)
-                {
-                    if (d.ID == droneId)
-                        return d;
-                }
-                throw new ObjectDoesNotExist("Drone", droneId);
-
-            
-
+            foreach (Drone d in DataSource.Drones)
+            {
+                if (d.ID == droneId)
+                    return d;
+            }
+            throw new ObjectDoesNotExist("Drone", droneId);
         }
 
         /// <summary>
