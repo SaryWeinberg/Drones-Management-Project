@@ -9,7 +9,7 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                if (value >= 0)
                     id = value;
                 else throw new InvalidObjException("ID");
             }

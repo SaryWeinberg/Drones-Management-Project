@@ -19,7 +19,7 @@ namespace IBL.BO
                 if (value >= 0 && value < 41)
                     longitude = value;
                 else
-                    throw new InvalidObjException("longitude");
+                    throw new InvalidObjException($"longitude {value}");
             }
         }
 
@@ -30,7 +30,7 @@ namespace IBL.BO
                 if (value >= 0 && value < 41)
                     latitude = value;
                 else
-                    throw new InvalidObjException("latitude");
+                    throw new InvalidObjException($"latitude {value}");
             }
         }
 

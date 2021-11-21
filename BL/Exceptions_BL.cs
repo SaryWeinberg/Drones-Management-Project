@@ -11,16 +11,6 @@ namespace IBL.BO
         public InvalidObjException(string obj) : base(String.Format($"Incorrect {obj}")) { }
     }
 
-    public class InvalidPhoneNumberException : Exception
-    {
-        public InvalidPhoneNumberException() : base(String.Format("The phone number is incorrect")) { }
-    }
-
-    public class InvalidNameException : Exception
-    {
-        public InvalidNameException() : base(String.Format("The name is incorrect")) { }
-    }
-
     public class NoBatteryToReachChargingStationException : Exception
     {
         public NoBatteryToReachChargingStationException() : base(String.Format("No battery to reach charging station")) { }

@@ -25,7 +25,7 @@ namespace IBL.BO
                 if (value  != null)
                     name = value;
                 else
-                    throw new InvalidObjException("ID");
+                    throw new InvalidObjException("name");
             }
         }
 

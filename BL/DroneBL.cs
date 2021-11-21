@@ -27,10 +27,10 @@ namespace IBL.BO
             get { return maxWeight; }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                     maxWeight = value;
                 else
-                    throw new InvalidObjException("maxWeight");
+                    throw new InvalidObjException($"max weight {value}");
             }
         }
 
@@ -41,7 +41,7 @@ namespace IBL.BO
                 if (value >= 0)
                     batteryStatus = value;
                 else
-                    throw new InvalidObjException("maxWeight");
+                    throw new InvalidObjException("batteryStatus");
             }
         }
 
