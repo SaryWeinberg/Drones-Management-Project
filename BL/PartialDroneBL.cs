@@ -83,9 +83,9 @@ namespace BL
 
             if (model != "")
             {
-                Drone drone = dalObj.GetSpesificDrone(id);
+                DroneBL drone = GetSpesificDroneBL(id);
                 drone.Model = model;
-                dalObj.UpdateDrone(drone);
+               UpdateDrone(drone);
             }
             return "The update was successful!";
         }

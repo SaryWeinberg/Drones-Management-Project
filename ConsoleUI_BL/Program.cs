@@ -86,7 +86,7 @@ namespace ConsoleUI
                                 Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name")));
                                 break;
                             case (int)UpdateOptions.UpdateStationData:
-                                try { Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID"), GetInt("station", "name"), GetInt("station", "charge slots"))); }
+                                try { Console.WriteLine(bl.UpdateStationData(GetInt("station", "ID"), GetString("station", "name"), GetString("station", "charge slots"))); }
                                 catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
                             case (int)UpdateOptions.SendDroneToCharge:
