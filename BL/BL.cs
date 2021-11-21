@@ -174,7 +174,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             List<ParcelBL> parcels = GetParcelsBL();
-            ParcelBL BestParcel = new ParcelBL {Weight };
+            ParcelBL BestParcel = new ParcelBL();
             foreach (ParcelBL parcel in parcels)
             {
                 if (parcel.Weight <= droneBL.MaxWeight && BestParcel.Priority <= parcel.Priority)
@@ -198,9 +198,6 @@ namespace BL
                                         BestParcel = parcel;
                                         droneBL.Status = DroneStatus.Delivery;
                                         DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, BatteryStatus = droneBL.BatteryStatus, Location = droneBL.Location };
-                                        /*                 BestParcel.Drone.ID = droneBL.ID;
-                                                               BestParcel.Drone.Location = droneBL.Location;
-                                                BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;*/
                                         BestParcel.Drone = droneInP;
                                         BestParcel.Associated = DateTime.Now;
                                         dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
@@ -225,7 +222,7 @@ namespace BL
             List<ParcelBL> parcels = GetParcelsBL();
             foreach (ParcelBL currentParcel in parcels)
             {
-                if (currentParcel.Drone.ID == droneId || currentParcel.Associated != DateTime.MinValue || currentParcel.PickedUp == DateTime.MinValue)
+                if (currentParcel.Drone.ID != droneId || currentParcel.Associated != DateTime.MinValue || currentParcel.PickedUp == DateTime.MinValue)
                 {
                     throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
                 }
