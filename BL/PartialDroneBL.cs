@@ -68,9 +68,7 @@ namespace BL
             {
                 throw e;
             }
-            
-/*            droneBlList.Add(droneBL);*/
-            AddDroneDal(id, model, maxWeight);
+                        AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
             return "Drone added successfully!";
         }
@@ -99,17 +97,13 @@ namespace BL
         /// <returns></returns>
         public DroneBL ConvertDalDroneToBL(Drone d)
         {
-            return new DroneBL
+
+            
+            return  new DroneBL
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
-                Model = d.Model,
-                //צריך לאתחל את כל אלו בצורה נורמלית, עכשיו זה רק כדי שירוץ
-                BatteryStatus = 0,
-                Location = new Location { Latitude = 0, Longitude = 0 },
-                Parcel = new ParcelByDelivery(),
-                Status = (DroneStatus)1
-                //
+                Model = d.Model
             };
         }
 
@@ -128,6 +122,22 @@ namespace BL
             };
         }
 
+
+        /// <summary>
+        /// update drone in Bl and in DAl
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+
+        public string UpdateDrone(DroneBL droneBL)
+        {
+            //להוסיף try
+            int idx = dronesBList.FindIndex(d => d.ID == droneBL.ID);
+            dronesBList[idx] = droneBL;
+            dalObj.UpdateDrone(ConvertBLDroneToDAL( droneBL));
+            return "The update was successful!";
+        }
+
         /// <summary>
         /// Returning a specific drone by ID number
         /// </summary>
@@ -135,9 +145,11 @@ namespace BL
         /// <returns></returns>
         public DroneBL GetSpesificDroneBL(int droneId)
         {
-           /* try
-            {*/
-                return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));
+            /* try
+             {*/
+
+           return dronesBList.Find(d => d.ID == droneId);
+ /*               return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));*/
            /* }*/
           /*  catch (ObjectDoesNotExist e)
             {
@@ -157,6 +169,14 @@ namespace BL
             return dronesBL;
         }
 
+        public List<DroneBL> GetDronesBLList()
+        {
+
+            return dronesBList;
+        }
+
+
+
         /// <summary>
         /// The function returns the total battery usage
         /// </summary>
@@ -174,5 +194,8 @@ namespace BL
         }
     }
 }
+
+
+
 
 

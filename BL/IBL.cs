@@ -36,6 +36,8 @@ namespace IBL
         public StationBL GetSpesificStationBL(int stationId);
         public List<CustomerBL> GetCustomersBL();
         public List<DroneBL> GetDronesBL();
+        public List<DroneBL> GetDronesBLList();
+        public string UpdateDrone(DroneBL droneBL);
         public List<ParcelBL> GetParcelsBL();
         public List<StationBL> GetStationsBL();
         public List<ParcelBL> GetParcelsNotYetAssignedDroneList();

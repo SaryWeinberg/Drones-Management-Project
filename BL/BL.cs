@@ -12,8 +12,9 @@ namespace BL
     public partial class BL : IBL.IBL
     {
         IDal dalObj;
-        List<IBL.BO.DroneBL> droneBlList;
+
         Random rand = new Random();
+        List<DroneBL> dronesBList = new List<DroneBL>();
 
         public BL()
         {
@@ -24,16 +25,16 @@ namespace BL
             double medium = ElectricUse[2];
             double heavy = ElectricUse[3];
             double chargingRate = ElectricUse[4];
-            List<DroneBL> DroneList = GetDronesBL();
+            dronesBList = GetDronesBL();
             List<Parcel> parcels = dalObj.GetParcels();
-            foreach (DroneBL drone in DroneList)
+            foreach (DroneBL drone in dronesBList)
             {
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
                 if (!parcel.Equals(null) && parcel.Delivered > DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
                 {
                     drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
                     drone.Status = DroneStatus.Delivery;
-                    if (parcel.PickedUp !=  DateTime.MinValue)//חבילה שלא נאספה
+                    if (parcel.PickedUp != DateTime.MinValue)//חבילה שלא נאספה
                     {
                         drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).Location).Location;
                     }
@@ -140,6 +141,8 @@ namespace BL
             List<Station> stations = dalObj.GetStations();
             Station station = stations.Find(s => s.Latitude == droneBL.Location.Latitude && s.Longitude == droneBL.Location.Longitude);
             station.ChargeSlots += 1;
+            UpdateDrone(droneBL);
+            dalObj.UpdateStation(station);
             dalObj.RemoveDroneInCharge(droneId);
             return "The drone was successfully released from charging!";
         }
@@ -176,10 +179,7 @@ namespace BL
                                 Distance(droneBL.Location, GetSpesificCustomerBL(BestParcel.Sender.ID).Location))
                                 {
 
-                                    if (
-                                        (Distance(droneBL.Location, GetSpesificCustomerBL(parcel.Sender.ID).Location)) * dalObj.ElectricalPowerRequest()[0]//מרחק שולח מהרחפן*צריכה כשהוא ריק 
-                                        + (Distance(GetSpesificCustomerBL(parcel.Sender.ID).Location, GetSpesificCustomerBL(parcel.Target.ID).Location)) * dalObj.ElectricalPowerRequest()[(int)parcel.Weight]
-                                        + (Distance(GetSpesificCustomerBL(parcel.Target.ID).Location, GetNearestAvailableStation(GetSpesificCustomerBL(parcel.Target.ID).Location).Location)) * dalObj.ElectricalPowerRequest()[0] < droneBL.BatteryStatus)
+                                    if (TotalBatteryUsage(parcel.Sender.ID,parcel.Target.ID,(int)parcel.Weight,droneBL.Location) < droneBL.BatteryStatus)
                                     {
                                         BestParcel = parcel;
                                         droneBL.Status = DroneStatus.Delivery;
