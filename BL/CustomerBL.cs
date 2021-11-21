@@ -17,7 +17,7 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id))
+                if (value > 100 && value < 999 && BL.BL.ValidateIDNumber(id))
                     id = value;
                 else
                     throw new InvalidID();

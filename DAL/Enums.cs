@@ -1,6 +1,5 @@
 ﻿
-namespace IDAL.DO
-{
+
     public enum WeightCategories
     {
         Light = 1, Medium, Heavy
@@ -35,4 +34,3 @@ namespace IDAL.DO
     {
         ViewStationLists = 1, ViewCustomerLists, ViewDroneLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
     }
-}

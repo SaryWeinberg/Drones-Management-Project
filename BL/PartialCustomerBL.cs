@@ -50,8 +50,7 @@ namespace BL
             catch (InvalidID e)
             {
                 throw e;
-            }
-            catch (InvalidName e)
+            }catch (InvalidName e)
             {
                 throw e;
             }
