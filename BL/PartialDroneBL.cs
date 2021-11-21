@@ -61,7 +61,7 @@ namespace BL
                 droneBL.BatteryStatus = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
 
-                Station station = dalObj.GetSpesificStation(id);
+                Station station = dalObj.GetSpesificStation(stationID);
                 Location Slocation = new Location();
                 Slocation.Longitude = station.Longitude;
                 Slocation.Latitude = station.Latitude;

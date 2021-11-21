@@ -288,7 +288,7 @@ namespace BL
             {
                 if (currentParcel.Drone.ID == droneId)
                 {
-                    if (currentParcel.Associated != DateTime.MinValue || currentParcel.PickedUp == DateTime.MinValue)
+                    if (currentParcel.Associated != DateTime.MinValue && currentParcel.PickedUp == DateTime.MinValue)
                     {
                         throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
                     }
