@@ -222,7 +222,6 @@ namespace BL
         public string AssignParcelToDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
-
             if (droneBL.Status != DroneStatus.Available)
             {
                 throw new TheDroneNotAvailableException();
@@ -267,26 +266,15 @@ namespace BL
             }
             if (flag == 1)
             {
-
                 droneBL.Status = DroneStatus.Delivery;
                 DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, BatteryStatus = droneBL.BatteryStatus, Location = droneBL.Location };
-                /*                 BestParcel.Drone.ID = droneBL.ID;
-                                       BestParcel.Drone.Location = droneBL.Location;
-                        BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;*/
                 BestParcel.Drone = droneInP;
                 BestParcel.Associated = DateTime.Now;
                 dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
-                return "The parcel was successfully associated with the drone!";
+                return $"The parcel ID - {BestParcel.ID} was successfully associated with the drone!";
             }
             throw new CanNotAssignParcelToDroneException();
-
         }
-
-
-
-
-
-
 
         /// <summary>
         /// Function for collecting a parcel by drone
