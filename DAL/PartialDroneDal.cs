@@ -16,7 +16,7 @@ namespace DalObject
         /// <param name="drone"></param>
         public void AddDrone(Drone drone)
         {
-            DataSource.Drones.Add(drone.Clone());
+            DataSource.Drones.Add(drone);
         }
 
         /// <summary>
@@ -25,11 +25,13 @@ namespace DalObject
         /// <param name="droneCharge"></param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
-            DataSource.DroneCharges.Add(droneCharge.Clone());
+            DataSource.DroneCharges.Add(droneCharge);
         }
 
-
-
+        /// <summary>
+        /// Removing a drone charge from the DataBase
+        /// </summary>
+        /// <param name="droneId"></param>
         public void RemoveDroneInCharge(int droneId)
         {
             DataSource.DroneCharges.RemoveAt(DataSource.DroneCharges.FindIndex(Dich => Dich.DroneId == droneId));
@@ -42,7 +44,7 @@ namespace DalObject
         public void UpdateDrone(Drone drone)
         {
             int index = DataSource.Drones.FindIndex(d => d.ID == drone.ID);
-            DataSource.Drones[index] = drone.Clone();
+            DataSource.Drones[index] = drone;
         }
 
         /// <summary>
@@ -52,14 +54,12 @@ namespace DalObject
         /// <returns></returns>
         public Drone GetSpesificDrone(int droneId)
         {
-            try
+            foreach (Drone d in DataSource.Drones)
             {
-                return DataSource.Drones.First(drone => drone.ID == droneId);
+                if (d.ID == droneId)
+                    return d;
             }
-            catch
-            {
-                throw new ObjectDoesNotExist("Drone", droneId);
-            }
+            throw new ObjectDoesNotExist("Drone", droneId);
         }
 
         /// <summary>

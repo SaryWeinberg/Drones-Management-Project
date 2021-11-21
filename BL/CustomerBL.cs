@@ -17,7 +17,8 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value > 100 && value < 999 && BL.BL.ValidateIDNumber(id))
+                //CustomerBL S = IBL.IBL.GetCustomersBL().ForEach(c => c.ID == value);               
+                if (value > 100000000 && value < 999999999 && BL.BL.ValidateIDNumber(id)) //&& C != null)
                     id = value;
                 else
                     throw new InvalidID();
@@ -41,7 +42,7 @@ namespace IBL.BO
             set
             {
                 if (value > 100000 && value < 10000000000)
-                    id = value;
+                  phoneNum = value;
                 else
                     throw new InvalidPhoneNumber();
             }
@@ -51,6 +52,11 @@ namespace IBL.BO
         public List<ParcelsAtTheCustomer> DeliveryToCustomer = new List<ParcelsAtTheCustomer>();
 
         public List<ParcelsAtTheCustomer> DeliveryFromCustomer = new List<ParcelsAtTheCustomer>();
+
+        public override string ToString()
+        {
+            return "Customer: id: " + ID + " Phone number: " + PhoneNum + " name: " + Name + " location: " + Location;
+        }
     }
 }
 

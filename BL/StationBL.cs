@@ -14,7 +14,8 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                //StationBL S = IBL.IBL.GetStationsBL().ForEach(s => s.ID == value);
+                if (value != null )//&& S != null)
                     id = value;
                 else throw new InvalidID();
             }
@@ -32,5 +33,10 @@ namespace IBL.BO
         public double AveChargeSlots { get; set; }
 
         public List<DroneInCharge> DronesInChargelist = new List<DroneInCharge>();
+
+        public override string ToString()
+        {
+            return "Station:id:  " + ID + " Name: " + Name + " Location: " + Location + " Avelable ChargeSlots: " + AveChargeSlots;
+        }
     }
 }

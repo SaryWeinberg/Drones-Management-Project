@@ -9,7 +9,8 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                //ParcelBL P = IBL.IBL.GetParcelsBL().ForEach(p => p.ID == value);
+                if (value != null)//&& P != null)
                     id = value;
                 else throw new InvalidID();
             }
@@ -23,5 +24,10 @@ namespace IBL.BO
         public DateTime Associated { get; set; }
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
+
+        public override string ToString()
+        {
+            return "Parcel: id: " + ID + " Sender:  " + Sender + "  Target:  " + Target + " Weight: " + Weight + " Priority: " + Priority + " Drone: " + Drone + "\nCreated: " + Created + " Associated: " + Associated + " PickedUp: " + PickedUp + " Delivered: " + Delivered;
+        }
     }
 }

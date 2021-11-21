@@ -49,5 +49,15 @@ namespace IBL.BO
     public class TheParcelCouldNotCollectedOrDelivered : Exception
     {
         public TheParcelCouldNotCollectedOrDelivered(int id, string str) : base(String.Format($"The parcel ID - {id} could not be {str}")) { }
-    }       
+    }
+
+    public class ObjectNotExist : Exception
+    {
+        public ObjectNotExist(string msg) : base(String.Format($"{msg}")) { }
+    }
+
+/*    public class ObjectDoesNotExist : Exception
+    {
+        public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID - {id} does not exist")) { }
+    }*/
 }

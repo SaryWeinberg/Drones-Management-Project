@@ -12,16 +12,16 @@ namespace IBL
     {
         public void AddCustomerDal(int id, int phone, string name, Location location);
         public void AddDroneDal(int id, string model, WeightCategories maxWeight);
-        public void AddParcelDal(int senderId, int targetId, WeightCategories weight, Priorities priority);
+        public void AddParcelDal(int id,int senderId, int targetId, WeightCategories weight, Priorities priority);
         public void AddStationDal(int id, int name, Location location, int chargeSlots);
         public void AddDroneChargeDAL(int stationID);
-        public void AddCustomerBL(int id, int phone, string name, Location location);
-        public void AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID);
-        public void AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority);
-        public void AddStationBL(int id, int name, Location location, int chargeSlots);
-        public void UpdateCustomerData(int id, string name = null, int phoneNum = 0);
-        public void UpdateDroneName(int id, string model);
-        public void UpdateStationData(int id, int name = 0, int ChargeSlots = 0);
+        public string AddCustomerBL(int id, int phone, string name, Location location);
+        public string AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID);
+        public string AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority);
+        public string AddStationBL(int id, int name, Location location, int chargeSlots);
+        public string UpdateCustomerData(int id, string name = null, int phoneNum = 0);
+        public string UpdateDroneName(int id, string model);
+        public string UpdateStationData(int id, int name = 0, int ChargeSlots = 0);
         public CustomerBL ConvertDalCustomerToBL(Customer c);
         public DroneBL ConvertDalDroneToBL(Drone d);
         public ParcelBL ConvertDalParcelToBL(Parcel p);
@@ -38,6 +38,14 @@ namespace IBL
         public List<DroneBL> GetDronesBL();
         public List<ParcelBL> GetParcelsBL();
         public List<StationBL> GetStationsBL();
+        public List<ParcelBL> GetParcelsNotYetAssignedDroneList();
+        public List<StationBL> GetAvailableStationsList();
         public StationBL GetNearestAvailableStation( Location Targlocation);
+        public string SendDroneToCharge(int droneId);
+        public string ReleaseDroneFromCharge(int droneId, int timeInCharge);
+        public string AssignParcelToDrone(int droneId);
+        public string CollectParcelByDrone(int droneId);
+        public string DeliveryParcelByDrone(int droneId);
+        public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
     }
 }

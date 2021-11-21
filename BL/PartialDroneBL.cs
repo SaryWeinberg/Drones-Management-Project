@@ -22,7 +22,7 @@ namespace BL
             droneDal.ID = id;
             droneDal.Model = model;
             droneDal.MaxWeight = maxWeight;
-            dalObj.AddDrone(droneDal.Clone());
+            dalObj.AddDrone(droneDal);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BL
             DroneCharge droneCharge = new DroneCharge();
             droneCharge.DroneId = stationID;
             droneCharge.StationId = stationID;
-            dalObj.AddDroneCharge(droneCharge.Clone());
+            dalObj.AddDroneCharge(droneCharge);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace BL
         /// <param name="model"></param>
         /// <param name="maxWeight"></param>
         /// <param name="stationID"></param>
-        public void AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
+        public string AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
         {
             DroneBL droneBL = new DroneBL();
             try
@@ -58,16 +58,21 @@ namespace BL
                 droneBL.Status = DroneStatus.Maintenance;
 
                 Station station = dalObj.GetSpesificStation(id);
-                droneBL.Location.Longitude = station.Longitude;
-                droneBL.Location.Latitude = station.Latitude;
+                Location Slocation = new Location();
+                Slocation.Longitude = station.Longitude; ;
+                Slocation.Latitude = station.Latitude;
+                droneBL.Location = Slocation;
+              
             }
             catch (InvalidID e)
             {
                 throw e;
             }
-            droneBlList.Add(droneBL.Clone());
+            
+/*            droneBlList.Add(droneBL);*/
             AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID);
+            return "Drone added successfully!";
         }
 
         /// <summary>
@@ -75,10 +80,16 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public void UpdateDroneName(int id, string model)
+        public string UpdateDroneName(int id, string model ="")
         {
-            Drone drone = dalObj.GetSpesificDrone(id);
-            drone.Model = model;
+            
+            if (model != "")
+            {
+                Drone drone = dalObj.GetSpesificDrone(id);
+                drone.Model = model;
+                dalObj.UpdateDrone(drone);
+            }
+            return "The update was successful!";
         }
 
         /// <summary>
@@ -92,9 +103,14 @@ namespace BL
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
-                Model = d.Model
+                Model = d.Model,
+                //צריך לאתחל את כל אלו בצורה נורמלית, עכשיו זה רק כדי שירוץ
+                BatteryStatus = 0,
+                Location = new Location { Latitude = 0, Longitude = 0 },
+                Parcel = new ParcelByDelivery(),
+                Status = (DroneStatus)1
+                //
             };
-            /*BatteryStatus*/
         }
 
         /// <summary>
@@ -108,7 +124,7 @@ namespace BL
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
-                Model = d.Model 
+                Model = d.Model
             };
         }
 
@@ -119,14 +135,14 @@ namespace BL
         /// <returns></returns>
         public DroneBL GetSpesificDroneBL(int droneId)
         {
-            try
-            {
+           /* try
+            {*/
                 return ConvertDalDroneToBL(dalObj.GetSpesificDrone(droneId));
-            }
-            catch (ObjectDoesNotExist e)
+           /* }*/
+          /*  catch (ObjectDoesNotExist e)
             {
-                throw e;
-            }
+                throw new ObjectNotExist(e.Message);
+            }*/
         }
 
         /// <summary>
@@ -137,8 +153,26 @@ namespace BL
         {
             List<Drone> dronesDal = dalObj.GetDrones();
             List<DroneBL> dronesBL = new List<DroneBL>();
-            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d.Clone())));
+            dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
+        }
+
+        /// <summary>
+        /// The function returns the total battery usage
+        /// </summary>
+        /// <param name="senderId"></param>
+        /// <param name="targetId"></param>
+        /// <param name="parcelweight"></param>
+        /// <param name="droneLocation"></param>
+        /// <returns></returns>
+        public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation)
+        {
+            return ((Distance(droneLocation,
+            GetSpesificCustomerBL(senderId).Location) * dalObj.ElectricalPowerRequest()[0])//מרחק שולח מהרחפן*צריכה כשהוא ריק 
+            + (Distance(GetSpesificCustomerBL(senderId).Location, GetSpesificCustomerBL(targetId).Location) * dalObj.ElectricalPowerRequest()[parcelweight])
+            + (Distance(GetSpesificCustomerBL(targetId).Location, GetNearestAvailableStation(GetSpesificCustomerBL(targetId).Location).Location) * dalObj.ElectricalPowerRequest()[0]));
         }
     }
 }
+
+

@@ -11,5 +11,10 @@ namespace IBL.BO
         public int ID { get; set; }
         public double BettaryStatus { get; set; }
         public Location Location { get; set; }
+
+        public override string ToString()
+        {
+            return "Drone: id: " + ID + " BettaryStatus:  " + BettaryStatus + " Location: " + Location;
+        }
     }
 }

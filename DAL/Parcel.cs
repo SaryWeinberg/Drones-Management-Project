@@ -13,20 +13,17 @@ namespace IDAL.DO
         public int TargetId { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public DateTime Requested { get; set; }
+        public DateTime Created { get; set; }
         public int DroneId { get; set; }
-        public DateTime Scheduled { get; set; }
+        public DateTime Associated { get; set; }
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
         public int Active { get; set; }
 
         public override string ToString()
         {
-            return "Parcel: " + ID + " " + SenderId + " " + TargetId + " " + Weight + " " + Priority + " " + Requested + " " + DroneId + " " + Scheduled + " " + PickedUp + " " + Delivered;
+            return "Parcel: " + ID + " " + SenderId + " " + TargetId + " " + Weight + " " + Priority + " " + Created + " " + DroneId + " " + Associated + " " + PickedUp + " " + Delivered;
         }
-    }
-
-
-    
+    }    
 }
 

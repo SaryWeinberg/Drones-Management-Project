@@ -28,7 +28,7 @@ namespace IBL.BO
 
     public enum UpdateOptions
     {
-        AssingParcelToDrone = 1, CollectParcelByDrone, ProvideParcelToCustomer, SendDroneToChargeInStation, ReleaseDroneFromChargeInStation
+        UpdateCustomerData = 1, UpdateDroneName, UpdateStationData, SendDroneToCharge, ReleaseDroneFromCharge, AssignParcelToDrone, CollectParcelByDrone, DeliveryParcelByDrone
     }
 
     public enum DisplayOptions
@@ -38,6 +38,6 @@ namespace IBL.BO
 
     public enum ListDisplayOptions
     {
-        ViewStationLists = 1, ViewCustomerLists, ViewDroneLists, ViewParcelLists, ViewFreeParcelLists, ViewAvailableStationLists
+        DisplayStationsList = 1, DisplayCustomersList, DisplayDronesList, DisplayParcelsList, DisplayParcelsNotYetAssignedDroneList, DisplayAvailableStationsList
     }
 }

@@ -25,7 +25,7 @@ namespace BL
             customer.Name = name;
             customer.Longitude = location.Longitude;
             customer.Latitude = location.Latitude;
-            dalObj.AddCustomer(customer.Clone());
+            dalObj.AddCustomer(customer);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
-        public void AddCustomerBL(int id, int phone, string name, Location location)
+        public string AddCustomerBL(int id, int phone, string name, Location location)
         {
             CustomerBL customer = new CustomerBL();
             try
@@ -44,8 +44,8 @@ namespace BL
                 customer.ID = id;
                 customer.PhoneNum = phone;
                 customer.Name = name;
-                customer.Location.Longitude = location.Longitude;
-                customer.Location.Latitude = location.Latitude;
+                customer.Location= location;
+
             }
             catch (InvalidID e)
             {
@@ -59,6 +59,7 @@ namespace BL
                 throw e;
             }
             AddCustomerDal(id, phone, name, location);
+            return "Customer added successfully!";
         }
 
         /// <summary>
@@ -67,13 +68,16 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
-        public void UpdateCustomerData(int id, string name = null, int phoneNum = 0)
+        public string UpdateCustomerData(int id, string name = null, int phoneNum = 0)
         {
             Customer customer = dalObj.GetSpesificCustomer(id);
-            if (name != null)
+            if (name != null && name != "")
                 customer.Name = name;
-            if (phoneNum != 0)
+            if (phoneNum != 0 && phoneNum != null)
                 customer.PhoneNum = phoneNum;
+
+            dalObj.UpdateCustomer(customer);
+            return "The update was successful!";
         }
 
         /// <summary>
@@ -116,14 +120,16 @@ namespace BL
         /// <returns></returns>
         public CustomerBL GetSpesificCustomerBL(int customerId)
         {
-            try
-            {
-                return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
-            }
-            catch (ObjectDoesNotExist e)
-            {
-                throw e;
-            }
+
+
+            /*    try
+                {*/
+            return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+            /* }*/
+            /*            catch (ObjectDoesNotExist e)
+                        {
+                            throw new ObjectNotExist(e.Message);
+                        }*/
         }
 
         /// <summary>
@@ -134,7 +140,7 @@ namespace BL
         {
             List<Customer> customersDal = dalObj.GetCustomers();
             List<CustomerBL> customersBL = new List<CustomerBL>();
-            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c.Clone())));
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
             return customersBL;
         }
     }

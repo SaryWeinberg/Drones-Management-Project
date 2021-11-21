@@ -16,7 +16,7 @@ namespace DalObject
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
-            DataSource.Stations.Add(station.Clone());
+            DataSource.Stations.Add(station);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace DalObject
         public void UpdateStation(Station station)
         {
             int index = DataSource.Stations.FindIndex(d => d.ID == station.ID);
-            DataSource.Stations[index] = station.Clone();
+            DataSource.Stations[index] = station;
         }
 
         /// <summary>
@@ -36,14 +36,12 @@ namespace DalObject
         /// <returns></returns>
         public Station GetSpesificStation(int stationId)
         {
-            try
-            {
+            
+            
                 return DataSource.Stations.First(station => station.ID == stationId);
-            }
-            catch
-            {
-                throw new ObjectDoesNotExist("Station", stationId);
-            }
+             
+            
+           
         }
 
         /// <summary>
