@@ -30,11 +30,11 @@ namespace BL
             foreach (DroneBL drone in dronesBList)
             {
                 drone.Location = null;/* new Location {Longitude= rand.Next(1, 41),Latitude = rand.Next(1, 41)};*/
-             
+
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
                 if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
                 {
-                    
+
                     if (parcel.PickedUp == DateTime.MinValue)//חבילה שלא נאספה
                     {
                         drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).Location).Location;
@@ -55,8 +55,10 @@ namespace BL
                     {
 
                         List<Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp > new DateTime());
-                        double randIDX = rand.Next(0, parcelProvided.Count()- 1);
+                        double randIDX = rand.Next(0, parcelProvided.Count() - 1);
                         drone.Location = GetSpesificCustomerBL(parcelProvided[(int)randIDX].TargetId).Location;
+
+                        drone.BatteryStatus = rand.Next((int)(Distance(GetNearestAvailableStation(drone.Location).Location, drone.Location) * Available), 100);
                     }
                     else
                     {
@@ -118,7 +120,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             StationBL station = GetNearestAvailableStation(drone.Location);
-            if (dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) < drone.BatteryStatus)
+            if (dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) > drone.BatteryStatus)
             {
                 throw new NoBatteryToReachChargingStationException();
             }
@@ -170,10 +172,10 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             List<ParcelBL> parcels = GetParcelsBL();
-            ParcelBL BestParcel = parcels[0];
+            ParcelBL BestParcel = new ParcelBL {Weight };
             foreach (ParcelBL parcel in parcels)
             {
-                if (parcel.Weight > droneBL.MaxWeight && BestParcel.Priority <= parcel.Priority)
+                if (parcel.Weight <= droneBL.MaxWeight && BestParcel.Priority <= parcel.Priority)
                 {
                     if (BestParcel.Priority < parcel.Priority)
                         BestParcel = parcel;
@@ -189,13 +191,15 @@ namespace BL
                                 Distance(droneBL.Location, GetSpesificCustomerBL(BestParcel.Sender.ID).Location))
                                 {
 
-                                    if (TotalBatteryUsage(parcel.Sender.ID,parcel.Target.ID,(int)parcel.Weight,droneBL.Location) < droneBL.BatteryStatus)
+                                    if (TotalBatteryUsage(parcel.Sender.ID, parcel.Target.ID, (int)parcel.Weight, droneBL.Location) < droneBL.BatteryStatus)
                                     {
                                         BestParcel = parcel;
                                         droneBL.Status = DroneStatus.Delivery;
-                                        BestParcel.Drone.ID = droneBL.ID;
-                                        BestParcel.Drone.Location = droneBL.Location;
-                                        BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;
+                                        DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, BatteryStatus = droneBL.BatteryStatus, Location = droneBL.Location };
+                                        /*                 BestParcel.Drone.ID = droneBL.ID;
+                                                               BestParcel.Drone.Location = droneBL.Location;
+                                                BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;*/
+                                        BestParcel.Drone = droneInP;
                                         BestParcel.Associated = DateTime.Now;
                                         dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
                                         return "The parcel was successfully associated with the drone!";
