@@ -165,7 +165,7 @@ namespace BL
         /// Function for assigning a parcel to a drone
         /// </summary>
         /// <param name="droneId"></param>
-        public string AssignParcelToDrone(int droneId)
+/*        public string AssignParcelToDrone(int droneId)
         {
             DroneBL droneBL = GetSpesificDroneBL(droneId);
 
@@ -174,7 +174,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             List<ParcelBL> parcels = GetParcelsBL();
-            ParcelBL BestParcel = new ParcelBL {Weight };
+            ParcelBL BestParcel = new ParcelBL { Weight = droneBL.MaxWeight, Priority = Priorities.Normal, Sender = parcels[parcels.Count() - 1].Sender, Target = parcels[parcels.Count() - 1].Sender };
             foreach (ParcelBL parcel in parcels)
             {
                 if (parcel.Weight <= droneBL.MaxWeight && BestParcel.Priority <= parcel.Priority)
@@ -198,9 +198,9 @@ namespace BL
                                         BestParcel = parcel;
                                         droneBL.Status = DroneStatus.Delivery;
                                         DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, BatteryStatus = droneBL.BatteryStatus, Location = droneBL.Location };
-                                        /*                 BestParcel.Drone.ID = droneBL.ID;
+                                        *//*                 BestParcel.Drone.ID = droneBL.ID;
                                                                BestParcel.Drone.Location = droneBL.Location;
-                                                BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;*/
+                                                BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;*//*
                                         BestParcel.Drone = droneInP;
                                         BestParcel.Associated = DateTime.Now;
                                         dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
@@ -212,8 +212,81 @@ namespace BL
                     }
                 }
             }
+
+
             throw new CanNotAssignParcelToDroneException();
+        }*/
+
+
+
+        public string AssignParcelToDrone(int droneId)
+        {
+            DroneBL droneBL = GetSpesificDroneBL(droneId);
+
+            if (droneBL.Status != DroneStatus.Available)
+            {
+                throw new TheDroneNotAvailableException();
+            }
+            List<ParcelBL> parcels = GetParcelsBL();
+            int flag = 0;
+            double bestDistance = 100;
+            ParcelBL BestParcel = new ParcelBL { Weight = droneBL.MaxWeight, Priority = Priorities.Normal, Sender = parcels[parcels.Count() - 1].Sender, Target = parcels[parcels.Count() - 1].Sender };
+            foreach (ParcelBL parcel in parcels)
+            {
+                if (parcel.Weight <= droneBL.MaxWeight && TotalBatteryUsage(parcel.Sender.ID, parcel.Target.ID, (int)parcel.Weight, droneBL.Location) < droneBL.BatteryStatus)
+                {
+                    if (BestParcel.Priority <= parcel.Priority)
+                    {
+                        if (BestParcel.Priority < parcel.Priority)
+                        {
+                            flag = 1;
+                            BestParcel = parcel;
+                        }
+                        else
+                        {
+                            if (parcel.Weight >= BestParcel.Weight)
+                            {
+                                if (parcel.Weight > BestParcel.Weight)
+                                {
+                                    flag = 1;
+                                    BestParcel = parcel;
+                                }
+                                else
+                                {
+                                    if (Distance(droneBL.Location, GetSpesificCustomerBL(parcel.Sender.ID).Location) <= bestDistance)
+                                    {//מרחק חבילה הנוכחית לעומת הטובה ביותר
+                                        BestParcel = parcel;
+                                        bestDistance = Distance(droneBL.Location, GetSpesificCustomerBL(BestParcel.Sender.ID).Location);
+                                        flag = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (flag == 1)
+            {
+
+                droneBL.Status = DroneStatus.Delivery;
+                DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, BatteryStatus = droneBL.BatteryStatus, Location = droneBL.Location };
+                /*                 BestParcel.Drone.ID = droneBL.ID;
+                                       BestParcel.Drone.Location = droneBL.Location;
+                        BestParcel.Drone.BatteryStatus = droneBL.BatteryStatus;*/
+                BestParcel.Drone = droneInP;
+                BestParcel.Associated = DateTime.Now;
+                dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
+                return "The parcel was successfully associated with the drone!";
+            }
+            throw new CanNotAssignParcelToDroneException();
+
         }
+
+
+
+
+
+
 
         /// <summary>
         /// Function for collecting a parcel by drone
