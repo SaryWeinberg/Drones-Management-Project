@@ -29,19 +29,24 @@ namespace BL
             List<Parcel> parcels = dalObj.GetParcels();
             foreach (DroneBL drone in dronesBList)
             {
+                drone.Location = new Location {Longitude= rand.Next(0, 40),Latitude =rand.Next(0, 40)};
+             
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);//לעשות כאן בדיקה
-                if (!parcel.Equals(null) && parcel.Delivered > DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
+                if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == DateTime.MinValue)//ישנה חבילה ששויכה אך לא סופקה
                 {
-                    drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
-                    drone.Status = DroneStatus.Delivery;
-                    if (parcel.PickedUp != DateTime.MinValue)//חבילה שלא נאספה
+                    
+                    if (parcel.PickedUp == DateTime.MinValue)//חבילה שלא נאספה
                     {
                         drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).Location).Location;
                     }
                     else//חייב להיות חבילה שלא סופקה 
                     {
+
                         drone.Location = GetSpesificCustomerBL(parcel.SenderId).Location;
                     }
+
+                    drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
+                    drone.Status = DroneStatus.Delivery;
                 }
                 else
                 {

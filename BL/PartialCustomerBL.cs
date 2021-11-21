@@ -68,13 +68,13 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
-        public string UpdateCustomerData(int id, string name = null, int phoneNum = 0)
+        public string UpdateCustomerData(int id, string name = null, string phoneNum =null)
         {
             Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null && name != "")
                 customer.Name = name;
-            if (phoneNum != 0 && phoneNum != null)
-                customer.PhoneNum = phoneNum;
+            if (phoneNum != null && phoneNum != "")
+                customer.PhoneNum = int.Parse(phoneNum);
 
             dalObj.UpdateCustomer(customer);
             return "The update was successful!";

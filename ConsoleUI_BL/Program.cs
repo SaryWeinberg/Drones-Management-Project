@@ -80,7 +80,7 @@ namespace ConsoleUI
                         switch (UpddateOption)
                         {
                             case (int)UpdateOptions.UpdateCustomerData:
-                                Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID"), GetString("new customer", "name"), GetInt("new customer", "phone")));
+                                Console.WriteLine(bl.UpdateCustomerData(GetInt("customer", "ID"), GetString("new customer", "name"),  GetString("new customer", "phone number")));
                                 break;
                             case (int)UpdateOptions.UpdateDroneName:
                                 Console.WriteLine(bl.UpdateDroneName(GetInt("drone", "ID"), GetString("drone", "name")));

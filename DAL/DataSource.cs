@@ -17,7 +17,7 @@ namespace DalObject
 
         internal class config
         {
-            public static double Available, Light, medium, heavy, chargingRate;       
+            public static double Available =0.02, Light =0.3, medium= 0.5, heavy=0.7, chargingRate=0.8;       
         }
 
         static public void Initialize()
@@ -28,9 +28,9 @@ namespace DalObject
                 Station station = new Station();
                 station.ID = Stations.Count; 
                 station.Name = Stations.Count; 
-                station.Longitude = rand.Next();
-                station.Latitude = rand.Next();
-                station.ChargeSlots = rand.Next(100);
+                station.Longitude = rand.Next(1,40);
+                station.Latitude = rand.Next(1,40);
+                station.ChargeSlots = rand.Next(1,100);
                 Stations.Add(station);                
             }
 
@@ -49,8 +49,8 @@ namespace DalObject
                 customer.ID = rand.Next(100000000, 999999999); 
                 customer.PhoneNum = rand.Next(111111111, 999999999);
                 customer.Name = $"Customer{i}";
-                customer.Longitude = rand.Next();
-                customer.Latitude = rand.Next();                
+                customer.Longitude = rand.Next(1,40);
+                customer.Latitude = rand.Next(1,40);                
                 Customers.Add(customer);
             }
 
@@ -66,14 +66,13 @@ namespace DalObject
                 parcel.DroneId = rand.Next() % Drones.Count;
                 parcel.Associated = RandomDate();
                 parcel.PickedUp = RandomDate();
-                parcel.Delivered = RandomDate();                
+                parcel.Delivered = RandomDate();
                 Parcels.Add(parcel);
             }
         }
 
         public static DateTime RandomDate()
         {
-
             DateTime start = new DateTime(1995, 1, 1);
             Random rand = new Random();
             int range = (DateTime.Today - start).Days;
