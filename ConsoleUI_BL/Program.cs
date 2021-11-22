@@ -34,10 +34,10 @@ namespace ConsoleUI
 
                     case (int)UserOptions.Add:
                         Console.WriteLine("please select:\n" +
-                            "1-Add base-station\n" +
-                            "2-Add Drone\n" +
-                            "3-Add a new costumer\n" +
-                            "4-Add a new Parcel to a costumer"
+                            "1-Add station\n" +
+                            "2-Add drone\n" +
+                            "3-Add costumer\n" +
+                            "4-Add Parcel"
                            );
                         int AddOption = int.Parse(Console.ReadLine());
                         switch (AddOption)

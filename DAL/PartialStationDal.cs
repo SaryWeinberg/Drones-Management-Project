@@ -36,12 +36,7 @@ namespace DalObject
         /// <returns></returns>
         public Station GetSpesificStation(int stationId)
         {
-            
-            
-                return DataSource.Stations.First(station => station.ID == stationId);
-             
-            
-           
+            return DataSource.Stations.First(station => station.ID == stationId);
         }
 
         /// <summary>

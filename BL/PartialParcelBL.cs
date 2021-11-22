@@ -30,7 +30,6 @@ namespace BL
             parcel.Weight = weight;
             parcel.Priority = priority;
             parcel.Created = DateTime.Now;
-            //parcel.DroneId = droneId;
             dalObj.AddParcel(parcel);
         }
 

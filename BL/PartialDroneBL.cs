@@ -61,7 +61,7 @@ namespace BL
                 droneBL.BatteryStatus = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
 
-                Station station = dalObj.GetSpesificStation(id);
+                Station station = dalObj.GetSpesificStation(stationID);
                 Location Slocation = new Location();
                 Slocation.Longitude = station.Longitude;
                 Slocation.Latitude = station.Latitude;
@@ -85,7 +85,7 @@ namespace BL
             {
                 DroneBL drone = GetSpesificDroneBL(id);
                 drone.Model = model;
-               UpdateDrone(drone);
+                UpdateDrone(drone);
             }
             return "The update was successful!";
         }
@@ -129,7 +129,6 @@ namespace BL
 
         public string UpdateDrone(DroneBL droneBL)
         {
-            //להוסיף try
             int idx = dronesBList.FindIndex(d => d.ID == droneBL.ID);
             dronesBList[idx] = droneBL;
             dalObj.UpdateDrone(ConvertBLDroneToDAL(droneBL));
