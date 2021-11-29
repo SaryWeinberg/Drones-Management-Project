@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
-{
+/*namespace IBL.BO
+{*/
     public enum DroneStatus
     {
         Available, Maintenance, Delivery
@@ -15,6 +15,16 @@ namespace IBL.BO
     {
         created, associated, collected, provided
     }
+
+    /*public enum WeightCategories
+    {
+        Light = 1, Medium, Heavy
+    }
+
+    public enum Priorities
+    {
+        Normal, Medium, Emergency
+    }*/
 
     public enum UserOptions
     {
@@ -40,4 +50,4 @@ namespace IBL.BO
     {
         DisplayStationsList = 1, DisplayCustomersList, DisplayDronesList, DisplayParcelsList, DisplayParcelsNotYetAssignedDroneList, DisplayAvailableStationsList
     }   
-}
+/*}*/

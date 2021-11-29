@@ -80,7 +80,6 @@ namespace BL
         /// <param name="model"></param>
         public string UpdateDroneName(int id, string model = "")
         {
-
             if (model != "")
             {
                 DroneBL drone = GetSpesificDroneBL(id);
@@ -129,8 +128,8 @@ namespace BL
 
         public string UpdateDrone(DroneBL droneBL)
         {
-            int idx = dronesBList.FindIndex(d => d.ID == droneBL.ID);
-            dronesBList[idx] = droneBL;
+            int idx = dronesBLList.FindIndex(d => d.ID == droneBL.ID);
+            dronesBLList[idx] = droneBL;
             dalObj.UpdateDrone(ConvertBLDroneToDAL(droneBL));
             return "The update was successful!";
         }
@@ -144,7 +143,7 @@ namespace BL
         {
             try
             {
-                return dronesBList.Find(d => d.ID == droneId);
+                return dronesBLList.Find(d => d.ID == droneId);
             }
             catch (ArgumentNullException)
             {
@@ -170,7 +169,14 @@ namespace BL
         /// <returns></returns>
         public List<DroneBL> GetDronesBLList()
         {
-            return dronesBList;
+            return dronesBLList;
+        }
+
+        public IEnumerable<DroneBL> GetDronesBy(Predicate<DroneBL> findBy)
+        {
+            return from droneBL in dronesBLList
+                   where findBy(droneBL)
+                   select droneBL;
         }
 
         /// <summary>

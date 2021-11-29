@@ -52,27 +52,6 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Returns the list of available stations one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Station> GetAvailableStationLists()
-        {
-            foreach (Station station in DataSource.Stations)
-            {
-                int counter = 0;
-                foreach (DroneCharge droneCharge in DataSource.DroneCharges)
-                {
-                    if (station.ID == droneCharge.StationId)
-                        counter++;
-                }
-                if (station.ChargeSlots - counter > 0)
-                {
-                    yield return station;
-                }
-            }
-        }
-
-        /// <summary>
         /// Returns the station list
         /// </summary>
         /// <returns></returns>

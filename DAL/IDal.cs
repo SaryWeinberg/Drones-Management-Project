@@ -22,8 +22,6 @@ namespace IDAL.DO
         public IEnumerable<Drone> GetDroneLists();
         public IEnumerable<Customer> GetCustomerLists();
         public IEnumerable<Parcel> GetParcelLists();
-        public IEnumerable<Parcel> GetFreeParcelLists();
-        public IEnumerable<Station> GetAvailableStationLists();
         public double[] ElectricalPowerRequest();
         List<Drone> GetDrones();
         List<Station> GetStations();

@@ -14,7 +14,7 @@ namespace BL
         IDal dalObj;
 
         Random rand = new Random();
-        List<DroneBL> dronesBList = new List<DroneBL>();
+        List<DroneBL> dronesBLList = new List<DroneBL>();
 
         public BL()
         {
@@ -25,10 +25,10 @@ namespace BL
             double medium = ElectricUse[2];
             double heavy = ElectricUse[3];
             double chargingRate = ElectricUse[4];
-            dronesBList = GetDronesBL();
+            dronesBLList = GetDronesBL();
             List<Parcel> parcels = dalObj.GetParcels();
 
-            foreach (DroneBL drone in dronesBList)
+            foreach (DroneBL drone in dronesBLList)
             {
                 drone.Location = new Location { Longitude = rand.Next(0, 40), Latitude = rand.Next(0, 40) };
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);

@@ -59,19 +59,6 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Returns the list of free parcels one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Parcel> GetFreeParcelLists()
-        {
-            foreach (Parcel parcel in DataSource.Parcels)
-            {
-                if (parcel.DroneId == null)
-                    yield return parcel;
-            }
-        }
-
-        /// <summary>
         /// Returns the parcel list
         /// </summary>
         /// <returns></returns>

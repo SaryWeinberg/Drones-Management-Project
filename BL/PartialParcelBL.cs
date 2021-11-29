@@ -163,9 +163,9 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneList(Predicate<ParcelBL> findBy)
         {
-            return from parcelBL in dalObj.GetParcelLists()
-                   where findBy(parcelBL.DroneId==0)
-                   select parcelBL;
+            return from parcelBL in dalObj.GetParcels()
+                   where findBy(ConvertDalParcelToBL(parcelBL))
+                   select ConvertDalParcelToBL(parcelBL);
 
             /*List<ParcelBL> parcelsBL = new List<ParcelBL>();
             foreach (Parcel parcel in dalObj.GetParcels())
@@ -180,6 +180,11 @@ namespace BL
                 throw new ObjectNotExistException("There are no parcels that not yet assigned to drone");
             }
             return parcelsBL;*/
+        }
+
+        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneListPredicate()
+        {
+            return GetParcelsNotYetAssignedDroneList(parcel => parcel.Associated == null);
         }
     }
 }
