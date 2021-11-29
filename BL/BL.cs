@@ -34,10 +34,10 @@ namespace BL
                 Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);
 
                 //There is a parcel that has been associated but not delivered
-                if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == DateTime.MinValue)
+                if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == null)
                 {
                     //Package not collected
-                    if (parcel.PickedUp == DateTime.MinValue)
+                    if (parcel.PickedUp ==null)
                     {
                         drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).Location).Location;
                     }
@@ -56,7 +56,7 @@ namespace BL
 
                     if (drone.Status == 0)
                     {
-                        List<Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp > new DateTime());
+                        List<Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp != null);
                         double randIDX = rand.Next(0, parcelProvided.Count() - 1);
                         drone.Location = GetSpesificCustomerBL(parcelProvided[(int)randIDX].TargetId).Location;
                         drone.BatteryStatus = rand.Next((int)(Distance(GetNearestAvailableStation(drone.Location).Location, drone.Location) * Available), 100);
@@ -261,7 +261,7 @@ namespace BL
             {
                 if (currentParcel.Drone.ID == droneId)
                 {
-                    if (currentParcel.Associated == DateTime.MinValue && currentParcel.PickedUp != DateTime.MinValue)
+                    if (currentParcel.Associated == null && currentParcel.PickedUp != null)
                     {
                         throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
                     }
@@ -290,7 +290,7 @@ namespace BL
             {
                 if (currentParcel.Drone.ID == droneId)
                 {
-                    if (currentParcel.PickedUp == DateTime.MinValue && currentParcel.Delivered != DateTime.MinValue)
+                    if (currentParcel.PickedUp ==null && currentParcel.Delivered != null)
                     {
                         throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "delivered");
                     }

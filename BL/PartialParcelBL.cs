@@ -60,10 +60,9 @@ namespace BL
                 parcel.Weight = weight;
                 parcel.Priority = priority;
                 parcel.Drone = null;
-                parcel.Associated = new DateTime();
+
                 parcel.Created = DateTime.Now;
-                parcel.PickedUp = new DateTime();
-                parcel.Delivered = new DateTime();
+        
             }
             catch (InvalidObjException e) { throw e; }
             AddParcelDal(parcel.ID, senderId, targetId, weight, priority);
@@ -167,7 +166,7 @@ namespace BL
             List<ParcelBL> parcelsBL = new List<ParcelBL>();
             foreach (Parcel parcel in dalObj.GetParcels())
             {
-                if (parcel.Associated == DateTime.MinValue)
+                if (parcel.Associated == null)
                 {
                     parcelsBL.Add(ConvertDalParcelToBL(parcel));
                 }
