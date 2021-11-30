@@ -26,9 +26,24 @@ namespace PL
             InitializeComponent();
         }
 
-        private void ViewDroneList(object sender, RoutedEventArgs e)
+        private void ViewDroneListWindow(object sender, RoutedEventArgs e)
         {
             new DroneListWindow(bl).Show();
+        }
+
+        private void ViewParcelListWindow(object sender, RoutedEventArgs e)
+        {
+            new ParcelListWindow(bl).Show();
+        }
+
+        private void ViewCustomerListWindow(object sender, RoutedEventArgs e)
+        {
+            new CustomerListWindow(bl).Show();
+        }
+
+        private void ViewStationListWindow(object sender, RoutedEventArgs e)
+        {
+            new StationListWindow(bl).Show();
         }
     }
 }
