@@ -45,10 +45,12 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Station> GetStationLists()
         {
-            foreach (Station station in DataSource.Stations)
+            return from station in DataSource.Stations
+                   select station;
+            /*foreach (Station station in DataSource.Stations)
             {
                 yield return station;
-            }
+            }*/
         }
 
         /// <summary>

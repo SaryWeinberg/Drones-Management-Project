@@ -27,5 +27,12 @@ namespace PL
             bl = blMain;
             DroneStatus.ItemsSource = Enum.GetValues(typeof(DroneStatus));
         }
+
+        public DroneWindow(IBL.IBL blMain, IBL.BO.DroneBL drone)
+        {
+            InitializeComponent();
+            bl = blMain;
+            DroneStatus.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+        }
     }
 }

@@ -24,7 +24,7 @@
         <Button Grid.Column="3" Content="Add Drone" HorizontalAlignment="Left" Margin="683,0,0,0" VerticalAlignment="Center" Click="ViewDroneWindow"/>
         <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" Margin="465,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged"/>
 
-        <ListView Grid.Row="1" x:Name="DroneListView">
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

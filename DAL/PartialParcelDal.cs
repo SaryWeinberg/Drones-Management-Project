@@ -52,10 +52,12 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcelLists()
         {
-            foreach (Parcel parcel in DataSource.Parcels)
+            return from parcel in DataSource.Parcels
+                   select parcel;
+          /*  foreach (Parcel parcel in DataSource.Parcels)
             {
                 yield return parcel;
-            }
+            }*/
         }
 
         /// <summary>

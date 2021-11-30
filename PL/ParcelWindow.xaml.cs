@@ -24,6 +24,8 @@ namespace PL
         {
             InitializeComponent();
             bl = blMain;
+            ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
         }
     }
 }
