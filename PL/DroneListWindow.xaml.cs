@@ -32,32 +32,34 @@ namespace PL
 
         private void StatusSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (sender)
+            ComboBox status = sender as ComboBox;
+            switch ((int)status.SelectedItem)
             {
-                case "Available":
-                    bl.GetDronesBy(drone => drone.Status == DroneStatus.Available);
+                case 0:
+                    DroneListView.ItemsSource =  bl.GetDronesBy(drone => drone.Status == DroneStatus.Available);
                     break;
-                case "Maintenance":
-                    bl.GetDronesBy(drone => drone.Status == DroneStatus.Maintenance);
+                case 1:
+                    DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == DroneStatus.Maintenance);
                     break;
-                case "Delivery":
-                    bl.GetDronesBy(drone => drone.Status == DroneStatus.Delivery);
+                case 2:
+                    DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == DroneStatus.Delivery);
                     break;
             }            
         }
 
         private void WeightSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (sender)
+            ComboBox weight = sender as ComboBox;
+            switch ((int)weight.SelectedItem)
             {
-                case "Light":
-                    bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Light);
+                case 0:
+                    DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Light);
                     break;
-                case "Medium":
-                    bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Medium);
+                case 1:
+                    DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Medium);
                     break;
-                case "Heavy":
-                    bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Heavy);
+                case 2:
+                    DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Heavy);
                     break;
             }
         }
