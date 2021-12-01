@@ -30,7 +30,6 @@ namespace BL
             parcel.Weight = weight;
             parcel.Priority = priority;
             parcel.Created = DateTime.Now;
-            //parcel.DroneId = droneId;
             dalObj.AddParcel(parcel);
         }
 
@@ -61,10 +60,9 @@ namespace BL
                 parcel.Weight = weight;
                 parcel.Priority = priority;
                 parcel.Drone = null;
-                parcel.Associated = new DateTime();
+
                 parcel.Created = DateTime.Now;
-                parcel.PickedUp = new DateTime();
-                parcel.Delivered = new DateTime();
+        
             }
             catch (InvalidObjException e) { throw e; }
             AddParcelDal(parcel.ID, senderId, targetId, weight, priority);
@@ -163,12 +161,16 @@ namespace BL
         /// Returns a list of parcels that have not yet been associated with a drone
         /// </summary>
         /// <returns></returns>
-        public List<ParcelBL> GetParcelsNotYetAssignedDroneList()
+        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneList(Predicate<ParcelBL> findBy)
         {
-            List<ParcelBL> parcelsBL = new List<ParcelBL>();
+            return from parcelBL in dalObj.GetParcels()
+                   where findBy(ConvertDalParcelToBL(parcelBL))
+                   select ConvertDalParcelToBL(parcelBL);
+
+            /*List<ParcelBL> parcelsBL = new List<ParcelBL>();
             foreach (Parcel parcel in dalObj.GetParcels())
             {
-                if (parcel.Associated == DateTime.MinValue)
+                if (parcel.Associated == null)
                 {
                     parcelsBL.Add(ConvertDalParcelToBL(parcel));
                 }
@@ -177,7 +179,12 @@ namespace BL
             {
                 throw new ObjectNotExistException("There are no parcels that not yet assigned to drone");
             }
-            return parcelsBL;
+            return parcelsBL;*/
+        }
+
+        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneListPredicate()
+        {
+            return GetParcelsNotYetAssignedDroneList(parcel => parcel.Associated == null);
         }
     }
 }

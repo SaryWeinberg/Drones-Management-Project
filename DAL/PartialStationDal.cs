@@ -36,12 +36,7 @@ namespace DalObject
         /// <returns></returns>
         public Station GetSpesificStation(int stationId)
         {
-            
-            
-                return DataSource.Stations.First(station => station.ID == stationId);
-             
-            
-           
+            return DataSource.Stations.First(station => station.ID == stationId);
         }
 
         /// <summary>
@@ -50,31 +45,12 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Station> GetStationLists()
         {
-            foreach (Station station in DataSource.Stations)
+            return from station in DataSource.Stations
+                   select station;
+            /*foreach (Station station in DataSource.Stations)
             {
                 yield return station;
-            }
-        }
-
-        /// <summary>
-        /// Returns the list of available stations one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Station> GetAvailableStationLists()
-        {
-            foreach (Station station in DataSource.Stations)
-            {
-                int counter = 0;
-                foreach (DroneCharge droneCharge in DataSource.DroneCharges)
-                {
-                    if (station.ID == droneCharge.StationId)
-                        counter++;
-                }
-                if (station.ChargeSlots - counter > 0)
-                {
-                    yield return station;
-                }
-            }
+            }*/
         }
 
         /// <summary>

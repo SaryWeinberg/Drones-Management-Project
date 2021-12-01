@@ -40,7 +40,7 @@ namespace IBL
         public string UpdateDrone(DroneBL droneBL);
         public List<ParcelBL> GetParcelsBL();
         public List<StationBL> GetStationsBL();
-        public List<ParcelBL> GetParcelsNotYetAssignedDroneList();
+        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneList(Predicate<ParcelBL> findBy);
         public List<StationBL> GetAvailableStationsList();
         public StationBL GetNearestAvailableStation( Location Targlocation);
         public string SendDroneToCharge(int droneId);
@@ -49,5 +49,6 @@ namespace IBL
         public string CollectParcelByDrone(int droneId);
         public string DeliveryParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
+        public IEnumerable<DroneBL> GetDronesBy(Predicate<DroneBL> findBy);
     }
 }

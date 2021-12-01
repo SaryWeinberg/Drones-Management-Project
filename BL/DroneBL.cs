@@ -15,7 +15,7 @@ namespace IBL.BO
             get { return id; }
             set
             {
-                if (value != null)
+                if (value >= 0)
                     id = value;
                 else
                     throw new InvalidObjException("ID");
@@ -30,7 +30,7 @@ namespace IBL.BO
                 if (value >= 0)
                     maxWeight = value;
                 else
-                    throw new InvalidObjException($"max weight {value}");
+                    throw new InvalidObjException("max weight");
             }
         }
 

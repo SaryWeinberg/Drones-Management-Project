@@ -52,23 +52,12 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcelLists()
         {
-            foreach (Parcel parcel in DataSource.Parcels)
+            return from parcel in DataSource.Parcels
+                   select parcel;
+          /*  foreach (Parcel parcel in DataSource.Parcels)
             {
                 yield return parcel;
-            }
-        }
-
-        /// <summary>
-        /// Returns the list of free parcels one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Parcel> GetFreeParcelLists()
-        {
-            foreach (Parcel parcel in DataSource.Parcels)
-            {
-                if (parcel.DroneId == null)
-                    yield return parcel;
-            }
+            }*/
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace IBL.BO
             get { return phoneNum; }
             set
             {
-                if (value > 100000 && value < 10000000000)
+                if (value > 100000 && value < 1000000000)
                   phoneNum = value;
                 else
                     throw new InvalidObjException("phone number");

@@ -52,10 +52,12 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Customer> GetCustomerLists()
         {
-            foreach (Customer customer in DataSource.Customers)
+            return from customer in DataSource.Customers
+                   select customer;
+            /*foreach (Customer customer in DataSource.Customers)
             {
                 yield return customer;
-            }
+            }*/
         }
 
         /// <summary>
