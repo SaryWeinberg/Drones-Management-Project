@@ -175,10 +175,10 @@ namespace ConsoleUI
                                 try { foreach (ParcelBL parcel in bl.GetParcelsBL()) { Console.WriteLine(parcel); } }
                                 catch (Exception e) { Console.WriteLine(e.Message); }
                                 break;
-                            case (int)ListDisplayOptions.DisplayParcelsNotYetAssignedDroneList:
-                                try { foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList()) { Console.WriteLine(parcel); } }
-                                catch (Exception e) { Console.WriteLine(e.Message); }
-                                break;
+/*                            case (int)ListDisplayOptions.DisplayParcelsNotYetAssignedDroneList:*/
+/*                                try { foreach (ParcelBL parcel in bl.GetParcelsNotYetAssignedDroneList()) { Console.WriteLine(parcel); } }*/
+/*                                catch (Exception e) { Console.WriteLine(e.Message); }*/
+                                /*break;*/
                             case (int)ListDisplayOptions.DisplayAvailableStationsList:
                                 try { foreach (StationBL station in bl.GetAvailableStationsList()) { Console.WriteLine(station); } }
                                 catch (Exception e) { Console.WriteLine(e.Message); }
