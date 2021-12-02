@@ -7,15 +7,8 @@
         mc:Ignorable="d"
         Title="ParcelWindow" Height="450" Width="800">
     <Grid>
-        <Grid>
-            <TextBlock HorizontalAlignment="Left" Margin="43,67,0,0" Text="Enter parcel sender ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="199,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBlock HorizontalAlignment="Left" Margin="43,98,0,0" Text="Enter parcel target ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="199,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBlock HorizontalAlignment="Left" Margin="43,131,0,0" Text="Enter parcel weight:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <ComboBox Name="ParcelWeight" HorizontalAlignment="Left" Margin="199,131,0,0" VerticalAlignment="Top" Width="120"/>
-            <TextBlock HorizontalAlignment="Left" Margin="43,162,0,0" Text="Enter parcel priority:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <ComboBox Name="ParcelPriority" HorizontalAlignment="Left" Margin="199,162,0,0" VerticalAlignment="Top" Width="120"/>
+        <Grid x:Name="ParcelData">
+          
         </Grid>
     </Grid>
 </Window>
