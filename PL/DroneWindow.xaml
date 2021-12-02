@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DroneWindow" Height="450" Width="800">
+    <Grid x:Name="DroneData">
+       
     <Grid Name="droneWin">
         <TextBlock Name="IDBlock" HorizontalAlignment="Left" Margin="43,67,0,0" Text="Enter drone ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox  Name="ID" HorizontalAlignment="Left" Margin="199,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
