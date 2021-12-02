@@ -11,7 +11,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="StationListView" Grid.Row="1">
+        <ListView x:Name="StationListView" Grid.Row="1" MouseDoubleClick="UpdateStation">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

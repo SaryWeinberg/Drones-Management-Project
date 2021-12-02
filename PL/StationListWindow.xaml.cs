@@ -32,5 +32,11 @@ namespace PL
         {
             new StationWindow(bl).Show();
         }
+
+        private void UpdateStation(object sender, MouseButtonEventArgs e)
+        {
+            IBL.BO.StationBL station = (sender as ListView).SelectedValue as IBL.BO.StationBL;
+            new StationWindow(bl, station).Show();
+        }
     }
 }
