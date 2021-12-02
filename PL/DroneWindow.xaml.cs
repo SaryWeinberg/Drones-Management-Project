@@ -25,7 +25,7 @@ namespace PL
         {
             InitializeComponent();
             bl = blMain;
-            string[] dataArr = { "ID", "max_weight" , "model" , "station_ID" };
+            string[] dataArr = { "ID", "max_weight", "model", "station_ID" };
 
             int x = 70;
             foreach (string item in dataArr)
@@ -77,25 +77,25 @@ namespace PL
 
             Button update = new Button();
             update.Content = "update";
-            droneWin.Children.Add(update);
+            DroneData.Children.Add(update);
             update.VerticalAlignment = VerticalAlignment.Top;
             update.Margin = new Thickness(43, 190, 0, 0);
             Button sendDroneCharge = new Button();
             sendDroneCharge.Content = "send drone to charge";
-            droneWin.Children.Add(sendDroneCharge);
+            DroneData.Children.Add(sendDroneCharge);
             sendDroneCharge.VerticalAlignment = VerticalAlignment.Top;
             sendDroneCharge.Margin = new Thickness(43, 210, 0, 0);
             Button releaseDrone = new Button();
             releaseDrone.Content = "release Drone from Charge";
-            droneWin.Children.Add(releaseDrone);
+            DroneData.Children.Add(releaseDrone);
             releaseDrone.VerticalAlignment = VerticalAlignment.Top;
             releaseDrone.Margin = new Thickness(43, 230, 0, 0);
-/*            Button update = new Button();
-            update.Content = "drone location";
-            droneWin.Children.Add(update);
-            update.VerticalAlignment = VerticalAlignment.Top;
-            update.Margin = new Thickness(43, 162, 0, 0);
-*/
+            /*            Button update = new Button();
+                        update.Content = "drone location";
+                        droneWin.Children.Add(update);
+                        update.VerticalAlignment = VerticalAlignment.Top;
+                        update.Margin = new Thickness(43, 162, 0, 0);
+            */
 
 
             /*            TextBlock Location = new TextBlock();
@@ -114,5 +114,5 @@ namespace PL
                         Location.IsEnabled = false;
             */
         }
-    }    
+    }
 }
