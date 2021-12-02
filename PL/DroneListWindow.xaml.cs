@@ -25,7 +25,7 @@ namespace PL
         {
             InitializeComponent();
             bl = blMain;
-            DroneListView.ItemsSource = bl.GetDronesBL();
+            DroneListView.ItemsSource = bl.GetDronesBLList();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }       
@@ -71,7 +71,8 @@ namespace PL
 
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
-            new DroneWindow(bl).Show();
+            IBL.BO.DroneBL dronr1 = (sender as ListView).SelectedValue as IBL.BO.DroneBL;
+            new DroneWindow(bl, dronr1).Show();
         }
     }
 }
