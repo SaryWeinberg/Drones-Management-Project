@@ -30,13 +30,12 @@ namespace PL
             int x = 70;
             foreach (string item in dataArr)
             {
-                TextBlock droneItemT = new TextBlock();
-                droneItemT.Text = $"Enter parcel {item}:";
-                droneItemT.TextWrapping = TextWrapping.Wrap;
+                Label droneItemT = new Label();
+                droneItemT.Content = $"Enter drone {item}:";
                 droneItemT.VerticalAlignment = VerticalAlignment.Top;
                 droneItemT.Margin = new Thickness(43, x, 0, 0);
                 DroneData.Children.Add(droneItemT);
-                if (item == "weight")
+                if (item == "max_weight")
                 {
                     ComboBox droneItemC = new ComboBox();
                     droneItemC.Name = $"drone{item}";
@@ -49,70 +48,106 @@ namespace PL
                 {
                     TextBox droneItem = new TextBox();
                     droneItem.Name = $"drone{item}";
-                    droneItem.TextWrapping = TextWrapping.Wrap;
                     droneItem.VerticalAlignment = VerticalAlignment.Top;
                     droneItem.Margin = new Thickness(199, x, 0, 0);
                     DroneData.Children.Add(droneItem);
                 }
                 x += 30;
             }
+
+            Button sendNewDrone = new Button();
+            sendNewDrone.Content = "Send";
+            sendNewDrone.VerticalAlignment = VerticalAlignment.Top;
+            sendNewDrone.Margin = new Thickness(43, x, 0, 0);
+            sendNewDrone.Click += AddNewDrone;
+            DroneData.Children.Add(sendNewDrone);
+        }
+
+        private void AddNewDrone(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            string weight = DroneData.Children.OfType<ComboBox>().First(txt => txt.Name == "dronemax_weight").Text;
+            string model = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronemodel").Text;
+            string stationID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronestation_ID").Text;
+            bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)int.Parse(weight), int.Parse(stationID));
         }
 
         public DroneWindow(IBL.IBL blMain, IBL.BO.DroneBL drone)
         {
             InitializeComponent();
             bl = blMain;
-            DroneStatus.IsEditable = true;
-            DroneStatus.Text = (drone.MaxWeight).ToString();
-            DroneStatus.IsEnabled = false;
 
-
-            ModelBlock.Text = "update model here:";
-            Model.Text = drone.Model;
-
-            ID.Text = (drone.ID).ToString();
-            ID.IsEnabled = false;
-            DroneStatus.SelectedValue = (drone.MaxWeight).ToString();
-
+            string[] dataArr = { "ID", "max_weight", "model", "battery_status", "status", "longitude", "latitude" };
+            int x = 70;
+            foreach (string item in dataArr)
+            {
+                Label droneItemT = new Label();
+                droneItemT.Content = $"Upadate station {item}:";
+                droneItemT.VerticalAlignment = VerticalAlignment.Top;
+                droneItemT.Margin = new Thickness(43, x, 0, 0);
+                DroneData.Children.Add(droneItemT);
+                if (item == "max_weight" || item == "status")
+                {
+                    ComboBox droneItemC = new ComboBox();
+                    droneItemC.Name = $"drone{item}";
+                    droneItemC.VerticalAlignment = VerticalAlignment.Top;
+                    droneItemC.Margin = new Thickness(199, x, 0, 0);
+                    switch (item)
+                    {
+                        case "max_weight":
+                            droneItemC.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+                            droneItemC.Text = drone.MaxWeight.ToString();
+                            droneItemC.IsEnabled = false;
+                            droneItemC.IsEditable = true; break;
+                        case "status":
+                            droneItemC.ItemsSource = Enum.GetValues(typeof(Status)); 
+                            droneItemC.Text = drone.Status.ToString();
+                            droneItemC.IsEnabled = false;
+                            droneItemC.IsEditable = true; break;
+                    }
+                    DroneData.Children.Add(droneItemC);
+                }
+                else
+                {
+                    TextBox droneItem = new TextBox();
+                    droneItem.Name = $"station{item}";
+                    droneItem.VerticalAlignment = VerticalAlignment.Top;
+                    droneItem.Margin = new Thickness(199, x, 0, 0);
+                    switch (item)
+                    {
+                        case "ID":
+                            droneItem.Text = drone.ID.ToString(); droneItem.IsEnabled = false; break;
+                        case "model":
+                            droneItem.Text = drone.Model.ToString(); break;
+                        case "battery_status":
+                            droneItem.Text = drone.BatteryStatus.ToString(); droneItem.IsEnabled = false; break;
+                        case "longitude":
+                            droneItem.Text = drone.Location.Longitude.ToString(); droneItem.IsEnabled = false; break;
+                        case "latitude":
+                            droneItem.Text = drone.Location.Latitude.ToString(); droneItem.IsEnabled = false; break;
+                    }
+                    DroneData.Children.Add(droneItem);
+                }
+                x += 30;
+            }
 
             Button update = new Button();
             update.Content = "update";
-            DroneData.Children.Add(update);
             update.VerticalAlignment = VerticalAlignment.Top;
-            update.Margin = new Thickness(43, 190, 0, 0);
+            update.Margin = new Thickness(43, x, 0, 0);
+            DroneData.Children.Add(update);
+
             Button sendDroneCharge = new Button();
             sendDroneCharge.Content = "send drone to charge";
-            DroneData.Children.Add(sendDroneCharge);
             sendDroneCharge.VerticalAlignment = VerticalAlignment.Top;
-            sendDroneCharge.Margin = new Thickness(43, 210, 0, 0);
+            sendDroneCharge.Margin = new Thickness(43, x + 30, 0, 0);
+            DroneData.Children.Add(sendDroneCharge);
+
             Button releaseDrone = new Button();
             releaseDrone.Content = "release Drone from Charge";
-            DroneData.Children.Add(releaseDrone);
             releaseDrone.VerticalAlignment = VerticalAlignment.Top;
-            releaseDrone.Margin = new Thickness(43, 230, 0, 0);
-            /*            Button update = new Button();
-                        update.Content = "drone location";
-                        droneWin.Children.Add(update);
-                        update.VerticalAlignment = VerticalAlignment.Top;
-                        update.Margin = new Thickness(43, 162, 0, 0);
-            */
-
-
-            /*            TextBlock Location = new TextBlock();
-                        Location.Text = "drone location";
-                        droneWin.Children.Add( Location);
-                        Location.TextWrapping = TextWrapping.Wrap;
-                        Location.VerticalAlignment = VerticalAlignment.Top;
-                        Location.Margin = new Thickness(43, 162,0,0);
-
-                        TextBox LocationData = new TextBox();
-                        LocationData.Text = (drone.Location).ToString();
-                        droneWin.Children.Add(LocationData);
-                        LocationData.TextWrapping = TextWrapping.Wrap;
-                        LocationData.VerticalAlignment = VerticalAlignment.Top;
-                        LocationData.Margin = new Thickness(199, 162, 0, 0);
-                        Location.IsEnabled = false;
-            */
+            releaseDrone.Margin = new Thickness(43, x + 60, 0, 0);
+            DroneData.Children.Add(releaseDrone);
         }
     }
 }

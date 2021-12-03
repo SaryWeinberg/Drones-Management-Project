@@ -32,5 +32,11 @@ namespace PL
         {
             new CustomerWindow(bl).Show();
         }
+
+        private void UpdateCustomer(object sender, MouseButtonEventArgs e)
+        {
+            IBL.BO.CustomerBL customer = (sender as ListView).SelectedValue as IBL.BO.CustomerBL;
+            new CustomerWindow(bl, customer).Show();
+        }
     }
 }

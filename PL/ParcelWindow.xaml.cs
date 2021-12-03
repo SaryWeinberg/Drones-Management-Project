@@ -29,9 +29,8 @@ namespace PL
             int x = 70;
             foreach (string item in dataArr)
             {
-                TextBlock parcelItemT = new TextBlock();
-                parcelItemT.Text = $"Enter parcel {item}:";
-                parcelItemT.TextWrapping = TextWrapping.Wrap;
+                Label parcelItemT = new Label();
+                parcelItemT.Content = $"Enter parcel {item}:";
                 parcelItemT.VerticalAlignment = VerticalAlignment.Top;
                 parcelItemT.Margin = new Thickness(43, x, 0, 0);
                 ParcelData.Children.Add(parcelItemT);
@@ -55,13 +54,28 @@ namespace PL
                 {
                     TextBox parcelItem = new TextBox();
                     parcelItem.Name = $"parcel{item}";
-                    parcelItem.TextWrapping = TextWrapping.Wrap;
                     parcelItem.VerticalAlignment = VerticalAlignment.Top;
                     parcelItem.Margin = new Thickness(199, x, 0, 0);
                     ParcelData.Children.Add(parcelItem);
                 }
                 x += 30;
             }
+
+            Button sendNewParcel = new Button();
+            sendNewParcel.Content = "Send";
+            sendNewParcel.VerticalAlignment = VerticalAlignment.Top;
+            sendNewParcel.Margin = new Thickness(43, x, 0, 0);
+            sendNewParcel.Click += AddNewParcel;
+            ParcelData.Children.Add(sendNewParcel);
+        }
+
+        private void AddNewParcel(object sender, RoutedEventArgs e)
+        {
+            string senderID = ParcelData.Children.OfType<TextBox>().First(txt => txt.Name == "parcelsender_ID").Text;
+            string targetID = ParcelData.Children.OfType<TextBox>().First(txt => txt.Name == "parceltarget_ID").Text;
+            string weight = ParcelData.Children.OfType<ComboBox>().First(txt => txt.Name == "parcelweight").Text;
+            string priority = ParcelData.Children.OfType<ComboBox>().First(txt => txt.Name == "parcelpriority").Text;
+            bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)int.Parse(weight), (Priorities)int.Parse(priority));
         }
     }
 }

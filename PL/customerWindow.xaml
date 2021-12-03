@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="CustomerWindow" Height="450" Width="800">
-    <Grid x:Name="CustomerDate">
+    <Grid x:Name="CustomerData">
+        
         </Grid>
 </Window>
