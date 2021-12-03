@@ -115,9 +115,10 @@ namespace PL
             string massage;
             string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
             string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
+            string chargeSlots = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationcharge_slots").Text;
             try
             {
-                massage = bl.UpdateStationData(int.Parse(ID), name);
+                massage = bl.UpdateStationData(int.Parse(ID), name, chargeSlots);
                 MessageBox.Show(massage);
             }
             catch (Exception exc)
