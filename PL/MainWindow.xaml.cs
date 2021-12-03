@@ -25,7 +25,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            int x = 50;
+            /*int x = 50;
             foreach (string item in arrLists)
             {
                 Button display = new Button();
@@ -43,7 +43,7 @@ namespace PL
                 display.Margin = new Thickness(x, 50, 0, 0);
                 MainData.Children.Add(display);
                 x += 170;
-            }
+            }*/
         }
 
         private void ViewDroneListWindow(object sender, RoutedEventArgs e)

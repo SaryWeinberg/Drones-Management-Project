@@ -52,7 +52,21 @@ namespace PL
 
         private void AddNewStation(object sender, RoutedEventArgs e)
         {
-            //bl.AddStationBL();
+            string massage;
+            string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
+            string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
+            string charge_slots = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationcharge_slots").Text;
+            string longitude = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationlongitude").Text;
+            string latitude = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationlatitude").Text;
+            try
+            {
+                massage = bl.AddStationBL(int.Parse(ID),  int.Parse(name), new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots));
+                MessageBox.Show(massage);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         public StationWindow(IBL.IBL blMain, IBL.BO.StationBL station)
@@ -98,9 +112,18 @@ namespace PL
 
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
+            string massage;
             string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
             string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
-            bl.UpdateStationData(int.Parse(ID), name);
+            try
+            {
+                massage = bl.UpdateStationData(int.Parse(ID), name);
+                MessageBox.Show(massage);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
     

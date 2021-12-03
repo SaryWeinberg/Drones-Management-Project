@@ -7,5 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="MainData">
-       </Grid>
+        <Button Content="Drone List Window" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Click="ViewDroneListWindow"/>
+        <Button Content="Parcel List Window" HorizontalAlignment="Left" Margin="220,50,0,0" VerticalAlignment="Top" Click="ViewParcelListWindow"/>
+        <Button Content="Customer List Window" HorizontalAlignment="Left" Margin="390,50,0,0" VerticalAlignment="Top" Click="ViewCustomerListWindow"/>
+        <Button Content="Station List Window" HorizontalAlignment="Left" Margin="560,50,0,0" VerticalAlignment="Top" Click="ViewStationListWindow"/>
+    </Grid>
 </Window>

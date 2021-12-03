@@ -65,11 +65,20 @@ namespace PL
 
         private void AddNewDrone(object sender, RoutedEventArgs e)
         {
+            string massage;
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             string weight = DroneData.Children.OfType<ComboBox>().First(txt => txt.Name == "dronemax_weight").Text;
             string model = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronemodel").Text;
             string stationID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronestation_ID").Text;
-            bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)int.Parse(weight), int.Parse(stationID));
+            try
+            {
+                massage = bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)int.Parse(weight), int.Parse(stationID));
+                MessageBox.Show(massage);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         public DroneWindow(IBL.IBL blMain, IBL.BO.DroneBL drone)

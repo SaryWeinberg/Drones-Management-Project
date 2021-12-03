@@ -71,11 +71,20 @@ namespace PL
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
         {
+            string massage;
             string senderID = ParcelData.Children.OfType<TextBox>().First(txt => txt.Name == "parcelsender_ID").Text;
             string targetID = ParcelData.Children.OfType<TextBox>().First(txt => txt.Name == "parceltarget_ID").Text;
             string weight = ParcelData.Children.OfType<ComboBox>().First(txt => txt.Name == "parcelweight").Text;
             string priority = ParcelData.Children.OfType<ComboBox>().First(txt => txt.Name == "parcelpriority").Text;
-            bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)int.Parse(weight), (Priorities)int.Parse(priority));
+            try
+            {
+                massage = bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)int.Parse(weight), (Priorities)int.Parse(priority));
+                MessageBox.Show(massage);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }
