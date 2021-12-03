@@ -52,13 +52,13 @@ namespace PL
             ComboBox weight = sender as ComboBox;
             switch ((int)weight.SelectedItem)
             {
-                case 0:
+                case 1:
                     DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Light);
                     break;
-                case 1:
+                case 2:
                     DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Medium);
                     break;
-                case 2:
+                case 3:
                     DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Heavy);
                     break;
             }

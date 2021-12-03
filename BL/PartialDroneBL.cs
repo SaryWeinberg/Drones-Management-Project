@@ -60,6 +60,7 @@ namespace BL
                 droneBL.MaxWeight = maxWeight;
                 droneBL.BatteryStatus = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
+                dronesBLList.Add(droneBL);
 
                 Station station = dalObj.GetSpesificStation(stationID);
                 Location Slocation = new Location();
