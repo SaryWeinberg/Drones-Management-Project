@@ -81,6 +81,17 @@ namespace PL
             {
                 massage = bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)weight, (Priorities)priority);
                 MessageBox.Show(massage);
+
+                MessageBoxResult result =
+                   MessageBox.Show(
+                   bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)weight, (Priorities)priority),
+                   $"Add parcel",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new ParcelListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,10 @@ namespace PL
     {
         IBL.IBL bl;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="blMain"></param>
         public DroneWindow(IBL.IBL blMain)
         {
             InitializeComponent();
@@ -77,7 +82,16 @@ namespace PL
             string stationID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronestation_ID").Text;
             try
             {
-                MessageBox.Show(bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)weight, int.Parse(stationID)));
+                MessageBoxResult result =
+                 MessageBox.Show(
+                   bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)weight, int.Parse(stationID)),
+                   $"Add drone ID - {ID}",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new DroneListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {
@@ -85,10 +99,16 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="blMain"></param>
+        /// <param name="drone"></param>
         public DroneWindow(IBL.IBL blMain, IBL.BO.DroneBL drone)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
+
             bl = blMain;
 
             string[] dataArr = { "ID", "max_weight", "model", "battery_status", "status", "longitude", "latitude" };
@@ -114,7 +134,7 @@ namespace PL
                             droneItemC.IsEnabled = false;
                             droneItemC.IsEditable = true; break;
                         case "status":
-                            droneItemC.ItemsSource = Enum.GetValues(typeof(Status)); 
+                            droneItemC.ItemsSource = Enum.GetValues(typeof(Status));
                             droneItemC.Text = drone.Status.ToString();
                             droneItemC.IsEnabled = false;
                             droneItemC.IsEditable = true; break;
@@ -145,7 +165,7 @@ namespace PL
                 x += 30;
             }
 
-            string[] bottons = { "update drone", "send drone to charge" , "release Drone from Charge", "assign Parcel To Drone", "collect Parcel By Drone", "delivery Parcel By Drone" };
+            string[] bottons = { "close window", "update drone", "send drone to charge", "release Drone from Charge", "assign Parcel To Drone", "collect Parcel By Drone", "delivery Parcel By Drone" };
             foreach (string item in bottons)
             {
                 Button botton = new Button();
@@ -153,6 +173,7 @@ namespace PL
                 botton.VerticalAlignment = VerticalAlignment.Top;
                 switch (item)
                 {
+                    case "close window": botton.Click += DataWindowClosing; break;
                     case "update drone": botton.Click += UpdateDrone; break;
                     case "send drone to charge": botton.Click += SendDroneToCharge; break;
                     case "release Drone from Charge": botton.Click += ReleaseDronefromCharge; break;
@@ -163,8 +184,13 @@ namespace PL
                 botton.Margin = new Thickness(43, x, 0, 0);
                 DroneData.Children.Add(botton);
                 x += 30;
-            }          
+            }
         }
+
+        private void DataWindowClosing(object sender, RoutedEventArgs e)
+        {
+
+        }        
 
         /// <summary>
         /// 
@@ -177,7 +203,16 @@ namespace PL
             string model = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronemodel").Text;
             try
             {
-                MessageBox.Show(bl.UpdateDroneData(int.Parse(ID), model));
+                MessageBoxResult result =
+                  MessageBox.Show(
+                    bl.UpdateDroneData(int.Parse(ID), model),
+                    $"Update drone ID - {ID}",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if(result == MessageBoxResult.OK)
+                {
+                    new DroneListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {

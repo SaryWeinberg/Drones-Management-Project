@@ -20,7 +20,7 @@
             </Grid.ColumnDefinitions >
             <ComboBox Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelectorSelectionChanged"/>
            <!-- <Label Content="status:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="3" Width="443" Margin="165,15,0,0"/>
-            <Label Content="weight:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="3" Width="443" Margin="385,15,0,0"/>-->
+            <Label Content="weight:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="3" Width="443" Margin="385,15,0,0"/>
 
         </Grid>
         <Button Grid.Column="0" Content="Drone List" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Background="#FFDDDDDD" BorderBrush="#FF080807"/>

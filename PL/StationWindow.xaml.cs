@@ -53,16 +53,23 @@ namespace PL
 
         private void AddNewStation(object sender, RoutedEventArgs e)
         {
-            string massage;
             string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
             string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
             string charge_slots = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationcharge_slots").Text;
             string longitude = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationlongitude").Text;
             string latitude = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationlatitude").Text;
             try
-            {
-                massage = bl.AddStationBL(int.Parse(ID),  int.Parse(name), new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots));
-                MessageBox.Show(massage);
+            {               
+                MessageBoxResult result =
+                   MessageBox.Show(
+                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots)),
+                   $"Add station ID - {ID}",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new StationListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {
@@ -114,14 +121,21 @@ namespace PL
 
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
-            string massage;
             string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
             string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
             string chargeSlots = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationcharge_slots").Text;
             try
-            {
-                massage = bl.UpdateStationData(int.Parse(ID), name, chargeSlots);
-                MessageBox.Show(massage);
+            {           
+                MessageBoxResult result =
+                   MessageBox.Show(
+                   bl.UpdateStationData(int.Parse(ID), name, chargeSlots),
+                   $"Update station ID - {ID}",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new StationListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {

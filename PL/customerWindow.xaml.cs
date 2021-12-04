@@ -54,7 +54,6 @@ namespace PL
 
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {
-            string massage;
             string ID = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerID").Text;
             string name = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customername").Text;
             string phone = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerphone").Text;
@@ -62,8 +61,16 @@ namespace PL
             string latitude = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerlatitude").Text;
             try
             {
-                massage = bl.AddCustomerBL(int.Parse(ID), int.Parse(phone), name, new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) });
-                MessageBox.Show(massage);
+                MessageBoxResult result =
+                    MessageBox.Show(
+                    bl.AddCustomerBL(int.Parse(ID), int.Parse(phone), name, new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }),
+                    $"Add customer ID - {ID}",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new CustomerListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {
@@ -116,13 +123,20 @@ namespace PL
 
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
-            string massage;
             string ID = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerID").Text;
             string name = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customername").Text;
             try
             {
-                massage = bl.UpdateCustomerData(int.Parse(ID), name);
-                MessageBox.Show(massage);
+                MessageBoxResult result =
+                    MessageBox.Show(
+                    bl.UpdateCustomerData(int.Parse(ID), name),
+                    $"Update customer ID - {ID}",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new CustomerListWindow(bl).Show();
+                }
             }
             catch (Exception exc)
             {
