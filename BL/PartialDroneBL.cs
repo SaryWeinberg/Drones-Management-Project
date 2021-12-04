@@ -79,7 +79,7 @@ namespace BL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="model"></param>
-        public string UpdateDroneName(int id, string model = "")
+        public string UpdateDroneData(int id, string model = "")
         {
             if (model != "")
             {

@@ -25,6 +25,7 @@ namespace PL
         public StationWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             int x = 70;
             foreach (string item in dataArr)
@@ -72,6 +73,7 @@ namespace PL
         public StationWindow(IBL.IBL blMain, IBL.BO.StationBL station)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             int x = 70;
             foreach (string item in dataArr)

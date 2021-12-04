@@ -24,6 +24,7 @@ namespace PL
         public ParcelListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             ParcelListView.ItemsSource = bl.GetParcelsBL();
         }

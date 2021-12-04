@@ -24,6 +24,7 @@ namespace PL
         public CustomerListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             CustomerListView.ItemsSource = bl.GetCustomersBL();
         }

@@ -24,6 +24,7 @@ namespace PL
         public DroneWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             string[] dataArr = { "ID", "max_weight", "model", "station_ID" };
 
@@ -63,17 +64,20 @@ namespace PL
             DroneData.Children.Add(sendNewDrone);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddNewDrone(object sender, RoutedEventArgs e)
         {
-            string massage;
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             int weight = DroneData.Children.OfType<ComboBox>().First(txt => txt.Name == "dronemax_weight").SelectedIndex;
             string model = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronemodel").Text;
             string stationID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronestation_ID").Text;
             try
             {
-                massage = bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)weight, int.Parse(stationID));
-                MessageBox.Show(massage);
+                MessageBox.Show(bl.AddDroneBL(int.Parse(ID), model, (WeightCategories)weight, int.Parse(stationID)));
             }
             catch (Exception exc)
             {
@@ -84,6 +88,7 @@ namespace PL
         public DroneWindow(IBL.IBL blMain, IBL.BO.DroneBL drone)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
 
             string[] dataArr = { "ID", "max_weight", "model", "battery_status", "status", "longitude", "latitude" };
@@ -91,7 +96,7 @@ namespace PL
             foreach (string item in dataArr)
             {
                 Label droneItemT = new Label();
-                droneItemT.Content = $"Upadate station {item}:";
+                droneItemT.Content = $"Upadate drone {item}:";
                 droneItemT.VerticalAlignment = VerticalAlignment.Top;
                 droneItemT.Margin = new Thickness(43, x, 0, 0);
                 DroneData.Children.Add(droneItemT);
@@ -119,7 +124,7 @@ namespace PL
                 else
                 {
                     TextBox droneItem = new TextBox();
-                    droneItem.Name = $"station{item}";
+                    droneItem.Name = $"drone{item}";
                     droneItem.VerticalAlignment = VerticalAlignment.Top;
                     droneItem.Margin = new Thickness(199, x, 0, 0);
                     switch (item)
@@ -140,23 +145,134 @@ namespace PL
                 x += 30;
             }
 
-            Button update = new Button();
-            update.Content = "update";
-            update.VerticalAlignment = VerticalAlignment.Top;
-            update.Margin = new Thickness(43, x, 0, 0);
-            DroneData.Children.Add(update);
+            string[] bottons = { "update drone", "send drone to charge" , "release Drone from Charge", "assign Parcel To Drone", "collect Parcel By Drone", "delivery Parcel By Drone" };
+            foreach (string item in bottons)
+            {
+                Button botton = new Button();
+                botton.Content = item;
+                botton.VerticalAlignment = VerticalAlignment.Top;
+                switch (item)
+                {
+                    case "update drone": botton.Click += UpdateDrone; break;
+                    case "send drone to charge": botton.Click += SendDroneToCharge; break;
+                    case "release Drone from Charge": botton.Click += ReleaseDronefromCharge; break;
+                    case "assign Parcel To Drone": botton.Click += AssignParcelToDrone; break;
+                    case "collect Parcel By Drone": botton.Click += CollectParcelByDrone; break;
+                    case "delivery Parcel By Drone": botton.Click += DeliveryParcelByDrone; break;
+                }
+                botton.Margin = new Thickness(43, x, 0, 0);
+                DroneData.Children.Add(botton);
+                x += 30;
+            }          
+        }
 
-            Button sendDroneCharge = new Button();
-            sendDroneCharge.Content = "send drone to charge";
-            sendDroneCharge.VerticalAlignment = VerticalAlignment.Top;
-            sendDroneCharge.Margin = new Thickness(43, x + 30, 0, 0);
-            DroneData.Children.Add(sendDroneCharge);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateDrone(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            string model = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronemodel").Text;
+            try
+            {
+                MessageBox.Show(bl.UpdateDroneData(int.Parse(ID), model));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
 
-            Button releaseDrone = new Button();
-            releaseDrone.Content = "release Drone from Charge";
-            releaseDrone.VerticalAlignment = VerticalAlignment.Top;
-            releaseDrone.Margin = new Thickness(43, x + 60, 0, 0);
-            DroneData.Children.Add(releaseDrone);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SendDroneToCharge(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            try
+            {
+                MessageBox.Show(bl.SendDroneToCharge(int.Parse(ID)));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReleaseDronefromCharge(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            try
+            {
+                MessageBox.Show(bl.ReleaseDroneFromCharge(int.Parse(ID), 7));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AssignParcelToDrone(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            try
+            {
+                MessageBox.Show(bl.AssignParcelToDrone(int.Parse(ID)));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CollectParcelByDrone(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            try
+            {
+                MessageBox.Show(bl.CollectParcelByDrone(int.Parse(ID)));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeliveryParcelByDrone(object sender, RoutedEventArgs e)
+        {
+            string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
+            try
+            {
+                MessageBox.Show(bl.DeliveryParcelByDrone(int.Parse(ID)));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }

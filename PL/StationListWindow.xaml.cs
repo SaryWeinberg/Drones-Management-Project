@@ -24,6 +24,7 @@ namespace PL
         public StationListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             StationListView.ItemsSource = bl.GetStationsBL();
         }

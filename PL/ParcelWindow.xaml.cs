@@ -24,6 +24,7 @@ namespace PL
         public ParcelWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
 
             int x = 70;

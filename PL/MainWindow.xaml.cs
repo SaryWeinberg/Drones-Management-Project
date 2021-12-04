@@ -21,30 +21,11 @@ namespace PL
     public partial class MainWindow : Window
     {
         IBL.IBL bl = new BL.BL();
-        string[] arrLists = { "Drone", "Customer", "Station", "Parcel" };
         public MainWindow()
         {
             InitializeComponent();
-            /*int x = 50;
-            foreach (string item in arrLists)
-            {
-                Button display = new Button();
-                display.Content = $"{item} List Window";
-                display.VerticalAlignment = VerticalAlignment.Top;
-                display.HorizontalAlignment = HorizontalAlignment.Left;
-                display.Width = 150;
-                switch (item)
-                {
-                    case "Drone": display.Click += ViewDroneListWindow; break;
-                    case "Customer": display.Click += ViewCustomerListWindow; break;
-                    case "Station": display.Click += ViewStationListWindow; break;
-                    case "Parcel": display.Click +=  ViewParcelListWindow; break;
-                }
-                display.Margin = new Thickness(x, 50, 0, 0);
-                MainData.Children.Add(display);
-                x += 170;
-            }*/
-        }
+            WindowState = WindowState.Maximized;
+       }
 
         private void ViewDroneListWindow(object sender, RoutedEventArgs e)
         {
