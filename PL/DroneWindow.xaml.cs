@@ -187,10 +187,7 @@ namespace PL
             }
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e)
-        {
-
-        }        
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// 

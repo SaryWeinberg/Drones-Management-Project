@@ -121,6 +121,8 @@ namespace PL
             CustomerData.Children.Add(updateCustomer);
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
             string ID = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerID").Text;
@@ -142,6 +144,6 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
-        }
+        }       
     }
 }

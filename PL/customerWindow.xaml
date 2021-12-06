@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="CustomerWindow" Height="450" Width="800">
     <Grid x:Name="CustomerData">
-        
-        </Grid>
+        <Button Content="close window" HorizontalAlignment="Left" Margin="43,350,0,0" VerticalAlignment="Top" Click="DataWindowClosing"/>
+
+    </Grid>
 </Window>

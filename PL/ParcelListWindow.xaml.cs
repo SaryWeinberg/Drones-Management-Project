@@ -29,6 +29,8 @@ namespace PL
             ParcelListView.ItemsSource = bl.GetParcelsBL();
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(bl).Show();

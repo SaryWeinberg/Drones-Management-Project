@@ -29,6 +29,8 @@ namespace PL
             StationListView.ItemsSource = bl.GetStationsBL();
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void ViewStationWindow(object sender, RoutedEventArgs e)
         {
             new StationWindow(bl).Show();

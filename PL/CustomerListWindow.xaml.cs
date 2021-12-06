@@ -29,6 +29,8 @@ namespace PL
             CustomerListView.ItemsSource = bl.GetCustomersBL();
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(bl).Show();
