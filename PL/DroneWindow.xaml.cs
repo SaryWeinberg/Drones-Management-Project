@@ -67,6 +67,14 @@ namespace PL
             sendNewDrone.Margin = new Thickness(43, x, 0, 0);
             sendNewDrone.Click += AddNewDrone;
             DroneData.Children.Add(sendNewDrone);
+
+
+            Button CancelButton = new Button();
+            CancelButton.Content = "Cancel";
+            CancelButton.VerticalAlignment = VerticalAlignment.Top;
+            CancelButton.Margin = new Thickness(43, x + 30, 0, 0);
+            CancelButton.Click += DataWindowClosing;
+            DroneData.Children.Add(CancelButton);
         }
 
         /// <summary>
@@ -100,6 +108,7 @@ namespace PL
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -110,10 +119,29 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
 
+            TextBox timecharge = new TextBox();
+            timecharge.Name = "timecharge";
+            timecharge.VerticalAlignment = VerticalAlignment.Top;
+            timecharge.Margin = new Thickness(19, position, 0, 0);
+
             bl = blMain;
 
-            string[] dataArr = { "ID", "max_weight", "model", "battery_status", "status", "longitude", "latitude" };
-            int x = 70;
+            string[] dataArr = { "ID", "max_weight", "battery_status", "status", "longitude", "latitude" };
+            int x = 100;
+
+
+            Label DroneModel = new Label();
+            DroneModel.Content = $"Upadate drone model:";
+            DroneModel.VerticalAlignment = VerticalAlignment.Top;
+            DroneModel.Margin = new Thickness(43, 70, 0, 0);
+            DroneData.Children.Add(DroneModel);
+            TextBox dronemodel = new TextBox();
+            dronemodel.Name = "dronemodel";
+            dronemodel.VerticalAlignment = VerticalAlignment.Top;
+            dronemodel.Margin = new Thickness(199, 70, 0, 0);
+            dronemodel.Text = drone.Model.ToString();
+            dronemodel.TextChanged += AddUpdateBTN;
+            DroneData.Children.Add(dronemodel);
             foreach (string item in dataArr)
             {
                 Label droneItemT = new Label();
@@ -152,8 +180,6 @@ namespace PL
                     {
                         case "ID":
                             droneItem.Text = drone.ID.ToString(); droneItem.IsEnabled = false; break;
-                        case "model":
-                            droneItem.Text = drone.Model.ToString(); break;
                         case "battery_status":
                             droneItem.Text = drone.BatteryStatus.ToString(); droneItem.IsEnabled = false; break;
                         case "longitude":
@@ -165,27 +191,65 @@ namespace PL
                 }
                 x += 30;
             }
-
-            string[] bottons = { "close window", "update drone", "send drone to charge", "release Drone from Charge", "assign Parcel To Drone", "collect Parcel By Drone", "delivery Parcel By Drone" };
-            foreach (string item in bottons)
+            position = 400;
+            AddBTN("close window");
+            if (drone.Status == DroneStatus.Available)
             {
-                Button botton = new Button();
-                botton.Content = item;
-                botton.VerticalAlignment = VerticalAlignment.Top;
-                switch (item)
-                {
-                    case "close window": botton.Click += DataWindowClosing; break;
-                    case "update drone": botton.Click += UpdateDrone; break;
-                    case "send drone to charge": botton.Click += SendDroneToCharge; break;
-                    case "release Drone from Charge": botton.Click += ReleaseDronefromCharge; break;
-                    case "assign Parcel To Drone": botton.Click += AssignParcelToDrone; break;
-                    case "collect Parcel By Drone": botton.Click += CollectParcelByDrone; break;
-                    case "delivery Parcel By Drone": botton.Click += DeliveryParcelByDrone; break;
-                }
-                botton.Margin = new Thickness(43, x, 0, 0);
-                DroneData.Children.Add(botton);
-                x += 30;
+                AddBTN("send drone to charge");
+                AddBTN("assign Parcel To Drone");
             }
+            else if(drone.Status == DroneStatus.Maintenance)
+            {
+                AddBTN("release Drone from Charge");
+
+            }
+            else if(drone.Status == DroneStatus.Delivery)
+            {
+                if(bl.GetSpesificParcelBL(drone.Parcel.ID).PickedUp == null)
+                {
+                    AddBTN("collect Parcel By Drone");
+                }
+                else
+                {
+                    AddBTN("delivery Parcel By Drone");
+                }
+            }
+        }
+        static int position = 400;
+        private void AddBTN(string item)
+        {
+            
+            Button botton = new Button();
+            botton.Content = item;
+            botton.VerticalAlignment = VerticalAlignment.Top;
+            switch (item)
+            {
+                case "close window": botton.Click += DataWindowClosing; break;
+                case "send drone to charge": botton.Click += SendDroneToCharge; break;
+                case "release Drone from Charge":
+                    botton.Click += ReleaseDronefromCharge;
+     
+                    timecharge.Text = "write time of charge here:";
+                    DroneData.Children.Add(timecharge);
+                    break;
+                case "assign Parcel To Drone": botton.Click += AssignParcelToDrone; break;
+                case "collect Parcel By Drone": botton.Click += CollectParcelByDrone; break;
+                case "delivery Parcel By Drone": botton.Click += DeliveryParcelByDrone; break;
+            }
+            botton.Margin = new Thickness(43, position, 0, 0);
+            DroneData.Children.Add(botton);
+            position += 30;
+        }
+
+
+        private void AddUpdateBTN(object sender, RoutedEventArgs e)
+        {
+            Button botton = new Button();
+            botton.Content = "update";
+            botton.VerticalAlignment = VerticalAlignment.Top;
+            botton.Click += UpdateDrone;
+            botton.Margin = new Thickness(43, 250, 0, 0);
+            DroneData.Children.Add(botton);
         }
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
@@ -207,7 +271,7 @@ namespace PL
                     $"Update drone ID - {ID}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                if(result == MessageBoxResult.OK)
+                if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
                     Close();
@@ -236,7 +300,7 @@ namespace PL
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
-                {                    
+                {
                     new DroneListWindow(bl).Show();
                     Close();
                 }
@@ -267,7 +331,7 @@ namespace PL
                 {
                     new DroneListWindow(bl).Show();
                     Close();
-                }               
+                }
             }
             catch (Exception exc)
             {
@@ -295,7 +359,7 @@ namespace PL
                 {
                     new DroneListWindow(bl).Show();
                     Close();
-                }               
+                }
             }
             catch (Exception exc)
             {
@@ -323,7 +387,7 @@ namespace PL
                 {
                     new DroneListWindow(bl).Show();
                     Close();
-                }               
+                }
             }
             catch (Exception exc)
             {
@@ -351,7 +415,7 @@ namespace PL
                 {
                     new DroneListWindow(bl).Show();
                     Close();
-                }              
+                }
             }
             catch (Exception exc)
             {

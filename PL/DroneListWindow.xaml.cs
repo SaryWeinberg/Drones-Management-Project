@@ -34,22 +34,30 @@ namespace PL
         private void StatusSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox status = sender as ComboBox;
-            switch ((int)status.SelectedItem)
+            WeightCategories Sweight = 0;
+            if (WeightSelector.SelectedItem == null)
             {
-                case 0: DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == DroneStatus.Available); break;
-                case 1: DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == DroneStatus.Maintenance); break;
-                case 2: DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == DroneStatus.Delivery); break;
+                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == (DroneStatus)status.SelectedItem);
+            }
+            else
+            {
+                Sweight = (WeightCategories)WeightSelector.SelectedItem;
+                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
             }
         }
 
         private void WeightSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox weight = sender as ComboBox;
-            switch ((int)weight.SelectedItem)
+            DroneStatus Sstatus = 0;
+            if (StatusSelector.SelectedItem == null)
             {
-                case 1: DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Light); break;
-                case 2: DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Medium); break;
-                case 3: DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == WeightCategories.Heavy); break;
+                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem);
+            }
+            else
+            {
+                Sstatus = (DroneStatus)StatusSelector.SelectedItem;
+                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem && drone.Status == Sstatus);
             }
         }
 
@@ -65,5 +73,13 @@ namespace PL
             new DroneWindow(bl, dronr1).Show();
             Close();
         }
+
+        private void CloseWin(object sender, RoutedEventArgs e)
+        {
+            Close();
+
+        }
+
+
     }
 }
