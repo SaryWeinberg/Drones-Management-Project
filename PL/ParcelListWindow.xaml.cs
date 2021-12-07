@@ -34,6 +34,7 @@ namespace PL
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(bl).Show();
+            Close();
         }
     }
 }

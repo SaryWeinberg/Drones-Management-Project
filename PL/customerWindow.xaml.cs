@@ -70,6 +70,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new CustomerListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)
@@ -138,6 +139,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new CustomerListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)

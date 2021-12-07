@@ -91,6 +91,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new ParcelListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)

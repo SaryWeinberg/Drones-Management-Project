@@ -34,12 +34,14 @@ namespace PL
         private void ViewStationWindow(object sender, RoutedEventArgs e)
         {
             new StationWindow(bl).Show();
+            Close();
         }
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.StationBL station = (sender as ListView).SelectedValue as IBL.BO.StationBL;
             new StationWindow(bl, station).Show();
+            Close();
         }
     }
 }

@@ -34,12 +34,14 @@ namespace PL
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(bl).Show();
+            Close();
         }
 
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.CustomerBL customer = (sender as ListView).SelectedValue as IBL.BO.CustomerBL;
             new CustomerWindow(bl, customer).Show();
+            Close();
         }
     }
 }

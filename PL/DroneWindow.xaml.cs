@@ -91,6 +91,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)
@@ -209,6 +210,7 @@ namespace PL
                 if(result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)
@@ -227,7 +229,17 @@ namespace PL
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             try
             {
-                MessageBox.Show(bl.SendDroneToCharge(int.Parse(ID)));
+                MessageBoxResult result =
+                MessageBox.Show(
+                  bl.SendDroneToCharge(int.Parse(ID)),
+                  $"Send drone ID - {ID} to charge",
+                  MessageBoxButton.OK,
+                  MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {                    
+                    new DroneListWindow(bl).Show();
+                    Close();
+                }
             }
             catch (Exception exc)
             {
@@ -245,7 +257,17 @@ namespace PL
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             try
             {
-                MessageBox.Show(bl.ReleaseDroneFromCharge(int.Parse(ID), 7));
+                MessageBoxResult result =
+                MessageBox.Show(
+                  bl.ReleaseDroneFromCharge(int.Parse(ID), 7),
+                  $"Release drone ID - {ID} from charge",
+                  MessageBoxButton.OK,
+                  MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new DroneListWindow(bl).Show();
+                    Close();
+                }               
             }
             catch (Exception exc)
             {
@@ -263,7 +285,17 @@ namespace PL
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             try
             {
-                MessageBox.Show(bl.AssignParcelToDrone(int.Parse(ID)));
+                MessageBoxResult result =
+                 MessageBox.Show(
+                 bl.AssignParcelToDrone(int.Parse(ID)),
+                 $"Assign parcel",
+                 MessageBoxButton.OK,
+                 MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new DroneListWindow(bl).Show();
+                    Close();
+                }               
             }
             catch (Exception exc)
             {
@@ -281,7 +313,17 @@ namespace PL
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             try
             {
-                MessageBox.Show(bl.CollectParcelByDrone(int.Parse(ID)));
+                MessageBoxResult result =
+                MessageBox.Show(
+                bl.CollectParcelByDrone(int.Parse(ID)),
+                $"Collect parcel",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new DroneListWindow(bl).Show();
+                    Close();
+                }               
             }
             catch (Exception exc)
             {
@@ -299,7 +341,17 @@ namespace PL
             string ID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "droneID").Text;
             try
             {
-                MessageBox.Show(bl.DeliveryParcelByDrone(int.Parse(ID)));
+                MessageBoxResult result =
+               MessageBox.Show(
+               bl.DeliveryParcelByDrone(int.Parse(ID)),
+               $"Delivery parcel",
+               MessageBoxButton.OK,
+               MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new DroneListWindow(bl).Show();
+                    Close();
+                }              
             }
             catch (Exception exc)
             {

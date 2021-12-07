@@ -53,15 +53,17 @@ namespace PL
             }
         }
 
-        private void ViewDroneWindow(object sender, RoutedEventArgs e)
+        private void AddWindow(object sender, RoutedEventArgs e)
         {
             new DroneWindow(bl).Show();
+            Close();
         }
 
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.DroneBL dronr1 = (sender as ListView).SelectedValue as IBL.BO.DroneBL;
             new DroneWindow(bl, dronr1).Show();
+            Close();
         }
     }
 }

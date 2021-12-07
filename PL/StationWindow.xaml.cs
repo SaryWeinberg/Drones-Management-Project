@@ -69,6 +69,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new StationListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)
@@ -135,6 +136,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new StationListWindow(bl).Show();
+                    Close();
                 }
             }
             catch (Exception exc)
