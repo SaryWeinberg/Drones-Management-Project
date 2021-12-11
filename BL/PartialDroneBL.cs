@@ -29,10 +29,10 @@ namespace BL
         /// Functions for adding a droneCharge to DAL
         /// </summary>
         /// <param name="stationID"></param>
-        public void AddDroneChargeDAL(int stationID)
+        public void AddDroneChargeDAL(int stationID, int DroneID)
         {
             DroneCharge droneCharge = new DroneCharge();
-            droneCharge.DroneId = stationID;
+            droneCharge.DroneId = DroneID;
             droneCharge.StationId = stationID;
             dalObj.AddDroneCharge(droneCharge);
         }
@@ -70,7 +70,7 @@ namespace BL
             }
             catch (InvalidObjException e) { throw e; }
             AddDroneDal(id, model, maxWeight);
-            AddDroneChargeDAL(stationID);
+            AddDroneChargeDAL(stationID, id);
             return "Drone added successfully!";
         }
 

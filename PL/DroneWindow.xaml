@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="DroneWindow" Height="600" Width="900">
     <Grid x:Name="DroneData">
-        <!--<TextBlock Name="IDBlock" HorizontalAlignment="Left" Margin="43,67,0,0" Text="Enter drone ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <TextBox Name="timecharge" VerticalAlignment ="Top" Margin ="19,0, 0, 0" Visibility="Hidden" />
+            <!--<TextBlock Name="IDBlock" HorizontalAlignment="Left" Margin="43,67,0,0" Text="Enter drone ID:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox  Name="ID" HorizontalAlignment="Left" Margin="199,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBlock Name ="DroneStatusBlock"  HorizontalAlignment="Left" Margin="43,98,0,0" Text="Enter drone max weight:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <ComboBox Name="DroneStatus"  HorizontalAlignment="Left" Margin="199,98,0,0" VerticalAlignment="Top" Width="120"/>
