@@ -24,13 +24,17 @@ namespace PL
         public ParcelListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             ParcelListView.ItemsSource = bl.GetParcelsBL();
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(bl).Show();
+            Close();
         }
     }
 }

@@ -65,7 +65,9 @@ namespace BL
                     {
                         drone.BatteryStatus = rand.Next(1, 20);
                         List<StationBL> stationBLs = GetStationsBL();
-                        drone.Location = stationBLs[rand.Next(stationBLs.Count())].Location;
+                        int stationId = rand.Next(stationBLs.Count());
+                        drone.Location = stationBLs[stationId].Location;
+                        AddDroneChargeDAL(stationId, drone.ID)
                     }
                 }
             }

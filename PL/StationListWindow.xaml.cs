@@ -24,13 +24,24 @@ namespace PL
         public StationListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             StationListView.ItemsSource = bl.GetStationsBL();
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void ViewStationWindow(object sender, RoutedEventArgs e)
         {
             new StationWindow(bl).Show();
+            Close();
+        }
+
+        private void UpdateStation(object sender, MouseButtonEventArgs e)
+        {
+            IBL.BO.StationBL station = (sender as ListView).SelectedValue as IBL.BO.StationBL;
+            new StationWindow(bl, station).Show();
+            Close();
         }
     }
 }

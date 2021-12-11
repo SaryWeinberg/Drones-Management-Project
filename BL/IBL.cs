@@ -20,7 +20,7 @@ namespace IBL
         public string AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority);
         public string AddStationBL(int id, int name, Location location, int chargeSlots);
         public string UpdateCustomerData(int id, string name = null, string phoneNum =null);
-        public string UpdateDroneName(int id, string model);
+        public string UpdateDroneData(int id, string model);
         public string UpdateStationData(int id, string name = null, string ChargeSlots = null);
         public CustomerBL ConvertDalCustomerToBL(Customer c);
         public DroneBL ConvertDalDroneToBL(Drone d);

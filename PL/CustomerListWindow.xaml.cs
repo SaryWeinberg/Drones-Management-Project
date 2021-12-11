@@ -24,13 +24,24 @@ namespace PL
         public CustomerListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
+            WindowStyle = WindowStyle.None;
             bl = blMain;
             CustomerListView.ItemsSource = bl.GetCustomersBL();
         }
 
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(bl).Show();
+            Close();
+        }
+
+        private void UpdateCustomer(object sender, MouseButtonEventArgs e)
+        {
+            IBL.BO.CustomerBL customer = (sender as ListView).SelectedValue as IBL.BO.CustomerBL;
+            new CustomerWindow(bl, customer).Show();
+            Close();
         }
     }
 }

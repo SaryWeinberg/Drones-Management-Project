@@ -11,7 +11,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="StationListView" Grid.Row="1">
+        <ListView x:Name="StationListView" Grid.Row="1" MouseDoubleClick="UpdateStation">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -19,6 +19,7 @@
             </ListView.View>
         </ListView>
         <Button Grid.Column="0" Content="Add Station" HorizontalAlignment="Left" Margin="56,0,0,0" VerticalAlignment="Center" Click="ViewStationWindow"/>
+        <Button Grid.Column ="0" Content="close window" HorizontalAlignment="Left" Margin="665,0,0,0" VerticalAlignment="Center" Click="DataWindowClosing"/>
 
     </Grid>
 </Window>
