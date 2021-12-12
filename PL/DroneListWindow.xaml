@@ -23,8 +23,10 @@
             <Label Content="weight:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="3" Width="443" Margin="385,15,0,0"/>-->
 
         </Grid>
+        
         <Button Grid.Column="0" Content="Drone List" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Background="#FFDDDDDD" BorderBrush="#FF080807"/>
         <Button Grid.Column="3" Content="Add Drone" HorizontalAlignment="Left" Margin="683,0,0,0" VerticalAlignment="Center" Click="AddWindow"/>
+        <Button  Content="X" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-4.827,-2.971" Background="#FFFF0D0D" BorderBrush="#FF080807" Click="CloseWin"/>
         <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" Margin="465,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged"/>
 
         <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone">

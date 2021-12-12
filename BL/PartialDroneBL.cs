@@ -29,10 +29,10 @@ namespace BL
         /// Functions for adding a droneCharge to DAL
         /// </summary>
         /// <param name="stationID"></param>
-        public void AddDroneChargeDAL(int stationID)
+        public void AddDroneChargeDAL(int stationID, int droneID)
         {
             DroneCharge droneCharge = new DroneCharge();
-            droneCharge.DroneId = stationID;
+            droneCharge.DroneId = droneID;
             droneCharge.StationId = stationID;
             dalObj.AddDroneCharge(droneCharge);
         }
@@ -61,8 +61,9 @@ namespace BL
                 droneBL.BatteryStatus = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
                 dronesBLList.Add(droneBL);
-
-                Station station = dalObj.GetSpesificStation(stationID);
+                StationBL Station = GetSpesificStationBL(stationID);
+               Station station = ConvertBLStationToDAL(Station);
+/*                Station station = dalObj.GetSpesificStation(stationID);*/
                 Location Slocation = new Location();
                 Slocation.Longitude = station.Longitude;
                 Slocation.Latitude = station.Latitude;
@@ -70,7 +71,7 @@ namespace BL
             }
             catch (InvalidObjException e) { throw e; }
             AddDroneDal(id, model, maxWeight);
-            AddDroneChargeDAL(stationID);
+            AddDroneChargeDAL(stationID, id);
             return "Drone added successfully!";
         }
 
