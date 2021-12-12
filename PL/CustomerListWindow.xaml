@@ -11,12 +11,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer">           
         </ListView>
         <Button Grid.Column ="0" Content="Add customer" HorizontalAlignment="Left" Margin="49,0,0,0" VerticalAlignment="Center" Click="ViewCustomerWindow"/>
         <Button Grid.Column ="0" Content="close window" HorizontalAlignment="Left" Margin="665,0,0,0" VerticalAlignment="Center" Click="DataWindowClosing"/>

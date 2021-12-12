@@ -194,14 +194,14 @@ namespace PL
                 AddBTN("send drone to charge");
                 AddBTN("assign Parcel To Drone");
             }
-            else if(drone.Status == DroneStatus.Maintenance)
+            else if (drone.Status == DroneStatus.Maintenance)
             {
                 AddBTN("release Drone from Charge");
 
             }
-            else if(drone.Status == DroneStatus.Delivery)
+            else if (drone.Status == DroneStatus.Delivery)
             {
-                if(bl.GetSpesificParcelBL(drone.Parcel.ID).PickedUp == null)
+                if (bl.GetSpesificParcelBL(drone.Parcel.ID).PickedUp == null)
                 {
                     AddBTN("collect Parcel By Drone");
                 }
@@ -214,7 +214,7 @@ namespace PL
         static int position = 400;
         private void AddBTN(string item)
         {
-            
+
             Button botton = new Button();
             botton.Content = item;
             botton.VerticalAlignment = VerticalAlignment.Top;
@@ -224,7 +224,7 @@ namespace PL
                 case "send drone to charge": botton.Click += SendDroneToCharge; break;
                 case "release Drone from Charge":
                     botton.Click += ReleaseDronefromCharge;
-     
+
                     timecharge.Text = "write time of charge here:";
                     timecharge.Margin = new Thickness(19, position, 0, 0);
                     timecharge.Visibility = Visibility.Visible;
@@ -321,7 +321,7 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                  bl.ReleaseDroneFromCharge(int.Parse(ID), 7),
+                  bl.ReleaseDroneFromCharge(int.Parse(ID), int.Parse(timecharge.Text)),
                   $"Release drone ID - {ID} from charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
@@ -420,6 +420,6 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-        
+
     }
 }

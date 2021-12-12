@@ -29,12 +29,7 @@
         <Button  Content="X" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-4.827,-2.971" Background="#FFFF0D0D" BorderBrush="#FF080807" Click="CloseWin"/>
         <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Left" Margin="465,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged"/>
 
-        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone">            
         </ListView>
     </Grid>
 </Window>
