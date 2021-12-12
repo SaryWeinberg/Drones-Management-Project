@@ -29,10 +29,10 @@ namespace BL
         /// Functions for adding a droneCharge to DAL
         /// </summary>
         /// <param name="stationID"></param>
-        public void AddDroneChargeDAL(int stationID, int droneID)
+        public void AddDroneChargeDAL(int stationID, int DroneID)
         {
             DroneCharge droneCharge = new DroneCharge();
-            droneCharge.DroneId = droneID;
+            droneCharge.DroneId = DroneID;
             droneCharge.StationId = stationID;
             dalObj.AddDroneCharge(droneCharge);
         }

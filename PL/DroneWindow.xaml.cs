@@ -119,10 +119,6 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
 
-            TextBox timecharge = new TextBox();
-            timecharge.Name = "timecharge";
-            timecharge.VerticalAlignment = VerticalAlignment.Top;
-            timecharge.Margin = new Thickness(19, position, 0, 0);
 
             bl = blMain;
 
@@ -230,7 +226,9 @@ namespace PL
                     botton.Click += ReleaseDronefromCharge;
      
                     timecharge.Text = "write time of charge here:";
-                    DroneData.Children.Add(timecharge);
+                    timecharge.Margin = new Thickness(19, position, 0, 0);
+                    timecharge.Visibility = Visibility.Visible;
+
                     break;
                 case "assign Parcel To Drone": botton.Click += AssignParcelToDrone; break;
                 case "collect Parcel By Drone": botton.Click += CollectParcelByDrone; break;
@@ -422,5 +420,6 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
+        
     }
 }

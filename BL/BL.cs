@@ -67,7 +67,8 @@ namespace BL
                         List<StationBL> stationBLs = GetStationsBL();
                         int stationId = rand.Next(stationBLs.Count());
                         drone.Location = stationBLs[stationId].Location;
-                        AddDroneChargeDAL(stationId, drone.ID)
+                     
+                        AddDroneChargeDAL(stationId, drone.ID);
                     }
                 }
             }
