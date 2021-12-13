@@ -60,7 +60,6 @@ namespace BL
                 droneBL.MaxWeight = maxWeight;
                 droneBL.BatteryStatus = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
-                dronesBLList.Add(droneBL);
                 StationBL Station = GetSpesificStationBL(stationID);
                Station station = ConvertBLStationToDAL(Station);
 /*                Station station = dalObj.GetSpesificStation(stationID);*/
@@ -70,6 +69,7 @@ namespace BL
                 droneBL.Location = Slocation;
             }
             catch (InvalidObjException e) { throw e; }
+            dronesBLList.Add(droneBL);
             AddDroneDal(id, model, maxWeight);
             AddDroneChargeDAL(stationID, id);
             return "Drone added successfully!";
