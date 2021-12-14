@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneList" Height="600" Width="900"
+        Height="600" Width="900"
          Background="#FF9AD1CE">
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
@@ -53,8 +53,8 @@
                 </Button.Style>
             </Button>
         </Grid>      
-        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="20"/>
-        <Button Grid.Row="2" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Center" VerticalAlignment="Center"  Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="20"/>
+        <Button Grid.Row="2" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

@@ -31,7 +31,7 @@ namespace PL
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
-        private void ViewCustomerWindow(object sender, RoutedEventArgs e)
+        private void ViewParcelWindow(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(bl).Show();
             Close();

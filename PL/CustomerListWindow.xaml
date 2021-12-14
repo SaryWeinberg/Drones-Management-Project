@@ -5,16 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerListWindow" Height="450" Width="800"
+       Height="600" Width="900"
          Background="#FF9AD1CE">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
+            <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer">           
+        <ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer" Padding="35" Margin="20">           
         </ListView>
-        <Button Grid.Column ="0" Content="Add customer" HorizontalAlignment="Left" Margin="49,0,0,0" VerticalAlignment="Center" Click="ViewCustomerWindow"/>
+
+        <Button Grid.Row="2" Content="Add customer" Click="ViewCustomerWindow" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        
         <Button Content="X" Width="32" Height="20" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Click="DataWindowClosing">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
