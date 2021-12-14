@@ -24,7 +24,7 @@ namespace PL
         IBL.BO.DroneBL Drone;
 
         /// <summary>
-        /// 
+        /// Ctor of Add drone window
         /// </summary>
         /// <param name="blMain"></param>
         public DroneWindow(IBL.IBL blMain)
@@ -38,7 +38,7 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Adding drone 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -50,7 +50,6 @@ namespace PL
             string stationID = station_ID.Text;
             try
             {
-
                 int id = int.Parse(ID);
                 int station = int.Parse(stationID);
                 MessageBoxResult result =
@@ -70,9 +69,10 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
+        public bool maintence = false;
 
         /// <summary>
-        /// 
+        /// Ctor of update drone window
         /// </summary>
         /// <param name="blMain"></param>
         /// <param name="drone"></param>
@@ -113,14 +113,13 @@ namespace PL
             if (drone.Status == DroneStatus.Available)
             {
                 sendDroneToCharge.Visibility = Visibility.Visible;
-                sendDroneToCharge.Margin = new Thickness(0, 450, 0, 0);
+                sendDroneToCharge.Margin = new Thickness(0, 370, 245, 0);
                 assignParcelToDrone.Visibility = Visibility.Visible;
-                assignParcelToDrone.Margin = new Thickness(0, 450, -450, 0);
+                assignParcelToDrone.Margin = new Thickness(0, 370, 670, 0);
             }
             else if (drone.Status == DroneStatus.Maintenance)
             {
-                timechargeLabel.Margin = new Thickness(43, 270, 710, 0);
-                timecharge.Margin = new Thickness(199, 270, 500, 0);
+                maintence = true;
                 timecharge.Visibility = Visibility.Visible;
                 timechargeLabel.Visibility = Visibility.Visible;
                 timecharge.TextChanged += releseDrone;
@@ -130,34 +129,49 @@ namespace PL
                 if (bl.GetSpesificParcelBL(drone.Parcel.ID).PickedUp == null)
                 {
                     collectParcelByDrone.Visibility = Visibility.Visible;
-                    collectParcelByDrone.Margin = new Thickness(0, 450, 0, 0);
+                    collectParcelByDrone.Margin = new Thickness(0, 370, 245, 0);
                 }
                 else
                 {
                     deliveryParcelByDrone.Visibility = Visibility.Visible;
-                    deliveryParcelByDrone.Margin = new Thickness(0, 450, 0, 0);
+                    deliveryParcelByDrone.Margin = new Thickness(0, 370, 245, 0);
                 }
             }
         }
 
-
-
+        /// <summary>
+        /// Adding update button when the content changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddUpdateBTN(object sender, RoutedEventArgs e)
         {
             update.Visibility = Visibility.Visible;
-            update.Margin = new Thickness(0, 450, 450, 0);
+            if(maintence)
+                update.Margin = new Thickness(0, 370, 670, 0);
+            else update.Margin = new Thickness(0, 290, 450, 0);
         }
 
+        /// <summary>
+        /// Adding relese button when the status is maintains and the user fill in the time of charge
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void releseDrone(object sender, RoutedEventArgs e)
         {
             releaseDronefromCharge.Visibility = Visibility.Visible;
-            releaseDronefromCharge.Margin = new Thickness(0, 450, 0, 0);
+            releaseDronefromCharge.Margin = new Thickness(0, 370, 245, 0);
         }
 
+        /// <summary>
+        /// closing the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
-        /// 
+        /// Update drone
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -185,7 +199,7 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Send drone to charge
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -212,7 +226,7 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Relese dron from charge
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -239,7 +253,7 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Assing parcel to drone
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -266,7 +280,7 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Collect parcel by drone
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -293,7 +307,7 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Delivery parcel by drone
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -318,6 +332,5 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-
     }
 }

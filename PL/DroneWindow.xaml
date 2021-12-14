@@ -5,25 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Height="600" Width="900"
-         Background="#62b6e3">
+        Height="600" Width="900">
     <Grid x:Name="DroneData">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/DroneImg.png" Stretch="UniformToFill"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="30,5"></Image>
-        <Grid x:Name="AddDrone" Grid.Row="1">
-            <Label Name="DroneIDLabel"  Content = "Enter drone ID:" VerticalAlignment ="Top" Margin = "43, 30, 710, 0"/>
-            <TextBox Name =  "DroneID" VerticalAlignment = "Top" Margin = "199, 30, 500, 0"/>
-            <Label  Name="MaxWeightLabel" Content = "Enter drone max weight:" VerticalAlignment ="Top" Margin = "43, 60, 710, 0"/>
-            <ComboBox Name = "max_weight" VerticalAlignment = "Top" Margin = "199, 60,500, 0"/>
-            <Label Name="DroneModelLabel"  Content = "Enter drone model:" VerticalAlignment ="Top" Margin = "43, 90, 710, 0"/>
-            <TextBox Name ="DroneModel" VerticalAlignment = "Top" Margin = "199, 90, 500, 0"/>
-            <Label  Name="StationIdLabel" Content = "Enter drone station ID:" VerticalAlignment ="Top" Margin = "43, 120, 0, 0" Visibility="Hidden"/>
-            <TextBox Name = "station_ID" VerticalAlignment = "Top" Margin = "199, 120, 500, 0" Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}"/>
-            <Button  Name="sendNewDrone" Content = "Send" VerticalAlignment="Top" Click = "AddNewDrone" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5"  Margin="0,450,-450,0" Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}">
-                
+        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="79,319,0,73" Grid.Row="1" Width="194"></Image>
+        <Grid x:Name="AddDrone" Grid.Row="1" Margin="434,30,-434,-30">
+            <Label Name="DroneIDLabel"  Content = "Enter drone ID:" VerticalAlignment ="Top" Margin = "43, 30, 684, 0" FontSize="16"/>
+            <TextBox Name =  "DroneID" VerticalAlignment = "Top" Margin = "221, 30, 500, 0" FontSize="16"/>
+            <Label  Name="MaxWeightLabel" Content = "Enter drone max weight:" VerticalAlignment ="Top" Margin = "43, 60, 684, 0" FontSize="16"/>
+            <ComboBox Name = "max_weight" VerticalAlignment = "Top" Margin = "221, 60,500, 0" FontSize="13"/>
+            <Label Name="DroneModelLabel"  Content = "Enter drone model:" VerticalAlignment ="Top" Margin = "43, 90, 684, 0" FontSize="16"/>
+            <TextBox Name ="DroneModel" VerticalAlignment = "Top" Margin = "221, 90, 500, 0" FontSize="16"/>
+            <Label  Name="StationIdLabel" Content = "Enter drone station ID:" VerticalAlignment ="Top" Margin = "43, 120, 684, 0" Visibility="Hidden" FontSize="16"/>
+            <TextBox Name = "station_ID" VerticalAlignment = "Top" Margin = "221, 120, 500, 0" Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}" FontSize="16"/>
+            <Button  Name="sendNewDrone" Content = "Send" VerticalAlignment="Top" Click = "AddNewDrone" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5"  Margin="0,370,245,0" Foreground="White"  Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}">
+
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -31,54 +33,54 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <Grid x:Name="UpdateDroneGrid" Grid.Row="1">
-            <Label Name = "batteryStatusLabel" Content = "drone battery status:" VerticalAlignment = "Top" Margin ="43, 120, 710, 0"  Visibility="Visible"/>
-            <ComboBox Name = "batteryStatus" VerticalAlignment = "Top" Margin = "199, 120, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="statusLabel" Content = "drone status:" VerticalAlignment = "Top" Margin ="43, 150, 710, 0"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <ComboBox Name = "Status" VerticalAlignment = "Top" Margin = "199, 150, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="longitudeLabel" Content = "drone longitude:" VerticalAlignment = "Top" Margin ="43,180,710,0"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <TextBox Name = "longitude" VerticalAlignment = "Top" Margin = "199, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="latitudeLabel" Content = "drone latitude:" VerticalAlignment = "Top" Margin ="43, 210, 710, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <TextBox Name = "latitude" VerticalAlignment = "Top" Margin = "199, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="timechargeLabel" Content="write time of charge here:" VerticalAlignment ="Top" Visibility="Hidden" />
-            <TextBox Name="timecharge" VerticalAlignment ="Top"  Visibility="Hidden" />
+        <Grid x:Name="UpdateDroneGrid" Grid.Row="1" Margin="434,30,-434,-30">
+            <Label Name = "batteryStatusLabel" Content = "drone battery status:" VerticalAlignment = "Top" Margin ="43,120,684,0"  Visibility="Visible" FontSize="16"/>
+            <ComboBox Name = "batteryStatus" VerticalAlignment = "Top" Margin = "221,120,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="13"/>
+            <Label Name="statusLabel" Content = "drone status:" VerticalAlignment = "Top" Margin ="43,150,684,0"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
+            <ComboBox Name = "Status" VerticalAlignment = "Top" Margin = "221,150,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="13"/>
+            <Label Name="longitudeLabel" Content = "drone longitude:" VerticalAlignment = "Top" Margin ="43,180,684,0"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
+            <TextBox Name = "longitude" VerticalAlignment = "Top" Margin = "221, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
+            <Label Name="latitudeLabel" Content = "drone latitude:" VerticalAlignment = "Top" Margin ="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
+            <TextBox Name = "latitude" VerticalAlignment = "Top" Margin = "221, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
+            <Label Name="timechargeLabel" Content="write time of charge:" VerticalAlignment ="Top" Margin ="43, 270, 684, 0" Visibility="Hidden" FontSize="16"/>
+            <TextBox Name="timecharge" VerticalAlignment ="Top" Margin ="221, 270, 500, 0" Visibility="Hidden" FontSize="16"/>
 
-            <Button  Name="sendDroneToCharge" Content = "send drone to charge" VerticalAlignment="Top" Click = "SendDroneToCharge" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden">
+            <Button  Name="sendDroneToCharge" Content = "send drone to charge" VerticalAlignment="Top" Click = "SendDroneToCharge" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden" Foreground="White">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="assignParcelToDrone" Content = "assign Parcel To Drone" VerticalAlignment="Top" Click = "AssignParcelToDrone" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden" >
+            <Button  Name="assignParcelToDrone" Content = "assign Parcel To Drone" VerticalAlignment="Top" Click = "AssignParcelToDrone" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden"  Foreground="White">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="releaseDronefromCharge" Content = "release Drone from Charge" VerticalAlignment="Top" Click = "ReleaseDronefromCharge" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden">
+            <Button  Name="releaseDronefromCharge" Content = "release Drone from Charge" VerticalAlignment="Top" Click = "ReleaseDronefromCharge" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden"  Foreground="White">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="collectParcelByDrone" Content = "collect Parcel By Drone" VerticalAlignment="Top" Click = "CollectParcelByDrone" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden" >
+            <Button  Name="collectParcelByDrone" Content = "collect Parcel By Drone" VerticalAlignment="Top" Click = "CollectParcelByDrone" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden"  Foreground="White">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="deliveryParcelByDrone" Content = "delivery Parcel By Drone" VerticalAlignment="Top" Click = "DeliveryParcelByDrone" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden"  >
+            <Button  Name="deliveryParcelByDrone" Content = "delivery Parcel By Drone" VerticalAlignment="Top" Click = "DeliveryParcelByDrone" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden" Foreground="White">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="update" Content = "update" VerticalAlignment="Top" Click = "UpdateDrone" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden">
+            <Button  Name="update" Content = "update" VerticalAlignment="Top" Click = "UpdateDrone" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5" Visibility ="Hidden"  Foreground="White">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -100,7 +102,7 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#ad0000"/> 
+                            <Setter Property="Background" Value="Red"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>

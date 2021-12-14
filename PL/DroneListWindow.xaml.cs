@@ -21,6 +21,10 @@ namespace PL
     {
         IBL.IBL bl;
 
+        /// <summary>
+        /// Ctor of Drone list window
+        /// </summary>
+        /// <param name="blMain"></param>
         public DroneListWindow(IBL.IBL blMain)
         {
             InitializeComponent();
@@ -31,6 +35,11 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
+        /// <summary>
+        /// Filter the list category status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox status = sender as ComboBox;
@@ -46,6 +55,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Filter the list category weight
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WeightSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox weight = sender as ComboBox;
@@ -61,12 +75,22 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Show drone window with adding ctor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddWindow(object sender, RoutedEventArgs e)
         {
             new DroneWindow(bl).Show();
             Close();
         }
 
+        /// <summary>
+        /// Show drone window with update ctor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.DroneBL dronr1 = (sender as ListView).SelectedValue as IBL.BO.DroneBL;
@@ -74,9 +98,18 @@ namespace PL
             Close();
         }
 
+        /// <summary>
+        /// Closeing window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseWin(object sender, RoutedEventArgs e) => Close();
 
-        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();
-        
+        /// <summary>
+        /// Show all drones without filter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();        
     }
 }

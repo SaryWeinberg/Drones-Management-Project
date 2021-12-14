@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Height="600" Width="900"
-         Background="#62b6e3">
+         Background="#0d62b8">
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="447*"/>
+            <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
@@ -19,20 +19,29 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <Label Content="status:" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="195" Margin="0,15,0,0" />
-            <Label Content="weight:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="190" Margin="0,15,0,0" />
-            <ComboBox Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelectorSelectionChanged"/>
-            <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged"/>
-            <Button Grid.Column="0" Content="Drone List" Click="DroneAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130">
+            <Label Content="status:" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Margin="15,23,0,0" FontSize="18"/>
+            <Label Content="weight:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="15,23,0,0" FontSize="18"/>
+            <ComboBox Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelectorSelectionChanged" Margin="0,15,0,0" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000">
+
+            </ComboBox>
+
+            <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged" Margin="0,15,0,0" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000">
+                <ComboBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </ComboBox.Resources>
+            </ComboBox>
+
+            <Button Grid.Column="0" Content="Drone List" Click="DroneAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Margin="0,15,0,0" BorderThickness="2" Background="#ad0000" Height="43" Width="130" Foreground="White" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-           
 
-            <Button Grid.Column="3" Content="X" Width="32" Height="20" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Click="CloseWin">
+            <Button Grid.Column="3" Content="X" Width="32" Height="20" HorizontalAlignment="Right"  VerticalAlignment="Top" Click="CloseWin">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">
@@ -52,9 +61,12 @@
                     </Style>
                 </Button.Style>
             </Button>
-        </Grid>      
-        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="20"/>
-        <Button Grid.Row="2" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130">
+        </Grid>
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="25" FontSize="16"/>
+
+        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="57,435,0,25" Grid.Row="1" Width="198" Grid.RowSpan="2"></Image>
+
+        <Button Grid.Row="1" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="2" Background="#ad0000" Height="43" Width="130" Margin="689,438,0,0" Foreground="White" Grid.RowSpan="2">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
