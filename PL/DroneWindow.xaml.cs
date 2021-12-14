@@ -35,12 +35,12 @@ namespace PL
             StationIdLabel.Visibility = Visibility.Visible;
             batteryStatusLabel.Visibility = Visibility.Hidden;
             max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            update.Visibility = Visibility.Hidden;
+/*            update.Visibility = Visibility.Hidden;
             sendDroneToCharge.Visibility = Visibility.Hidden;
             assignParcelToDrone.Visibility = Visibility.Hidden;
             releaseDronefromCharge.Visibility = Visibility.Hidden;
             collectParcelByDrone.Visibility = Visibility.Hidden;
-            deliveryParcelByDrone.Visibility = Visibility.Hidden;
+            deliveryParcelByDrone.Visibility = Visibility.Hidden;*/
 
             /*      string[] dataArr = { "ID", "max_weight", "model", "station_ID" };*/
 
@@ -187,7 +187,10 @@ namespace PL
             Status.IsEditable = true;
 
             DroneID.Text = drone.ID.ToString();
+
+            batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             batteryStatus.Text = drone.BatteryStatus.ToString();
+            batteryStatus.IsEditable = true;
             longitude.Text = drone.Location.Longitude.ToString();
             latitude.Text = drone.Location.Latitude.ToString();
 
@@ -222,12 +225,12 @@ namespace PL
                 x += 30;*/
 
             /*position = 400;*/
-            update.Visibility = Visibility.Hidden;
+/*            update.Visibility = Visibility.Hidden;
             sendDroneToCharge.Visibility = Visibility.Hidden;
             assignParcelToDrone.Visibility = Visibility.Hidden;
             releaseDronefromCharge.Visibility = Visibility.Hidden;
             collectParcelByDrone.Visibility = Visibility.Hidden;
-            deliveryParcelByDrone.Visibility = Visibility.Hidden;
+            deliveryParcelByDrone.Visibility = Visibility.Hidden;*/
             if (drone.Status == DroneStatus.Available)
             {
 /*                AddBTN("send drone to charge");
@@ -252,7 +255,7 @@ namespace PL
                 if (bl.GetSpesificParcelBL(drone.Parcel.ID).PickedUp == null)
                 {
 /*                    AddBTN("collect Parcel By Drone");
-*/                    collectParcelByDrone.Visibility = Visibility.Visible;
+*/                  collectParcelByDrone.Visibility = Visibility.Visible;
                     collectParcelByDrone.Margin = new Thickness(0, 450, 0, 0);
 
 
