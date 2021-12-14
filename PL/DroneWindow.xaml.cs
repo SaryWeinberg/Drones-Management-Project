@@ -37,6 +37,8 @@ namespace PL
             max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
+
+
         /// <summary>
         /// Adding drone 
         /// </summary>
