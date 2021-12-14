@@ -25,7 +25,6 @@
             <Label  Name="StationIdLabel" Content = "drone station ID:" VerticalAlignment ="Top" Margin = "43, 120, 680, 0" Visibility="Hidden" FontSize="16"/>
             <TextBox Name = "station_ID" VerticalAlignment = "Top" Margin = "221, 120, 500, 0" Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}" FontSize="16"/>
             <Button  Name="sendNewDrone" Content = "Send" VerticalAlignment="Top" Click = "AddNewDrone" Background="#ad0000" Height="43" Width="130" BorderThickness="2.5"  Margin="0,370,245,0" Foreground="White"  Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}">
-
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

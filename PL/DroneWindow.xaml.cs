@@ -103,7 +103,7 @@ namespace PL
             Status.IsEditable = true;
 
             DroneID.Text = drone.ID.ToString();
-
+            
             batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             batteryStatus.Text = drone.BatteryStatus.ToString();
             batteryStatus.IsEditable = true;
