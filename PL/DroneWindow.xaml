@@ -38,42 +38,42 @@
             <Label Name="timechargeLabel" Content="write time of charge here:" VerticalAlignment ="Top" Visibility="Hidden" />
             <TextBox Name="timecharge" VerticalAlignment ="Top"  Visibility="Hidden" />
 
-            <Button  Name="sendDroneToCharge" Content = "send drone to charge" VerticalAlignment="Top" Click = "SendDroneToCharge" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black" >
+            <Button  Name="sendDroneToCharge" Content = "send drone to charge" VerticalAlignment="Top" Click = "SendDroneToCharge" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black"  Visibility ="Hidden">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="assignParcelToDrone" Content = "assign Parcel To Drone" VerticalAlignment="Top" Click = "AssignParcelToDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black"  >
+            <Button  Name="assignParcelToDrone" Content = "assign Parcel To Drone" VerticalAlignment="Top" Click = "AssignParcelToDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black"  Visibility ="Hidden" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="releaseDronefromCharge" Content = "release Drone from Charge" VerticalAlignment="Top" Click = "ReleaseDronefromCharge" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black" >
+            <Button  Name="releaseDronefromCharge" Content = "release Drone from Charge" VerticalAlignment="Top" Click = "ReleaseDronefromCharge" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black"  Visibility ="Hidden">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="collectParcelByDrone" Content = "collect Parcel By Drone" VerticalAlignment="Top" Click = "CollectParcelByDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black" >
+            <Button  Name="collectParcelByDrone" Content = "collect Parcel By Drone" VerticalAlignment="Top" Click = "CollectParcelByDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black" Visibility ="Hidden" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="deliveryParcelByDrone" Content = "delivery Parcel By Drone" VerticalAlignment="Top" Click = "DeliveryParcelByDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black"  >
+            <Button  Name="deliveryParcelByDrone" Content = "delivery Parcel By Drone" VerticalAlignment="Top" Click = "DeliveryParcelByDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black" Visibility ="Hidden"  >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button  Name="update" Content = "update" VerticalAlignment="Top" Click = "UpdateDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black" >
+            <Button  Name="update" Content = "update" VerticalAlignment="Top" Click = "UpdateDrone" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black"  Visibility ="Hidden">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
