@@ -69,7 +69,7 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-        public bool maintence = false;
+        private bool available = false;
 
         /// <summary>
         /// Ctor of update drone window
@@ -85,12 +85,12 @@ namespace PL
             StationIdLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
             
-            DroneModelLabel.Content = "Upadate drone model:";
+            DroneModelLabel.Content = "drone model:";
             DroneModel.Text = drone.Model.ToString();
             DroneModel.TextChanged += AddUpdateBTN;
             DroneID.IsEnabled = false;
             DroneIDLabel.Content = " drone ID:";
-            MaxWeightLabel.Content = "Max Weight";
+            MaxWeightLabel.Content = "max weight";
 
             max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             max_weight.Text = drone.MaxWeight.ToString();
@@ -112,6 +112,7 @@ namespace PL
 
             if (drone.Status == DroneStatus.Available)
             {
+                available = true;
                 sendDroneToCharge.Visibility = Visibility.Visible;
                 sendDroneToCharge.Margin = new Thickness(0, 370, 245, 0);
                 assignParcelToDrone.Visibility = Visibility.Visible;
@@ -119,7 +120,6 @@ namespace PL
             }
             else if (drone.Status == DroneStatus.Maintenance)
             {
-                maintence = true;
                 timecharge.Visibility = Visibility.Visible;
                 timechargeLabel.Visibility = Visibility.Visible;
                 timecharge.TextChanged += releseDrone;
@@ -147,9 +147,9 @@ namespace PL
         private void AddUpdateBTN(object sender, RoutedEventArgs e)
         {
             update.Visibility = Visibility.Visible;
-            if(maintence)
-                update.Margin = new Thickness(0, 370, 670, 0);
-            else update.Margin = new Thickness(0, 290, 450, 0);
+            if(available)
+                update.Margin = new Thickness(0, 285, 450, 0);
+            else update.Margin = new Thickness(0, 370, 670, 0);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace PL
                 MessageBoxResult result =
                   MessageBox.Show(
                     bl.UpdateDroneData(Drone.ID, model),
-                    $"Update drone - {Drone.ID} MODEL",
+                    $"Update drone - {Drone.ID} model",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)

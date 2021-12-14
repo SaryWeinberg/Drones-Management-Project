@@ -41,7 +41,7 @@
                 </Button.Resources>
             </Button>
 
-            <Button Grid.Column="3" Content="X" Width="32" Height="20" HorizontalAlignment="Right"  VerticalAlignment="Top" Click="CloseWin">
+            <Button Grid.Column="3" Content="X" Width="34" Height="22" HorizontalAlignment="Right"  VerticalAlignment="Top" Click="CloseWin">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">
@@ -64,9 +64,9 @@
         </Grid>
         <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="25" FontSize="16"/>
 
-        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="57,435,0,25" Grid.Row="1" Width="198" Grid.RowSpan="2"></Image>
+        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
 
-        <Button Grid.Row="1" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="2" Background="#ad0000" Height="43" Width="130" Margin="689,438,0,0" Foreground="White" Grid.RowSpan="2">
+        <Button Grid.Row="2" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="2" Background="#ad0000" Height="43" Width="130" Margin="696,8,0,0" Foreground="White">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

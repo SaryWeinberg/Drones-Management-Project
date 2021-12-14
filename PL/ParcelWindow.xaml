@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Height="450" Width="800"
+        Height="600" Width="900"
          Background="#FF9AD1CE">
     <Grid>
         <Grid x:Name="ParcelData">
             <Grid.Background>
-                <ImageBrush ImageSource="/Images/DroneImg.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
             </Grid.Background>
-            <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="79,319,0,73" Grid.Row="1" Width="194"></Image>
-            <Button Content="X" Width="32" Height="20" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Click="DataWindowClosing">
+            <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"></Image>
+            <Button Content="X" Width="34" Height="22" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Click="DataWindowClosing">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">
