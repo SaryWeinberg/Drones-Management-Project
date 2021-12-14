@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Height="600" Width="900"
-         Background="#FF9AD1CE">
+         Background="#62b6e3">
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -23,7 +23,7 @@
             <Label Content="weight:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="190" Margin="0,15,0,0" />
             <ComboBox Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelectorSelectionChanged"/>
             <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged"/>
-            <Button Grid.Column="0" Content="Drone List" Click="DroneAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+            <Button Grid.Column="0" Content="Drone List" Click="DroneAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -54,7 +54,7 @@
             </Button>
         </Grid>      
         <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="20"/>
-        <Button Grid.Row="2" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+        <Button Grid.Row="2" Content="Add Drone" Click="AddWindow" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000" Height="43" Width="130">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

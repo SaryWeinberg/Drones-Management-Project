@@ -5,31 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Height="600" Width="900"
-        Background="#FF9AD1CE">
+        Height="600" Width="900">
     <Grid x:Name="MainData">
-        <Button Content="Drone List Window" HorizontalAlignment="Left" Margin="213,136,0,0" VerticalAlignment="Top" Click="ViewDroneListWindow" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/DroneImg.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        
+        <Button Content="Drone List Window" HorizontalAlignment="Left" Margin="634,210,0,0" VerticalAlignment="Top" Click="ViewDroneListWindow"  Height="45" Width="140" BorderThickness="2" Background="#f6bd7e" BorderBrush="#ad0000">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Parcel List Window" HorizontalAlignment="Left" Margin="213,342,0,0" VerticalAlignment="Top" Click="ViewParcelListWindow" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+        <Button Content="Parcel List Window" HorizontalAlignment="Left" Margin="634,280,0,0" VerticalAlignment="Top" Click="ViewParcelListWindow" Background="#f6bd7e" Height="45" Width="140" BorderThickness="2" BorderBrush="#ad0000">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Customer List Window" HorizontalAlignment="Left" Margin="569,136,0,0" VerticalAlignment="Top" Click="ViewCustomerListWindow" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+        <Button Content="Customer List Window" HorizontalAlignment="Left" Margin="634,350,0,0" VerticalAlignment="Top" Click="ViewCustomerListWindow" Background="#f6bd7e" Height="45" Width="140" BorderThickness="2" BorderBrush="#ad0000">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Station List Window" HorizontalAlignment="Left" Margin="569,342,0,0" VerticalAlignment="Top" Click="ViewStationListWindow" Background="#FF4D9692" Height="43" Width="130" BorderThickness="2.5" BorderBrush="Black">
+        <Button Content="Station List Window" HorizontalAlignment="Left" Margin="634,420,0,0" VerticalAlignment="Top" Click="ViewStationListWindow" Background="#f6bd7e" Height="45" Width="140" BorderThickness="2" BorderBrush="#ad0000">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
