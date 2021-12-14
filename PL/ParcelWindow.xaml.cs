@@ -99,5 +99,8 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
+
+        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+       
     }
 }

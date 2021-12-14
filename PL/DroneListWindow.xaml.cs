@@ -74,12 +74,9 @@ namespace PL
             Close();
         }
 
-        private void CloseWin(object sender, RoutedEventArgs e)
-        {
-            Close();
+        private void CloseWin(object sender, RoutedEventArgs e) => Close();
 
-        }
-
-
+        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();
+        
     }
 }

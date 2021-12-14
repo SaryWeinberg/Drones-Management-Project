@@ -35,7 +35,12 @@ namespace PL
             StationIdLabel.Visibility = Visibility.Visible;
             batteryStatusLabel.Visibility = Visibility.Hidden;
             max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-
+            update.Visibility = Visibility.Hidden;
+            sendDroneToCharge.Visibility = Visibility.Hidden;
+            assignParcelToDrone.Visibility = Visibility.Hidden;
+            releaseDronefromCharge.Visibility = Visibility.Hidden;
+            collectParcelByDrone.Visibility = Visibility.Hidden;
+            deliveryParcelByDrone.Visibility = Visibility.Hidden;
 
             /*      string[] dataArr = { "ID", "max_weight", "model", "station_ID" };*/
 
@@ -90,15 +95,10 @@ namespace PL
         /// <param name="e"></param>
         private void AddNewDrone(object sender, RoutedEventArgs e)
         {
-
-
             string ID = DroneID.Text;
-            int weight = max_weight.SelectedIndex;
+            int weight = max_weight.SelectedIndex + 1;
             string model = DroneModel.Text;
             string stationID = station_ID.Text;
-            /*                int weight = DroneData.Children.OfType<ComboBox>().First(txt => txt.Name == "dronemax_weight").SelectedIndex;
-                            string model = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronemodel").Text;
-                            string stationID = DroneData.Children.OfType<TextBox>().First(txt => txt.Name == "dronestation_ID").Text;*/
             try
             {
 
@@ -106,7 +106,7 @@ namespace PL
                 int station = int.Parse(stationID);
                 MessageBoxResult result =
                  MessageBox.Show(
-                   bl.AddDroneBL(id, model, (WeightCategories)weight,station),
+                   bl.AddDroneBL(id, model, (WeightCategories)weight, station),
                    $"Add drone ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -120,10 +120,7 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
-
-
         }
-
 
         /// <summary>
         /// 
@@ -138,7 +135,8 @@ namespace PL
             Drone = drone;
             StationIdLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
-            /*            string[] dataArr = { "ID", "max_weight", "battery_status", "status", "longitude", "latitude" };*/
+/*            sendNewDrone.Visibility = Visibility.Hidden;
+*/            /*            string[] dataArr = { "ID", "max_weight", "battery_status", "status", "longitude", "latitude" };*/
             /*        int x = 100;*/
 
             DroneModelLabel.Content = "Upadate drone model:";
@@ -187,6 +185,7 @@ namespace PL
             Status.Text = drone.Status.ToString();
             Status.IsEnabled = false;
             Status.IsEditable = true;
+
             DroneID.Text = drone.ID.ToString();
             batteryStatus.Text = drone.BatteryStatus.ToString();
             longitude.Text = drone.Location.Longitude.ToString();
@@ -223,48 +222,67 @@ namespace PL
                 x += 30;*/
 
             /*position = 400;*/
-            AddBTN("close window");
+            update.Visibility = Visibility.Hidden;
+            sendDroneToCharge.Visibility = Visibility.Hidden;
+            assignParcelToDrone.Visibility = Visibility.Hidden;
+            releaseDronefromCharge.Visibility = Visibility.Hidden;
+            collectParcelByDrone.Visibility = Visibility.Hidden;
+            deliveryParcelByDrone.Visibility = Visibility.Hidden;
             if (drone.Status == DroneStatus.Available)
             {
-                AddBTN("send drone to charge");
-                AddBTN("assign Parcel To Drone");
-            }
+/*                AddBTN("send drone to charge");
+*/                sendDroneToCharge.Visibility = Visibility.Visible;
+                sendDroneToCharge.Margin = new Thickness(0,450,0,0);
+                assignParcelToDrone.Visibility = Visibility.Visible;
+                assignParcelToDrone.Margin = new Thickness(0, 450, -450, 0);
+/*                AddBTN("assign Parcel To Drone");
+*/          }
             else if (drone.Status == DroneStatus.Maintenance)
-            {
-                AddBTN("release Drone from Charge");
-
+            {                
+                timechargeLabel.Margin = new Thickness(43, 270, 710, 0);
+                timecharge.Margin = new Thickness(199, 270, 500, 0);
+                timecharge.Visibility = Visibility.Visible;
+                timechargeLabel.Visibility = Visibility.Visible;
+                timecharge.TextChanged += releseDrone;
+                               /*                AddBTN("release Drone from Charge");
+                */
             }
             else if (drone.Status == DroneStatus.Delivery)
             {
                 if (bl.GetSpesificParcelBL(drone.Parcel.ID).PickedUp == null)
                 {
-                    AddBTN("collect Parcel By Drone");
+/*                    AddBTN("collect Parcel By Drone");
+*/                    collectParcelByDrone.Visibility = Visibility.Visible;
+                    collectParcelByDrone.Margin = new Thickness(0, 450, 0, 0);
+
+
                 }
                 else
                 {
-                    AddBTN("delivery Parcel By Drone");
+                    deliveryParcelByDrone.Visibility = Visibility.Visible;
+                    deliveryParcelByDrone.Margin = new Thickness(0, 450, 0, 0);
+
+
+                    /*                    AddBTN("delivery Parcel By Drone");
+                    */
                 }
             }
         }
-        static int position = 400;
-        private void AddBTN(string item)
+       /* static int position = 400;*/
+        /*private void AddBTN(string item)
         {
-
             Button botton = new Button();
             botton.Content = item;
             botton.VerticalAlignment = VerticalAlignment.Top;
             switch (item)
             {
-                case "close window": botton.Click += DataWindowClosing; break;
                 case "send drone to charge": botton.Click += SendDroneToCharge; break;
                 case "release Drone from Charge":
                     botton.Click += ReleaseDronefromCharge;
-
                     timechargeLabel.Margin = new Thickness(43, position + 30, 0, 0);
                     timecharge.Margin = new Thickness(199, position + 30, 0, 0);
                     timecharge.Visibility = Visibility.Visible;
                     timechargeLabel.Visibility = Visibility.Visible;
-
                     break;
                 case "assign Parcel To Drone": botton.Click += AssignParcelToDrone; break;
                 case "collect Parcel By Drone": botton.Click += CollectParcelByDrone; break;
@@ -273,20 +291,29 @@ namespace PL
             botton.Margin = new Thickness(43, position, 0, 0);
             DroneData.Children.Add(botton);
             position += 30;
-        }
+        }*/
 
 
         private void AddUpdateBTN(object sender, RoutedEventArgs e)
         {
-            Button botton = new Button();
+           /* Button botton = new Button();
             botton.Content = "update";
             botton.VerticalAlignment = VerticalAlignment.Top;
             botton.Click += UpdateDrone;
             botton.Margin = new Thickness(43, 250, 0, 0);
-            DroneData.Children.Add(botton);
+            DroneData.Children.Add(botton);*/
+
+            update.Visibility = Visibility.Visible;
+            update.Margin = new Thickness(0, 450, 450, 0);
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+        private void releseDrone(object sender, RoutedEventArgs e) {
+
+            releaseDronefromCharge.Visibility = Visibility.Visible;
+            releaseDronefromCharge.Margin = new Thickness(0, 450, 0, 0);
+        }
+
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// 

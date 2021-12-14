@@ -5,9 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerWindow" Height="450" Width="800">
+        Title="CustomerWindow" Height="450" Width="800"
+         Background="#FF9AD1CE">
     <Grid x:Name="CustomerData">
-        <Button Content="close window" HorizontalAlignment="Left" Margin="43,350,0,0" VerticalAlignment="Top" Click="DataWindowClosing"/>
+        <Button Content="X" Width="32" Height="20" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Click="DataWindowClosing">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
     </Grid>
 </Window>

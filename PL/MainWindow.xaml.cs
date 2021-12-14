@@ -24,9 +24,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            WindowState = WindowState.Maximized;
-/*            WindowStyle = WindowStyle.None;
-*/        }
+        }
 
         private void ViewDroneListWindow(object sender, RoutedEventArgs e)
         {
