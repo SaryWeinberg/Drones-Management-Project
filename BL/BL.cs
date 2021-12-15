@@ -49,6 +49,12 @@ namespace BL
 
                     drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
                     drone.Status = DroneStatus.Delivery;
+                    ParcelByDelivery parcelBD = new ParcelByDelivery();
+                    parcelBD.ID = parcel.ID;
+                    drone.Parcel = parcelBD;
+                    
+                    
+                    
                 }
                 else
                 {

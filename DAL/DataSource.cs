@@ -64,9 +64,28 @@ namespace DalObject
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
                 parcel.Created = RandomDate();
                 parcel.DroneId = rand.Next() % Drones.Count;
-                parcel.Associated = RandomDate();
-                parcel.PickedUp = RandomDate();
-                parcel.Delivered = RandomDate();
+
+
+                int RndStatus = rand.Next(1, 4);
+                switch (RndStatus)
+                {
+                    case 1:
+                        parcel.Associated = RandomDate();
+                        break;
+                    case 2:
+                        parcel.Associated = RandomDate();
+                        parcel.PickedUp = RandomDate();
+                        break;
+                    case 3:
+                        parcel.Associated = RandomDate();
+                        parcel.PickedUp = RandomDate();
+                        parcel.Delivered = RandomDate();
+                        break;
+                    default:
+                        break;
+
+                }
+
                 Parcels.Add(parcel);
             }
         }
