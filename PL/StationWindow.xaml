@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-         Height="600" Width="900"
-         Background="#FF9AD1CE">
+        Height="600" Width="900">
     <Grid x:Name="StationData">
         <Grid.Background>
             <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
@@ -25,7 +24,6 @@
             <TextBox Name = "StationLatitude" VerticalAlignment = "Top" Margin = "221, 150, 500, 0"  FontSize="16"/>
             <Button  Name="sendNewStation" Content = "Send" VerticalAlignment="Top" Click = "AddNewStation" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
-
         <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30">
             <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click="UpdateStation" Margin="0,370,245,0"  Visibility ="Hidden"/>
         </Grid>

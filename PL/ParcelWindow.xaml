@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Height="600" Width="900"
-         Background="#FF9AD1CE">
+        Height="600" Width="900">
     <Grid>
         <Grid x:Name="ParcelData">
             <Grid.Background>

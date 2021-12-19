@@ -27,17 +27,76 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
             ParcelListView.ItemsSource = bl.GetParcelsBL();
+            PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+        /// <summary>
+        /// Filter the list category priority
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PrioritySelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox priority = sender as ComboBox;
+            WeightCategories Sweight = 0;
+            if (WeightSelector.SelectedItem == null)
+            {
+                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem);
+            }
+            else
+            {
+                Sweight = (WeightCategories)WeightSelector.SelectedItem;
+                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem && parcel.Weight == Sweight);
+            }
+        }
 
+        /// <summary>
+        /// Filter the list category weight
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WeightSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox weight = sender as ComboBox;
+            Priorities Ppriority = 0;
+            if (PrioritySelector.SelectedItem == null)
+            {
+                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem);
+            }
+            else
+            {
+                Ppriority = (Priorities)PrioritySelector.SelectedItem;
+                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem && parcel.Priority == Ppriority);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RefreshWindow(object sender, RoutedEventArgs e) => ParcelListView.Items.Refresh();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsBL();
 
-        private void ViewParcelWindow(object sender, RoutedEventArgs e)
-        {
-            new ParcelWindow(bl).Show();
-            //Close();
-        }
+        /// <summary>
+        /// Show parcel window with adding ctor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddParcel(object sender, RoutedEventArgs e) => new ParcelWindow(bl).Show();
     }
 }

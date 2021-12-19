@@ -143,13 +143,8 @@ namespace BL
             {
                 customersToList.Add(new BO.CustomerToList(cust, dalObj));
             }
-
             return customersToList;
-
-
         }
     }
-
-
 }
 

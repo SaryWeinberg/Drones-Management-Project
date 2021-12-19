@@ -14,15 +14,9 @@
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
         <ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer" Padding="35" Margin="20" FontSize="16"/>
-
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
-
-        <Button Grid.Row="2" Content="Add customer" Style="{StaticResource RedButton}" Click="ViewCustomerWindow" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
-
-
+        <Button Grid.Row="2" Content="Add customer" Style="{StaticResource RedButton}" Click="AddCustomer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
         <Button Style="{StaticResource CloseButton}" Click="DataWindowClosing"/>
         <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
-
-
     </Grid>
 </Window>

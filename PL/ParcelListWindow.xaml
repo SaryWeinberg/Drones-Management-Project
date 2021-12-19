@@ -6,17 +6,29 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Height="600" Width="900"
-         Background="#0d62b8">
+        Background="#0d62b8">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <Label Content="priority:" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="15,23,0,0" FontSize="18"/>
+            <Label Content="weight:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="15,23,0,0" FontSize="18"/>
+            <ComboBox Name="PrioritySelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="PrioritySelectorSelectionChanged" Margin="0,15,0,0" />
+            <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged" Margin="0,15,0,0" />
+            <Button Grid.Column="0" Content="Parcel List" Style="{StaticResource RedButton}" Click="ParcelAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Margin="0,15,0,0"/>
+            <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
+            <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+        </Grid>
         <ListView x:Name="ParcelListView" Grid.Row="1" Padding="35" Margin="20" FontSize="16"/>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
-        <Button Grid.Row="2" Content="Add Parcel" Style="{StaticResource RedButton}" Click="ViewParcelWindow" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
-        <Button Style="{StaticResource CloseButton}" Click="DataWindowClosing"/>
-        <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+        <Button Grid.Row="2" Content="Add Parcel" Style="{StaticResource RedButton}" Click="AddParcel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
     </Grid>
 </Window>

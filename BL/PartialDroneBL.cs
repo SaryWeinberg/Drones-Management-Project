@@ -177,10 +177,10 @@ namespace BL
             return dronesBLList;
         }
 
-        public IEnumerable<Drone> GetDronesBy(Predicate<Drone> findBy)
+        public IEnumerable<Drone> GetDronesByCondition(Predicate<Drone> condition)
         {
             return from droneBL in GetDronesBLList()
-                   where findBy(droneBL)
+                   where condition(droneBL)
                    select droneBL;
         }
 

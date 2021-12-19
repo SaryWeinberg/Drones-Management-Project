@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-         Height="600" Width="900"
-         Background="#0d62b8">
+        Height="600" Width="900"
+        Background="#0d62b8">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <ListView x:Name="StationListView" Grid.Row="1" MouseDoubleClick="UpdateStation" Padding="35" Margin="20" FontSize="16"/>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
-        <Button Grid.Row="2" Content="Add Station" Style="{StaticResource RedButton}" Click="ViewStationWindow" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="696,8,0,0" />
+        <Button Grid.Row="2" Content="Add Station" Style="{StaticResource RedButton}" Click="AddStation" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="696,8,0,0" />
         <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
         <Button Style="{StaticResource RefreshButton}"  Click="RefreshWindow"/>
     </Grid>

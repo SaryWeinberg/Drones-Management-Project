@@ -46,12 +46,12 @@ namespace PL
             WeightCategories Sweight = 0;
             if (WeightSelector.SelectedItem == null)
             {
-                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == (DroneStatus)status.SelectedItem);
+                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.Status == (DroneStatus)status.SelectedItem);
             }
             else
             {
                 Sweight = (WeightCategories)WeightSelector.SelectedItem;
-                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
+                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
             }
         }
 
@@ -66,24 +66,13 @@ namespace PL
             DroneStatus Sstatus = 0;
             if (StatusSelector.SelectedItem == null)
             {
-                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem);
+                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem);
             }
             else
             {
                 Sstatus = (DroneStatus)StatusSelector.SelectedItem;
-                DroneListView.ItemsSource = bl.GetDronesBy(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem && drone.Status == Sstatus);
+                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem && drone.Status == Sstatus);
             }
-        }
-
-        /// <summary>
-        /// Show drone window with adding ctor
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddWindow(object sender, RoutedEventArgs e)
-        {
-            new DroneWindow(bl).Show();
-            //Close();
         }
 
         /// <summary>
@@ -95,15 +84,21 @@ namespace PL
         {
             BO.Drone dronr1 = (sender as ListView).SelectedValue as BO.Drone;
             new DroneWindow(bl, dronr1).Show();
-            Close();
         }
+
+        /// <summary>
+        /// Show drone window with adding ctor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddDrone(object sender, RoutedEventArgs e) => new DroneWindow(bl).Show();
 
         /// <summary>
         /// Closeing window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CloseWin(object sender, RoutedEventArgs e) => Close();
+        private void CloseingWindow(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// Show all drones without filter
@@ -112,6 +107,11 @@ namespace PL
         /// <param name="e"></param>
         private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();
 
+        /// <summary>
+        /// Refresh the drone list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
     }
 }

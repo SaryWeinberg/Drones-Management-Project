@@ -33,18 +33,12 @@ namespace PL
 
         private void RefreshWindow(object sender, RoutedEventArgs e) => StationListView.Items.Refresh();
 
-
-        private void ViewStationWindow(object sender, RoutedEventArgs e)
-        {
-            new StationWindow(bl).Show();
-            /*Close();*/
-        }
+        private void AddStation(object sender, RoutedEventArgs e) => new StationWindow(bl).Show();
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             BO.Station station = (sender as ListView).SelectedValue as BO.Station;
             new StationWindow(bl, station).Show();
-            /*Close();*/
         }
     }
 }

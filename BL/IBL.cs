@@ -49,6 +49,8 @@ namespace BLApi
         public string CollectParcelByDrone(int droneId);
         public string DeliveryParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
-        public IEnumerable<BO.Drone> GetDronesBy(Predicate<BO.Drone> findBy);
+        public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
+        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
+        public List<BO.CustomerToList> GetCustomersListBL();
     }
 }

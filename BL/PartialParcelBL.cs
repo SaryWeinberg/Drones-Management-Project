@@ -157,6 +157,13 @@ namespace BL
             return parcelsBL;
         }
 
+        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition)
+        {
+            return from parcelBL in GetParcelsBL()
+                   where condition(parcelBL)
+                   select parcelBL;
+        }
+
         /// <summary>
         /// Returns a list of parcels that have not yet been associated with a drone
         /// </summary>

@@ -26,24 +26,19 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            CustomerListView.ItemsSource = bl.GetCustomersBL();
+            CustomerListView.ItemsSource = bl.GetCustomersListBL();
         }
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
         private void RefreshWindow(object sender, RoutedEventArgs e) => CustomerListView.Items.Refresh();
 
-        private void ViewCustomerWindow(object sender, RoutedEventArgs e)
-        {
-            new CustomerWindow(bl).Show();
-            //Close();
-        }
+        private void AddCustomer(object sender, RoutedEventArgs e) => new CustomerWindow(bl).Show();
 
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)
         {
-            BO.Customer customer = (sender as ListView).SelectedValue as BO.Customer;
-            new CustomerWindow(bl, customer).Show();
-            //Close();
+            BO.CustomerToList customerToList = (sender as ListView).SelectedValue as BO.CustomerToList;
+            new CustomerWindow(bl, bl.GetSpesificCustomerBL(customerToList.ID)).Show();
         }
     }
 }
