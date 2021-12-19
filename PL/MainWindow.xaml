@@ -11,34 +11,10 @@
             <ImageBrush ImageSource="/Images/DroneImg.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="604,83,0,389" Width="204"></Image>
+        <Button Content="Drone List Window" Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,210,0,0" VerticalAlignment="Top" Click="ViewDroneListWindow" />
+        <Button Content="Parcel List Window" Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,280,0,0" VerticalAlignment="Top" Click="ViewParcelListWindow" />
+        <Button Content="Customer List Window" Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,350,0,0" VerticalAlignment="Top" Click="ViewCustomerListWindow" FontSize="13"/>
+        <Button Content="Station List Window" Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,420,0,0" VerticalAlignment="Top" Click="ViewStationListWindow"/>
 
-        <Button Content="Drone List Window" HorizontalAlignment="Left" Margin="634,210,0,0" VerticalAlignment="Top" Click="ViewDroneListWindow"  Height="45" Width="140" BorderThickness="2" Background="#ad0000" Foreground="white" FontSize="14">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button Content="Parcel List Window" HorizontalAlignment="Left" Margin="634,280,0,0" VerticalAlignment="Top" Click="ViewParcelListWindow" Background="#ad0000" Height="45" Width="140" BorderThickness="2" Foreground="White" FontSize="14">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button Content="Customer List Window" HorizontalAlignment="Left" Margin="634,350,0,0" VerticalAlignment="Top" Click="ViewCustomerListWindow" Background="#ad0000" Height="45" Width="140" BorderThickness="2" Foreground="white" FontSize="13">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button Content="Station List Window" HorizontalAlignment="Left" Margin="634,420,0,0" VerticalAlignment="Top" Click="ViewStationListWindow" Background="#ad0000" Height="45" Width="140" BorderThickness="2" Foreground="White" FontSize="14">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
     </Grid>
 </Window>

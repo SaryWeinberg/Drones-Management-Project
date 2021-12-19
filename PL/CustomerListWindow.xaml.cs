@@ -31,17 +31,19 @@ namespace PL
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
+        private void RefreshWindow(object sender, RoutedEventArgs e) => CustomerListView.Items.Refresh();
+
         private void ViewCustomerWindow(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(bl).Show();
-            Close();
+            //Close();
         }
 
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.CustomerBL customer = (sender as ListView).SelectedValue as IBL.BO.CustomerBL;
             new CustomerWindow(bl, customer).Show();
-            Close();
+            //Close();
         }
     }
 }

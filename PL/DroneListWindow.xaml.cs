@@ -83,7 +83,7 @@ namespace PL
         private void AddWindow(object sender, RoutedEventArgs e)
         {
             new DroneWindow(bl).Show();
-            Close();
+            //Close();
         }
 
         /// <summary>
@@ -110,6 +110,8 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();        
+        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();
+
+        private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
     }
 }

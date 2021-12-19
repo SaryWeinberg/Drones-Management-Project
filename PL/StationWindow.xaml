@@ -11,26 +11,24 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"></Image>
-        <Button Content="X" Width="34" Height="22" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Click="DataWindowClosing">
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Red"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"/>
+        <Grid x:Name="AddStation" Grid.Row="1" Margin="434,30,-434,-30">
+            <Label Name="StationIDLabel"  Content = "station ID:" VerticalAlignment ="Top" Margin = "43, 30, 680, 0" FontSize="16"/>
+            <TextBox Name="StationID" VerticalAlignment = "Top" Margin = "221, 30, 500, 0" FontSize="16"/>
+            <Label  Name="StationNameLabel" Content = "station name:" VerticalAlignment ="Top" Margin = "43, 60, 680, 0" FontSize="16"/>
+            <TextBox Name = "StationName" VerticalAlignment = "Top" Margin = "221, 60,500, 0" FontSize="16"/>
+            <Label Name="StationChargeSlotsLabel"  Content = "station charge slots:" VerticalAlignment ="Top" Margin = "43, 90, 680, 0" FontSize="16"/>
+            <TextBox Name ="StationChargeSlots" VerticalAlignment = "Top" Margin = "221, 90, 500, 0" FontSize="16"/>
+            <Label  Name="StationLongitudeLabel" Content = "station longitude:" VerticalAlignment ="Top" Margin = "43, 120, 680, 0"  FontSize="16"/>
+            <TextBox Name = "StationLongitude" VerticalAlignment = "Top" Margin = "221, 120, 500, 0"  FontSize="16"/>
+            <Label  Name="StationLatitudeLabel" Content = "station latitude:" VerticalAlignment ="Top" Margin = "43, 150, 680, 0"  FontSize="16"/>
+            <TextBox Name = "StationLatitude" VerticalAlignment = "Top" Margin = "221, 150, 500, 0"  FontSize="16"/>
+            <Button  Name="sendNewStation" Content = "Send" VerticalAlignment="Top" Click = "AddNewStation" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
+        </Grid>
+
+        <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30">
+            <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click="UpdateStation" Margin="0,370,245,0"  Visibility ="Hidden"/>
+        </Grid>
+        <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
     </Grid>
 </Window>

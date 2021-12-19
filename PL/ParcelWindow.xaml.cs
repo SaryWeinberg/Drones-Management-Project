@@ -26,62 +26,19 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-
-            int x = 70;
-            foreach (string item in dataArr)
-            {
-                Label parcelItemT = new Label();
-                parcelItemT.Content = $"Enter parcel {item}:";
-                parcelItemT.VerticalAlignment = VerticalAlignment.Top;
-                parcelItemT.Margin = new Thickness(43, x, 0, 0);
-                ParcelData.Children.Add(parcelItemT);
-                if (item == "weight" || item == "priority")
-                {
-                    ComboBox parcelItemC = new ComboBox();
-                    parcelItemC.Name = $"parcel{item}";
-                    parcelItemC.VerticalAlignment = VerticalAlignment.Top;
-                    parcelItemC.Margin = new Thickness(199, x, 0, 0);
-                    switch (item)
-                    {
-                        case "weight":
-                            parcelItemC.ItemsSource = Enum.GetValues(typeof(WeightCategories)); break;
-                        case "priority":
-                            parcelItemC.ItemsSource = Enum.GetValues(typeof(Priorities)); break;
-
-                    }
-                    ParcelData.Children.Add(parcelItemC);
-                }
-                else
-                {
-                    TextBox parcelItem = new TextBox();
-                    parcelItem.Name = $"parcel{item}";
-                    parcelItem.VerticalAlignment = VerticalAlignment.Top;
-                    parcelItem.Margin = new Thickness(199, x, 0, 0);
-                    ParcelData.Children.Add(parcelItem);
-                }
-                x += 30;
-            }
-
-            Button sendNewParcel = new Button();
-            sendNewParcel.Content = "Send";
-            sendNewParcel.VerticalAlignment = VerticalAlignment.Top;
-            sendNewParcel.Margin = new Thickness(43, x, 0, 0);
-            sendNewParcel.Click += AddNewParcel;
-            ParcelData.Children.Add(sendNewParcel);
+            ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));          
+            ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
+            sendNewParcel.Visibility = Visibility.Visible;           
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
         {
-            string massage;
-            string senderID = ParcelData.Children.OfType<TextBox>().First(txt => txt.Name == "parcelsender_ID").Text;
-            string targetID = ParcelData.Children.OfType<TextBox>().First(txt => txt.Name == "parceltarget_ID").Text;
-            int weight = ParcelData.Children.OfType<ComboBox>().First(txt => txt.Name == "parcelweight").SelectedIndex;
-            int priority = ParcelData.Children.OfType<ComboBox>().First(txt => txt.Name == "parcelpriority").SelectedIndex;
+            string senderID = ParcelSenderID.Text;
+            string targetID = ParcelTargetID.Text;
+            int weight = ParcelWeight.SelectedIndex;
+            int priority = ParcelPriority.SelectedIndex;
             try
-            {
-                massage = bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)weight, (Priorities)priority);
-                MessageBox.Show(massage);
-
+            {              
                 MessageBoxResult result =
                    MessageBox.Show(
                    bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)weight, (Priorities)priority),
@@ -90,7 +47,7 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new ParcelListWindow(bl).Show();
+                    //new ParcelListWindow(bl).Show();
                     Close();
                 }
             }
@@ -100,7 +57,6 @@ namespace PL
             }
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
-       
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();       
     }
 }

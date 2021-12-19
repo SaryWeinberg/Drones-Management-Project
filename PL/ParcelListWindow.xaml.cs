@@ -31,10 +31,13 @@ namespace PL
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
+        private void RefreshWindow(object sender, RoutedEventArgs e) => ParcelListView.Items.Refresh();
+
+
         private void ViewParcelWindow(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(bl).Show();
-            Close();
+            //Close();
         }
     }
 }

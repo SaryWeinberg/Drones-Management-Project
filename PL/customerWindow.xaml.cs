@@ -20,45 +20,23 @@ namespace PL
     public partial class CustomerWindow : Window
     {
         IBL.IBL bl;
-        string[] dataArr = { "ID", "phone", "name", "longitude", "latitude" };
-        TextBox customerItem;
-
+        IBL.BO.CustomerBL Customer;
+       
         public CustomerWindow(IBL.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            int x = 70;
-            foreach (string item in dataArr)
-            {
-                Label customerItemT = new Label();
-                customerItemT.Content = $"Enter customer {item}:";
-                customerItemT.VerticalAlignment = VerticalAlignment.Top;
-                customerItemT.Margin = new Thickness(43, x, 0, 0);
-                CustomerData.Children.Add(customerItemT);
-                customerItem = new TextBox();
-                customerItem.Name = $"customer{item}";
-                customerItem.VerticalAlignment = VerticalAlignment.Top;
-                customerItem.Margin = new Thickness(199, x, 0, 0);
-                CustomerData.Children.Add(customerItem);
-                x += 30;
-            }
-
-            Button sendNewCustomer = new Button();
-            sendNewCustomer.Content = "Send";
-            sendNewCustomer.VerticalAlignment = VerticalAlignment.Top;
-            sendNewCustomer.Margin = new Thickness(43, x, 0, 0);
-            sendNewCustomer.Click += AddNewCustomer;
-            CustomerData.Children.Add(sendNewCustomer);
+            sendNewCustomer.Visibility = Visibility.Visible;          
         }
 
         private void AddNewCustomer(object sender, RoutedEventArgs e)
-        {
-            string ID = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerID").Text;
-            string name = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customername").Text;
-            string phone = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerphone").Text;
-            string longitude = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerlongitude").Text;
-            string latitude = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerlatitude").Text;
+        {           
+            string ID = CustomerID.Text;
+            string name = CustomerName.Text;
+            string phone = CustomerPhone.Text;
+            string longitude = CustomerLongitude.Text;
+            string latitude = CustomerLatitude.Text;
             try
             {
                 MessageBoxResult result =
@@ -69,7 +47,7 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new CustomerListWindow(bl).Show();
+                    //new CustomerListWindow(bl).Show();
                     Close();
                 }
             }
@@ -85,49 +63,27 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            int x = 70;
-            foreach (string item in dataArr)
-            {
-                Label customerItemT = new Label();
-                customerItemT.Content = $"Upadate customer {item}:";
-                customerItemT.VerticalAlignment = VerticalAlignment.Top;
-                customerItemT.Margin = new Thickness(43, x, 0, 0);
-                CustomerData.Children.Add(customerItemT);
-                TextBox customerItem = new TextBox();
-                customerItem.Name = $"customer{item}";
-                customerItem.VerticalAlignment = VerticalAlignment.Top;
-                customerItem.Margin = new Thickness(199, x, 0, 0);
-                switch (item)
-                {
-                    case "ID":
-                        customerItem.Text = customer.ID.ToString(); customerItem.IsEnabled = false; break;
-                    case "phone":
-                        customerItem.Text = customer.PhoneNum.ToString(); break;
-                    case "name":
-                        customerItem.Text = customer.Name.ToString(); break;
-                    case "longitude":
-                        customerItem.Text = customer.Location.Longitude.ToString(); customerItem.IsEnabled = false; break;
-                    case "latitude":
-                        customerItem.Text = customer.Location.Latitude.ToString(); customerItem.IsEnabled = false; break;
-                }
-                CustomerData.Children.Add(customerItem);
-                x += 30;
-            }
 
-            Button updateCustomer = new Button();
-            updateCustomer.Content = "update";
-            updateCustomer.VerticalAlignment = VerticalAlignment.Top;
-            updateCustomer.Click += UpdateCustomer;
-            updateCustomer.Margin = new Thickness(43, x, 0, 0);
-            CustomerData.Children.Add(updateCustomer);
+            Customer = customer;
+            CustomerID.Text = customer.ID.ToString();
+            CustomerName.Text = customer.Name.ToString();
+            CustomerPhone.Text = customer.PhoneNum.ToString();
+            CustomerLongitude.Text = customer.Location.Longitude.ToString();
+            CustomerLatitude.Text = customer.Location.Latitude.ToString();
+            CustomerID.IsEnabled = false;
+            CustomerLongitude.IsEnabled = false;
+            CustomerLatitude.IsEnabled = false;
+
+            CustomerName.TextChanged += AddUpdateButton;
+            CustomerPhone.TextChanged += AddUpdateButton;        
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
-
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
-            string ID = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customerID").Text;
-            string name = CustomerData.Children.OfType<TextBox>().First(txt => txt.Name == "customername").Text;
+            string ID = CustomerID.Text;
+            string name = CustomerName.Text;
             try
             {
                 MessageBoxResult result =
@@ -138,7 +94,7 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new CustomerListWindow(bl).Show();
+                    //new CustomerListWindow(bl).Show();
                     Close();
                 }
             }

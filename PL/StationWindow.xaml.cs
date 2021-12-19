@@ -20,55 +20,33 @@ namespace PL
     public partial class StationWindow : Window
     {
         IBL.IBL bl;
-        string[] dataArr = { "ID", "name", "longitude", "latitude", "charge_slots" };
-
+        IBL.BO.StationBL Station;
         public StationWindow(IBL.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            int x = 70;
-            foreach (string item in dataArr)
-            {
-                Label stationItemT = new Label();
-                stationItemT.Content = $"Enter station {item}:";
-                stationItemT.VerticalAlignment = VerticalAlignment.Top;
-                stationItemT.Margin = new Thickness(43, x, 0, 0);
-                StationData.Children.Add(stationItemT);
-                TextBox stationItem = new TextBox();
-                stationItem.Name = $"station{item}";
-                stationItem.VerticalAlignment = VerticalAlignment.Top;
-                stationItem.Margin = new Thickness(199, x, 0, 0);
-                StationData.Children.Add(stationItem);
-                x += 30;
-            }
-
-            Button sendNewStation = new Button();
-            sendNewStation.Content = "Send";
-            sendNewStation.VerticalAlignment = VerticalAlignment.Top;
-            sendNewStation.Margin = new Thickness(43, x, 0, 0);
-            sendNewStation.Click += AddNewStation;
-            StationData.Children.Add(sendNewStation);
+            sendNewStation.Visibility = Visibility.Visible;           
         }
 
         private void AddNewStation(object sender, RoutedEventArgs e)
-        {
-            string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
-            string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
-            string charge_slots = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationcharge_slots").Text;
-            string longitude = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationlongitude").Text;
-            string latitude = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationlatitude").Text;
+        {           
+            string ID = StationID.Text;
+            string name = StationName.Text;
+            string chargeSlots = StationChargeSlots.Text;
+            string longitude = StationLongitude.Text;
+            string latitude = StationLatitude.Text;
             try
             {               
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots)),
+                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(chargeSlots)),
                    $"Add station ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new StationListWindow(bl).Show();
+                   /* new StationListWindow(bl).Show();*/
                     Close();
                 }
             }
@@ -83,48 +61,28 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            int x = 70;
-            foreach (string item in dataArr)
-            {
-                Label stationItemT = new Label();
-                stationItemT.Content = $"Upadate station {item}:";
-                stationItemT.VerticalAlignment = VerticalAlignment.Top;
-                stationItemT.Margin = new Thickness(43, x, 0, 0);
-                StationData.Children.Add(stationItemT);
-                TextBox stationItem = new TextBox();
-                stationItem.Name = $"station{item}";
-                stationItem.VerticalAlignment = VerticalAlignment.Top;
-                stationItem.Margin = new Thickness(199, x, 0, 0);
-                switch (item)
-                {
-                    case "ID":
-                        stationItem.Text = station.ID.ToString(); stationItem.IsEnabled = false; break;
-                    case "name":
-                        stationItem.Text = station.Name.ToString(); break;
-                    case "longitude":
-                        stationItem.Text = station.Location.Longitude.ToString(); stationItem.IsEnabled = false; break;
-                    case "latitude":
-                        stationItem.Text = station.Location.Latitude.ToString(); stationItem.IsEnabled = false; break;
-                    case "charge_slots":
-                        stationItem.Text = station.AveChargeSlots.ToString(); break;
-                }
-                StationData.Children.Add(stationItem);
-                x += 30;
-            }
 
-            Button updateStation = new Button();
-            updateStation.Content = "update";
-            updateStation.VerticalAlignment = VerticalAlignment.Top;
-            updateStation.Click += UpdateCustomer;
-            updateStation.Margin = new Thickness(43, x, 0, 0);
-            StationData.Children.Add(updateStation);
+            Station = station;
+            StationID.Text = station.ID.ToString();
+            StationName.Text = station.Name.ToString();
+            StationChargeSlots.Text = station.AveChargeSlots.ToString();
+            StationLongitude.Text = station.Location.Longitude.ToString();
+            StationLatitude.Text = station.Location.Latitude.ToString();
+            StationID.IsEnabled = false;
+            StationLongitude.IsEnabled = false;
+            StationLatitude.IsEnabled = false;
+
+            StationName.TextChanged += AddUpdateButton;
+            StationChargeSlots.TextChanged += AddUpdateButton;          
         }
 
-        private void UpdateCustomer(object sender, RoutedEventArgs e)
+        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateStation.Visibility = Visibility.Visible;
+
+        private void UpdateStation(object sender, RoutedEventArgs e)
         {
-            string ID = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationID").Text;
-            string name = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationname").Text;
-            string chargeSlots = StationData.Children.OfType<TextBox>().First(txt => txt.Name == "stationcharge_slots").Text;
+            string ID = StationID.Text;
+            string name = StationName.Text;
+            string chargeSlots = StationChargeSlots.Text;
             try
             {           
                 MessageBoxResult result =
@@ -135,7 +93,7 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new StationListWindow(bl).Show();
+                    //new StationListWindow(bl).Show();
                     Close();
                 }
             }
@@ -145,8 +103,7 @@ namespace PL
             }
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
-   
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();   
     }
     
 }

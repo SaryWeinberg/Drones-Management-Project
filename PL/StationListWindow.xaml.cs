@@ -29,19 +29,22 @@ namespace PL
             StationListView.ItemsSource = bl.GetStationsBL();
         }
 
-        private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
+        private void RefreshWindow(object sender, RoutedEventArgs e) => StationListView.Items.Refresh();
+
 
         private void ViewStationWindow(object sender, RoutedEventArgs e)
         {
             new StationWindow(bl).Show();
-            Close();
+            /*Close();*/
         }
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.StationBL station = (sender as ListView).SelectedValue as IBL.BO.StationBL;
             new StationWindow(bl, station).Show();
-            Close();
+            /*Close();*/
         }
     }
 }
