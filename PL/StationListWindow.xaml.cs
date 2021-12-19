@@ -19,9 +19,9 @@ namespace PL
     /// </summary>
     public partial class StationListWindow : Window
     {        
-        IBL.IBL bl;
+        BLApi.IBL bl;
 
-        public StationListWindow(IBL.IBL blMain)
+        public StationListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
@@ -39,7 +39,7 @@ namespace PL
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
-            IBL.BO.StationBL station = (sender as ListView).SelectedValue as IBL.BO.StationBL;
+            BO.Station station = (sender as ListView).SelectedValue as BO.Station;
             new StationWindow(bl, station).Show();
             Close();
         }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace IBL.BO
+namespace BO
 {
-    public class ParcelBL
+    public class Parcel
     {
         private int id;
         public int ID {

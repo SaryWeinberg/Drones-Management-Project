@@ -19,10 +19,10 @@ namespace PL
     /// </summary>
     public partial class StationWindow : Window
     {
-        IBL.IBL bl;
+        BLApi.IBL bl;
         string[] dataArr = { "ID", "name", "longitude", "latitude", "charge_slots" };
 
-        public StationWindow(IBL.IBL blMain)
+        public StationWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
@@ -62,7 +62,7 @@ namespace PL
             {               
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots)),
+                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots)),
                    $"Add station ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -78,7 +78,7 @@ namespace PL
             }
         }
 
-        public StationWindow(IBL.IBL blMain, IBL.BO.StationBL station)
+        public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;

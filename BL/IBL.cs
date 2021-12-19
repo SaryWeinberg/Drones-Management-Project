@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL.DO;
+using BO;
+using DO;
 
-namespace IBL
+namespace BLApi
 {
    public interface IBL
     {
@@ -22,33 +22,33 @@ namespace IBL
         public string UpdateCustomerData(int id, string name = null, string phoneNum =null);
         public string UpdateDroneData(int id, string model);
         public string UpdateStationData(int id, string name = null, string ChargeSlots = null);
-        public CustomerBL ConvertDalCustomerToBL(Customer c);
-        public DroneBL ConvertDalDroneToBL(Drone d);
-        public ParcelBL ConvertDalParcelToBL(Parcel p);
-        public StationBL ConvertDalStationToBL(Station s);
-        public Customer ConvertBLCustomerToDAL(CustomerBL c);
-        public Drone ConvertBLDroneToDAL(DroneBL d);
-        public Parcel ConvertBLParcelToDAL(ParcelBL p);
-        public Station ConvertBLStationToDAL(StationBL s);
-        public CustomerBL GetSpesificCustomerBL(int customerId);
-        public DroneBL GetSpesificDroneBL(int droneId);
-        public ParcelBL GetSpesificParcelBL(int parcelId);
-        public StationBL GetSpesificStationBL(int stationId);
-        public List<CustomerBL> GetCustomersBL();
-        public List<DroneBL> GetDronesBL();
-        public List<DroneBL> GetDronesBLList();
-        public string UpdateDrone(DroneBL droneBL);
-        public List<ParcelBL> GetParcelsBL();
-        public List<StationBL> GetStationsBL();
-        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneList(Predicate<ParcelBL> findBy);
-        public List<StationBL> GetAvailableStationsList();
-        public StationBL GetNearestAvailableStation( Location Targlocation);
+        public BO.Customer ConvertDalCustomerToBL(DO.Customer c);
+        public BO.Drone ConvertDalDroneToBL(DO.Drone d);
+        public BO.Parcel ConvertDalParcelToBL(DO.Parcel p);
+        public BO.Station ConvertDalStationToBL(DO.Station s);
+        public DO.Customer ConvertBLCustomerToDAL(BO.Customer c);
+        public DO.Drone ConvertBLDroneToDAL(BO.Drone d);
+        public DO.Parcel ConvertBLParcelToDAL(BO.Parcel p);
+        public DO.Station ConvertBLStationToDAL(BO.Station s);
+        public BO.Customer GetSpesificCustomerBL(int customerId);
+        public BO.Drone GetSpesificDroneBL(int droneId);
+        public BO.Parcel GetSpesificParcelBL(int parcelId);
+        public BO.Station GetSpesificStationBL(int stationId);
+        public List<BO.Customer> GetCustomersBL();
+        public List<BO.Drone> GetDronesBL();
+        public List<BO.Drone> GetDronesBLList();
+        public string UpdateDrone(BO.Drone droneBL);
+        public List<BO.Parcel> GetParcelsBL();
+        public List<BO.Station> GetStationsBL();
+        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> findBy);
+        public List<BO.Station> GetAvailableStationsList();
+        public BO.Station GetNearestAvailableStation( Location Targlocation);
         public string SendDroneToCharge(int droneId);
         public string ReleaseDroneFromCharge(int droneId, int timeInCharge);
         public string AssignParcelToDrone(int droneId);
         public string CollectParcelByDrone(int droneId);
         public string DeliveryParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
-        public IEnumerable<DroneBL> GetDronesBy(Predicate<DroneBL> findBy);
+        public IEnumerable<BO.Drone> GetDronesBy(Predicate<BO.Drone> findBy);
     }
 }

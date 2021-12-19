@@ -20,14 +20,14 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        IBL.IBL bl;
-        IBL.BO.DroneBL Drone;
+        BLApi.IBL bl;
+        BO.Drone Drone;
 
         /// <summary>
         /// Ctor of Add drone window
         /// </summary>
         /// <param name="blMain"></param>
-        public DroneWindow(IBL.IBL blMain)
+        public DroneWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
@@ -78,7 +78,7 @@ namespace PL
         /// </summary>
         /// <param name="blMain"></param>
         /// <param name="drone"></param>
-        public DroneWindow(IBL.IBL blMain, IBL.BO.DroneBL drone)
+        public DroneWindow(BLApi.IBL blMain, BO.Drone drone)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;

@@ -19,9 +19,9 @@ namespace PL
     /// </summary>
     public partial class CustomerListWindow : Window
     {        
-        IBL.IBL bl;
+        BLApi.IBL bl;
 
-        public CustomerListWindow(IBL.IBL blMain)
+        public CustomerListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
@@ -39,7 +39,7 @@ namespace PL
 
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)
         {
-            IBL.BO.CustomerBL customer = (sender as ListView).SelectedValue as IBL.BO.CustomerBL;
+            BO.Customer customer = (sender as ListView).SelectedValue as BO.Customer;
             new CustomerWindow(bl, customer).Show();
             Close();
         }

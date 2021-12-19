@@ -19,9 +19,9 @@ namespace PL
     /// </summary>
     public partial class ParcelListWindow : Window
     {
-        IBL.IBL bl;
+        BLApi.IBL bl;
 
-        public ParcelListWindow(IBL.IBL blMain)
+        public ParcelListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;

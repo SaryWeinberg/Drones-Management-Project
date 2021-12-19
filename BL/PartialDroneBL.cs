@@ -1,14 +1,14 @@
-﻿using IDAL.DO;
+﻿/*using DO;*/
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BLApi.IBL
     {
         /// <summary>
         /// Functions for adding a drone to DAL
@@ -18,7 +18,7 @@ namespace BL
         /// <param name="maxWeight"></param>
         public void AddDroneDal(int id, string model, WeightCategories maxWeight)
         {
-            Drone droneDal = new Drone();
+            DO.Drone droneDal = new DO.Drone();
             droneDal.ID = id;
             droneDal.Model = model;
             droneDal.MaxWeight = maxWeight;
@@ -31,7 +31,7 @@ namespace BL
         /// <param name="stationID"></param>
         public void AddDroneChargeDAL(int stationID, int DroneID)
         {
-            DroneCharge droneCharge = new DroneCharge();
+            DO.DroneCharge droneCharge = new DO.DroneCharge();
             droneCharge.DroneId = DroneID;
             droneCharge.StationId = stationID;
             dalObj.AddDroneCharge(droneCharge);
@@ -52,7 +52,7 @@ namespace BL
             {
                 throw new ObjectAlreadyExistException("drone", id);
             }
-            DroneBL droneBL = new DroneBL();
+            Drone droneBL = new Drone();
             try
             {
                 droneBL.ID = id;
@@ -60,8 +60,8 @@ namespace BL
                 droneBL.MaxWeight = maxWeight;
                 droneBL.BatteryStatus = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
-                StationBL Station = GetSpesificStationBL(stationID);
-               Station station = ConvertBLStationToDAL(Station);
+                BO.Station Station = GetSpesificStationBL(stationID);
+                DO.Station station = ConvertBLStationToDAL(Station);
 /*                Station station = dalObj.GetSpesificStation(stationID);*/
                 Location Slocation = new Location();
                 Slocation.Longitude = station.Longitude;
@@ -84,7 +84,7 @@ namespace BL
         {
             if (model != "")
             {
-                DroneBL drone = GetSpesificDroneBL(id);
+                Drone drone = GetSpesificDroneBL(id);
                 drone.Model = model;
                 UpdateDrone(drone);
             }
@@ -96,9 +96,9 @@ namespace BL
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        public DroneBL ConvertDalDroneToBL(Drone d)
+        public Drone ConvertDalDroneToBL(DO.Drone d)
         {
-            return new DroneBL
+            return new Drone
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
@@ -111,9 +111,9 @@ namespace BL
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        public Drone ConvertBLDroneToDAL(DroneBL d)
+        public DO.Drone ConvertBLDroneToDAL(Drone d)
         {
-            return new Drone
+            return new DO.Drone
             {
                 ID = d.ID,
                 MaxWeight = d.MaxWeight,
@@ -128,7 +128,7 @@ namespace BL
         /// <param name="d"></param>
         /// <returns></returns>
 
-        public string UpdateDrone(DroneBL droneBL)
+        public string UpdateDrone(Drone droneBL)
         {
             int idx = dronesBLList.FindIndex(d => d.ID == droneBL.ID);
             dronesBLList[idx] = droneBL;
@@ -141,7 +141,7 @@ namespace BL
         /// </summary>
         /// <param name="droneId"></param>
         /// <returns></returns>
-        public DroneBL GetSpesificDroneBL(int droneId)
+        public Drone GetSpesificDroneBL(int droneId)
         {
             try
             {
@@ -157,24 +157,27 @@ namespace BL
         /// Returning the drone list from DAL
         /// </summary>
         /// <returns></returns>
-        public List<DroneBL> GetDronesBL()
+        public List<Drone> GetDronesBL()
         {
-            List<Drone> dronesDal = dalObj.GetDrones();
-            List<DroneBL> dronesBL = new List<DroneBL>();
+            List<DO.Drone> dronesDal = dalObj.GetDrones();
+            List<Drone> dronesBL = new List<Drone>();
             dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
+
+
+
         }
 
         /// <summary>
         /// Returning the drone list from BL
         /// </summary>
         /// <returns></returns>
-        public List<DroneBL> GetDronesBLList()
+        public List<Drone> GetDronesBLList()
         {
             return dronesBLList;
         }
 
-        public IEnumerable<DroneBL> GetDronesBy(Predicate<DroneBL> findBy)
+        public IEnumerable<Drone> GetDronesBy(Predicate<Drone> findBy)
         {
             return from droneBL in GetDronesBLList()
                    where findBy(droneBL)

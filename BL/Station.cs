@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace BO
 {
-    public class StationBL
+    public class Station
     {
         private int id;
         private int name;

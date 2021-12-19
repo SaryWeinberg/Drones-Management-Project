@@ -1,14 +1,14 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BLApi.IBL
     {
         /// <summary>
         /// Functions for adding a station to DAL
@@ -19,7 +19,7 @@ namespace BL
         /// <param name="chargeSlots"></param>
         public void AddStationDal(int id, int name, Location location, int chargeSlots)
         {
-            Station station = new Station();
+            DO.Station station = new DO.Station();
             station.ID = id;
             station.Name = name;
             station.Longitude = location.Longitude;
@@ -42,7 +42,7 @@ namespace BL
             {
                 throw new ObjectAlreadyExistException("Station", id);
             }
-            StationBL station = new StationBL();
+            BO.Station station = new BO.Station();
             try
             {
                 station.ID = id;
@@ -64,7 +64,7 @@ namespace BL
         /// <param name="ChargeSlots"></param>
         public string UpdateStationData(int id, string name = null, string ChargeSlots =null)
         {
-            Station station = dalObj.GetSpesificStation(id);
+            DO.Station station = dalObj.GetSpesificStation(id);
             if (name !=null && name!= "")
                 station.Name = int.Parse(name);
             if (ChargeSlots != null && ChargeSlots != "")
@@ -78,9 +78,9 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public Station ConvertBLStationToDAL(StationBL s)
+        public DO.Station ConvertBLStationToDAL(BO.Station s)
         {
-            return new Station
+            return new DO.Station
             {
                 ID = s.ID,
                 ChargeSlots = (int)s.AveChargeSlots,
@@ -95,9 +95,9 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public StationBL ConvertDalStationToBL(Station s)
+        public BO.Station ConvertDalStationToBL(DO.Station s)
         {
-            return new StationBL
+            return new BO.Station
             {
                 ID = s.ID,
                 Name = s.Name,
@@ -111,7 +111,7 @@ namespace BL
         /// </summary>
         /// <param name="stationId"></param>
         /// <returns></returns>
-        public StationBL GetSpesificStationBL(int stationId)
+        public BO.Station GetSpesificStationBL(int stationId)
         {
             try
             {
@@ -127,10 +127,10 @@ namespace BL
         /// Returning the station list
         /// </summary>
         /// <returns></returns>
-        public List<StationBL> GetStationsBL()
+        public List<BO.Station> GetStationsBL()
         {
-            List<Station> stationsDal = dalObj.GetStations();
-            List<StationBL> stationsBL = new List<StationBL>();
+            List<DO.Station> stationsDal = dalObj.GetStations();
+            List<BO.Station> stationsBL = new List<BO.Station>();
             stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
             return stationsBL;
         }
@@ -139,10 +139,10 @@ namespace BL
         /// Returns stations with available charge slots
         /// </summary>
         /// <returns></returns>
-        public List<StationBL> GetAvailableStationsList()
+        public List<BO.Station> GetAvailableStationsList()
         {
-            List<StationBL> stationsBL = new List<StationBL>();
-            foreach (Station station in dalObj.GetStationLists())
+            List<BO.Station> stationsBL = new List<BO.Station>();
+            foreach (DO.Station station in dalObj.GetStationLists())
             {
                 if (station.ChargeSlots > 0)
                 {
@@ -157,14 +157,14 @@ namespace BL
         /// </summary>
         /// <param name="Targlocation"></param>
         /// <returns></returns>
-        public StationBL GetNearestAvailableStation(Location Targlocation)
+        public BO.Station GetNearestAvailableStation(Location Targlocation)
         {
 
-            StationBL station = null;
-            List<StationBL> stations = GetStationsBL();
+            BO.Station station = null;
+            List<BO.Station> stations = GetStationsBL();
 
             double minDistance = Distance(stations[0].Location, Targlocation);
-            foreach (StationBL currentStation in stations)
+            foreach (BO.Station currentStation in stations)
             {
                 if (currentStation.AveChargeSlots > 0 && Distance(currentStation.Location, Targlocation) <= minDistance)
                 {
