@@ -12,8 +12,7 @@ namespace PL
     public partial class CustomerWindow : Window
     {
         BLApi.IBL bl;
-        string[] dataArr = { "ID", "phone", "name", "longitude", "latitude" };
-        TextBox customerItem;
+        BO.Customer Customer;
 
         public CustomerWindow(BLApi.IBL blMain)
         {

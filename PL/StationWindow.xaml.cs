@@ -20,7 +20,7 @@ namespace PL
     public partial class StationWindow : Window
     {
         BLApi.IBL bl;
-        string[] dataArr = { "ID", "name", "longitude", "latitude", "charge_slots" };
+        BO.Station Station;
 
         public StationWindow(BLApi.IBL blMain)
         {
@@ -41,7 +41,7 @@ namespace PL
             {               
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(charge_slots)),
+                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(chargeSlots)),
                    $"Add station ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
