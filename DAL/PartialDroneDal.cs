@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
+/*using IDAL;*/
+using DalApi;
 
 
 namespace DalObject
 {
-    public partial class DalObject : IDal
+    partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new drone to DataBase

@@ -19,13 +19,13 @@ namespace PL
     /// </summary>
     public partial class DroneListWindow : Window
     {
-        IBL.IBL bl;
+        BLApi.IBL bl;
 
         /// <summary>
         /// Ctor of Drone list window
         /// </summary>
         /// <param name="blMain"></param>
-        public DroneListWindow(IBL.IBL blMain)
+        public DroneListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
@@ -93,7 +93,7 @@ namespace PL
         /// <param name="e"></param>
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
-            IBL.BO.DroneBL dronr1 = (sender as ListView).SelectedValue as IBL.BO.DroneBL;
+            BO.Drone dronr1 = (sender as ListView).SelectedValue as BO.Drone;
             new DroneWindow(bl, dronr1).Show();
             Close();
         }

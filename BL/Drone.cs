@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+
+namespace BO
 {
-    public class DroneBL
+    public class Drone
     {
         private int id;
         private double batteryStatus;
         private WeightCategories maxWeight;
         public int ID {
+
             get { return id; }
             set
             {

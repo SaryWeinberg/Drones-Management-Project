@@ -19,9 +19,9 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
-        IBL.IBL bl;
+        BLApi.IBL bl;
         string[] dataArr = { "sender_ID", "target_ID", "weight", "priority" };
-        public ParcelWindow(IBL.IBL blMain)
+        public ParcelWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
+using DalApi;
+/*using IDAL;*/
 
 
 namespace DalObject
 {
-    public partial class DalObject : IDal
+    partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new customer to Database
@@ -68,5 +70,15 @@ namespace DalObject
         {
             return DataSource.Customers;
         }
+
+
+        public IEnumerable<Parcel> getParceleByCondition(Predicate<Parcel> predicate)
+        {
+            //try todo
+            return (from parcel in DataSource.Parcels
+                    where predicate(parcel)
+                    select parcel);
+        }
+
     }
 }

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace IBL.BO
+namespace BO
 {
-    public class CustomerBL
+    public class Customer
     {
         private int id;
         private string name;

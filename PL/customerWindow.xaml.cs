@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PL
 {
@@ -19,10 +11,11 @@ namespace PL
     /// </summary>
     public partial class CustomerWindow : Window
     {
-        IBL.IBL bl;
-        IBL.BO.CustomerBL Customer;
-       
-        public CustomerWindow(IBL.IBL blMain)
+        BLApi.IBL bl;
+        string[] dataArr = { "ID", "phone", "name", "longitude", "latitude" };
+        TextBox customerItem;
+
+        public CustomerWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
@@ -41,7 +34,7 @@ namespace PL
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.AddCustomerBL(int.Parse(ID), int.Parse(phone), name, new IBL.BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }),
+                    bl.AddCustomerBL(int.Parse(ID), int.Parse(phone), name, new BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }),
                     $"Add customer ID - {ID}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -58,7 +51,7 @@ namespace PL
         }
 
 
-        public CustomerWindow(IBL.IBL blMain, IBL.BO.CustomerBL customer)
+        public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;

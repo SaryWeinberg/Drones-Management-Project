@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
+using DalApi;
+/*using IDAL;*/
 namespace DalObject
 {
-    public partial class DalObject : IDal
+    partial class DalObject : IDal
     {
-        public DalObject()
+        DalObject()
         {
             DataSource.Initialize();
         }
 
-        static DalObject instance;
+        internal static DalObject instance;
 
         public static DalObject GetInstance {
             get
             {
+
                 if (instance == null)
                     instance = new DalObject();
                 return instance;
             }
-        }        
+            
+        }
 
         public double[] ElectricalPowerRequest()
         {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DO;
 
-namespace IDAL.DO
+namespace DalApi
 {
     public interface IDal
     {
@@ -30,7 +31,10 @@ namespace IDAL.DO
         public void UpdateDrone(Drone drone);
         public void UpdateCustomer(Customer customer);
         public void UpdateStation(Station station);
-        public void UpdateParcel(Parcel parcel);        
+        public void UpdateParcel(Parcel parcel);
+
+        public IEnumerable<Parcel> getParceleByCondition(Predicate<Parcel> predicate);
+
     }
 }
 

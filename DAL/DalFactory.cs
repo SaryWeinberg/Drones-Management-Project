@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+/*using IDAL;*/
+using DalApi;
 
-namespace DAL
+
+namespace DalObject
 {  
     public static class DalFactory
     {
-        public static IDal factory(string type)
+        public static IDal GetDal(string type)
         {
             switch (type)
             {
                 case "object":
-                    return DalObject.DalObject.GetInstance;
+                    return DalObject.GetInstance;
                 case "xml":
                    // return DalXml.GetInstance;
                 default:

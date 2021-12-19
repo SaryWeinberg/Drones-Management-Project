@@ -1,14 +1,14 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BLApi.IBL
     {
         /// <summary>
         /// Functions for adding a parcel to DAL
@@ -23,7 +23,7 @@ namespace BL
             {
                 throw new ObjectAlreadyExistException("Parcel", id);
             }
-            Parcel parcel = new Parcel();
+            DO.Parcel parcel = new DO.Parcel();
             parcel.ID = id;
             parcel.SenderId = senderId;
             parcel.TargetId = targetId;
@@ -43,7 +43,7 @@ namespace BL
         /// <param name="priority"></param>
         public string AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
-            ParcelBL parcel = new ParcelBL();
+            BO.Parcel parcel = new BO.Parcel();
             try
             {
                 CustomerInParcel Scustomer = new CustomerInParcel();
@@ -74,9 +74,9 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public Parcel ConvertBLParcelToDAL(ParcelBL p)
+        public DO.Parcel ConvertBLParcelToDAL(BO.Parcel p)
         {
-            return new Parcel
+            return new DO.Parcel
             {
                 ID = p.ID,
                 Delivered = p.Delivered,
@@ -96,9 +96,9 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public ParcelBL ConvertDalParcelToBL(Parcel p)
+        public BO.Parcel ConvertDalParcelToBL(DO.Parcel p)
         {
-            DroneBL droneBL = GetDronesBLList().Find(d => d.ID == p.DroneId);
+            BO.Drone droneBL = GetDronesBLList().Find(d => d.ID == p.DroneId);
 
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
@@ -113,7 +113,7 @@ namespace BL
             droneInparcel.Location = droneBL.Location;
             droneInparcel.BatteryStatus = droneBL.BatteryStatus;
 
-            return new ParcelBL
+            return new BO.Parcel
             {
                 ID = p.ID,
                 Associated = p.Created,
@@ -133,7 +133,7 @@ namespace BL
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns></returns>
-        public ParcelBL GetSpesificParcelBL(int parcelId)
+        public BO.Parcel GetSpesificParcelBL(int parcelId)
         {
             try
             {
@@ -149,10 +149,10 @@ namespace BL
         /// Returning the parcel list
         /// </summary>
         /// <returns></returns>
-        public List<ParcelBL> GetParcelsBL()
+        public List<BO.Parcel> GetParcelsBL()
         {
-            List<Parcel> parcelsDal = dalObj.GetParcels();
-            List<ParcelBL> parcelsBL = new List<ParcelBL>();
+            List<DO.Parcel> parcelsDal = dalObj.GetParcels();
+            List<BO.Parcel> parcelsBL = new List<BO.Parcel>();
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
             return parcelsBL;
         }
@@ -161,7 +161,7 @@ namespace BL
         /// Returns a list of parcels that have not yet been associated with a drone
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneList(Predicate<ParcelBL> findBy)
+        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> findBy)
         {
             return from parcelBL in dalObj.GetParcels()
                    where findBy(ConvertDalParcelToBL(parcelBL))
@@ -182,7 +182,7 @@ namespace BL
             return parcelsBL;*/
         }
 
-        public IEnumerable<ParcelBL> GetParcelsNotYetAssignedDroneListPredicate()
+        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneListPredicate()
         {
             return GetParcelsNotYetAssignedDroneList(parcel => parcel.Associated == null);
         }

@@ -1,14 +1,14 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BLApi.IBL
     {
         /// <summary>
         /// Functions for adding a customer to DAL
@@ -19,7 +19,7 @@ namespace BL
         /// <param name="location"></param>
         public void AddCustomerDal(int id, int phone, string name, Location location)
         {
-            Customer customer = new Customer();
+            DO.Customer customer = new DO.Customer();
             customer.ID = id;
             customer.PhoneNum = phone;
             customer.Name = name;
@@ -42,7 +42,7 @@ namespace BL
             {
                 throw new ObjectAlreadyExistException("Customer", id);
             }
-            CustomerBL customer = new CustomerBL();
+            BO.Customer customer = new BO.Customer();
             try
             {
                 customer.ID = id;
@@ -50,7 +50,7 @@ namespace BL
                 customer.Name = name;
                 customer.Location = location;
             }
-            catch (InvalidObjException e) { throw e; }            
+            catch (InvalidObjException e) { throw e; }
             AddCustomerDal(id, phone, name, location);
             return "Customer added successfully!";
         }
@@ -61,9 +61,9 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
-        public string UpdateCustomerData(int id, string name = null, string phoneNum =null)
+        public string UpdateCustomerData(int id, string name = null, string phoneNum = null)
         {
-            Customer customer = dalObj.GetSpesificCustomer(id);
+            DO.Customer customer = dalObj.GetSpesificCustomer(id);
             if (name != null && name != "")
                 customer.Name = name;
             if (phoneNum != null && phoneNum != "")
@@ -78,9 +78,9 @@ namespace BL
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public Customer ConvertBLCustomerToDAL(CustomerBL c)
+        public DO.Customer ConvertBLCustomerToDAL(BO.Customer c)
         {
-            return new Customer
+            return new DO.Customer
             {
                 ID = c.ID,
                 Latitude = c.Location.Latitude,
@@ -95,9 +95,9 @@ namespace BL
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public CustomerBL ConvertDalCustomerToBL(Customer c)
+        public BO.Customer ConvertDalCustomerToBL(DO.Customer c)
         {
-            return new CustomerBL
+            return new BO.Customer
             {
                 ID = c.ID,
                 Name = c.Name,
@@ -111,7 +111,7 @@ namespace BL
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public CustomerBL GetSpesificCustomerBL(int customerId)
+        public BO.Customer GetSpesificCustomerBL(int customerId)
         {
             try
             {
@@ -127,12 +127,29 @@ namespace BL
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
-        public List<CustomerBL> GetCustomersBL()
+        public List<BO.Customer> GetCustomersBL()
         {
-            List<Customer> customersDal = dalObj.GetCustomers();
-            List<CustomerBL> customersBL = new List<CustomerBL>();
+            List<DO.Customer> customersDal = dalObj.GetCustomers();
+            List<BO.Customer> customersBL = new List<BO.Customer>();
             customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
             return customersBL;
         }
+
+        public List<BO.CustomerToList> GetCustomersListBL()
+        {
+            List<BO.Customer> customers = GetCustomersBL();
+            List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
+            foreach (BO.Customer cust in customers)
+            {
+                customersToList.Add(new BO.CustomerToList(cust, dalObj));
+            }
+
+            return customersToList;
+
+
+        }
     }
+
+
 }
+
