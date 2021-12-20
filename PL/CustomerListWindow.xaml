@@ -13,7 +13,20 @@
             <RowDefinition Height="400*"/>
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer" Padding="35" Margin="20" FontSize="16"/>
+        <!--<ListView x:Name="CustomerListView" Grid.Row="1" MouseDoubleClick="UpdateCustomer" Padding="35" Margin="20" FontSize="16"/>-->
+        <ListView x:Name="CustomerListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateCustomer">
+            <ListView.View >
+                <GridView>                  
+                    <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Name"  Width="130" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Phone Num" Width="130" DisplayMemberBinding="{Binding PhoneNum}" />
+                    <GridViewColumn Header="Parcel Sent And Delivered" Width="130" DisplayMemberBinding="{Binding ParcelSentAndDelivered}" />
+                    <GridViewColumn Header="Parcel Sent But Not Delivered" Width="130" DisplayMemberBinding="{Binding ParcelSentButNotDelivered}" />
+                    <GridViewColumn Header="Parcel Received" Width="130" DisplayMemberBinding="{Binding ParcelReceived}" />
+                    <GridViewColumn Header="Parcel On The Way To Customer" Width="130" DisplayMemberBinding="{Binding ParcelOnTheWayToCustomer}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
         <Button Grid.Row="2" Content="Add customer" Style="{StaticResource RedButton}" Click="AddCustomer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
         <Button Style="{StaticResource CloseButton}" Click="DataWindowClosing"/>

@@ -27,7 +27,18 @@
             <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
             <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
         </Grid>
-        <ListView x:Name="ParcelListView" Grid.Row="1" Padding="35" Margin="20" FontSize="16"/>
+        <ListView x:Name="ParcelListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" >
+            <ListView.View >
+                <GridView>                  
+                    <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Sender Name"  Width="130" DisplayMemberBinding="{Binding SenderName}" />
+                    <GridViewColumn Header="Target Name" Width="130" DisplayMemberBinding="{Binding TargetName}" />
+                    <GridViewColumn Header="Weight" Width="130" DisplayMemberBinding="{Binding Weight}" />
+                    <GridViewColumn Header="Priority" Width="130" DisplayMemberBinding="{Binding Priority}" />
+                    <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
         <Button Grid.Row="2" Content="Add Parcel" Style="{StaticResource RedButton}" Click="AddParcel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
     </Grid>

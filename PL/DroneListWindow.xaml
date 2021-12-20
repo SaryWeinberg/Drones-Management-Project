@@ -27,7 +27,20 @@
             <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="CloseingWindow"/>
             <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
         </Grid>
-        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="25" FontSize="16" ItemsSource ="{Binding list}"/>
+        <!--<ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="25" FontSize="16" ItemsSource ="{Binding list}"/>-->
+        <ListView x:Name="DroneListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateDrone">
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Model"  Width="130" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn Header="Max Weight" Width="130" DisplayMemberBinding="{Binding MaxWeight}" />
+                    <GridViewColumn Header="Battery Status" Width="130" DisplayMemberBinding="{Binding BatteryStatus}" />
+                    <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Location" Width="130" DisplayMemberBinding="{Binding Location}" />
+                    <GridViewColumn Header="Parcel" Width="130" DisplayMemberBinding="{Binding Parcel}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
         <Button Grid.Row="2" Content="Add Drone" Click="AddDrone" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="696,8,0,0" />
     </Grid>

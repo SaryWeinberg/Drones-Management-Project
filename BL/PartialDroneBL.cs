@@ -62,11 +62,7 @@ namespace BL
                 droneBL.Status = DroneStatus.Maintenance;
                 BO.Station Station = GetSpesificStationBL(stationID);
                 DO.Station station = ConvertBLStationToDAL(Station);
-/*                Station station = dalObj.GetSpesificStation(stationID);*/
-                Location Slocation = new Location();
-                Slocation.Longitude = station.Longitude;
-                Slocation.Latitude = station.Latitude;
-                droneBL.Location = Slocation;
+                droneBL.Location = new Location { Longitude = station.Longitude, Latitude = station.Latitude };
             }
             catch (InvalidObjException e) { throw e; }
             dronesBLList.Add(droneBL);
@@ -121,13 +117,11 @@ namespace BL
             };
         }
 
-
         /// <summary>
         /// update drone in Bl and in DAl
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-
         public string UpdateDrone(Drone droneBL)
         {
             int idx = dronesBLList.FindIndex(d => d.ID == droneBL.ID);
@@ -174,6 +168,10 @@ namespace BL
             return dronesBLList;
         }
 
+        /// <summary>
+        /// Returns the drone list with DroneToList
+        /// </summary>
+        /// <returns></returns>
         public List<BO.DroneToList> GetDronesListBL()
         {
             List<BO.Drone> drones = GetDronesBL();
@@ -185,6 +183,11 @@ namespace BL
             return droneToList;
         }
 
+        /// <summary>
+        /// Returns a list of drones that meet the condition 
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IEnumerable<Drone> GetDronesByCondition(Predicate<Drone> condition)
         {
             return from droneBL in GetDronesBLList()

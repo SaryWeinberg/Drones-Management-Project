@@ -157,6 +157,11 @@ namespace BL
             return parcelsBL;
         }
 
+        /// <summary>
+        /// Returns a list of parcels that meet the condition 
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition)
         {
             return from parcelBL in GetParcelsBL()
@@ -168,10 +173,10 @@ namespace BL
         /// Returns a list of parcels that have not yet been associated with a drone
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> findBy)
+        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> condition)
         {
             return from parcelBL in dalObj.GetParcels()
-                   where findBy(ConvertDalParcelToBL(parcelBL))
+                   where condition(ConvertDalParcelToBL(parcelBL))
                    select ConvertDalParcelToBL(parcelBL);
 
             /*List<ParcelBL> parcelsBL = new List<ParcelBL>();
@@ -194,6 +199,10 @@ namespace BL
             return GetParcelsNotYetAssignedDroneList(parcel => parcel.Associated == null);
         }
 
+        /// <summary>
+        /// Returns the parcel list with ParcelToList
+        /// </summary>
+        /// <returns></returns>
         public List<BO.ParcelToList> GetParcelsListBL()
         {
             List<BO.Parcel> parcels = GetParcelsBL();

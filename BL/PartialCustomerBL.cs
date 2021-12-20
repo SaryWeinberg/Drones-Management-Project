@@ -135,6 +135,10 @@ namespace BL
             return customersBL;
         }
 
+        /// <summary>
+        /// Returns the customer list with CustomerToList
+        /// </summary>
+        /// <returns></returns>
         public List<BO.CustomerToList> GetCustomersListBL()
         {
             List<BO.Customer> customers = GetCustomersBL();

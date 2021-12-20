@@ -12,8 +12,8 @@ namespace BO
         {
             ID = station.ID;
             Name = station.Name;
-            AveChargeSlots = station.AveChargeSlots;
-            FullChargeSlots = station.AveChargeSlots; //??????????????????????????
+            AveChargeSlots = station.AveChargeSlots - station.DronesInChargelist.Count;
+            FullChargeSlots = station.DronesInChargelist.Count;
         }
         public int ID { get; set; }
         public int Name { get; set; }

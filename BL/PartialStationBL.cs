@@ -159,7 +159,6 @@ namespace BL
         /// <returns></returns>
         public BO.Station GetNearestAvailableStation(Location Targlocation)
         {
-
             BO.Station station = null;
             List<BO.Station> stations = GetStationsBL();
 
@@ -180,6 +179,10 @@ namespace BL
             return station;
         }
 
+        /// <summary>
+        /// Returns the station list with StationToList
+        /// </summary>
+        /// <returns></returns>
         public List<BO.StationToList> GetStationsListBL()
         {
             List<BO.Station> stations = GetStationsBL();
