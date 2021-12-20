@@ -11,14 +11,66 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
     /// <summary>
     /// Interaction logic for DroneList.xaml
     /// </summary>
+    /// 
+/*    public class Drone
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsLecturer { get; set; }
+    }*/
     public partial class DroneListWindow : Window
     {
+
+
+        /// <summary>
+        /// Interaction logic for MainWindow.xaml
+        /// </summary>
+        /*
+                private ObservableCollection<Drone> _myCollection =
+                  new ObservableCollection<Drone>();*/
+
+        /*        public DroneListWindow()
+                {
+                    InitializeComponent();
+
+                    DataContext = _myCollection;
+                    _myCollection.Add(
+                      new Drone
+                      {
+                          FirstName = "Arik",
+                          LastName = "Poznanski",
+                          IsLecturer = true
+                      });
+                    _myCollection.Add(
+                      new Drone
+                      {
+                          FirstName = "John",
+                          LastName = "Smith",
+                          IsLecturer = false
+                      });
+                }
+
+                private int counter = 0;
+                private void Button_Click(object sender, RoutedEventArgs e)
+                {
+                    ++counter;
+                    _myCollection.Add(
+                        new Drone()
+                        {
+                            FirstName = "item " + counter,
+                            LastName = "item " + counter,
+                            IsLecturer = counter % 3 == 0
+                        });
+                }
+            }*/
+        /*}*/
         BLApi.IBL bl;
 
         /// <summary>
@@ -113,5 +165,8 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
+
+
+
     }
 }

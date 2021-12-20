@@ -174,9 +174,9 @@ namespace BL
         /// <returns></returns>
         public List<BO.DroneToList> GetDronesListBL()
         {
-            List<BO.Drone> drones = GetDronesBL();
+
             List<BO.DroneToList> droneToList = new List<BO.DroneToList>();
-            foreach (BO.Drone drone in drones)
+            foreach (BO.Drone drone in dronesBLList)
             {
                 droneToList.Add(new BO.DroneToList(drone, dalObj));
             }

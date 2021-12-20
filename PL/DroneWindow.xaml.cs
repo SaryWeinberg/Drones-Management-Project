@@ -62,7 +62,8 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    //new DroneListWindow(bl).Show();
+                    new DroneListWindow(bl).Show();
+
                     Close();
                 }
             }
@@ -190,6 +191,7 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
+
                     new DroneListWindow(bl).Show();
                     Close();
                 }
