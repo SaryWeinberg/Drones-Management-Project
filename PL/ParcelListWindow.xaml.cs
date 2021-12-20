@@ -26,7 +26,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            ParcelListView.ItemsSource = bl.GetParcelsBL();
+            ParcelListView.ItemsSource = bl.GetParcelsListBL();
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }

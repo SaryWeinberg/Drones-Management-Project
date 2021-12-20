@@ -193,5 +193,16 @@ namespace BL
         {
             return GetParcelsNotYetAssignedDroneList(parcel => parcel.Associated == null);
         }
+
+        public List<BO.ParcelToList> GetParcelsListBL()
+        {
+            List<BO.Parcel> parcels = GetParcelsBL();
+            List<BO.ParcelToList> parcelToList = new List<BO.ParcelToList>();
+            foreach (BO.Parcel parcel in parcels)
+            {
+                parcelToList.Add(new BO.ParcelToList(parcel, dalObj));
+            }
+            return parcelToList;
+        }
     }
 }

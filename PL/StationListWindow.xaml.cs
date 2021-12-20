@@ -26,7 +26,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            StationListView.ItemsSource = bl.GetStationsBL();
+            StationListView.ItemsSource = bl.GetStationsListBL();
         }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
@@ -37,8 +37,8 @@ namespace PL
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
-            BO.Station station = (sender as ListView).SelectedValue as BO.Station;
-            new StationWindow(bl, station).Show();
+            BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;            
+            new StationWindow(bl, bl.GetSpesificStationBL(station.ID)).Show();
         }
     }
 }

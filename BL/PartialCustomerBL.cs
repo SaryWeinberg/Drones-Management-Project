@@ -139,9 +139,9 @@ namespace BL
         {
             List<BO.Customer> customers = GetCustomersBL();
             List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
-            foreach (BO.Customer cust in customers)
+            foreach (BO.Customer custtomer in customers)
             {
-                customersToList.Add(new BO.CustomerToList(cust, dalObj));
+                customersToList.Add(new BO.CustomerToList(custtomer, dalObj));
             }
             return customersToList;
         }

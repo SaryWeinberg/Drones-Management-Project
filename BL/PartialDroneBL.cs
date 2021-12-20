@@ -163,9 +163,6 @@ namespace BL
             List<Drone> dronesBL = new List<Drone>();
             dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
-
-
-
         }
 
         /// <summary>
@@ -175,6 +172,17 @@ namespace BL
         public List<Drone> GetDronesBLList()
         {
             return dronesBLList;
+        }
+
+        public List<BO.DroneToList> GetDronesListBL()
+        {
+            List<BO.Drone> drones = GetDronesBL();
+            List<BO.DroneToList> droneToList = new List<BO.DroneToList>();
+            foreach (BO.Drone drone in drones)
+            {
+                droneToList.Add(new BO.DroneToList(drone, dalObj));
+            }
+            return droneToList;
         }
 
         public IEnumerable<Drone> GetDronesByCondition(Predicate<Drone> condition)

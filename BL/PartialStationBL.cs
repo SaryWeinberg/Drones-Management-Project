@@ -179,5 +179,16 @@ namespace BL
             }
             return station;
         }
+
+        public List<BO.StationToList> GetStationsListBL()
+        {
+            List<BO.Station> stations = GetStationsBL();
+            List<BO.StationToList> stationToList = new List<BO.StationToList>();
+            foreach (BO.Station station in stations)
+            {
+                stationToList.Add(new BO.StationToList(station, dalObj));
+            }
+            return stationToList;
+        }
     }
 }

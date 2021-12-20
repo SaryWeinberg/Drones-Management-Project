@@ -30,7 +30,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            DroneListView.ItemsSource = bl.GetDronesBLList();
+            DroneListView.ItemsSource = bl.GetDronesListBL();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -82,8 +82,8 @@ namespace PL
         /// <param name="e"></param>
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
-            BO.Drone dronr1 = (sender as ListView).SelectedValue as BO.Drone;
-            new DroneWindow(bl, dronr1).Show();
+            BO.DroneToList drone = (sender as ListView).SelectedValue as BO.DroneToList;
+            new DroneWindow(bl, bl.GetSpesificDroneBL(drone.ID)).Show();
         }
 
         /// <summary>

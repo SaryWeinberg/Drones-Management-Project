@@ -52,5 +52,8 @@ namespace BLApi
         public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
         public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
         public List<BO.CustomerToList> GetCustomersListBL();
+        public List<BO.DroneToList> GetDronesListBL();
+        public List<BO.ParcelToList> GetParcelsListBL();
+        public List<BO.StationToList> GetStationsListBL();
     }
 }

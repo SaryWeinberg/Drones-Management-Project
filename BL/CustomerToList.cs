@@ -18,6 +18,7 @@ namespace BO
             ParcelReceived = dalObj.getParceleByCondition(p => p.TargetId == ID && (p.Delivered != null)).Count();
             ParcelOnTheWayToCustomer = dalObj.getParceleByCondition(p => p.TargetId == ID && (p.Delivered == null && p.PickedUp != null)).Count();
         }
+
         public int ID { get; set; }
         public string Name { get; set; }
         public int PhoneNum { get; set; }

@@ -8,9 +8,21 @@ namespace BO
 {
     public class StationToList
     {
+        public StationToList(Station station, DalApi.IDal dalObj)
+        {
+            ID = station.ID;
+            Name = station.Name;
+            AveChargeSlots = station.AveChargeSlots;
+            FullChargeSlots = station.AveChargeSlots; //??????????????????????????
+        }
         public int ID { get; set; }
         public int Name { get; set; }
         public double AveChargeSlots { get; set; }
         public double FullChargeSlots { get; set; }
+
+        public override string ToString()
+        {
+            return "ID: " + ID + " Name: " + Name + " AveChargeSlots: " + AveChargeSlots + " FullChargeSlots: " + FullChargeSlots;
+        }
     }
 }
