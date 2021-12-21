@@ -60,8 +60,8 @@ namespace PL
             CustomerID.Text = customer.ID.ToString();
             CustomerName.Text = customer.Name.ToString();
             CustomerPhone.Text = customer.PhoneNum.ToString();
-            CustomerLongitude.Text = customer.Location.Longitude.ToString();
-            CustomerLatitude.Text = customer.Location.Latitude.ToString();
+            CustomerLongitude.Text = customer.location.Longitude.ToString();
+            CustomerLatitude.Text = customer.location.Latitude.ToString();
             CustomerID.IsEnabled = false;
             CustomerLongitude.IsEnabled = false;
             CustomerLatitude.IsEnabled = false;

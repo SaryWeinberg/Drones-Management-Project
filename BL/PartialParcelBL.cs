@@ -102,11 +102,11 @@ namespace BL
 
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
-            Scustomer.Name = GetSpesificCustomerBL(p.SenderId).Name;
+            Scustomer.Name = dalObj.GetSpesificCustomer(p.SenderId).Name;
 
             CustomerInParcel Tcustomer = new CustomerInParcel();
             Tcustomer.ID = p.TargetId;
-            Tcustomer.Name = GetSpesificCustomerBL(p.TargetId).Name;
+            Tcustomer.Name = dalObj.GetSpesificCustomer(p.TargetId).Name;
 
             DroneInParcel droneInparcel = new DroneInParcel();
             droneInparcel.ID = droneBL.ID;

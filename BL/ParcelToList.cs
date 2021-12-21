@@ -18,7 +18,7 @@ namespace BO
             if (parcel.Delivered != null) Status = Status.provided;
             else if (parcel.PickedUp != null) Status = Status.collected;
             else if (parcel.Associated != null) Status = Status.associated;
-            else /*if (parcel.Created != null)*/ Status = Status.created;
+            else  Status = Status.created;
         }
 
         public int ID { get; set; }
