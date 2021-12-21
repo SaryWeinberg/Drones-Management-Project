@@ -23,18 +23,13 @@ namespace PL
         }
 
         private void AddNewCustomer(object sender, RoutedEventArgs e)
-        {           
-            string ID = CustomerID.Text;
-            string name = CustomerName.Text;
-            string phone = CustomerPhone.Text;
-            string longitude = CustomerLongitude.Text;
-            string latitude = CustomerLatitude.Text;
+        {   
             try
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.AddCustomerBL(int.Parse(ID), int.Parse(phone), name, new BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }),
-                    $"Add customer ID - {ID}",
+                    bl.AddCustomerBL(GetID(), GetPhone(), GetName(), new BO.Location { Longitude = GetLongitude(), Latitude = GetLatitude() }),
+                    $"Add customer ID - {GetID()}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -48,8 +43,7 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-
-
+        
         public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
         {
             InitializeComponent();
@@ -71,17 +65,17 @@ namespace PL
         }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
         private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
+        
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
-            string ID = CustomerID.Text;
-            string name = CustomerName.Text;
             try
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.UpdateCustomerData(int.Parse(ID), name),
-                    $"Update customer ID - {ID}",
+                    bl.UpdateCustomerData(GetID(), GetName()),
+                    $"Update customer ID - {GetID()}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -94,6 +88,33 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
-        }       
+        }
+
+        //===========Get Inputs===========
+
+        private int GetID()
+        {
+            try { return int.Parse(CustomerID.Text); }
+            catch (Exception) { throw new InvalidObjException("ID"); }
+        }
+        private int GetPhone()
+        {
+            try { return int.Parse(CustomerPhone.Text); }
+            catch (Exception) { throw new InvalidObjException("Phone"); }
+        }
+        private string GetName()
+        {
+            return CustomerName.Text != "" ? CustomerName.Text : throw new InvalidObjException("Name");
+        }
+        private int GetLongitude()
+        {
+            try { return int.Parse(CustomerLongitude.Text); }
+            catch (Exception) { throw new InvalidObjException("Longitude"); }
+        }
+        private int GetLatitude()
+        {
+            try { return int.Parse(CustomerLatitude.Text); }
+            catch (Exception) { throw new InvalidObjException("Latitude"); }
+        }
     }
 }

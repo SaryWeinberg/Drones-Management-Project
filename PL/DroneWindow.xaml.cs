@@ -37,8 +37,6 @@ namespace PL
             max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
-
-
         /// <summary>
         /// Adding drone 
         /// </summary>
@@ -46,24 +44,17 @@ namespace PL
         /// <param name="e"></param>
         private void AddNewDrone(object sender, RoutedEventArgs e)
         {
-            string ID = DroneID.Text;
-            int weight = max_weight.SelectedIndex + 1;
-            string model = DroneModel.Text;
-            string stationID = station_ID.Text;
             try
             {
-                int id = int.Parse(ID);
-                int station = int.Parse(stationID);
                 MessageBoxResult result =
                  MessageBox.Show(
-                   bl.AddDroneBL(id, model, (WeightCategories)weight, station),
-                   $"Add drone ID - {ID}",
+                   bl.AddDroneBL(GetID(), GetModel(), (WeightCategories)GetWeight(), GetStationID()),
+                   $"Add drone ID - {GetID()}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                   // new DroneListWindow(bl).Show();
-
+                    new DroneListWindow(bl).Show();
                     Close();
                 }
             }
@@ -72,6 +63,7 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
+
         private bool available = false;
 
         /// <summary>
@@ -87,7 +79,7 @@ namespace PL
             Drone = drone;
             StationIdLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
-            
+
             DroneModelLabel.Content = "drone model:";
             DroneModel.Text = drone.Model.ToString();
             DroneModel.TextChanged += AddUpdateBTN;
@@ -106,7 +98,13 @@ namespace PL
             Status.IsEditable = true;
 
             DroneID.Text = drone.ID.ToString();
-            
+
+            if (drone.Parcel != null) {
+                parcelLabel.Visibility = Visibility.Visible;
+                parcel.Visibility = Visibility.Visible;
+                parcel.Text = drone.Parcel.ToString(); 
+            }
+
             batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             batteryStatus.Text = drone.BatteryStatus.ToString();
             batteryStatus.IsEditable = true;
@@ -150,7 +148,7 @@ namespace PL
         private void AddUpdateBTN(object sender, RoutedEventArgs e)
         {
             update.Visibility = Visibility.Visible;
-            if(available)
+            if (available)
                 update.Margin = new Thickness(0, 285, 450, 0);
             else update.Margin = new Thickness(0, 370, 670, 0);
         }
@@ -180,13 +178,12 @@ namespace PL
         /// <param name="e"></param>
         private void UpdateDrone(object sender, RoutedEventArgs e)
         {
-            string model = DroneModel.Text;
             try
             {
                 MessageBoxResult result =
                   MessageBox.Show(
-                    bl.UpdateDroneData(Drone.ID, model),
-                    $"Update drone - {Drone.ID} model",
+                    bl.UpdateDroneData(GetID(), GetModel()),
+                    $"Update drone - {GetID()} model",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -213,8 +210,8 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                  bl.SendDroneToCharge(Drone.ID),
-                  $"Send drone ID - {Drone.ID} to charge",
+                  bl.SendDroneToCharge(GetID()),
+                  $"Send drone ID - {GetID()} to charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -240,8 +237,8 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                  bl.ReleaseDroneFromCharge(Drone.ID, int.Parse(timecharge.Text)),
-                  $"Release drone ID - {Drone.ID} from charge",
+                  bl.ReleaseDroneFromCharge(GetID(), GetTimeCharge()),
+                  $"Release drone ID - {GetID()} from charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -267,7 +264,7 @@ namespace PL
             {
                 MessageBoxResult result =
                  MessageBox.Show(
-                 bl.AssignParcelToDrone(Drone.ID),
+                 bl.AssignParcelToDrone(GetID()),
                  $"Assign parcel",
                  MessageBoxButton.OK,
                  MessageBoxImage.Information);
@@ -294,7 +291,7 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                bl.CollectParcelByDrone(Drone.ID),
+                bl.CollectParcelByDrone(GetID()),
                 $"Collect parcel",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
@@ -321,7 +318,7 @@ namespace PL
             {
                 MessageBoxResult result =
                MessageBox.Show(
-               bl.DeliveryParcelByDrone(Drone.ID),
+               bl.DeliveryParcelByDrone(GetID()),
                $"Delivery parcel",
                MessageBoxButton.OK,
                MessageBoxImage.Information);
@@ -337,6 +334,33 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        //===========Get Inputs===========
+
+        private int GetID()
+        {
+            try { return int.Parse(DroneID.Text); }
+            catch (Exception) { throw new InvalidObjException("ID"); }
+        }
+        private int GetWeight()
+        {
+
+            return max_weight.SelectedIndex != -1 ? max_weight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
+        }
+        private string GetModel()
+        {
+            return DroneModel.Text != "" ? DroneModel.Text : throw new InvalidObjException("Model");
+        }
+        private int GetStationID()
+        {
+            try { return int.Parse(station_ID.Text); }
+            catch (Exception) { throw new InvalidObjException("Station ID"); }
+        }
+        private int GetTimeCharge()
+        {
+            try { return int.Parse(timecharge.Text); }
+            catch (Exception) { throw new InvalidObjException("Station ID"); }
         }
     }
 }

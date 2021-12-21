@@ -21,7 +21,7 @@ namespace BLApi
         public string AddStationBL(int id, int name, Location location, int chargeSlots);
         public string UpdateCustomerData(int id, string name = null, string phoneNum =null);
         public string UpdateDroneData(int id, string model);
-        public string UpdateStationData(int id, string name = null, string ChargeSlots = null);
+        public string UpdateStationData(int id, int name = -1, int ChargeSlots = -1);
         public BO.Customer ConvertDalCustomerToBL(DO.Customer c);
         public BO.Drone ConvertDalDroneToBL(DO.Drone d);
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p);
