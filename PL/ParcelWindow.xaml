@@ -12,16 +12,38 @@
                 <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
             </Grid.Background>
             <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"/>
-            <Grid x:Name="AddCustomer" Grid.Row="1" Margin="434,30,-434,-30">
+            <Grid x:Name="AddParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
                 <Label Name="ParcelSenderIDLabel"  Content = "parcel sender ID:" VerticalAlignment ="Top" Margin = "43, 30, 680, 0" FontSize="16"/>
                 <TextBox Name ="ParcelSenderID" VerticalAlignment = "Top" Margin = "221, 30, 500, 0" FontSize="16"/>
-                <Label  Name="ParcelTargetLabel" Content = "parcel target ID:" VerticalAlignment ="Top" Margin = "43, 60, 680, 0" FontSize="16"/>
+                <Label  Name="ParcelTargetIDLabel" Content = "parcel target ID:" VerticalAlignment ="Top" Margin = "43, 60, 680, 0" FontSize="16"/>
                 <TextBox Name = "ParcelTargetID" VerticalAlignment = "Top" Margin = "221, 60,500, 0" FontSize="16"/>
                 <Label Name="ParcelweightLabel"  Content = "parcel weight:" VerticalAlignment ="Top" Margin = "43, 90, 680, 0" FontSize="16"/>
                 <ComboBox Name ="ParcelWeight" VerticalAlignment = "Top" Margin = "221, 90, 500, 0" FontSize="13"/>
                 <Label  Name="ParcelPriorityLabel" Content = "parcel priority:" VerticalAlignment ="Top" Margin = "43, 120, 680, 0"  FontSize="16"/>
                 <ComboBox Name = "ParcelPriority" VerticalAlignment = "Top" Margin = "221, 120, 500, 0"  FontSize="13"/>
                 <Button Name="sendNewParcel" Content = "Send" VerticalAlignment="Top" Click = "AddNewParcel" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
+            </Grid>
+            <Grid x:Name="UpdateParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
+                <Label Name="ParcelIDLabel"  Content = "parcel sender:" VerticalAlignment ="Top" Margin = "43, 30, 680, 0" FontSize="16"/>
+                <TextBox Name ="ParcelID" VerticalAlignment = "Top" Margin = "221, 30, 500, 0" FontSize="16"/>
+                <Label Name="ParcelSenderLabel"  Content = "parcel sender:" VerticalAlignment ="Top" Margin = "43, 60, 680, 0" FontSize="16"/>
+                <TextBox Name ="ParcelSender" VerticalAlignment = "Top" Margin = "221, 60, 500, 0" FontSize="16"/>
+                <Label  Name="ParcelTargetLabel" Content = "parcel target:" VerticalAlignment ="Top" Margin = "43, 90, 680, 0" FontSize="16"/>
+                <TextBox Name = "ParcelTarget" VerticalAlignment = "Top" Margin = "221, 90,500, 0" FontSize="16"/>
+                <Label Name="ParcelweighLabel"  Content = "parcel weight:" VerticalAlignment ="Top" Margin = "43, 120, 680, 0" FontSize="16"/>
+                <TextBox Name ="ParcelWeigh" VerticalAlignment = "Top" Margin = "221, 120, 500, 0" FontSize="13"/>
+                <Label  Name="ParcelPrioritLabel" Content = "parcel priority:" VerticalAlignment ="Top" Margin = "43, 150, 680, 0"  FontSize="16"/>
+                <TextBox Name = "ParcelPriorit" VerticalAlignment = "Top" Margin = "221, 150, 500, 0"  FontSize="13"/>
+                <Label  Name="ParcelDroneLabel" Content = "parcel drone:" VerticalAlignment ="Top" Margin = "43, 180, 680, 0" FontSize="16"/>
+                <TextBox Name = "ParcelDrone" VerticalAlignment = "Top" Margin = "221, 180,500, 0" FontSize="16"/>
+                <Label  Name="ParcelCreatedLabel" Content = "parcel Created:" VerticalAlignment ="Top" Margin = "43, 210, 680, 0" FontSize="16"/>
+                <TextBox Name = "ParcelCreated" VerticalAlignment = "Top" Margin = "221, 210,500, 0" FontSize="16"/>
+                <Label  Name="ParcelAssociatedLabel" Content = "parcel Associated:" VerticalAlignment ="Top" Margin = "43, 240, 680, 0" FontSize="16"/>
+                <TextBox Name = "ParcelAssociated" VerticalAlignment = "Top" Margin = "221, 240,500, 0" FontSize="16"/>
+                <Label  Name="ParcelPickedUpLabel" Content = "parcel PickedUp:" VerticalAlignment ="Top" Margin = "43, 270, 680, 0" FontSize="16"/>
+                <TextBox Name = "ParcelPickedUp" VerticalAlignment = "Top" Margin = "221, 270,500, 0" FontSize="16"/>
+                <Label  Name="ParcelDeliveredLabel" Content = "parcel Delivered:" VerticalAlignment ="Top" Margin = "43, 300, 680, 0" FontSize="16"/>
+                <TextBox Name = "ParcelDelivered" VerticalAlignment = "Top" Margin = "221, 300,500, 0" FontSize="16"/>
             </Grid>
             <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
         </Grid>

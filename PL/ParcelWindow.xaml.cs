@@ -20,28 +20,43 @@ namespace PL
     public partial class ParcelWindow : Window
     {
         BLApi.IBL bl;
-        string[] dataArr = { "sender_ID", "target_ID", "weight", "priority" };
         public ParcelWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+            UpdateParcelGrid.Visibility = Visibility.Hidden;
             ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));          
             ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
             sendNewParcel.Visibility = Visibility.Visible;           
         }
 
+        public ParcelWindow(BLApi.IBL blMain, BO.Parcel parcel)
+        {
+            InitializeComponent();
+            WindowStyle = WindowStyle.None;
+            AddParcelGrid.Visibility = Visibility.Hidden;              
+                                 
+            ParcelID.Text = parcel.ID.ToString();
+            ParcelSender.Text = parcel.Sender.ToString();
+            ParcelTarget.Text = parcel.Target.ToString();
+            ParcelWeigh.Text = parcel.Weight.ToString();
+            ParcelPriorit.Text = parcel.Priority.ToString();
+            ParcelDrone.Text = parcel.Drone.ToString();
+            ParcelCreated.Text = parcel.Created.ToString();
+            ParcelAssociated.Text = parcel.Associated.ToString();
+            ParcelPickedUp.Text = parcel.PickedUp.ToString();
+            ParcelDelivered.Text = parcel.Delivered.ToString();
+        }
+
         private void AddNewParcel(object sender, RoutedEventArgs e)
         {
-            string senderID = ParcelSenderID.Text;
-            string targetID = ParcelTargetID.Text;
-            int weight = ParcelWeight.SelectedIndex;
-            int priority = ParcelPriority.SelectedIndex;
+            
             try
             {              
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddParcelBL(int.Parse(senderID), int.Parse(targetID), (WeightCategories)weight, (Priorities)priority),
+                   bl.AddParcelBL(GetSenderID(), GetTargetID(), (WeightCategories)GetWeight(), (Priorities)GetPriority()),
                    $"Add parcel",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -55,6 +70,29 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        //===========Get Inputs===========
+
+        private int GetSenderID()
+        {
+            try { return int.Parse(ParcelSenderID.Text); }
+            catch (Exception) { throw new InvalidObjException("Sender ID"); }
+        }
+        private int GetTargetID()
+        {
+            try { return int.Parse(ParcelTargetID.Text); }
+            catch (Exception) { throw new InvalidObjException("Target ID"); }
+        }        
+        private int GetWeight()
+        {
+            try { return int.Parse(ParcelWeight.Text); }
+            catch (Exception) { throw new InvalidObjException("Weight"); }
+        }
+        private int GetPriority()
+        {
+            try { return int.Parse(ParcelPriority.Text); }
+            catch (Exception) { throw new InvalidObjException("Priority"); }
         }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();       

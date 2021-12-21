@@ -62,13 +62,13 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="ChargeSlots"></param>
-        public string UpdateStationData(int id, string name = null, string ChargeSlots =null)
+        public string UpdateStationData(int id, int name = -1, int ChargeSlots =-1)
         {
             DO.Station station = dalObj.GetSpesificStation(id);
-            if (name !=null && name!= "")
-                station.Name = int.Parse(name);
-            if (ChargeSlots != null && ChargeSlots != "")
-                station.ChargeSlots = int.Parse(ChargeSlots);
+            if (name != -1)
+                station.Name = name;
+            if (ChargeSlots != -1)
+                station.ChargeSlots = ChargeSlots;
             dalObj.UpdateStation(station);
             return "The update was successful!";
         }

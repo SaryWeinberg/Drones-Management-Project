@@ -31,18 +31,13 @@ namespace PL
         }
 
         private void AddNewStation(object sender, RoutedEventArgs e)
-        {           
-            string ID = StationID.Text;
-            string name = StationName.Text;
-            string chargeSlots = StationChargeSlots.Text;
-            string longitude = StationLongitude.Text;
-            string latitude = StationLatitude.Text;
+        {  
             try
             {               
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddStationBL(int.Parse(ID), int.Parse(name), new BO.Location { Longitude = int.Parse(longitude), Latitude = int.Parse(latitude) }, int.Parse(chargeSlots)),
-                   $"Add station ID - {ID}",
+                   bl.AddStationBL(GetID(), GetName(), new BO.Location { Longitude = GetLongitude(), Latitude = GetLatitude() }, GetChargeSlots()),
+                   $"Add station ID - {GetID()}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -55,7 +50,7 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
-        }
+        }        
 
         public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
@@ -88,7 +83,7 @@ namespace PL
             {           
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.UpdateStationData(int.Parse(ID), name, chargeSlots),
+                   bl.UpdateStationData(GetID(), GetName(), GetChargeSlots()),
                    $"Update station ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -104,7 +99,33 @@ namespace PL
             }
         }
 
-        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();   
-    }
-    
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
+        //===========Get Inputs===========
+        private int GetID()
+        {
+            try { return int.Parse(StationID.Text); }
+            catch (Exception) { throw new InvalidObjException("ID"); }
+        }
+        private int GetChargeSlots()
+        {
+            try { return int.Parse(StationChargeSlots.Text); }
+            catch (Exception) { throw new InvalidObjException("ChargeSlots"); }
+        }
+        private int GetName()
+        {
+            try { return int.Parse(StationName.Text); }
+            catch (Exception) { throw new InvalidObjException("Name"); }
+        }
+        private int GetLongitude()
+        {
+            try { return int.Parse(StationLongitude.Text); }
+            catch (Exception) { throw new InvalidObjException("Longitude"); }
+        }
+        private int GetLatitude()
+        {
+            try { return int.Parse(StationLatitude.Text); }
+            catch (Exception) { throw new InvalidObjException("Latitude"); }
+        }
+    }   
 }
