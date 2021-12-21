@@ -55,7 +55,9 @@ namespace PL
             CustomerName.Text = customer.Name.ToString();
             CustomerPhone.Text = customer.PhoneNum.ToString();
             CustomerLongitude.Text = customer.location.Longitude.ToString();
-            CustomerLatitude.Text = customer.location.Latitude.ToString();
+
+
+            CustomerList.ItemsSource = customer.DeliveryToCustomer;
             CustomerID.IsEnabled = false;
             CustomerLongitude.IsEnabled = false;
             CustomerLatitude.IsEnabled = false;

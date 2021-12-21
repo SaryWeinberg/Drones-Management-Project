@@ -27,5 +27,11 @@ namespace BO
             else Status = Status.created;
             Target = parcel.Target;
         }
+
+
+        public override string ToString()
+        {
+            return "Parcel: id:" + ID + " Priority: " + Priority.ToString() + " Weight: " + Weight.ToString() + "Status: " + Status + "Target: " + Target.ToString() + "\n ";
+        }
     }
 }
