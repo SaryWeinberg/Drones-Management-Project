@@ -35,14 +35,15 @@ namespace PL
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
+            bl = blMain;
             AddParcelGrid.Visibility = Visibility.Hidden;              
                                  
             ParcelID.Text = parcel.ID.ToString();
-            ParcelSender.Text = parcel.Sender.ToString();
-            ParcelTarget.Text = parcel.Target.ToString();
+            ParcelSender.Text = parcel.Sender.ID.ToString();
+            ParcelTarget.Text = parcel.Target.ID.ToString();
             ParcelWeigh.Text = parcel.Weight.ToString();
             ParcelPriorit.Text = parcel.Priority.ToString();
-            ParcelDrone.Text = parcel.Drone.ToString();
+            ParcelDrone.Text = parcel.Drone.ID.ToString();
             ParcelCreated.Text = parcel.Created.ToString();
             ParcelAssociated.Text = parcel.Associated.ToString();
             ParcelPickedUp.Text = parcel.PickedUp.ToString();
@@ -95,6 +96,18 @@ namespace PL
             catch (Exception) { throw new InvalidObjException("Priority"); }
         }
 
-        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();       
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
+        private void GetCustomer(object sender, MouseButtonEventArgs e)
+        {
+            string ID = (sender as TextBox).SelectedText;
+            new CustomerWindow(bl, bl.GetSpesificCustomer(int.Parse(ID))).Show();
+        }
+
+        private void GetDrone(object sender, MouseButtonEventArgs e)
+        {
+            string ID = (sender as TextBox).SelectedText;
+            new DroneWindow(bl, bl.GetSpesificDroneBL(int.Parse(ID))).Show();
+        }
     }
 }

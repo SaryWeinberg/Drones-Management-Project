@@ -38,7 +38,7 @@ namespace PL
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;            
-            new StationWindow(bl, bl.GetSpesificStationBL(station.ID)).Show();
+            new StationWindow(bl, bl.GetSpesificStation(station.ID)).Show();
         }
     }
 }

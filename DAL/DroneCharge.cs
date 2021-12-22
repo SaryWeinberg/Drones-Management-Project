@@ -11,7 +11,6 @@ namespace DO
     {
         public int DroneId { get; set; }
         public int StationId { get; set; }
-        public int Active { get; set; }
-
+        public bool Active { get; set; }
     }
 }

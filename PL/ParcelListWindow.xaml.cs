@@ -26,7 +26,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            ParcelListView.ItemsSource = bl.GetParcelsListBL();
+            ParcelListView.ItemsSource = bl.GetParcelsToList();
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -42,12 +42,13 @@ namespace PL
             WeightCategories Sweight = 0;
             if (WeightSelector.SelectedItem == null)
             {
-                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem);
+                ParcelListView.ItemsSource = bl.GetParcelsToListByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem);
             }
             else
             {
                 Sweight = (WeightCategories)WeightSelector.SelectedItem;
-                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem && parcel.Weight == Sweight);
+                ParcelListView.ItemsSource =
+                    bl.GetParcelsToListByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem && parcel.Weight == Sweight);
             }
         }
 
@@ -62,12 +63,12 @@ namespace PL
             Priorities Ppriority = 0;
             if (PrioritySelector.SelectedItem == null)
             {
-                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem);
+                ParcelListView.ItemsSource = bl.GetParcelsToListByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem);
             }
             else
             {
                 Ppriority = (Priorities)PrioritySelector.SelectedItem;
-                ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem && parcel.Priority == Ppriority);
+                ParcelListView.ItemsSource = bl.GetParcelsToListByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem && parcel.Priority == Ppriority);
             }
         }
 
@@ -90,7 +91,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsBL();
+        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcels();
 
         /// <summary>
         /// Show parcel window with adding ctor

@@ -23,13 +23,17 @@ namespace BL
             {
                 throw new ObjectAlreadyExistException("Parcel", id);
             }
+
             DO.Parcel parcel = new DO.Parcel();
+
             parcel.ID = id;
             parcel.SenderId = senderId;
             parcel.TargetId = targetId;
             parcel.Weight = weight;
             parcel.Priority = priority;
             parcel.Created = DateTime.Now;
+            parcel.Active = true;
+
             dalObj.AddParcel(parcel);
         }
 
@@ -46,26 +50,25 @@ namespace BL
             BO.Parcel parcel = new BO.Parcel();
             try
             {
-                CustomerInParcel Scustomer = new CustomerInParcel();
-                Scustomer.ID = senderId;
-                Scustomer.Name = GetSpesificCustomerBL(senderId).Name;
+                CustomerInParcel senderCustomer = new CustomerInParcel();
+                senderCustomer.ID = senderId;
+                senderCustomer.Name = GetSpesificCustomer(senderId).Name;
 
-                CustomerInParcel Tcustomer = new CustomerInParcel();
-                Tcustomer.ID = targetId;
-                Tcustomer.Name = GetSpesificCustomerBL(targetId).Name;
+                CustomerInParcel targetCustomer = new CustomerInParcel();
+                targetCustomer.ID = targetId;
+                targetCustomer.Name = GetSpesificCustomer(targetId).Name;
 
-                parcel.ID = GetCustomersBL().Count();
-                parcel.Sender = Scustomer;
-                parcel.Target = Tcustomer;
+                parcel.ID = GetCustomers().Count();
+                parcel.Sender = senderCustomer;
+                parcel.Target = targetCustomer;
                 parcel.Weight = weight;
                 parcel.Priority = priority;
                 parcel.Drone = null;
 
                 parcel.Created = DateTime.Now;
-        
             }
             catch (InvalidObjException e) { throw e; }
-            AddParcelDal(parcel.ID, senderId, targetId, weight, priority);
+            AddParcelDal(GetCustomers().Count() + 1, senderId, targetId, weight, priority);
             return "Parcel added successfully!";
         }
 
@@ -98,7 +101,7 @@ namespace BL
         /// <returns></returns>
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p)
         {
-            BO.Drone droneBL = GetDronesBLList().Find(d => d.ID == p.DroneId);
+            BO.Drone droneBL = GetDronesList().Find(d => d.ID == p.DroneId);
 
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
@@ -149,7 +152,7 @@ namespace BL
         /// Returning the parcel list
         /// </summary>
         /// <returns></returns>
-        public List<BO.Parcel> GetParcelsBL()
+        public List<BO.Parcel> GetParcels()
         {
             List<DO.Parcel> parcelsDal = dalObj.GetParcels();
             List<BO.Parcel> parcelsBL = new List<BO.Parcel>();
@@ -164,48 +167,30 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition)
         {
-            return from parcelBL in GetParcelsBL()
+            return from parcelBL in GetParcels()
                    where condition(parcelBL)
                    select parcelBL;
         }
 
-        /// <summary>
-        /// Returns a list of parcels that have not yet been associated with a drone
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> condition)
+        public IEnumerable<BO.ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition)
         {
-            return from parcelBL in dalObj.GetParcels()
-                   where condition(ConvertDalParcelToBL(parcelBL))
-                   select ConvertDalParcelToBL(parcelBL);
-
-            /*List<ParcelBL> parcelsBL = new List<ParcelBL>();
-            foreach (Parcel parcel in dalObj.GetParcels())
-            {
-                if (parcel.Associated == null)
-                {
-                    parcelsBL.Add(ConvertDalParcelToBL(parcel));
-                }
-            }
-            if (!parcelsBL.Any())
-            {
-                throw new ObjectNotExistException("There are no parcels that not yet assigned to drone");
-            }
-            return parcelsBL;*/
+            return from ParcelToList in GetParcelsToList()
+                   where condition(ParcelToList)
+                   select ParcelToList;
         }
 
-        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneListPredicate()
+        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedToDrone()
         {
-            return GetParcelsNotYetAssignedDroneList(parcel => parcel.Associated == null);
+            return GetParcelsByCondition(parcel => parcel.Associated == null);
         }
 
         /// <summary>
         /// Returns the parcel list with ParcelToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.ParcelToList> GetParcelsListBL()
+        public List<BO.ParcelToList> GetParcelsToList()
         {
-            List<BO.Parcel> parcels = GetParcelsBL();
+            List<BO.Parcel> parcels = GetParcels();
             List<BO.ParcelToList> parcelToList = new List<BO.ParcelToList>();
             foreach (BO.Parcel parcel in parcels)
             {

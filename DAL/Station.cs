@@ -13,7 +13,7 @@ namespace DO
         public int Longitude { get; set; }
         public int Latitude { get; set; }
         public int ChargeSlots { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
         public override string ToString()
         {
             return "Station: " + ID + " " + Name +" " + Longitude + " " + Latitude + " " + ChargeSlots;

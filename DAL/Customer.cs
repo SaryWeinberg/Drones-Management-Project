@@ -8,7 +8,7 @@ namespace DO
         public string Name { get; set; }
         public int Longitude { get; set; }
         public int Latitude { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
 
         public override string ToString()
         {

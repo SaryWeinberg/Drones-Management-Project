@@ -39,7 +39,7 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Parcels.First(parcel => parcel.ID == parcelId);
+                return GetParcelByCondition(parcel => parcel.ID == parcelId).First();
             }
             catch
             {
@@ -47,19 +47,6 @@ namespace DalObject
             }
         }
 
-        /// <summary>
-        /// Returns the list of parcels one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Parcel> GetParcelLists()
-        {
-            return from parcel in DataSource.Parcels
-                   select parcel;
-            /*  foreach (Parcel parcel in DataSource.Parcels)
-              {
-                  yield return parcel;
-              }*/
-        }
 
         public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> condition)
         {
@@ -67,7 +54,6 @@ namespace DalObject
                    where condition(parcelBL)
                    select parcelBL;
         }
-
 
         /// <summary>
         /// Returns the parcel list

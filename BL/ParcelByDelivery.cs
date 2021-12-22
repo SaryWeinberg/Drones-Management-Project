@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BL;
+
 namespace BO
 {
     public class ParcelByDelivery
@@ -18,7 +19,7 @@ namespace BO
         public Location PickUpLocation { get; set; }
         public Location TargetLocation { get; set; }
         public double Distance { get; set; }
-        public ParcelByDelivery(BO.Parcel parcel, BO.Drone drone, BO.Customer sender, BO.Customer target)
+        public ParcelByDelivery(Parcel parcel, Drone drone, Customer sender, Customer target)
         {
             ID = parcel.ID;
             DeliveryStatus = (drone.Status == DroneStatus.Delivery);

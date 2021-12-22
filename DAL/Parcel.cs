@@ -18,7 +18,7 @@ namespace DO
         public DateTime? Associated { get; set; }
         public DateTime? PickedUp { get; set; }
         public DateTime? Delivered { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
 
         public override string ToString()
         {

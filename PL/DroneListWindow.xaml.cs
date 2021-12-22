@@ -82,7 +82,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            DroneListView.ItemsSource = bl.GetDronesListBL();
+            DroneListView.ItemsSource = bl.GetDronesToListBL();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -157,7 +157,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesBLList();
+        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesList();
 
         /// <summary>
         /// Refresh the drone list
@@ -165,8 +165,5 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
-
-
-
     }
 }

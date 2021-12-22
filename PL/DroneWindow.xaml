@@ -35,8 +35,8 @@
             <TextBox Name = "longitude" VerticalAlignment = "Top" Margin = "221, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
             <Label Name="latitudeLabel" Content = "drone latitude:" VerticalAlignment = "Top" Margin ="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
             <TextBox Name = "latitude" VerticalAlignment = "Top" Margin = "221, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <Label Name="parcelLabel" Content = "parcel by delivery:" VerticalAlignment = "Top" Margin ="43, 240, 684, 0" Visibility="Hidden" FontSize="16"/>
-            <TextBox Name = "parcel" VerticalAlignment = "Top" Margin = "221, 240, 500, 0" IsEnabled="False"  Visibility="Hidden" FontSize="16"/>
+            <Label Name="parcelLabel" Content = "parcel by delivery ID:" VerticalAlignment = "Top" Margin ="43, 240, 684, 0" Visibility="Hidden" FontSize="16"/>
+            <TextBox Name = "parcel" VerticalAlignment = "Top" AcceptsReturn="True" Margin = "221, 240, 500, 0" Visibility="Hidden" FontSize="16" MouseDoubleClick="GetParcel"/>
             <Label Name="timechargeLabel" Content="write time of charge:" VerticalAlignment ="Top" Margin ="43, 270, 684, 0" Visibility="Hidden" FontSize="16"/>
             <TextBox Name="timecharge" VerticalAlignment ="Top" Margin ="221, 270, 500, 0" Visibility="Hidden" FontSize="16"/>
             <Button  Name="sendDroneToCharge" Content="send drone to charge" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "SendDroneToCharge" Visibility ="Hidden"/>

@@ -12,14 +12,10 @@ namespace BL
     {
         public static IBL GetBL()
         {
-          
-            
-    
-                    return BL.GetInstance;
-    
-            }
+            return BL.GetInstance;
         }
     }
+}
 
 
 

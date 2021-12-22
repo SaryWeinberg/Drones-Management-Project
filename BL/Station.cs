@@ -36,13 +36,13 @@ namespace BO
             get { return aveChargeSlots; }
             set
             {
-                if (value > 0)
+                if (value > 0 )
                     aveChargeSlots = value;
                 else throw new InvalidObjException("available charge slots");
             }
         }
 
-        public List<DroneInCharge> DronesInChargelist = new List<DroneInCharge>();
+        public List<DroneInCharge> DronesInChargelist { get; set; }
 
         public override string ToString()
         {

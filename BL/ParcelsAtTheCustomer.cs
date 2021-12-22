@@ -13,7 +13,7 @@ namespace BO
         public Priorities Priority { get; set; }
         public Status Status { get; set; }
         public CustomerInParcel Target { get; set; }
-        public ParcelsAtTheCustomer(BO.Parcel parcel)
+        public ParcelsAtTheCustomer(Parcel parcel)
         {
             ID = parcel.ID;
             Weight = parcel.Weight;
@@ -27,7 +27,6 @@ namespace BO
             else Status = Status.created;
             Target = parcel.Target;
         }
-
 
         public override string ToString()
         {

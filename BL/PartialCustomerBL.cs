@@ -25,6 +25,7 @@ namespace BL
             customer.Name = name;
             customer.Longitude = location.Longitude;
             customer.Latitude = location.Latitude;
+            customer.Active = true;
             dalObj.AddCustomer(customer);
         }
 
@@ -42,6 +43,7 @@ namespace BL
             {
                 throw new ObjectAlreadyExistException("Customer", id);
             }
+
             BO.Customer customer = new BO.Customer();
             try
             {
@@ -51,7 +53,9 @@ namespace BL
                 customer.location = location;
             }
             catch (InvalidObjException e) { throw e; }
+
             AddCustomerDal(id, phone, name, location);
+
             return "Customer added successfully!";
         }
 
@@ -64,12 +68,12 @@ namespace BL
         public string UpdateCustomerData(int id, string name = null, string phoneNum = null)
         {
             DO.Customer customer = dalObj.GetSpesificCustomer(id);
-            if (name != null && name != "")
-                customer.Name = name;
-            if (phoneNum != null && phoneNum != "")
-                customer.PhoneNum = int.Parse(phoneNum);
+
+            if (name != null && name != "") customer.Name = name;
+            if (phoneNum != null && phoneNum != "") customer.PhoneNum = int.Parse(phoneNum);
 
             dalObj.UpdateCustomer(customer);
+
             return "The update was successful!";
         }
 
@@ -78,17 +82,17 @@ namespace BL
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public DO.Customer ConvertBLCustomerToDAL(BO.Customer c)
+       /* public DO.Customer ConvertBLCustomerToDAL(BO.Customer c)
         {
             return new DO.Customer
             {
-                ID = c.ID,
-                Latitude = c.location.Latitude,
-                Longitude = c.location.Longitude,
+                ID = c.ID,                
                 Name = c.Name,
-                PhoneNum = c.PhoneNum
+                PhoneNum = c.PhoneNum,
+                Latitude = c.location.Latitude,
+                Longitude = c.location.Longitude
             };
-        }
+        }*/
 
         /// <summary>
         /// Convert from DAL customer to BL customer
@@ -97,12 +101,14 @@ namespace BL
         /// <returns></returns>
         public BO.Customer ConvertDalCustomerToBL(DO.Customer c)
         {
+            /* List<ParcelsAtTheCustomer> DeliveryFromCe = (from parcel in GetParcelsBL()
+                                                       where parcel.Sender.ID == c.ID
+                                                       select new ParcelsAtTheCustomer(parcel)).ToList<ParcelsAtTheCustomer>;*/
 
-
-            List<ParcelsAtTheCustomer> DeliveryFromC = new List<ParcelsAtTheCustomer>();
+            List<ParcelsAtTheCustomer> DeliveryFromC = new List<ParcelsAtTheCustomer>();         
             List<ParcelsAtTheCustomer> DeliveryToC = new List<ParcelsAtTheCustomer>();
 
-            foreach (BO.Parcel parcel in GetParcelsBL())
+            foreach (BO.Parcel parcel in GetParcels())
             {
                 if (parcel.Sender.ID == c.ID)
                 {
@@ -112,8 +118,6 @@ namespace BL
                 {
                     DeliveryToC.Add(new ParcelsAtTheCustomer(parcel));
                 }
-
-
             }
 
 
@@ -125,58 +129,64 @@ namespace BL
                 DeliveryToCustomer = DeliveryToC,
                 DeliveryFromCustomer = DeliveryFromC,
                 location = new Location { Latitude = c.Latitude, Longitude = c.Longitude }
-
             };
         }
 
 
 
-    
 
 
-    /// <summary>
-    /// Returning a specific customer by ID number
-    /// </summary>
-    /// <param name="customerId"></param>
-    /// <returns></returns>
-    public BO.Customer GetSpesificCustomerBL(int customerId)
-    {
-        try
+
+        /// <summary>
+        /// Returning a specific customer by ID number
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public BO.Customer GetSpesificCustomer(int customerId)
         {
-            return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+            try
+            {
+                return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+            }
+            catch (ObjectDoesNotExist e)
+            {
+                throw new ObjectNotExistException(e.Message);
+            }
         }
-        catch (ObjectDoesNotExist e)
+
+        public IEnumerable<BO.Customer> GeCustomerByCondition(Predicate<BO.Customer> condition)
         {
-            throw new ObjectNotExistException(e.Message);
+            return from customer in GetCustomers()
+                   where condition(customer)
+                   select customer;
+        } 
+
+        /// <summary>
+        /// Returning the customer list
+        /// </summary>
+        /// <returns></returns>
+        public List<BO.Customer> GetCustomers()
+        {
+            List<DO.Customer> customersDal = dalObj.GetCustomers();
+            List<BO.Customer> customersBL = new List<BO.Customer>();
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
+            return customersBL;
+        }
+
+        /// <summary>
+        /// Returns the customer list with CustomerToList
+        /// </summary>
+        /// <returns></returns>
+        public List<BO.CustomerToList> GetCustomersToList()
+        {
+            List<BO.Customer> customers = GetCustomers();
+            List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
+            foreach (BO.Customer custtomer in customers)
+            {
+                customersToList.Add(new BO.CustomerToList(custtomer, dalObj));
+            }
+            return customersToList;
         }
     }
-
-    /// <summary>
-    /// Returning the customer list
-    /// </summary>
-    /// <returns></returns>
-    public List<BO.Customer> GetCustomersBL()
-    {
-        List<DO.Customer> customersDal = dalObj.GetCustomers();
-        List<BO.Customer> customersBL = new List<BO.Customer>();
-        customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
-        return customersBL;
-    }
-
-    /// <summary>
-    /// Returns the customer list with CustomerToList
-    /// </summary>
-    /// <returns></returns>
-    public List<BO.CustomerToList> GetCustomersListBL()
-    {
-        List<BO.Customer> customers = GetCustomersBL();
-        List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
-        foreach (BO.Customer custtomer in customers)
-        {
-            customersToList.Add(new BO.CustomerToList(custtomer, dalObj));
-        }
-        return customersToList;
-    }
-}
 }
 

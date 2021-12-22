@@ -26,7 +26,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            CustomerListView.ItemsSource = bl.GetCustomersListBL();
+            CustomerListView.ItemsSource = bl.GetCustomersToList();
         }
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
@@ -38,7 +38,7 @@ namespace PL
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)
         {
             BO.CustomerToList customerToList = (sender as ListView).SelectedValue as BO.CustomerToList;
-            new CustomerWindow(bl, bl.GetSpesificCustomerBL(customerToList.ID)).Show();
+            new CustomerWindow(bl, bl.GetSpesificCustomer(customerToList.ID)).Show();
         }
     }
 }

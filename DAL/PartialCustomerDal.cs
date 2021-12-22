@@ -40,7 +40,7 @@ namespace DalObject
         {
             try
             {
-                return DataSource.Customers.First(customer => customer.ID == customerId);
+                return GeCustomerByCondition(customer => customer.ID == customerId).First();
             }
             catch
             {
@@ -48,14 +48,11 @@ namespace DalObject
             }
         }
 
-        /// <summary>
-        /// Returns the list of customers one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Customer> GetCustomerLists()
+        public IEnumerable<Customer> GeCustomerByCondition(Predicate<Customer> condition)
         {
-            return from customer in DataSource.Customers
-                   select customer;           
+            return from customer in GetCustomers()
+                   where condition(customer)
+                   select customer;
         }
 
         /// <summary>

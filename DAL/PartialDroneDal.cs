@@ -27,6 +27,7 @@ namespace DalObject
         /// <param name="droneCharge"></param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
+            droneCharge.Active = true;
             DataSource.DroneCharges.Add(droneCharge);
         }
 
@@ -47,37 +48,8 @@ namespace DalObject
         {
             int index = DataSource.Drones.FindIndex(d => d.ID == drone.ID);
             DataSource.Drones[index] = drone;
-        }
-
-        /// <summary>
-        /// Returns a specific drone by ID number
-        /// </summary>
-        /// <param name="droneId"></param>
-        /// <returns></returns>
-        public Drone GetSpesificDrone(int droneId)
-        {
-            foreach (Drone d in DataSource.Drones)
-            {
-                if (d.ID == droneId)
-                    return d;
-            }
-            throw new ObjectDoesNotExist("Drone", droneId);
-        }
-
-        /// <summary>
-        /// Returns the list of drones one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Drone> GetDroneLists()
-        {
-            return from drone in DataSource.Drones
-                   select drone;
-           /* foreach (Drone drone in DataSource.Drones)
-            {
-                yield return drone;
-            }*/
-        }
-
+        }       
+        
         /// <summary>
         /// Returns the drone list
         /// </summary>
@@ -85,6 +57,15 @@ namespace DalObject
         public List<Drone> GetDrones()
         {
             return DataSource.Drones;
+        }
+
+        /// <summary>
+        /// Returns the drone charge list
+        /// </summary>
+        /// <returns></returns>
+        public List<DroneCharge> GetDroneCharges()
+        {
+            return DataSource.DroneCharges;
         }
     }
 }

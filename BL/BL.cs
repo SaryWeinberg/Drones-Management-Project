@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
-/*using IDAL;*/
 using DalApi;
 
 
@@ -14,11 +13,10 @@ namespace BL
 {
     public partial class BL : BLApi.IBL
     {
-        /*   IDal dalObj;*/
         IDal dalObj;
 
         Random rand = new Random();
-        List<BO.Drone> dronesBLList = new List<BO.Drone>();
+        List<BO.Drone> dronesList = new List<BO.Drone>();
 
 
         internal static BL instance;
@@ -31,12 +29,10 @@ namespace BL
                     instance = new BL();
                 return instance;
             }
-
         }
 
         BL()
         {
-            /*            dalObj = new DalObject.DalObject();*/
             dalObj = DalObject.DalFactory.GetDal("object");
             double[] ElectricUse = dalObj.ElectricalPowerRequest();
             double Available = ElectricUse[0];
@@ -44,10 +40,10 @@ namespace BL
             double medium = ElectricUse[2];
             double heavy = ElectricUse[3];
             double chargingRate = ElectricUse[4];
-            dronesBLList = GetDronesBL();
+            dronesList = GetDalDronesListAsBL();
             List<DO.Parcel> parcels = dalObj.GetParcels();
 
-            foreach (BO.Drone drone in dronesBLList)
+            foreach (BO.Drone drone in dronesList)
             {
                 drone.Location = new Location { Longitude = rand.Next(0, 40), Latitude = rand.Next(0, 40) };
                 DO.Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);
@@ -58,22 +54,19 @@ namespace BL
                     //Package not collected
                     if (parcel.PickedUp ==null)
                     {
-                        drone.Location = GetNearestAvailableStation(GetSpesificCustomerBL(parcel.SenderId).location).Location;
+                        drone.Location = GetNearestAvailableStation(GetSpesificCustomer(parcel.SenderId).location).Location;
                     }
                     //There must be a package that is not delivered
                     else
                     {
-                        drone.Location = GetSpesificCustomerBL(parcel.SenderId).location;
+                        drone.Location = GetSpesificCustomer(parcel.SenderId).location;
                     }
 
                     drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
                     drone.Status = DroneStatus.Delivery;
                   
-                    ParcelByDelivery parcelBD = new ParcelByDelivery(GetSpesificParcelBL(parcel.ID), drone, GetSpesificCustomerBL(parcel.SenderId),GetSpesificCustomerBL(parcel.TargetId));
-                    drone.Parcel = parcelBD;
-                    
-                    
-                    
+                    ParcelByDelivery parcelBD = new ParcelByDelivery(GetSpesificParcelBL(parcel.ID), drone, GetSpesificCustomer(parcel.SenderId),GetSpesificCustomer(parcel.TargetId));
+                    drone.Parcel = parcelBD;                
                 }
                 else
                 {
@@ -83,17 +76,17 @@ namespace BL
                     {
                         List<DO.Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp != null);
                         double randIDX = rand.Next(0, parcelProvided.Count() - 1);
-                        drone.Location = GetSpesificCustomerBL(parcelProvided[(int)randIDX].TargetId).location;
+                        drone.Location = GetSpesificCustomer(parcelProvided[(int)randIDX].TargetId).location;
                         drone.BatteryStatus = rand.Next((int)(Distance(GetNearestAvailableStation(drone.Location).Location, drone.Location) * Available), 100);
                     }
                     else
                     {
                         drone.BatteryStatus = rand.Next(1, 20);
-                        List<BO.Station> stationBLs = GetStationsBL();
+                        List<BO.Station> stationBLs = GetStations();
                         int stationId = rand.Next(stationBLs.Count());
-                        drone.Location = stationBLs[stationId].Location;
-                     
-                        AddDroneChargeDAL(stationId, drone.ID);
+                        drone.Location = stationBLs[stationId].Location;                     
+                        AddDroneCharge(stationId, drone.ID, drone.BatteryStatus);
+               //         stationBLs[stationId].DronesInChargelist.Add(new DroneInCharge(drone.ID, drone.BatteryStatus));
                     }
                 }
             }
@@ -142,7 +135,7 @@ namespace BL
         /// <param name="droneId"></param>
         public string SendDroneToCharge(int droneId)
         {
-            DroneCharge droneCharge = new DroneCharge();
+          //  DroneCharge droneCharge = new DroneCharge();
             BO.Drone drone = GetSpesificDroneBL(droneId);
 
             if (drone.Status != DroneStatus.Available)
@@ -161,12 +154,14 @@ namespace BL
             drone.Location = station.Location;
             drone.Status = DroneStatus.Maintenance;
             station.AveChargeSlots -= 1;
-            droneCharge.StationId = station.ID;
-            droneCharge.DroneId = drone.ID;
+            AddDroneCharge(station.ID, drone.ID, drone.BatteryStatus);
 
             dalObj.UpdateDrone(ConvertBLDroneToDAL(drone));
-            dalObj.UpdateStation(ConvertBLStationToDAL(station));
-            dalObj.AddDroneCharge(droneCharge);
+            //     station.DronesInChargelist.Add(new DroneInCharge(drone.ID, drone.BatteryStatus));
+            //      droneCharge.StationId = station.ID;
+            //      droneCharge.DroneId = drone.ID;
+
+            //    dalObj.AddDroneCharge(droneCharge);
 
             return "The drone was sent for charging successfully!";
         }
@@ -218,7 +213,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
 
-            List<BO.Parcel> parcels = GetParcelsBL();
+            List<BO.Parcel> parcels = GetParcels();
             int flag = 0;
             double bestDistance = 100;
 
@@ -251,10 +246,10 @@ namespace BL
                                 else
                                 {
                                     //3. Very nearest package
-                                    if (Distance(droneBL.Location, GetSpesificCustomerBL(parcel.Sender.ID).location) <= bestDistance)
+                                    if (Distance(droneBL.Location, GetSpesificCustomer(parcel.Sender.ID).location) <= bestDistance)
                                     {
                                         BestParcel = parcel;
-                                        bestDistance = Distance(droneBL.Location,GetSpesificCustomerBL(BestParcel.Sender.ID).location);
+                                        bestDistance = Distance(droneBL.Location,GetSpesificCustomer(BestParcel.Sender.ID).location);
                                         flag = 1;
                                     }
                                 }
@@ -267,7 +262,7 @@ namespace BL
             if (flag == 1)
             {
                 droneBL.Status = DroneStatus.Delivery;
-                droneBL.Parcel = new ParcelByDelivery(BestParcel, droneBL, GetSpesificCustomerBL(BestParcel.Sender.ID), GetSpesificCustomerBL(BestParcel.Target.ID));
+                droneBL.Parcel = new ParcelByDelivery(BestParcel, droneBL, GetSpesificCustomer(BestParcel.Sender.ID), GetSpesificCustomer(BestParcel.Target.ID));
                 DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, BatteryStatus = droneBL.BatteryStatus, Location = droneBL.Location };
                 BestParcel.Drone = droneInP;
                 BestParcel.Associated = DateTime.Now;
@@ -284,7 +279,7 @@ namespace BL
         public string CollectParcelByDrone(int droneId)
         {
             BO.Drone droneBL = GetSpesificDroneBL(droneId);
-            List<BO.Parcel> parcels = GetParcelsBL();
+            List<BO.Parcel> parcels = GetParcels();
             foreach (BO.Parcel currentParcel in parcels)
             {
                 if (currentParcel.Drone.ID == droneId)
@@ -294,7 +289,7 @@ namespace BL
                         throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "collected");
                     }
                     //A parcel associated with the drone but not collected for it
-                    List<BO.Customer> customers = GetCustomersBL();
+                    List<BO.Customer> customers = GetCustomers();
                     BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
                     droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
                     droneBL.Location = senderCustomer.location;
@@ -314,7 +309,7 @@ namespace BL
         public string DeliveryParcelByDrone(int droneId)
         {
             BO.Drone droneBL = GetSpesificDroneBL(droneId);
-            List<BO.Parcel> parcels = GetParcelsBL();
+            List<BO.Parcel> parcels = GetParcels();
             foreach (BO.Parcel currentParcel in parcels)
             {
                 if (currentParcel.Drone.ID == droneId)
@@ -324,7 +319,7 @@ namespace BL
                         throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "delivered");
                     }
                     //A parcel collected by a drone but not delivered by him
-                    List<BO.Customer> customers = GetCustomersBL();
+                    List<BO.Customer> customers = GetCustomers();
                     BO.Customer targetCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
                     droneBL.BatteryStatus = Distance(droneBL.Location, targetCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
                     droneBL.Location = targetCustomer.location;

@@ -49,6 +49,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+
             ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
             ParcelDeliveryToCustomerList.Visibility = Visibility.Visible;
             ParcelDeliveryFromCustomerLabel.Visibility = Visibility.Visible;
@@ -62,8 +63,6 @@ namespace PL
             CustomerPhone.Text = customer.PhoneNum.ToString();
             CustomerLongitude.Text = customer.location.Longitude.ToString();
 
-
-            CustomerList.ItemsSource = customer.DeliveryToCustomer;
             CustomerID.IsEnabled = false;
             CustomerLongitude.IsEnabled = false;
             CustomerLatitude.IsEnabled = false;
@@ -123,6 +122,12 @@ namespace PL
         {
             try { return int.Parse(CustomerLatitude.Text); }
             catch (Exception) { throw new InvalidObjException("Latitude"); }
+        }
+
+        private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
+            new ParcelWindow(bl, bl.GetSpesificParcelBL(parcelsAtTheCustomer.ID)).Show();
         }
     }
 }

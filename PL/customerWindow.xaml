@@ -23,26 +23,33 @@
             <Label  Name="CustomerLatitudeLabel" Content = "customer latitude:" VerticalAlignment ="Top" Margin = "43, 150, 680, 0"  FontSize="16"/>
             <TextBox Name = "CustomerLatitude" VerticalAlignment = "Top" Margin = "221, 150, 500, 0"  FontSize="16"/>
             <Button  Name="sendNewCustomer" Content = "Send" VerticalAlignment="Top" Click = "AddNewCustomer" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
-
-            <ListView x:Name="CustomerList" ItemsSource="{Binding Path= CustomerList }"  FontSize="15" Padding="10" Margin="22" Grid.Row="1">
-                <ListView.View >
-                    <GridView>
-
-                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="Weight"  Width="130" DisplayMemberBinding="{Binding Weight}" />
-                        <GridViewColumn Header="Priority" Width="130" DisplayMemberBinding="{Binding Priority}" />
-                        <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
-                        <GridViewColumn Header="Target" Width="130" DisplayMemberBinding="{Binding Target}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
         </Grid>
         <Grid x:Name="UpdateCustomerGrid" Grid.Row="1" Margin="434,30,-434,-30">
             <Button  Name="updateCustomer" Content="update" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "UpdateCustomer" Margin="0,370,245,0"  Visibility ="Hidden"/>
             <Label  Name="ParcelDeliveryToCustomerLabel" Content = "Parcel Delivery To Customer:" VerticalAlignment ="Top" Margin = "113,180,543,0"  FontSize="16" Visibility="Hidden"/>
-            <ListView Name="ParcelDeliveryToCustomerList" Margin="44,214,502,235" Visibility="Hidden"/>
+            <ListView Name="ParcelDeliveryToCustomerList" ItemsSource="{Binding}" Margin="44,214,502,235" FontSize="15" MouseDoubleClick="GetParcel" Visibility="Hidden">
+                <ListView.View >
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
+                        <GridViewColumn Header="Weight"  Width="100" DisplayMemberBinding="{Binding Weight}" />
+                        <GridViewColumn Header="Priority" Width="130" DisplayMemberBinding="{Binding Priority}" />
+                        <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
+                        <GridViewColumn Header="Target" Width="250" DisplayMemberBinding="{Binding Target}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
             <Label  Name="ParcelDeliveryFromCustomerLabel" Content = "Parcel Delivery From Customer:" VerticalAlignment ="Top" Margin = "113,356,543,0"  FontSize="16" Visibility="Hidden"/>
-            <ListView Name="ParcelDeliveryFromCustomerList" Margin="43,392,502,56" Visibility="Hidden"/>
+            <ListView Name="ParcelDeliveryFromCustomerList" ItemsSource="{Binding}" Margin="43,392,502,56" FontSize="15"  MouseDoubleClick="GetParcel" Visibility="Hidden">
+                <ListView.View >
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
+                        <GridViewColumn Header="Weight"  Width="100" DisplayMemberBinding="{Binding Weight}" />
+                        <GridViewColumn Header="Priority" Width="130" DisplayMemberBinding="{Binding Priority}" />
+                        <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
+                        <GridViewColumn Header="Target" Width="250" DisplayMemberBinding="{Binding Target}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
         <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
     </Grid>

@@ -99,10 +99,11 @@ namespace PL
 
             DroneID.Text = drone.ID.ToString();
 
-            if (drone.Parcel != null) {
+            if (drone.Parcel != null)
+            {
                 parcelLabel.Visibility = Visibility.Visible;
                 parcel.Visibility = Visibility.Visible;
-                parcel.Text = drone.Parcel.ToString(); 
+                parcel.Text = drone.Parcel.ID.ToString();
             }
 
             batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -326,7 +327,7 @@ namespace PL
                 {
                     //new DroneListWindow(bl).Show();
                     //Close();
-                   
+
 
                 }
             }
@@ -357,10 +358,17 @@ namespace PL
             try { return int.Parse(station_ID.Text); }
             catch (Exception) { throw new InvalidObjException("Station ID"); }
         }
+
         private int GetTimeCharge()
         {
             try { return int.Parse(timecharge.Text); }
             catch (Exception) { throw new InvalidObjException("Station ID"); }
         }
+
+        private void GetParcel(object sender, MouseButtonEventArgs e)
+        {
+            string ID = (sender as TextBox).SelectedText;
+            new ParcelWindow(bl, bl.GetSpesificParcelBL(int.Parse(ID))).Show();
+        }      
     }
 }

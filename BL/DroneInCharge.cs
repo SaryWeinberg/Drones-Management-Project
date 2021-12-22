@@ -9,6 +9,8 @@ namespace BO
 {
     public class DroneInCharge
     {
+
+
         private int id;
         private double batteryStatus;
         public int ID {
@@ -30,6 +32,17 @@ namespace BO
                 else
                     throw new InvalidObjException("batteryStatus");
             }
+        }
+
+        public DroneInCharge(int DroneID, double BatteryStatus)
+        {
+            id = DroneID;
+            batteryStatus = BatteryStatus;
+        }
+
+        public override string ToString()
+        {
+            return "ID: " + ID + " BatteryStatus: " + BatteryStatus;
         }
     }
 }
