@@ -26,6 +26,10 @@
         </Grid>
         <Grid x:Name="UpdateCustomerGrid" Grid.Row="1" Margin="434,30,-434,-30">
             <Button  Name="updateCustomer" Content="update" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "UpdateCustomer" Margin="0,370,245,0"  Visibility ="Hidden"/>
+            <Label  Name="ParcelDeliveryToCustomerLabel" Content = "Parcel Delivery To Customer:" VerticalAlignment ="Top" Margin = "113,180,543,0"  FontSize="16" Visibility="Hidden"/>
+            <ListView Name="ParcelDeliveryToCustomerList" Margin="44,214,502,235" Visibility="Hidden"/>
+            <Label  Name="ParcelDeliveryFromCustomerLabel" Content = "Parcel Delivery From Customer:" VerticalAlignment ="Top" Margin = "113,356,543,0"  FontSize="16" Visibility="Hidden"/>
+            <ListView Name="ParcelDeliveryFromCustomerList" Margin="43,392,502,56" Visibility="Hidden"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
     </Grid>

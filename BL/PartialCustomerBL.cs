@@ -102,7 +102,9 @@ namespace BL
                 ID = c.ID,
                 Name = c.Name,
                 PhoneNum = c.PhoneNum,
-                Location = new Location { Latitude = c.Latitude, Longitude = c.Longitude }
+                Location = new Location { Latitude = c.Latitude, Longitude = c.Longitude },
+                DeliveryFromCustomer = dalObj.GetParcelByCondition(parcel => parcel.SenderId == c.ID),
+                DeliveryToCustomer = dalObj.GetParcelByCondition(parcel => parcel.SenderId == c.ID)
             };
         }
 

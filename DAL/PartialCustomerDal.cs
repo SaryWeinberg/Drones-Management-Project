@@ -55,11 +55,7 @@ namespace DalObject
         public IEnumerable<Customer> GetCustomerLists()
         {
             return from customer in DataSource.Customers
-                   select customer;
-            /*foreach (Customer customer in DataSource.Customers)
-            {
-                yield return customer;
-            }*/
+                   select customer;           
         }
 
         /// <summary>
@@ -69,16 +65,6 @@ namespace DalObject
         public List<Customer> GetCustomers()
         {
             return DataSource.Customers;
-        }
-
-
-        public IEnumerable<Parcel> getParceleByCondition(Predicate<Parcel> predicate)
-        {
-            //try todo
-            return (from parcel in DataSource.Parcels
-                    where predicate(parcel)
-                    select parcel);
-        }
-
+        }      
     }
 }

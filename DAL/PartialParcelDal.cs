@@ -9,7 +9,7 @@ using DalApi;
 
 namespace DalObject
 {
-     partial class DalObject : IDal
+    partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new parcel to DataBase
@@ -55,11 +55,19 @@ namespace DalObject
         {
             return from parcel in DataSource.Parcels
                    select parcel;
-          /*  foreach (Parcel parcel in DataSource.Parcels)
-            {
-                yield return parcel;
-            }*/
+            /*  foreach (Parcel parcel in DataSource.Parcels)
+              {
+                  yield return parcel;
+              }*/
         }
+
+        public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> condition)
+        {
+            return from parcelBL in GetParcels()
+                   where condition(parcelBL)
+                   select parcelBL;
+        }
+
 
         /// <summary>
         /// Returns the parcel list

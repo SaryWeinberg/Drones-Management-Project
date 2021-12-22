@@ -32,8 +32,7 @@ namespace DalApi
         public void UpdateCustomer(Customer customer);
         public void UpdateStation(Station station);
         public void UpdateParcel(Parcel parcel);
-
-        public IEnumerable<Parcel> getParceleByCondition(Predicate<Parcel> predicate);
+        public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> conditin);
 
     }
 }

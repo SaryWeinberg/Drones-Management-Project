@@ -49,6 +49,12 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+            ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
+            ParcelDeliveryToCustomerList.Visibility = Visibility.Visible;
+            ParcelDeliveryFromCustomerLabel.Visibility = Visibility.Visible;
+            ParcelDeliveryFromCustomerList.Visibility = Visibility.Visible;
+            ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
+            ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
             Customer = customer;
             CustomerID.Text = customer.ID.ToString();

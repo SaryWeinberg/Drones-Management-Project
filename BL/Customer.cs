@@ -48,9 +48,9 @@ namespace BO
         }
         public Location Location { get; set; }
 
-        public List<ParcelsAtTheCustomer> DeliveryToCustomer = new List<ParcelsAtTheCustomer>();
+        public List<ParcelsAtTheCustomer> DeliveryToCustomer { get; set; }
 
-        public List<ParcelsAtTheCustomer> DeliveryFromCustomer = new List<ParcelsAtTheCustomer>();
+        public List<ParcelsAtTheCustomer> DeliveryFromCustomer { get; set; }
 
         public override string ToString()
         {
