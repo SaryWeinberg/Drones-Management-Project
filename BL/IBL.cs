@@ -55,5 +55,6 @@ namespace BLApi
         public List<BO.DroneToList> GetDronesListBL();
         public List<BO.ParcelToList> GetParcelsListBL();
         public List<BO.StationToList> GetStationsListBL();
+   //     public double Distance(Location location1, Location location2);
     }
 }

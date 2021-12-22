@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BL;
 namespace BO
 {
     public class ParcelByDelivery
@@ -18,9 +18,23 @@ namespace BO
         public Location PickUpLocation { get; set; }
         public Location TargetLocation { get; set; }
         public double Distance { get; set; }
-        public override string ToString()
+        public ParcelByDelivery(BO.Parcel parcel, BO.Drone drone, BO.Customer sender, BO.Customer target)
         {
-            return "Parcel: id:" + ID + " sender: " + Sender + " target: " + Target + "DeliveryStatus(T/F): " + DeliveryStatus + "\n " ;
+            ID = parcel.ID;
+            DeliveryStatus = (drone.Status == DroneStatus.Delivery);
+            Latitude = drone.Location.Latitude;
+            Weight = parcel.Weight;
+            Property = parcel.Priority;
+            Sender = parcel.Sender;
+            Target = parcel.Target;
+            PickUpLocation = sender.location;
+            TargetLocation = target.location;
+            Distance = Math.Sqrt(Math.Pow((TargetLocation.Longitude - PickUpLocation.Longitude), 2) + Math.Pow((TargetLocation.Latitude - PickUpLocation.Latitude), 2)); 
         }
+
+    public override string ToString()
+    {
+        return "Parcel: id:" + ID + " sender: " + Sender + " target: " + Target + "DeliveryStatus(T/F): " + DeliveryStatus + "\n ";
     }
+}
 }
