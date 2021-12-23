@@ -11,9 +11,9 @@
             <ImageBrush ImageSource="/Images/DroneImg.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="604,83,0,389" Width="204"></Image>
-        <Button Content="Drone List Window"    Style="{StaticResource RedButton}"  Margin="634,210,125,0" Click="ViewDroneListWindow" />
-        <Button Content="Parcel List Window"   Style="{StaticResource RedButton}"  Margin="634,280,125,0" Click="ViewParcelListWindow" />
-        <Button Content="Customer List Window" Style="{StaticResource RedButton}"  Margin="637,350,125,0" Click="ViewCustomerListWindow" FontSize="13"/>
-        <Button Content="Station List Window"  Style="{StaticResource RedButton}"  Margin="634,420,125,0" Click="ViewStationListWindow"/>
+        <Button Content="Drone List Window"    Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,210,0,0" Click="ViewDroneListWindow" />
+        <Button Content="Parcel List Window"   Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,280,0,0" Click="ViewParcelListWindow" />
+        <Button Content="Customer List Window" Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,350,0,0" Click="ViewCustomerListWindow" FontSize="13"/>
+        <Button Content="Station List Window"  Style="{StaticResource RedButton}" HorizontalAlignment="Left" Margin="634,420,0,0" Click="ViewStationListWindow"/>
     </Grid>
 </Window>
