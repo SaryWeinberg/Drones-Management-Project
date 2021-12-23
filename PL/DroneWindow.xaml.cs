@@ -325,7 +325,7 @@ namespace PL
             {
                 MessageBoxResult result =
                MessageBox.Show(
-               bl.SupplyParcelByDrone(GetID()),
+               bl.SupplyParcelByDrone(IDInput()),
                $"Delivery parcel",
                MessageBoxButton.OK,
                MessageBoxImage.Information);
