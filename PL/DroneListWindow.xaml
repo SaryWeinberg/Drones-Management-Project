@@ -41,8 +41,35 @@
                     <GridViewColumn Header="Parcel" Width="130" DisplayMemberBinding="{Binding Parcel}" />
                 </GridView>
             </ListView.View>
+
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Status}" Foreground="Gray" FontSize="18" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" FontWeight="Bold"  Foreground="#0d62b8" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" items" FontSize="18" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
         <Button Grid.Row="2" Content="Add Drone" Click="AddDrone" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="696,8,0,0" />
+        <Button Grid.Row="2" Content="Group by status" Click="GroupByStatus" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="530,8,0,0" />
+        <Button Grid.Row="2" Content="Group by Weight" Click="GroupByStatus" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="360,8,0,0" />
     </Grid>
 </Window>
