@@ -87,7 +87,7 @@ namespace BL
         {
             if (model != "")
             {
-                Drone drone = GetSpesificDroneBL(id);
+                Drone drone = GetSpesificDrone(id);
                 drone.Model = model;
                 UpdateDrone(drone);
             }
@@ -142,7 +142,7 @@ namespace BL
         /// </summary>
         /// <param name="droneId"></param>
         /// <returns></returns>
-        public Drone GetSpesificDroneBL(int droneId)
+        public Drone GetSpesificDrone(int droneId)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace BL
         /// Returns the drone list with DroneToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.DroneToList> GetDronesToListBL()
+        public List<BO.DroneToList> GetDronesToList()
         {
 
             List<BO.DroneToList> droneToList = new List<BO.DroneToList>();
@@ -200,6 +200,19 @@ namespace BL
             return from droneBL in GetDronesList()
                    where condition(droneBL)
                    select droneBL;
+        }
+
+
+        /// <summary>
+        /// Returns a list of dronesToList that meet the condition 
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition)
+        {
+            return from droneToList in GetDronesToList()
+                   where condition(droneToList)
+                   select droneToList;
         }
 
         /// <summary>

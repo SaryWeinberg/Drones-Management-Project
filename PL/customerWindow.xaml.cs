@@ -51,9 +51,9 @@ namespace PL
             bl = blMain;
 
             ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
-            ParcelDeliveryToCustomerList.Visibility = Visibility.Visible;
+/*            ParcelDeliveryToCustomerList.Visibility = Visibility.Visible;
             ParcelDeliveryFromCustomerLabel.Visibility = Visibility.Visible;
-            ParcelDeliveryFromCustomerList.Visibility = Visibility.Visible;
+            ParcelDeliveryFromCustomerList.Visibility = Visibility.Visible;*/
             ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
@@ -62,6 +62,7 @@ namespace PL
             CustomerName.Text = customer.Name.ToString();
             CustomerPhone.Text = customer.PhoneNum.ToString();
             CustomerLongitude.Text = customer.location.Longitude.ToString();
+            CustomerLatitude.Text = customer.location.Latitude.ToString();
 
             CustomerID.IsEnabled = false;
             CustomerLongitude.IsEnabled = false;

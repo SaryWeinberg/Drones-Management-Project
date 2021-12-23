@@ -82,7 +82,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            DroneListView.ItemsSource = bl.GetDronesToListBL();
+            DroneListView.ItemsSource = bl.GetDronesToList();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -98,12 +98,12 @@ namespace PL
             WeightCategories Sweight = 0;
             if (WeightSelector.SelectedItem == null)
             {
-                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.Status == (DroneStatus)status.SelectedItem);
+                DroneListView.ItemsSource = bl.GetDronesToListByCondition(drone => drone.Status == (DroneStatus)status.SelectedItem);
             }
             else
             {
                 Sweight = (WeightCategories)WeightSelector.SelectedItem;
-                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
+                DroneListView.ItemsSource = bl.GetDronesToListByCondition(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
             }
         }
 
@@ -118,12 +118,12 @@ namespace PL
             DroneStatus Sstatus = 0;
             if (StatusSelector.SelectedItem == null)
             {
-                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem);
+                DroneListView.ItemsSource = bl.GetDronesToListByCondition(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem);
             }
             else
             {
                 Sstatus = (DroneStatus)StatusSelector.SelectedItem;
-                DroneListView.ItemsSource = bl.GetDronesByCondition(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem && drone.Status == Sstatus);
+                DroneListView.ItemsSource = bl.GetDronesToListByCondition(drone => drone.MaxWeight == (WeightCategories)weight.SelectedItem && drone.Status == Sstatus);
             }
         }
 
@@ -135,7 +135,7 @@ namespace PL
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
             BO.DroneToList drone = (sender as ListView).SelectedValue as BO.DroneToList;
-            new DroneWindow(bl, bl.GetSpesificDroneBL(drone.ID)).Show();
+            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
             Close();
         }
 
@@ -162,7 +162,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesList();
+        private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesToList();
 
         /// <summary>
         /// Refresh the drone list

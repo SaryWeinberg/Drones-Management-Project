@@ -91,7 +91,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcels();
+        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsToList();
 
         /// <summary>
         /// Show parcel window with adding ctor

@@ -136,7 +136,7 @@ namespace BL
         public string SendDroneToCharge(int droneId)
         {
           //  DroneCharge droneCharge = new DroneCharge();
-            BO.Drone drone = GetSpesificDroneBL(droneId);
+            BO.Drone drone = GetSpesificDrone(droneId);
 
             if (drone.Status != DroneStatus.Available)
             {
@@ -173,7 +173,7 @@ namespace BL
         /// <param name="timeInCharge"></param>
         public string ReleaseDroneFromCharge(int droneId, int timeInCharge)
         {
-            BO.Drone droneBL = GetSpesificDroneBL(droneId);
+            BO.Drone droneBL = GetSpesificDrone(droneId);
             if (droneBL.Status != DroneStatus.Maintenance)
             {
                 throw new TheDroneNotInChargeException();
@@ -206,7 +206,7 @@ namespace BL
         /// <param name="droneId"></param>
         public string AssignParcelToDrone(int droneId)
         {
-            BO.Drone droneBL = GetSpesificDroneBL(droneId);
+            BO.Drone droneBL = GetSpesificDrone(droneId);
 
             if (droneBL.Status != DroneStatus.Available)
             {
@@ -278,7 +278,7 @@ namespace BL
         /// <param name="droneId"></param>
         public string CollectParcelByDrone(int droneId)
         {
-            BO.Drone droneBL = GetSpesificDroneBL(droneId);
+            BO.Drone droneBL = GetSpesificDrone(droneId);
             List<BO.Parcel> parcels = GetParcels();
             foreach (BO.Parcel currentParcel in parcels)
             {
@@ -308,7 +308,7 @@ namespace BL
         /// <param name="droneId"></param>
         public string DeliveryParcelByDrone(int droneId)
         {
-            BO.Drone droneBL = GetSpesificDroneBL(droneId);
+            BO.Drone droneBL = GetSpesificDrone(droneId);
             List<BO.Parcel> parcels = GetParcels();
             foreach (BO.Parcel currentParcel in parcels)
             {

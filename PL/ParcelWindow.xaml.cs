@@ -36,9 +36,9 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            AddParcelGrid.Visibility = Visibility.Hidden;              
-                                 
-            ParcelID.Text = parcel.ID.ToString();
+            AddParcelGrid.Visibility = Visibility.Hidden;
+            UpdateParcelGrid.DataContext = parcel;
+/*            ParcelID.Text = parcel.ID.ToString();
             ParcelSender.Text = parcel.Sender.ID.ToString();
             ParcelTarget.Text = parcel.Target.ID.ToString();
             ParcelWeigh.Text = parcel.Weight.ToString();
@@ -47,7 +47,7 @@ namespace PL
             ParcelCreated.Text = parcel.Created.ToString();
             ParcelAssociated.Text = parcel.Associated.ToString();
             ParcelPickedUp.Text = parcel.PickedUp.ToString();
-            ParcelDelivered.Text = parcel.Delivered.ToString();
+            ParcelDelivered.Text = parcel.Delivered.ToString();*/
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
@@ -107,7 +107,7 @@ namespace PL
         private void GetDrone(object sender, MouseButtonEventArgs e)
         {
             string ID = (sender as TextBox).SelectedText;
-            new DroneWindow(bl, bl.GetSpesificDroneBL(int.Parse(ID))).Show();
+            new DroneWindow(bl, bl.GetSpesificDrone(int.Parse(ID))).Show();
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
