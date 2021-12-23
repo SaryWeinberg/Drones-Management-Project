@@ -176,5 +176,27 @@ namespace PL
             new MainWindow().Show();
             Close();
         }
+
+        private CollectionView view;
+
+        private void GroupByStatus(object sender, RoutedEventArgs e)
+        {
+            ClearListView();
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void GroupByWeight(object sender, RoutedEventArgs e)
+        {
+            ClearListView();
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Weight");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void ClearListView()
+        {
+            DroneListView.ItemsSource = bl.GetDronesToListBL();
+            view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
+        }
     }
 }
