@@ -129,5 +129,16 @@ namespace PL
             BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
             new ParcelWindow(bl, bl.GetSpesificParcelBL(parcelsAtTheCustomer.ID)).Show();
         }
+
+        private void RefreshWindow(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new CustomerListWindow(bl).Show();
+            Close();
+        }
     }
 }

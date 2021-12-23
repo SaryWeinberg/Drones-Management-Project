@@ -109,5 +109,16 @@ namespace PL
             string ID = (sender as TextBox).SelectedText;
             new DroneWindow(bl, bl.GetSpesificDroneBL(int.Parse(ID))).Show();
         }
+
+        private void RefreshWindow(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new ParcelListWindow(bl).Show();
+            Close();
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                   /* new StationListWindow(bl).Show();*/
+                    new StationListWindow(bl).Show();
                     Close();
                 }
             }
@@ -89,7 +89,7 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    //new StationListWindow(bl).Show();
+                    new StationListWindow(bl).Show();
                     Close();
                 }
             }
@@ -127,5 +127,16 @@ namespace PL
             try { return int.Parse(StationLatitude.Text); }
             catch (Exception) { throw new InvalidObjException("Latitude"); }
         }
+
+        private void RefreshWindow(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new StationListWindow(bl).Show();
+            Close();
+        }        
     }   
 }

@@ -47,5 +47,7 @@
             <Button  Name="update" Content="update" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "UpdateDrone" Visibility ="Hidden"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
+        <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+        <Button Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
     </Grid>
 </Window>

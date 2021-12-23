@@ -132,11 +132,6 @@ namespace BL
             };
         }
 
-
-
-
-
-
         /// <summary>
         /// Returning a specific customer by ID number
         /// </summary>

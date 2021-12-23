@@ -30,5 +30,6 @@
         <Button Grid.Row="2" Content="Add customer" Style="{StaticResource RedButton}" Click="AddCustomer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
         <Button Style="{StaticResource CloseButton}" Click="DataWindowClosing"/>
         <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+        <Button Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
     </Grid>
 </Window>

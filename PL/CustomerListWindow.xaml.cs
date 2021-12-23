@@ -40,5 +40,11 @@ namespace PL
             BO.CustomerToList customerToList = (sender as ListView).SelectedValue as BO.CustomerToList;
             new CustomerWindow(bl, bl.GetSpesificCustomer(customerToList.ID)).Show();
         }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

@@ -298,8 +298,8 @@ namespace PL
                 MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new DroneListWindow(bl).Show();
-                    Close();
+/*                    new DroneListWindow(bl).Show();
+*/                    Close();
                 }
             }
             catch (Exception exc)
@@ -326,9 +326,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     //new DroneListWindow(bl).Show();
-                    //Close();
-
-
+                    Close();
                 }
             }
             catch (Exception exc)
@@ -369,6 +367,17 @@ namespace PL
         {
             string ID = (sender as TextBox).SelectedText;
             new ParcelWindow(bl, bl.GetSpesificParcelBL(int.Parse(ID))).Show();
-        }      
+        }
+
+        private void RefreshWindow(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new DroneListWindow(bl).Show();
+            Close();
+        }
     }
 }

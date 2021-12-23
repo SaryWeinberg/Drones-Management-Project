@@ -28,22 +28,22 @@ namespace PL
 
         private void ViewDroneListWindow(object sender, RoutedEventArgs e)
         {
-            new DroneListWindow(bl).Show();
+            new DroneListWindow(bl).Show(); Close();
         }
 
         private void ViewParcelListWindow(object sender, RoutedEventArgs e)
         {
-            new ParcelListWindow(bl).Show();
+            new ParcelListWindow(bl).Show(); Close();
         }
 
         private void ViewCustomerListWindow(object sender, RoutedEventArgs e)
         {
-            new CustomerListWindow(bl).Show();
+            new CustomerListWindow(bl).Show(); Close();
         }
 
         private void ViewStationListWindow(object sender, RoutedEventArgs e)
         {
-            new StationListWindow(bl).Show();
+            new StationListWindow(bl).Show(); Close();
         }
     }
 }

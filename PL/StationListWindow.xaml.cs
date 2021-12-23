@@ -18,7 +18,7 @@ namespace PL
     /// Interaction logic for StationListWindow.xaml
     /// </summary>
     public partial class StationListWindow : Window
-    {        
+    {
         BLApi.IBL bl;
 
         public StationListWindow(BLApi.IBL blMain)
@@ -33,12 +33,23 @@ namespace PL
 
         private void RefreshWindow(object sender, RoutedEventArgs e) => StationListView.Items.Refresh();
 
-        private void AddStation(object sender, RoutedEventArgs e) => new StationWindow(bl).Show();
+        private void AddStation(object sender, RoutedEventArgs e)
+        {
+            new StationWindow(bl).Show();
+            Close();
+        }
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
-            BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;            
+            BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;
             new StationWindow(bl, bl.GetSpesificStation(station.ID)).Show();
+            Close();
+        }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
         }
     }
 }

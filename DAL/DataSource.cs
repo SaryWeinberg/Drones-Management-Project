@@ -7,20 +7,20 @@ using DO;
 
 namespace DalObject
 {
-    public class DataSource
-    {        
-        static internal List<Drone> Drones = new List<Drone>();
-        static internal List<Station> Stations = new List<Station>();
-        static internal List<Customer> Customers = new List<Customer>();
-        static internal List<Parcel> Parcels = new List<Parcel>();
-        static internal List<DroneCharge> DroneCharges = new List<DroneCharge>();
+    internal class DataSource
+    {
+        internal static List<Drone> Drones = new List<Drone>();
+        internal static List<Station> Stations = new List<Station>();
+        internal static List<Customer> Customers = new List<Customer>();
+        internal static List<Parcel> Parcels = new List<Parcel>();
+        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
 
         internal class config
         {
             public static double Available =0.02, Light =0.3, medium= 0.5, heavy=0.7, chargingRate=0.8;       
         }
 
-        static public void Initialize()
+        public static void Initialize()
         {
             Random rand = new Random();
             for (int i = 0; i < 2; i++)

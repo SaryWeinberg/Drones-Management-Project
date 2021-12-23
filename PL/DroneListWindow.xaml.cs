@@ -136,6 +136,7 @@ namespace PL
         {
             BO.DroneToList drone = (sender as ListView).SelectedValue as BO.DroneToList;
             new DroneWindow(bl, bl.GetSpesificDroneBL(drone.ID)).Show();
+            Close();
         }
 
         /// <summary>
@@ -143,7 +144,11 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AddDrone(object sender, RoutedEventArgs e) => new DroneWindow(bl).Show();
+        private void AddDrone(object sender, RoutedEventArgs e)
+        {
+            new DroneWindow(bl).Show();
+            Close();
+        }
 
         /// <summary>
         /// Closeing window
@@ -165,5 +170,11 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

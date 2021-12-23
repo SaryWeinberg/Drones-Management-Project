@@ -98,12 +98,23 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AddParcel(object sender, RoutedEventArgs e) => new ParcelWindow(bl).Show();
+        private void AddParcel(object sender, RoutedEventArgs e)
+        {
+            new ParcelWindow(bl).Show();
+            Close();
+        }
 
         private void UpdateParcel(object sender, MouseButtonEventArgs e)
         {
             BO.ParcelToList parcelToList = (sender as ListView).SelectedValue as BO.ParcelToList;
             new ParcelWindow(bl, bl.GetSpesificParcelBL(parcelToList.ID)).Show();
+            Close();
+        }
+
+        private void ReturnWindow(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
         }
     }
 }

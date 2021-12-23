@@ -46,6 +46,8 @@
                 <TextBox Name="ParcelDelivered" VerticalAlignment = "Top" Margin = "221, 300,500, 0" FontSize="16" IsEnabled="False"/>
             </Grid>
             <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
+            <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+            <Button Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
         </Grid>
     </Grid>
 </Window>

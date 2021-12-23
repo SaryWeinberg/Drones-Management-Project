@@ -26,6 +26,7 @@
             <Button Grid.Column="0" Content="Parcel List" Style="{StaticResource RedButton}" Click="ParcelAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Margin="0,15,0,0"/>
             <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
             <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+            <Button Grid.Column="3" Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
         </Grid>
         <ListView x:Name="ParcelListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateParcel">
             <ListView.View >

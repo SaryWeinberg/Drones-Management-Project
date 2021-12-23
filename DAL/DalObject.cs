@@ -20,12 +20,10 @@ namespace DalObject
         public static DalObject GetInstance {
             get
             {
-
                 if (instance == null)
                     instance = new DalObject();
                 return instance;
-            }
-            
+            }            
         }
 
         public double[] ElectricalPowerRequest()
