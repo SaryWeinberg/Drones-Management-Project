@@ -73,31 +73,34 @@ namespace PL
         /// <param name="drone"></param>
         public DroneWindow(BLApi.IBL blMain, BO.Drone drone)
         {
+
+          
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             Drone = drone;
+            AddDroneGrid.DataContext = Drone;
             StationIdLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
 
             DroneModelLabel.Content = "drone model:";
-            DroneModel.Text = drone.Model.ToString();
+    /*        DroneModel.Text = drone.Model.ToString();*/
             DroneModel.TextChanged += AddUpdateBTN;
             DroneID.IsEnabled = false;
             DroneIDLabel.Content = " drone ID:";
             MaxWeightLabel.Content = "max weight";
 
             max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            max_weight.Text = drone.MaxWeight.ToString();
+     /*       max_weight.Text = drone.MaxWeight.ToString();*/
             max_weight.IsEnabled = false;
             max_weight.IsEditable = true;
 
             Status.ItemsSource = Enum.GetValues(typeof(Status));
-            Status.Text = drone.Status.ToString();
+     /*       Status.Text = drone.Status.ToString();*/
             Status.IsEnabled = false;
             Status.IsEditable = true;
 
-            DroneID.Text = drone.ID.ToString();
+         /*   DroneID.Text = drone.ID.ToString();*/
 
             if (drone.Parcel != null)
             {
@@ -107,10 +110,10 @@ namespace PL
             }
 
             batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            batteryStatus.Text = drone.BatteryStatus.ToString();
+/*            batteryStatus.Text = drone.BatteryStatus.ToString();*/
             batteryStatus.IsEditable = true;
-            longitude.Text = drone.Location.Longitude.ToString();
-            latitude.Text = drone.Location.Latitude.ToString();
+/*            longitude.Text = drone.Location.Longitude.ToString();
+            latitude.Text = drone.Location.Latitude.ToString();*/
 
             if (drone.Status == DroneStatus.Available)
             {
@@ -191,7 +194,7 @@ namespace PL
                 {
 
                     new DroneListWindow(bl).Show();
-                    Close();
+             /*       Close();*/
                 }
             }
             catch (Exception exc)
@@ -207,6 +210,7 @@ namespace PL
         /// <param name="e"></param>
         private void SendDroneToCharge(object sender, RoutedEventArgs e)
         {
+            
             try
             {
                 MessageBoxResult result =
@@ -215,10 +219,12 @@ namespace PL
                   $"Send drone ID - {IDInput()} to charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
+                Drone.ID = 1;
+                
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
-                    Close();
+                  /*  Close();*/
                 }
             }
             catch (Exception exc)
@@ -245,7 +251,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
-                    Close();
+                  /*  Close();*/
                 }
             }
             catch (Exception exc)
@@ -272,7 +278,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
-                    Close();
+             /*       Close();*/
                 }
             }
             catch (Exception exc)
@@ -299,7 +305,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
 /*                    new DroneListWindow(bl).Show();
-*/                    Close();
+*/                    /*Close();*/
                 }
             }
             catch (Exception exc)
@@ -319,14 +325,14 @@ namespace PL
             {
                 MessageBoxResult result =
                MessageBox.Show(
-               bl.DeliveryParcelByDrone(IDInput()),
+               bl.SupplyParcelByDrone(GetID()),
                $"Delivery parcel",
                MessageBoxButton.OK,
                MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
                     //new DroneListWindow(bl).Show();
-                    Close();
+          /*          Close();*/
                 }
             }
             catch (Exception exc)

@@ -2,7 +2,7 @@
 
 namespace BO
 {
-    public class Parcel
+    public class Parcel 
     {
         private int id;
         public int ID {
