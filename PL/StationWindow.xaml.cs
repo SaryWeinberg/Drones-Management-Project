@@ -36,8 +36,8 @@ namespace PL
             {               
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddStationBL(GetID(), GetName(), new BO.Location { Longitude = GetLongitude(), Latitude = GetLatitude() }, GetChargeSlots()),
-                   $"Add station ID - {GetID()}",
+                   bl.AddStationBL(IDInput(), NameInput(), new BO.Location { Longitude = LongitudeInput(), Latitude = LatitudeInput() }, ChargeSlotsInput()),
+                   $"Add station ID - {IDInput()}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -83,7 +83,7 @@ namespace PL
             {           
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.UpdateStationData(GetID(), GetName(), GetChargeSlots()),
+                   bl.UpdateStationData(IDInput(), NameInput(), ChargeSlotsInput()),
                    $"Update station ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -102,27 +102,27 @@ namespace PL
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         //===========Get Inputs===========
-        private int GetID()
+        private int IDInput()
         {
             try { return int.Parse(StationID.Text); }
             catch (Exception) { throw new InvalidObjException("ID"); }
         }
-        private int GetChargeSlots()
+        private int ChargeSlotsInput()
         {
             try { return int.Parse(StationChargeSlots.Text); }
             catch (Exception) { throw new InvalidObjException("ChargeSlots"); }
         }
-        private int GetName()
+        private int NameInput()
         {
             try { return int.Parse(StationName.Text); }
             catch (Exception) { throw new InvalidObjException("Name"); }
         }
-        private int GetLongitude()
+        private int LongitudeInput()
         {
             try { return int.Parse(StationLongitude.Text); }
             catch (Exception) { throw new InvalidObjException("Longitude"); }
         }
-        private int GetLatitude()
+        private int LatitudeInput()
         {
             try { return int.Parse(StationLatitude.Text); }
             catch (Exception) { throw new InvalidObjException("Latitude"); }
