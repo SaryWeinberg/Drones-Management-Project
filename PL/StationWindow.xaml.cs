@@ -64,6 +64,9 @@ namespace PL
             StationChargeSlots.Text = station.AveChargeSlots.ToString();
             StationLongitude.Text = station.Location.Longitude.ToString();
             StationLatitude.Text = station.Location.Latitude.ToString();
+            DronesInChargelistLabel.Visibility = Visibility.Visible;
+            DronesInChargelist.Visibility = Visibility.Visible;
+            DronesInChargelist.ItemsSource = station.DronesInChargelist.ToString();
             StationID.IsEnabled = false;
             StationLongitude.IsEnabled = false;
             StationLatitude.IsEnabled = false;
@@ -137,6 +140,13 @@ namespace PL
         {
             new StationListWindow(bl).Show();
             Close();
-        }        
+        }
+
+        private void GetDrone(object sender, MouseButtonEventArgs e)
+        {
+            BO.DroneInCharge drone = (sender as ListView).SelectedValue as BO.DroneInCharge;
+            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
+            Close();
+        }
     }   
 }

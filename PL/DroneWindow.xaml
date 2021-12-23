@@ -16,38 +16,38 @@
         </Grid.RowDefinitions>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"></Image>
         <Grid x:Name="AddDroneGrid" Grid.Row="1" Margin="434,30,-434,-30">
-            <Label Name="DroneIDLabel"  Content = "drone ID:" VerticalAlignment ="Top" Margin = "43, 30, 680, 0" FontSize="16"/>
-            <TextBox Name =  "DroneID" VerticalAlignment = "Top" Margin = "221, 30, 500, 0" FontSize="16"/>
-            <Label  Name="MaxWeightLabel" Content = "drone max weight:" VerticalAlignment ="Top" Margin = "43, 60, 680, 0" FontSize="16"/>
-            <ComboBox Name = "max_weight" VerticalAlignment = "Top" Margin = "221, 60,500, 0" FontSize="13"/>
-            <Label Name="DroneModelLabel"  Content = "drone model:" VerticalAlignment ="Top" Margin = "43, 90, 680, 0" FontSize="16"/>
-            <TextBox Name ="DroneModel" VerticalAlignment = "Top" Margin = "221, 90, 500, 0" FontSize="16"/>
-            <Label  Name="StationIdLabel" Content = "drone station ID:" VerticalAlignment ="Top" Margin = "43, 120, 680, 0" Visibility="Hidden" FontSize="16"/>
-            <TextBox Name = "station_ID" VerticalAlignment = "Top" Margin = "221, 120, 500, 0" Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}" FontSize="16"/>
-            <Button  Name="sendNewDrone" Content = "Send" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "AddNewDrone"  Margin="0,370,245,0"  Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}"/>
+            <Label Name="DroneIDLabel"    Content="drone ID:"         Margin="43, 30, 680, 0"/>
+            <Label Name="MaxWeightLabel"  Content="drone max weight:" Margin="43, 60, 680, 0" />
+            <Label Name="DroneModelLabel" Content="drone model:"      Margin="43, 90, 680, 0"/>
+            <Label Name="StationIdLabel"  Content="drone station ID:" Margin="43, 120, 680, 0" Visibility="Hidden"/>
+            <TextBox  Name="DroneID"      Margin="221, 30, 500, 0"/>
+            <ComboBox Name="max_weight"   Margin="221, 60, 500, 0"/>
+            <TextBox  Name="DroneModel"   Margin="221, 90, 500, 0"/>
+            <TextBox  Name="station_ID"   Margin="221, 120, 500, 0" Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}"/>
+            <Button Name="sendNewDrone" Content = "Send" Style="{StaticResource RedButton}" Click="AddNewDrone"  Margin="0,370,245,0"  Visibility="{Binding ElementName= StationIdLabel, Path=Visibility}"/>
         </Grid>
         <Grid x:Name="UpdateDroneGrid" Grid.Row="1" Margin="434,30,-434,-30">
-            <Label Name = "batteryStatusLabel" Content = "drone battery status:" VerticalAlignment = "Top" Margin ="43,120,684,0"  Visibility="Visible" FontSize="16"/>
-            <ComboBox Name = "batteryStatus" VerticalAlignment = "Top" Margin = "221,120,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="13"/>
-            <Label Name="statusLabel" Content = "drone status:" VerticalAlignment = "Top" Margin ="43,150,684,0"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <ComboBox Name = "Status" VerticalAlignment = "Top" Margin = "221,150,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="13"/>
-            <Label Name="longitudeLabel" Content = "drone longitude:" VerticalAlignment = "Top" Margin ="43,180,684,0"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <TextBox Name = "longitude" VerticalAlignment = "Top" Margin = "221, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <Label Name="latitudeLabel" Content = "drone latitude:" VerticalAlignment = "Top" Margin ="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <TextBox Name = "latitude" VerticalAlignment = "Top" Margin = "221, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <Label Name="parcelLabel" Content = "parcel by delivery ID:" VerticalAlignment = "Top" Margin ="43, 240, 684, 0" Visibility="Hidden" FontSize="16"/>
-            <TextBox Name = "parcel" VerticalAlignment = "Top" AcceptsReturn="True" Margin = "221, 240, 500, 0" Visibility="Hidden" FontSize="16" MouseDoubleClick="GetParcel"/>
-            <Label Name="timechargeLabel" Content="write time of charge:" VerticalAlignment ="Top" Margin ="43, 270, 684, 0" Visibility="Hidden" FontSize="16"/>
-            <TextBox Name="timecharge" VerticalAlignment ="Top" Margin ="221, 270, 500, 0" Visibility="Hidden" FontSize="16"/>
-            <Button  Name="sendDroneToCharge" Content="send drone to charge" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "SendDroneToCharge" Visibility ="Hidden"/>
-            <Button  Name="assignParcelToDrone" Content="assign Parcel To Drone" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "AssignParcelToDrone" Visibility ="Hidden"/>
-            <Button  Name="releaseDronefromCharge" Content="release Drone from Charge" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "ReleaseDronefromCharge" Visibility ="Hidden"/>
-            <Button  Name="collectParcelByDrone" Content="collect Parcel By Drone" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "CollectParcelByDrone" Visibility ="Hidden"/>
-            <Button  Name="deliveryParcelByDrone" Content="delivery Parcel By Drone" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "DeliveryParcelByDrone" Visibility ="Hidden"/>
-            <Button  Name="update" Content="update" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "UpdateDrone" Visibility ="Hidden"/>
+            <Label Name="batteryStatusLabel" Content="drone battery status:"  Margin ="43, 120, 684, 0" Visibility="Visible"/>
+            <Label Name="statusLabel"        Content="drone status:"          Margin ="43, 150, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="longitudeLabel"     Content="drone longitude:"       Margin ="43, 180, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="latitudeLabel"      Content="drone latitude:"        Margin ="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="parcelLabel"        Content="parcel by delivery ID:" Margin ="43, 240, 684, 0" Visibility="Hidden" FontSize="16"/>
+            <Label Name="timechargeLabel"    Content="write time of charge:"  Margin ="43, 270, 684, 0" Visibility="Hidden"/>
+            <ComboBox Name="batteryStatus" Margin="221, 120, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false"/>
+            <ComboBox Name="Status"        Margin="221, 150, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false"/>
+            <TextBox Name="longitude"      Margin="221, 180, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false"/>
+            <TextBox Name="latitude"       Margin="221, 210, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false"/>
+            <TextBox Name="parcel"         Margin="221, 240, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" MouseDoubleClick="GetParcel" AcceptsReturn="True"/>
+            <TextBox Name="timecharge"     Margin="221, 270, 500, 0" Visibility="Hidden"/>
+            <Button Name="sendDroneToCharge"      Content="send drone to charge"      Style="{StaticResource RedButton}" Click="SendDroneToCharge"      Visibility="Hidden"/>
+            <Button Name="assignParcelToDrone"    Content="assign Parcel To Drone"    Style="{StaticResource RedButton}" Click="AssignParcelToDrone"    Visibility="Hidden"/>
+            <Button Name="releaseDronefromCharge" Content="release Drone from Charge" Style="{StaticResource RedButton}" Click="ReleaseDronefromCharge" Visibility="Hidden"/>
+            <Button Name="collectParcelByDrone"   Content="collect Parcel By Drone"   Style="{StaticResource RedButton}" Click="CollectParcelByDrone"   Visibility="Hidden"/>
+            <Button Name="deliveryParcelByDrone"  Content="delivery Parcel By Drone"  Style="{StaticResource RedButton}" Click="DeliveryParcelByDrone"  Visibility="Hidden"/>
+            <Button Name="update"                 Content="update"                    Style="{StaticResource RedButton}" Click="UpdateDrone"            Visibility="Hidden"/>
         </Grid>
-        <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
+        <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
-        <Button Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
+        <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>
 </Window>
