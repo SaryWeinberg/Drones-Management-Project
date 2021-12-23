@@ -195,7 +195,7 @@ namespace PL
 
         private void ClearListView()
         {
-            DroneListView.ItemsSource = bl.GetDronesToListBL();
+            DroneListView.ItemsSource = bl.GetDronesToList();
             view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
         }
     }

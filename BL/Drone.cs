@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Drone
+    public class Drone 
     {
         private int id;
         private double batteryStatus;

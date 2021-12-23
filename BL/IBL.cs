@@ -49,7 +49,7 @@ namespace BLApi
         public string ReleaseDroneFromCharge(int droneId, int timeInCharge);
         public string AssignParcelToDrone(int droneId);
         public string CollectParcelByDrone(int droneId);
-        public string DeliveryParcelByDrone(int droneId);
+        public string SupplyParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
         /*        public IEnumerable<BO.Customer> GeCustomerByCondition(Predicate<BO.Customer> condition);
         */

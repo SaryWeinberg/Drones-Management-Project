@@ -38,7 +38,7 @@ namespace BO
 
     public class TheParcelCouldNotCollectedOrDeliveredException : Exception
     {
-        public TheParcelCouldNotCollectedOrDeliveredException(int id, string str) : base(String.Format($"The parcel ID - {id} could not be {str}")) { }
+        public TheParcelCouldNotCollectedOrDeliveredException(string str) : base(String.Format($"The parcel could not be {str}")) { }
     }
 
     public class ObjectNotExistException : Exception
