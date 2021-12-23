@@ -57,7 +57,7 @@ namespace PL
             {              
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddParcelBL(GetSenderID(), GetTargetID(), (WeightCategories)GetWeight(), (Priorities)GetPriority()),
+                   bl.AddParcelBL(SenderIDInput(), TargetIDInput(), (WeightCategories)WeightInput(), (Priorities)PriorityInput()),
                    $"Add parcel",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -75,22 +75,22 @@ namespace PL
 
         //===========Get Inputs===========
 
-        private int GetSenderID()
+        private int SenderIDInput()
         {
             try { return int.Parse(ParcelSenderID.Text); }
             catch (Exception) { throw new InvalidObjException("Sender ID"); }
         }
-        private int GetTargetID()
+        private int TargetIDInput()
         {
             try { return int.Parse(ParcelTargetID.Text); }
             catch (Exception) { throw new InvalidObjException("Target ID"); }
         }        
-        private int GetWeight()
+        private int WeightInput()
         {
             try { return int.Parse(ParcelWeight.Text); }
             catch (Exception) { throw new InvalidObjException("Weight"); }
         }
-        private int GetPriority()
+        private int PriorityInput()
         {
             try { return int.Parse(ParcelPriority.Text); }
             catch (Exception) { throw new InvalidObjException("Priority"); }

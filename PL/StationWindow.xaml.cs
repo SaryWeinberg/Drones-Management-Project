@@ -36,8 +36,8 @@ namespace PL
             {               
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.AddStationBL(GetID(), GetName(), new BO.Location { Longitude = GetLongitude(), Latitude = GetLatitude() }, GetChargeSlots()),
-                   $"Add station ID - {GetID()}",
+                   bl.AddStationBL(IDInput(), NameInput(), new BO.Location { Longitude = LongitudeInput(), Latitude = LatitudeInput() }, ChargeSlotsInput()),
+                   $"Add station ID - {IDInput()}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -64,6 +64,9 @@ namespace PL
             StationChargeSlots.Text = station.AveChargeSlots.ToString();
             StationLongitude.Text = station.Location.Longitude.ToString();
             StationLatitude.Text = station.Location.Latitude.ToString();
+            DronesInChargelistLabel.Visibility = Visibility.Visible;
+            DronesInChargelist.Visibility = Visibility.Visible;
+            DronesInChargelist.ItemsSource = station.DronesInChargelist.ToString();
             StationID.IsEnabled = false;
             StationLongitude.IsEnabled = false;
             StationLatitude.IsEnabled = false;
@@ -83,7 +86,7 @@ namespace PL
             {           
                 MessageBoxResult result =
                    MessageBox.Show(
-                   bl.UpdateStationData(GetID(), GetName(), GetChargeSlots()),
+                   bl.UpdateStationData(IDInput(), NameInput(), ChargeSlotsInput()),
                    $"Update station ID - {ID}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
@@ -102,27 +105,27 @@ namespace PL
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         //===========Get Inputs===========
-        private int GetID()
+        private int IDInput()
         {
             try { return int.Parse(StationID.Text); }
             catch (Exception) { throw new InvalidObjException("ID"); }
         }
-        private int GetChargeSlots()
+        private int ChargeSlotsInput()
         {
             try { return int.Parse(StationChargeSlots.Text); }
             catch (Exception) { throw new InvalidObjException("ChargeSlots"); }
         }
-        private int GetName()
+        private int NameInput()
         {
             try { return int.Parse(StationName.Text); }
             catch (Exception) { throw new InvalidObjException("Name"); }
         }
-        private int GetLongitude()
+        private int LongitudeInput()
         {
             try { return int.Parse(StationLongitude.Text); }
             catch (Exception) { throw new InvalidObjException("Longitude"); }
         }
-        private int GetLatitude()
+        private int LatitudeInput()
         {
             try { return int.Parse(StationLatitude.Text); }
             catch (Exception) { throw new InvalidObjException("Latitude"); }
@@ -137,6 +140,13 @@ namespace PL
         {
             new StationListWindow(bl).Show();
             Close();
-        }        
+        }
+
+        private void GetDrone(object sender, MouseButtonEventArgs e)
+        {
+            BO.DroneInCharge drone = (sender as ListView).SelectedValue as BO.DroneInCharge;
+            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
+            Close();
+        }
     }   
 }

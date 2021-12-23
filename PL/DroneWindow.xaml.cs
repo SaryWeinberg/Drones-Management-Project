@@ -48,8 +48,8 @@ namespace PL
             {
                 MessageBoxResult result =
                  MessageBox.Show(
-                   bl.AddDroneBL(GetID(), GetModel(), (WeightCategories)GetWeight(), GetStationID()),
-                   $"Add drone ID - {GetID()}",
+                   bl.AddDroneBL(IDInput(), ModelInput(), (WeightCategories)WeightInput(), StationIDInput()),
+                   $"Add drone ID - {IDInput()}",
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -186,8 +186,8 @@ namespace PL
             {
                 MessageBoxResult result =
                   MessageBox.Show(
-                    bl.UpdateDroneData(GetID(), GetModel()),
-                    $"Update drone - {GetID()} model",
+                    bl.UpdateDroneData(IDInput(), ModelInput()),
+                    $"Update drone - {IDInput()} model",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -215,8 +215,8 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                  bl.SendDroneToCharge(GetID()),
-                  $"Send drone ID - {GetID()} to charge",
+                  bl.SendDroneToCharge(IDInput()),
+                  $"Send drone ID - {IDInput()} to charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
                 Drone.ID = 1;
@@ -244,8 +244,8 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                  bl.ReleaseDroneFromCharge(GetID(), GetTimeCharge()),
-                  $"Release drone ID - {GetID()} from charge",
+                  bl.ReleaseDroneFromCharge(IDInput(), TimeChargeInput()),
+                  $"Release drone ID - {IDInput()} from charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
@@ -271,7 +271,7 @@ namespace PL
             {
                 MessageBoxResult result =
                  MessageBox.Show(
-                 bl.AssignParcelToDrone(GetID()),
+                 bl.AssignParcelToDrone(IDInput()),
                  $"Assign parcel",
                  MessageBoxButton.OK,
                  MessageBoxImage.Information);
@@ -298,7 +298,7 @@ namespace PL
             {
                 MessageBoxResult result =
                 MessageBox.Show(
-                bl.CollectParcelByDrone(GetID()),
+                bl.CollectParcelByDrone(IDInput()),
                 $"Collect parcel",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
@@ -343,27 +343,27 @@ namespace PL
 
         //===========Get Inputs===========
 
-        private int GetID()
+        private int IDInput()
         {
             try { return int.Parse(DroneID.Text); }
             catch (Exception) { throw new InvalidObjException("ID"); }
         }
-        private int GetWeight()
+        private int WeightInput()
         {
 
             return max_weight.SelectedIndex != -1 ? max_weight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
         }
-        private string GetModel()
+        private string ModelInput()
         {
             return DroneModel.Text != "" ? DroneModel.Text : throw new InvalidObjException("Model");
         }
-        private int GetStationID()
+        private int StationIDInput()
         {
             try { return int.Parse(station_ID.Text); }
             catch (Exception) { throw new InvalidObjException("Station ID"); }
         }
 
-        private int GetTimeCharge()
+        private int TimeChargeInput()
         {
             try { return int.Parse(timecharge.Text); }
             catch (Exception) { throw new InvalidObjException("Station ID"); }

@@ -13,21 +13,20 @@
             <RowDefinition Height="400*"/>
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
-        <!--<ListView x:Name="StationListView" Grid.Row="1" MouseDoubleClick="UpdateStation" Padding="35" Margin="20" FontSize="16"/>-->
         <ListView x:Name="StationListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateStation">
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="ID" Width="130" DisplayMemberBinding="{Binding ID}" />
-                    <GridViewColumn Header="Name"  Width="130" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Ave Charge Slots" Width="130" DisplayMemberBinding="{Binding AveChargeSlots}" />
+                    <GridViewColumn Header="ID"                Width="130" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Name"              Width="130" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Ave Charge Slots"  Width="130" DisplayMemberBinding="{Binding AveChargeSlots}" />
                     <GridViewColumn Header="Full Charge Slots" Width="130" DisplayMemberBinding="{Binding FullChargeSlots}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
         <Button Grid.Row="2" Content="Add Station" Style="{StaticResource RedButton}" Click="AddStation" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="696,8,0,0" />
-        <Button Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
-        <Button Style="{StaticResource RefreshButton}"  Click="RefreshWindow"/>
-        <Button Style="{StaticResource RefreshButton}"  Click="ReturnWindow"/>
+        <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
+        <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+        <Button Style="{StaticResource RefreshButton}" Click="ReturnWindow"/>
     </Grid>
 </Window>

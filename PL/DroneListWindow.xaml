@@ -24,21 +24,20 @@
             <ComboBox Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelectorSelectionChanged" Margin="0,15,0,0" />
             <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged" Margin="0,15,0,0" />
             <Button Grid.Column="0" Content="Drone List" Style="{StaticResource RedButton}" Click="DroneAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Margin="0,15,0,0"/>
-            <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="CloseingWindow"/>
+            <Button Grid.Column="3" Style="{StaticResource CloseButton}"   Click="CloseingWindow"/>
             <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
-            <Button Grid.Column="3" Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
+            <Button Grid.Column="3" Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
         </Grid>
-        <!--<ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="UpdateDrone" Padding="35" Margin="25" FontSize="16" ItemsSource ="{Binding list}"/>-->
         <ListView x:Name="DroneListView" ItemsSource="{Binding Path= DroneList}"  FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateDrone">
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}" />
-                    <GridViewColumn Header="Model"  Width="130" DisplayMemberBinding="{Binding Model}" />
-                    <GridViewColumn Header="Max Weight" Width="130" DisplayMemberBinding="{Binding MaxWeight}" />
+                    <GridViewColumn Header="ID"             Width="50"  DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Model"          Width="130" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn Header="Max Weight"     Width="130" DisplayMemberBinding="{Binding MaxWeight}" />
                     <GridViewColumn Header="Battery Status" Width="130" DisplayMemberBinding="{Binding BatteryStatus}" />
-                    <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Location" Width="130" DisplayMemberBinding="{Binding Location}" />
-                    <GridViewColumn Header="Parcel" Width="130" DisplayMemberBinding="{Binding Parcel}" />
+                    <GridViewColumn Header="Status"         Width="130" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Location"       Width="130" DisplayMemberBinding="{Binding Location}" />
+                    <GridViewColumn Header="Parcel"         Width="130" DisplayMemberBinding="{Binding Parcel}" />
                 </GridView>
             </ListView.View>
 
