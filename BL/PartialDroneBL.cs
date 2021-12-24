@@ -226,9 +226,9 @@ namespace BL
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation)
         {
             return ((Distance(droneLocation,
-            GetSpesificCustomer(senderId).location) * dalObj.ElectricalPowerRequest()[0])//מרחק שולח מהרחפן*צריכה כשהוא ריק 
-            + (Distance(GetSpesificCustomer(senderId).location, GetSpesificCustomer(targetId).location) * dalObj.ElectricalPowerRequest()[parcelweight])
-            + (Distance(GetSpesificCustomer(targetId).location, GetNearestAvailableStation(GetSpesificCustomer(targetId).location).Location) * dalObj.ElectricalPowerRequest()[0]));
+            GetSpesificCustomer(senderId).Location) * dalObj.ElectricalPowerRequest()[0])//מרחק שולח מהרחפן*צריכה כשהוא ריק 
+            + (Distance(GetSpesificCustomer(senderId).Location, GetSpesificCustomer(targetId).Location) * dalObj.ElectricalPowerRequest()[parcelweight])
+            + (Distance(GetSpesificCustomer(targetId).Location, GetNearestAvailableStation(GetSpesificCustomer(targetId).Location).Location) * dalObj.ElectricalPowerRequest()[0]));
         }
     }
 }

@@ -54,12 +54,12 @@ namespace BL
                     //Package not collected
                     if (parcel.PickedUp == null)
                     {
-                        drone.Location = GetNearestAvailableStation(GetSpesificCustomer(parcel.SenderId).location).Location;
+                        drone.Location = GetNearestAvailableStation(GetSpesificCustomer(parcel.SenderId).Location).Location;
                     }
                     //There must be a package that is not delivered
                     else
                     {
-                        drone.Location = GetSpesificCustomer(parcel.SenderId).location;
+                        drone.Location = GetSpesificCustomer(parcel.SenderId).Location;
                     }
 
                     drone.BatteryStatus = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
@@ -76,7 +76,7 @@ namespace BL
                     {
                         List<DO.Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp != null);
                         double randIDX = rand.Next(0, parcelProvided.Count() - 1);
-                        drone.Location = GetSpesificCustomer(parcelProvided[(int)randIDX].TargetId).location;
+                        drone.Location = GetSpesificCustomer(parcelProvided[(int)randIDX].TargetId).Location;
                         drone.BatteryStatus = rand.Next((int)(Distance(GetNearestAvailableStation(drone.Location).Location, drone.Location) * Available), 100);
                     }
                     else
@@ -246,10 +246,10 @@ namespace BL
                                 else
                                 {
                                     //3. Very nearest package
-                                    if (Distance(droneBL.Location, GetSpesificCustomer(parcel.Sender.ID).location) <= bestDistance)
+                                    if (Distance(droneBL.Location, GetSpesificCustomer(parcel.Sender.ID).Location) <= bestDistance)
                                     {
                                         BestParcel = parcel;
-                                        bestDistance = Distance(droneBL.Location, GetSpesificCustomer(BestParcel.Sender.ID).location);
+                                        bestDistance = Distance(droneBL.Location, GetSpesificCustomer(BestParcel.Sender.ID).Location);
                                         flag = 1;
                                     }
                                 }
@@ -290,8 +290,8 @@ namespace BL
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp == null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers();
                 BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
-                droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
-                droneBL.Location = senderCustomer.location;
+                droneBL.BatteryStatus = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
+                droneBL.Location = senderCustomer.Location;
                 currentParcel.PickedUp = DateTime.Now;
 
                 dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
@@ -334,8 +334,8 @@ namespace BL
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp != null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers();
                 BO.Customer TargetCustomer = customers.Find(c => c.ID == currentParcel.Target.ID);
-                droneBL.BatteryStatus = Distance(droneBL.Location, TargetCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
-                droneBL.Location = TargetCustomer.location;
+                droneBL.BatteryStatus = Distance(droneBL.Location, TargetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
+                droneBL.Location = TargetCustomer.Location;
                 currentParcel.Delivered = DateTime.Now;
                 droneBL.Status = DroneStatus.Available;
 

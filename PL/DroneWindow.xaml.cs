@@ -32,9 +32,9 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            StationIdLabel.Visibility = Visibility.Visible;
+            StationIDLabel.Visibility = Visibility.Visible;
             batteryStatusLabel.Visibility = Visibility.Hidden;
-            max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
         /// <summary>
@@ -72,48 +72,46 @@ namespace PL
         /// <param name="blMain"></param>
         /// <param name="drone"></param>
         public DroneWindow(BLApi.IBL blMain, BO.Drone drone)
-        {
-
-          
+        {          
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             Drone = drone;
             AddDroneGrid.DataContext = Drone;
-            StationIdLabel.Visibility = Visibility.Hidden;
+            StationIDLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
+            
 
-            DroneModelLabel.Content = "drone model:";
-    /*        DroneModel.Text = drone.Model.ToString();*/
+            /*DroneID.Text = drone.ID.ToString();
+            DroneModel.Text = drone.Model.ToString();
+            MaxWeight.Text = drone.MaxWeight.ToString();
+            Status.Text = drone.Status.ToString();
+            parcel.Text = drone.Parcel.ID.ToString();
+            batteryStatus.Text = drone.BatteryStatus.ToString();
+            longitude.Text = drone.Location.Longitude.ToString();
+            latitude.Text = drone.Location.Latitude.ToString();*/
+
+            DroneModel.Text = drone.Model.ToString();
             DroneModel.TextChanged += AddUpdateBTN;
             DroneID.IsEnabled = false;
-            DroneIDLabel.Content = " drone ID:";
-            MaxWeightLabel.Content = "max weight";
-
-            max_weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-     /*       max_weight.Text = drone.MaxWeight.ToString();*/
-            max_weight.IsEnabled = false;
-            max_weight.IsEditable = true;
+            
+            MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            MaxWeight.IsEnabled = false;
+            MaxWeight.IsEditable = true;
 
             Status.ItemsSource = Enum.GetValues(typeof(Status));
-     /*       Status.Text = drone.Status.ToString();*/
             Status.IsEnabled = false;
             Status.IsEditable = true;
 
-         /*   DroneID.Text = drone.ID.ToString();*/
 
             if (drone.Parcel != null)
             {
                 parcelLabel.Visibility = Visibility.Visible;
                 parcel.Visibility = Visibility.Visible;
-                parcel.Text = drone.Parcel.ID.ToString();
             }
 
             batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-/*            batteryStatus.Text = drone.BatteryStatus.ToString();*/
             batteryStatus.IsEditable = true;
-/*            longitude.Text = drone.Location.Longitude.ToString();
-            latitude.Text = drone.Location.Latitude.ToString();*/
 
             if (drone.Status == DroneStatus.Available)
             {
@@ -351,7 +349,7 @@ namespace PL
         private int WeightInput()
         {
 
-            return max_weight.SelectedIndex != -1 ? max_weight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
+            return MaxWeight.SelectedIndex != -1 ? MaxWeight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
         }
         private string ModelInput()
         {
@@ -359,14 +357,14 @@ namespace PL
         }
         private int StationIDInput()
         {
-            try { return int.Parse(station_ID.Text); }
+            try { return int.Parse(stationID.Text); }
             catch (Exception) { throw new InvalidObjException("Station ID"); }
         }
 
         private int TimeChargeInput()
         {
             try { return int.Parse(timecharge.Text); }
-            catch (Exception) { throw new InvalidObjException("Station ID"); }
+            catch (Exception) { throw new InvalidObjException("Time of charge"); }
         }
 
         private void GetParcel(object sender, MouseButtonEventArgs e)

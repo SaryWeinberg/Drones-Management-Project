@@ -59,11 +59,16 @@ namespace PL
             bl = blMain;
 
             Station = station;
-            StationID.Text = station.ID.ToString();
+            AddStation.DataContext = Station;
+            /*StationID.Text = station.ID.ToString();
             StationName.Text = station.Name.ToString();
             StationChargeSlots.Text = station.AveChargeSlots.ToString();
             StationLongitude.Text = station.Location.Longitude.ToString();
-            StationLatitude.Text = station.Location.Latitude.ToString();
+            StationLatitude.Text = station.Location.Latitude.ToString();*/
+
+            StationName.Text = station.Name.ToString();
+            StationChargeSlots.Text = station.AveChargeSlots.ToString();
+
             DronesInChargelistLabel.Visibility = Visibility.Visible;
             DronesInChargelist.Visibility = Visibility.Visible;
             DronesInChargelist.ItemsSource = station.DronesInChargelist.ToString();

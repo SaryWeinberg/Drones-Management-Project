@@ -28,8 +28,8 @@ namespace BO
             Property = parcel.Priority;
             Sender = parcel.Sender;
             Target = parcel.Target;
-            PickUpLocation = sender.location;
-            TargetLocation = target.location;
+            PickUpLocation = sender.Location;
+            TargetLocation = target.Location;
             Distance = Math.Sqrt(Math.Pow((TargetLocation.Longitude - PickUpLocation.Longitude), 2) + Math.Pow((TargetLocation.Latitude - PickUpLocation.Latitude), 2)); 
         }
 

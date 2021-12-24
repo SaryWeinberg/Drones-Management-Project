@@ -17,15 +17,15 @@
             <Label Name="CustomerNameLabel"      Content="customer name:"      Margin="43, 90, 680, 0"/>
             <Label Name="CustomerLongitudeLabel" Content="customer longitude:" Margin="43, 120, 680, 0"/>
             <Label Name="CustomerLatitudeLabel"  Content="customer latitude:"  Margin="43, 150, 680, 0"/>
-            <TextBox Name="CustomerID"        Margin="221, 30, 500, 0"/>
-            <TextBox Name="CustomerPhone"     Margin="221, 60, 500, 0"/>
-            <TextBox Name="CustomerName"      Margin="221, 90, 500, 0"/>
-            <TextBox Name="CustomerLongitude" Margin="221, 120, 500, 0"/>
-            <TextBox Name="CustomerLatitude"  Margin="221, 150, 500, 0"/>
+            <TextBox Name="CustomerID"        Text="{Binding ID}" Margin="221, 30, 500, 0"/>
+            <TextBox Name="CustomerPhone"      Margin="221, 60, 500, 0"/>
+            <TextBox Name="CustomerName"       Margin="221, 90, 500, 0"/>
+            <TextBox Name="CustomerLongitude" Text="{Binding Location.Longitude}" Margin="221, 120, 500, 0"/>
+            <TextBox Name="CustomerLatitude"  Text="{Binding Location.Latitude}" Margin="221, 150, 500, 0"/>
             <Button Name="sendNewCustomer" Content="Send" Click="AddNewCustomer" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="UpdateCustomerGrid" Grid.Row="1" Margin="434,30,-434,-30">
-            <Button  Name="updateCustomer" Content="update" Style="{StaticResource RedButton}" Click="UpdateCustomer" Margin="0,370,245,0"  Visibility ="Hidden"/>
+            <Button  Name="updateCustomer" Content="update" Style="{StaticResource RedButton}" Click="UpdateCustomer" Margin="-148,392,908,0"  Visibility ="Hidden"/>
             <Label  Name="ParcelDeliveryToCustomerLabel" Content = "Parcel Delivery To Customer:" Margin = "113,180,543,0"  FontSize="16" Visibility="Hidden"/>
             <ListView Name="ParcelDeliveryToCustomerList" ItemsSource="{Binding}" Margin="44,214,502,235" FontSize="15" MouseDoubleClick="GetParcel" Visibility="{Binding ElementName= ParcelDeliveryToCustomerLabel, Path=Visibility}">
                 <ListView.View >

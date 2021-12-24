@@ -50,7 +50,7 @@ namespace BL
                 customer.ID = id;
                 customer.PhoneNum = phone;
                 customer.Name = name;
-                customer.location = location;
+                customer.Location = location;
             }
             catch (InvalidObjException e) { throw e; }
 
@@ -128,7 +128,7 @@ namespace BL
                 PhoneNum = c.PhoneNum,
                 DeliveryToCustomer = DeliveryToC,
                 DeliveryFromCustomer = DeliveryFromC,
-                location = new Location { Latitude = c.Latitude, Longitude = c.Longitude }
+                Location = new Location { Latitude = c.Latitude, Longitude = c.Longitude }
             };
         }
 

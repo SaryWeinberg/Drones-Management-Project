@@ -58,11 +58,15 @@ namespace PL
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
             Customer = customer;
-            CustomerID.Text = customer.ID.ToString();
+            AddCustomer.DataContext = Customer;
+            /*CustomerID.Text = customer.ID.ToString();
             CustomerName.Text = customer.Name.ToString();
             CustomerPhone.Text = customer.PhoneNum.ToString();
-            CustomerLongitude.Text = customer.location.Longitude.ToString();
-            CustomerLatitude.Text = customer.location.Latitude.ToString();
+            CustomerLongitude.Text = customer.Location.Longitude.ToString();
+            CustomerLatitude.Text = customer.Location.Latitude.ToString();
+*/
+            CustomerName.Text = customer.Name.ToString();
+            CustomerPhone.Text = customer.PhoneNum.ToString();
 
             CustomerID.IsEnabled = false;
             CustomerLongitude.IsEnabled = false;

@@ -46,7 +46,7 @@ namespace BO
                     throw new InvalidObjException("phone number");
             }
         }
-        public Location location { get; set; }
+        public Location Location { get; set; }
 
         public List<ParcelsAtTheCustomer> DeliveryToCustomer { get; set; }
 
@@ -54,7 +54,7 @@ namespace BO
 
         public override string ToString()
         {
-            return "Customer: id: " + ID + " Phone number: " + PhoneNum + " name: " + Name + " location: " + location;
+            return "Customer: id: " + ID + " Phone number: " + PhoneNum + " name: " + Name + " location: " + Location;
         }
     }
 }

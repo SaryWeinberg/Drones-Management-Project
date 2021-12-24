@@ -17,11 +17,11 @@
             <Label Name="StationChargeSlotsLabel" Content = "station charge slots:" Margin = "43, 90, 680, 0"/>
             <Label Name="StationLongitudeLabel"   Content = "station longitude:"    Margin = "43, 120, 680, 0"/>
             <Label Name="StationLatitudeLabel"    Content = "station latitude:"     Margin = "43, 150, 680, 0"/>
-            <TextBox Name="StationID"          Margin = "221, 30, 500, 0" />
-            <TextBox Name="StationName"        Margin = "221, 60,500, 0" />
+            <TextBox Name="StationID"          Margin = "221, 30, 500, 0" Text="{Binding ID}"  />
+            <TextBox Name="StationName"        Margin = "221, 60, 500, 0" />
             <TextBox Name="StationChargeSlots" Margin = "221, 90, 500, 0"/>
-            <TextBox Name="StationLongitude"   Margin = "221, 120, 500, 0"/>
-            <TextBox Name="StationLatitude"    Margin = "221, 150, 500, 0"/>
+            <TextBox Name="StationLongitude"   Margin = "221, 120, 500, 0" Text="{Binding Location.Longitude}"/>
+            <TextBox Name="StationLatitude"    Margin = "221, 150, 500, 0" Text="{Binding Location.Latitude}" />
             <Button  Name="sendNewStation" Content="Send" Click="AddNewStation" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30">
@@ -34,7 +34,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" Click="UpdateStation" Margin="0,370,245,0"  Visibility ="Hidden"/>
+            <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" Click="UpdateStation" Margin="258,441,502,0"  Visibility ="Hidden"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
