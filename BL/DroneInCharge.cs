@@ -12,7 +12,8 @@ namespace BO
 
 
         private int id;
-        private double battery;
+        private double batteryStatus;
+        public DateTime? DroneEnterToCharge { get; set; }
         public int ID {
             get { return id; }
             set
@@ -23,26 +24,27 @@ namespace BO
                     throw new InvalidObjException("ID");
             }
         }
-        public double Battery {
-            get { return battery; }
+        public double BatteryStatus {
+            get { return batteryStatus; }
             set
             {
                 if (value > 0)
-                    battery = value;
+                    batteryStatus = value;
                 else
-                    throw new InvalidObjException("battery");
+                    throw new InvalidObjException("batteryStatus");
             }
         }
 
-        public DroneInCharge(int DroneID, double Battery)
+        public DroneInCharge(int DroneID, double BatteryStatus)
         {
             id = DroneID;
-            battery = Battery;
+            batteryStatus = BatteryStatus;
+            DroneEnterToCharge = DateTime.Now; 
         }
 
         public override string ToString()
         {
-            return "ID: " + ID + " Battery: " + Battery;
+            return "ID: " + ID + " BatteryStatus: " + BatteryStatus;
         }
     }
 }

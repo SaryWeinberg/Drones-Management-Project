@@ -199,7 +199,7 @@ namespace BL
         /// Returns the station list with StationToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.StationToList> GetStationsListBL()
+        public List<BO.StationToList> GetStationsList()
         {
             List<BO.Station> stations = GetStations();
             List<BO.StationToList> stationToList = new List<BO.StationToList>();

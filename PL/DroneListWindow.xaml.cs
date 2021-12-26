@@ -187,9 +187,9 @@ namespace PL
         }
 
         private void GroupByWeight(object sender, RoutedEventArgs e)
-        {
+         {
             ClearListView();
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Weight");
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("MaxWeight");
             view.GroupDescriptions.Add(groupDescription);
         }
 
