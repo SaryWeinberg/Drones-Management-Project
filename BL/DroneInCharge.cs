@@ -13,6 +13,7 @@ namespace BO
 
         private int id;
         private double batteryStatus;
+        public DateTime? DroneEnterToCharge { get; set; }
         public int ID {
             get { return id; }
             set
@@ -38,6 +39,7 @@ namespace BO
         {
             id = DroneID;
             batteryStatus = BatteryStatus;
+            DroneEnterToCharge = DateTime.Now; 
         }
 
         public override string ToString()

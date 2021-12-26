@@ -60,6 +60,6 @@ namespace BLApi
         public List<BO.CustomerToList> GetCustomersToList();
         public List<BO.DroneToList> GetDronesToList();
         public List<BO.ParcelToList> GetParcelsToList();
-        public List<BO.StationToList> GetStationsListBL();
+        public List<BO.StationToList> GetStationsList();
     }
 }

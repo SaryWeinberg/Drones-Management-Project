@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,18 @@ namespace PL
     public partial class StationListWindow : Window
     {
         BLApi.IBL bl;
-
+        private CollectionView view;
+        ObservableCollection<BO.StationToList> list = new ObservableCollection<BO.StationToList>();
         public StationListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            StationListView.ItemsSource = bl.GetStationsListBL();
+            foreach (var item in bl.GetStationsList())
+                list.Add(item);
+            DataContext = list;
+            view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
+
         }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
@@ -50,6 +56,32 @@ namespace PL
         {
             new MainWindow().Show();
             Close();
+        }
+
+
+        private void GroupByEmptySlots(object sender, RoutedEventArgs e)
+        {
+            if (view != null && view.CanGroup == true)
+            {
+                view.GroupDescriptions.Clear();
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("AveChargeSlots");
+                view.GroupDescriptions.Add(groupDescription);
+            }
+        }
+
+        private void ShowAvailbleStations(object sender, RoutedEventArgs e)
+        {
+            ClearListView();
+
+      
+            StationListView.ItemsSource = bl.GetAvailableStationsList();
+            view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
+        }
+
+        private void ClearListView()
+        {
+            StationListView.ItemsSource = bl.GetStationsList();
+            view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
         }
     }
 }
