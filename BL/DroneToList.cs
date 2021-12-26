@@ -13,24 +13,24 @@ namespace BO
             ID = drone.ID;
             Model = drone.Model;
             MaxWeight = drone.MaxWeight;
-            BatteryStatus = drone.BatteryStatus;
+            Battery = drone.Battery;
             Status = drone.Status;
             Location = drone.Location;
-            Parcel = drone.Parcel;           
+            Parcel = drone.Parcel;         
         }
 
         public int ID { get; set; }
         public string Model { get; set; }
         public WeightCategories MaxWeight { get; set; }
-        public double BatteryStatus { get; set; }
+        public double Battery { get; set; }
         public DroneStatus Status { get; set; }
         public Location Location { get; set; }
         public ParcelByDelivery Parcel { get; set; }
 
         public override string ToString()
         {
-            return "Drone: id: " + ID + " Model: " + Model + " MaxWeight: " + MaxWeight + " Battery Status: " +
-                BatteryStatus + " Status: " + Status + " Location: " +
+            return "Drone: id: " + ID + " Model: " + Model + " MaxWeight: " + MaxWeight + " Battery: " +
+                Battery + " Status: " + Status + " Location: " +
                 Location + " Parcel: " + Parcel;
         }
     }

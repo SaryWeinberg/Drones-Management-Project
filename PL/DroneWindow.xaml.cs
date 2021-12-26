@@ -35,6 +35,7 @@ namespace PL
             StationIDLabel.Visibility = Visibility.Visible;
             batteryStatusLabel.Visibility = Visibility.Hidden;
             MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            DroneID.Focus();
         }
 
         /// <summary>
@@ -79,8 +80,7 @@ namespace PL
             Drone = drone;
             AddDroneGrid.DataContext = Drone;
             StationIDLabel.Visibility = Visibility.Hidden;
-            batteryStatusLabel.Visibility = Visibility.Visible;
-            
+            batteryStatusLabel.Visibility = Visibility.Visible;            
 
             /*DroneID.Text = drone.ID.ToString();
             DroneModel.Text = drone.Model.ToString();
@@ -103,16 +103,16 @@ namespace PL
             Status.IsEnabled = false;
             Status.IsEditable = true;
 
+            if (Drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
+            else if(Drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
+            else battery.Foreground = new SolidColorBrush(Colors.Yellow);
 
             if (drone.Parcel != null)
             {
                 parcelLabel.Visibility = Visibility.Visible;
                 parcel.Visibility = Visibility.Visible;
             }
-
-            batteryStatus.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            batteryStatus.IsEditable = true;
-
+            
             if (drone.Status == DroneStatus.Available)
             {
                 available = true;
@@ -216,9 +216,7 @@ namespace PL
                   bl.SendDroneToCharge(IDInput()),
                   $"Send drone ID - {IDInput()} to charge",
                   MessageBoxButton.OK,
-                  MessageBoxImage.Information);
-                Drone.ID = 1;
-                
+                  MessageBoxImage.Information);               
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
@@ -382,6 +380,26 @@ namespace PL
         {
             new DroneListWindow(bl).Show();
             Close();
+        }
+
+        private void OnKeyDownDroneID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) MaxWeight.Focus();
+        }
+
+        private void OnKeyDownMaxWeight(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) DroneModel.Focus();
+        }
+
+        private void OnKeyDownDroneModel(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) stationID.Focus();
+        }
+
+        private void OnKeyDownStationID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) sendNewDrone.Focus();
         }
     }
 }

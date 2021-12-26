@@ -31,13 +31,13 @@
         <ListView x:Name="DroneListView" ItemsSource="{Binding Path= DroneList}"  FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateDrone">
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="ID"             Width="50"  DisplayMemberBinding="{Binding ID}" />
-                    <GridViewColumn Header="Model"          Width="130" DisplayMemberBinding="{Binding Model}" />
-                    <GridViewColumn Header="Max Weight"     Width="130" DisplayMemberBinding="{Binding MaxWeight}" />
-                    <GridViewColumn Header="Battery Status" Width="130" DisplayMemberBinding="{Binding BatteryStatus}" />
-                    <GridViewColumn Header="Status"         Width="130" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Location"       Width="130" DisplayMemberBinding="{Binding Location}" />
-                    <GridViewColumn Header="Parcel"         Width="130" DisplayMemberBinding="{Binding Parcel}" />
+                    <GridViewColumn Header="ID"         Width="50"  DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Model"      Width="130" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn Header="Max Weight" Width="130" DisplayMemberBinding="{Binding MaxWeight}" />
+                    <GridViewColumn Header="Battery"    Width="130" DisplayMemberBinding="{Binding Battery}" />
+                    <GridViewColumn Header="Status"     Width="130" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Location"   Width="130" DisplayMemberBinding="{Binding Location}" />
+                    <GridViewColumn Header="Parcel"     Width="130" DisplayMemberBinding="{Binding Parcel}" />
                 </GridView>
             </ListView.View>
 

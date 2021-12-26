@@ -65,7 +65,7 @@ namespace BL
                 droneBL.ID = id;
                 droneBL.Model = model;
                 droneBL.MaxWeight = maxWeight;
-                droneBL.BatteryStatus = rand.Next(20, 40);
+                droneBL.Battery = rand.Next(20, 40);
                 droneBL.Status = DroneStatus.Maintenance;
                 BO.Station Station = GetSpesificStation(stationID);
                 DO.Station station = ConvertBLStationToDAL(Station);

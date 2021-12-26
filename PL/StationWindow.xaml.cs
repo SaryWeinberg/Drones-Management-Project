@@ -27,7 +27,8 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            sendNewStation.Visibility = Visibility.Visible;           
+            sendNewStation.Visibility = Visibility.Visible;
+            StationID.Focus();
         }
 
         private void AddNewStation(object sender, RoutedEventArgs e)
@@ -69,9 +70,10 @@ namespace PL
             StationName.Text = station.Name.ToString();
             StationChargeSlots.Text = station.AveChargeSlots.ToString();
 
-            DronesInChargelistLabel.Visibility = Visibility.Visible;
-            DronesInChargelist.Visibility = Visibility.Visible;
-            DronesInChargelist.ItemsSource = station.DronesInChargelist.ToString();
+            UpdateStationGrid.Visibility = Visibility.Visible;
+           /* DronesInChargelistLabel.Visibility = Visibility.Visible;
+            DronesInChargelist.Visibility = Visibility.Visible;*/
+            DronesInChargelist.ItemsSource = station.DronesInChargelist;
             StationID.IsEnabled = false;
             StationLongitude.IsEnabled = false;
             StationLatitude.IsEnabled = false;
@@ -152,6 +154,31 @@ namespace PL
             BO.DroneInCharge drone = (sender as ListView).SelectedValue as BO.DroneInCharge;
             new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
             Close();
+        }
+
+        private void OnKeyDownStationID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) StationName.Focus();
+        }
+
+        private void OnKeyDownStationName(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) StationChargeSlots.Focus();
+        }
+
+        private void OnKeyDownStationChargeSlots(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) StationLongitude.Focus();
+        }
+
+        private void OnKeyDownStationLongitude(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) StationLatitude.Focus();
+        }
+
+        private void OnKeyDownStationLatitude(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) sendNewStation.Focus();
         }
     }   
 }

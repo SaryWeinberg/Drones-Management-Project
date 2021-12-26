@@ -103,7 +103,7 @@ namespace BL
             foreach (DO.DroneCharge droneCharge in dalObj.GetDroneCharges())
             {
                 if (droneCharge.StationId == s.ID && droneCharge.Active)
-                    droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).BatteryStatus));
+                    droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).Battery));
             }
 
             return new BO.Station

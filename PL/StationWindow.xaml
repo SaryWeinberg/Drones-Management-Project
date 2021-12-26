@@ -17,20 +17,20 @@
             <Label Name="StationChargeSlotsLabel" Content = "station charge slots:" Margin = "43, 90, 680, 0"/>
             <Label Name="StationLongitudeLabel"   Content = "station longitude:"    Margin = "43, 120, 680, 0"/>
             <Label Name="StationLatitudeLabel"    Content = "station latitude:"     Margin = "43, 150, 680, 0"/>
-            <TextBox Name="StationID"          Margin = "221, 30, 500, 0" Text="{Binding ID}"  />
-            <TextBox Name="StationName"        Margin = "221, 60, 500, 0" />
-            <TextBox Name="StationChargeSlots" Margin = "221, 90, 500, 0"/>
-            <TextBox Name="StationLongitude"   Margin = "221, 120, 500, 0" Text="{Binding Location.Longitude}"/>
-            <TextBox Name="StationLatitude"    Margin = "221, 150, 500, 0" Text="{Binding Location.Latitude}" />
+            <TextBox Name="StationID"          Margin = "221, 30, 500, 0" Text="{Binding ID}"  KeyDown="OnKeyDownStationID"/>
+            <TextBox Name="StationName"        Margin = "221, 60, 500, 0" KeyDown="OnKeyDownStationName"/>
+            <TextBox Name="StationChargeSlots" Margin = "221, 90, 500, 0" KeyDown="OnKeyDownStationChargeSlots"/>
+            <TextBox Name="StationLongitude"   Margin = "221, 120, 500, 0" Text="{Binding Location.Longitude}" KeyDown="OnKeyDownStationLongitude"/>
+            <TextBox Name="StationLatitude"    Margin = "221, 150, 500, 0" Text="{Binding Location.Latitude}" KeyDown="OnKeyDownStationLatitude"/>
             <Button  Name="sendNewStation" Content="Send" Click="AddNewStation" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
-        <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30">
-            <Label  Name="DronesInChargelistLabel" Content = "Drones In Charge:" Margin = "139,191,612,0" Visibility="Hidden"/>
-            <ListView Name="DronesInChargelist" ItemsSource="{Binding}" Margin="43,234,502,214" FontSize="15"  MouseDoubleClick="GetDrone" Visibility="Hidden">
+        <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30" Visibility="Hidden">
+            <Label  Name="DronesInChargelistLabel" Content = "Drones In Charge:" Margin = "139,191,612,0"/>
+            <ListView Name="DronesInChargelist" ItemsSource="{Binding}" Margin="43,234,502,214" FontSize="15"  MouseDoubleClick="GetDrone">
                 <ListView.View >
                     <GridView>
                         <GridViewColumn Header="ID" Width="171" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="BatteryStatus" Width="172" DisplayMemberBinding="{Binding BatteryStatus}" />
+                        <GridViewColumn Header="Battery" Width="172" DisplayMemberBinding="{Binding BatteryStatus}" />
                     </GridView>
                 </ListView.View>
             </ListView>

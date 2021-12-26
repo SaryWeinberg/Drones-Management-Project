@@ -114,7 +114,7 @@ namespace BL
             DroneInParcel droneInparcel = new DroneInParcel();
             droneInparcel.ID = droneBL.ID;
             droneInparcel.Location = droneBL.Location;
-            droneInparcel.BatteryStatus = droneBL.BatteryStatus;
+            droneInparcel.Battery = droneBL.Battery;
 
             return new BO.Parcel
             {

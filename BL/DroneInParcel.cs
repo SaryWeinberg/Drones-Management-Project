@@ -9,7 +9,7 @@ namespace BO
     public class DroneInParcel
     {
         private int id;
-        private double batteryStatus;
+        private double battery;
 
         public int ID {
             get { return id; }
@@ -22,12 +22,12 @@ namespace BO
             }
         }
 
-        public double BatteryStatus {
-            get { return batteryStatus; }
+        public double Battery {
+            get { return battery; }
             set
             {
                 if (value >= 0)
-                    batteryStatus = value;
+                    battery = value;
                 else
                     throw new InvalidObjException("batteryStatus");
             }
@@ -37,7 +37,7 @@ namespace BO
 
         public override string ToString()
         {
-            return "Drone: id: " + ID + " BettaryStatus:  " + BatteryStatus + " Location: " + Location;
+            return "Drone: id: " + ID + " Bettary:  " + Battery + " Location: " + Location;
         }
     }
 }

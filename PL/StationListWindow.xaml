@@ -27,6 +27,6 @@
         <Button Grid.Row="2" Content="Add Station" Style="{StaticResource RedButton}" Click="AddStation" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="696,8,0,0" />
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
-        <Button Style="{StaticResource RefreshButton}" Click="ReturnWindow"/>
+        <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>
 </Window>

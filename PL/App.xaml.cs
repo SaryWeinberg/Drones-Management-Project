@@ -13,5 +13,9 @@ namespace PL
     /// </summary>
     public partial class App : Application
     {
+        private void ContentPresenter_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
     }
 }

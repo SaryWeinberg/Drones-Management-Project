@@ -10,7 +10,7 @@ namespace BO
     public class Drone 
     {
         private int id;
-        private double batteryStatus;
+        private double battery;
         private WeightCategories maxWeight;
         public int ID {
 
@@ -36,14 +36,14 @@ namespace BO
             }
         }
 
-        public double BatteryStatus {
-            get { return batteryStatus; }
+        public double Battery {
+            get { return battery; }
             set
             {
                 if (value >= 0)
-                    batteryStatus = value;
+                    battery = value;
                 else
-                    throw new InvalidObjException("batteryStatus");
+                    throw new InvalidObjException("battery");
             }
         }
 
@@ -53,7 +53,7 @@ namespace BO
 
         public override string ToString()
         {
-            return "Drone: id: " + ID + " model:  " + Model + " MaxWeight: " + MaxWeight + " BatteryStatus: " + BatteryStatus + " Status: " + Status + " Parcel: " + Parcel + " Location: " + Location;
+            return "Drone: id: " + ID + " model:  " + Model + " MaxWeight: " + MaxWeight + " BatteryStatus: " + Battery + " Status: " + Status + " Parcel: " + Parcel + " Location: " + Location;
         }
     }
 }
