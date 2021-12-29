@@ -102,8 +102,8 @@ namespace BL
             List<DroneInCharge> droneInCharge = new List<DroneInCharge>();
             foreach (DO.DroneCharge droneCharge in dalObj.GetDroneCharges())
             {
-                if (droneCharge.StationId == s.ID && droneCharge.Active)
-                    droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).Battery));
+                if (droneCharge.StationId == s.ID)
+                    droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).Battery, DateTime.Now));
             }
 
             return new BO.Station

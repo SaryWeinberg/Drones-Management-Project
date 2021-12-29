@@ -34,7 +34,7 @@ namespace BL
         {
             Station station = GetSpesificStation(stationID);
             station.AveChargeSlots -= 1;
-            station.DronesInChargelist.Add(new DroneInCharge(DroneID, batteryStatus));
+            station.DronesInChargelist.Add(new DroneInCharge(DroneID, batteryStatus, DateTime.Now));
 
 
             DO.DroneCharge droneCharge = new DO.DroneCharge();
@@ -109,6 +109,11 @@ namespace BL
             };
         }
 
+        public DroneInCharge ConvertDalDroneChargeToBL(DO.DroneCharge d)
+        {
+            return new DroneInCharge(d.DroneId, GetSpesificDrone(d.DroneId).Battery, d.EnterToCharge);
+        }
+
         /// <summary>
         /// Convert from bl drone to dal drone
         /// </summary>
@@ -147,6 +152,18 @@ namespace BL
             try
             {
                 return dronesList.Find(d => d.ID == droneId);
+            }
+            catch (ArgumentNullException)
+            {
+                throw new ObjectNotExistException($"There is no drone with ID - {droneId}");
+            }
+        }
+
+        public DroneInCharge GetSpecificDroneInCharge(int droneId)
+        {
+            try
+            {
+                return ConvertDalDroneChargeToBL(dalObj.GetDroneCharges().First(d => d.DroneId == droneId));
             }
             catch (ArgumentNullException)
             {

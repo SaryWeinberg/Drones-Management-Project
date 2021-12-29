@@ -27,7 +27,6 @@ namespace DalObject
         /// <param name="droneCharge"></param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
-            droneCharge.Active = true;
             DataSource.DroneCharges.Add(droneCharge);
         }
 
