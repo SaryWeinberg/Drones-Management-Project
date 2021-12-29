@@ -111,7 +111,7 @@ namespace BL
 
         public DroneInCharge ConvertDalDroneChargeToBL(DO.DroneCharge d)
         {
-            return new DroneInCharge(d.DroneId, GetSpesificDrone(d.DroneId).Battery, d.EnterToCharge);
+            return new DroneInCharge(d.DroneId, GetSpesificDrone(d.DroneId).Battery, d.DroneEnterToCharge);
         }
 
         /// <summary>

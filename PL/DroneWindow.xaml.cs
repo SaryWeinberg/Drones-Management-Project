@@ -237,14 +237,13 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ReleaseDronefromCharge(object sender, RoutedEventArgs e)
-        {
-            int timeInCharge = int.Parse((DateTime.Now - bl.GetSpecificDroneInCharge(IDInput()).DroneEnterToCharge).ToString());
+        {           
+            TimeSpan? timeInCharge = DateTime.Now - bl.GetSpecificDroneInCharge(IDInput()).DroneEnterToCharge; 
             try
             {
-         /*       DateTime.Now  - כא       */
-                    MessageBoxResult result =
+                MessageBoxResult result =
                 MessageBox.Show(
-                  bl.ReleaseDroneFromCharge(IDInput(), timeInCharge),
+                  bl.ReleaseDroneFromCharge(IDInput(), timeInCharge.Minutes),
                   $"Release drone ID - {IDInput()} from charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
