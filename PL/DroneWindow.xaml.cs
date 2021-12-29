@@ -123,9 +123,11 @@ namespace PL
             }
             else if (drone.Status == DroneStatus.Maintenance)
             {
-                timecharge.Visibility = Visibility.Visible;
+                /*timecharge.Visibility = Visibility.Visible;
                 timechargeLabel.Visibility = Visibility.Visible;
-                timecharge.TextChanged += releseDrone;
+                timecharge.TextChanged += releseDrone;*/
+                releaseDronefromCharge.Visibility = Visibility.Visible;
+                releaseDronefromCharge.Margin = new Thickness(0, 370, 245, 0);
             }
             else if (drone.Status == DroneStatus.Delivery)
             {
@@ -160,11 +162,11 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void releseDrone(object sender, RoutedEventArgs e)
+        /*private void releseDrone(object sender, RoutedEventArgs e)
         {
             releaseDronefromCharge.Visibility = Visibility.Visible;
             releaseDronefromCharge.Margin = new Thickness(0, 370, 245, 0);
-        }
+        }*/
 
         /// <summary>
         /// closing the window
@@ -236,12 +238,13 @@ namespace PL
         /// <param name="e"></param>
         private void ReleaseDronefromCharge(object sender, RoutedEventArgs e)
         {
+            int timeInCharge = int.Parse((DateTime.Now - bl.GetSpecificDroneInCharge(IDInput()).DroneEnterToCharge).ToString());
             try
             {
          /*       DateTime.Now  - כא       */
                     MessageBoxResult result =
                 MessageBox.Show(
-                  bl.ReleaseDroneFromCharge(IDInput(), TimeChargeInput()),
+                  bl.ReleaseDroneFromCharge(IDInput(), timeInCharge),
                   $"Release drone ID - {IDInput()} from charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
@@ -347,7 +350,6 @@ namespace PL
         }
         private int WeightInput()
         {
-
             return MaxWeight.SelectedIndex != -1 ? MaxWeight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
         }
         private string ModelInput()
@@ -360,11 +362,11 @@ namespace PL
             catch (Exception) { throw new InvalidObjException("Station ID"); }
         }
 
-        private int TimeChargeInput()
+       /* private int TimeChargeInput()
         {
             try { return int.Parse(timecharge.Text); }
             catch (Exception) { throw new InvalidObjException("Time of charge"); }
-        }
+        }*/
 
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {

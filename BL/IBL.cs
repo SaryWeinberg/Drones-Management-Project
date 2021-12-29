@@ -35,6 +35,7 @@ namespace BLApi
         public BO.Drone GetSpesificDrone(int droneId);
         public BO.Parcel GetSpesificParcelBL(int parcelId);
         public BO.Station GetSpesificStation(int stationId);
+        public DroneInCharge GetSpecificDroneInCharge(int droneId);
         public List<BO.Customer> GetCustomers();
         public List<BO.Drone> GetDalDronesListAsBL();
         public List<BO.Drone> GetDronesList();

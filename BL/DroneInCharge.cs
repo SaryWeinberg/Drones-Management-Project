@@ -35,14 +35,11 @@ namespace BO
             }
         }
 
-
-        public DateTime? DroneEnterToCharge { get; set; }
-
-        public DroneInCharge(int DroneID, double Battery)
+        public DroneInCharge(int DroneID, double Battery, DateTime? dateTime)
         {
             id = DroneID;
             battery = Battery;
-            DroneEnterToCharge = DateTime.Now; 
+            DroneEnterToCharge = dateTime;
         }
 
         public override string ToString()
