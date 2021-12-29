@@ -58,7 +58,7 @@ namespace BL
                 targetCustomer.ID = targetId;
                 targetCustomer.Name = GetSpesificCustomer(targetId).Name;
 
-                parcel.ID = GetCustomers().Count();
+                parcel.ID = GetParcels().Count();
                 parcel.Sender = senderCustomer;
                 parcel.Target = targetCustomer;
                 parcel.Weight = weight;
@@ -68,7 +68,7 @@ namespace BL
                 parcel.Created = DateTime.Now;
             }
             catch (InvalidObjException e) { throw e; }
-            AddParcelDal(GetCustomers().Count() + 1, senderId, targetId, weight, priority);
+            AddParcelDal(parcel.ID, senderId, targetId, weight, priority);
             return "Parcel added successfully!";
         }
 
