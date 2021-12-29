@@ -147,7 +147,7 @@ namespace PL
         private void AddDrone(object sender, RoutedEventArgs e)
         {
             new DroneWindow(bl).Show();
-            Close();
+          /*  Close();*/
         }
 
         /// <summary>

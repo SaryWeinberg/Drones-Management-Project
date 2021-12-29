@@ -53,6 +53,8 @@ namespace BLApi
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
         /*        public IEnumerable<BO.Customer> GeCustomerByCondition(Predicate<BO.Customer> condition);
         */
+
+        public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition);
         public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
         public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition);
          public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);

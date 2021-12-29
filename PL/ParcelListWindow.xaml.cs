@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,21 @@ namespace PL
     {
         BLApi.IBL bl;
 
+        private CollectionView view;
+        ObservableCollection<BO.ParcelToList> list = new ObservableCollection<BO.ParcelToList>();
+
+
         public ParcelListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            ParcelListView.ItemsSource = bl.GetParcelsToList();
+           
+            foreach (var item in bl.GetParcelsToList())
+                list.Add(item);
+            DataContext = list;
+            view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
+            ParcelListView.ItemsSource = list;
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -115,6 +125,26 @@ namespace PL
         {
             new MainWindow().Show();
             Close();
+        }
+
+        private void GroupBySender(object sender, RoutedEventArgs e)
+        {
+            if (view != null && view.CanGroup == true)
+            {
+                view.GroupDescriptions.Clear();
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("SenderName");
+                view.GroupDescriptions.Add(groupDescription);
+            }
+        }
+
+        private void GroupByTarget(object sender, RoutedEventArgs e)
+        {
+            if (view != null && view.CanGroup == true)
+            {
+                view.GroupDescriptions.Clear();
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetName");
+                view.GroupDescriptions.Add(groupDescription);
+            }
         }
     }
 }

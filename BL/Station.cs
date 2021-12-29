@@ -36,7 +36,7 @@ namespace BO
             get { return aveChargeSlots; }
             set
             {
-                if (value > 0 )
+                if (value >= 0 )
                     aveChargeSlots = value;
                 else throw new InvalidObjException("available charge slots");
             }

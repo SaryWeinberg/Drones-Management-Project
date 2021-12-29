@@ -133,6 +133,9 @@ namespace BL
             }
         }
 
+
+ 
+
         /// <summary>
         /// Returning the station list
         /// </summary>
@@ -209,5 +212,13 @@ namespace BL
             }
             return stationToList;
         }
+
+
+        public IEnumerable<StationToList>GetStationsToListByCondition(Predicate<StationToList> condition)
+        {
+            return from station in GetStationsList()
+                   where condition(station)
+                   select station;
     }
+}
 }

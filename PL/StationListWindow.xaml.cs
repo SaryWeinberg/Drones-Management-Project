@@ -73,8 +73,8 @@ namespace PL
         {
             ClearListView();
 
-      
-            StationListView.ItemsSource = bl.GetAvailableStationsList();
+
+            StationListView.ItemsSource = bl.GetStationsToListByCondition(station => station.AveChargeSlots > 0);
             view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
         }
 

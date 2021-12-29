@@ -87,6 +87,9 @@ namespace BL
                         drone.Location = stationBLs[stationId].Location;
                         AddDroneCharge(stationId, drone.ID, drone.Battery);
                         //         stationBLs[stationId].DronesInChargelist.Add(new DroneInCharge(drone.ID, drone.BatteryStatus));
+
+
+                       
                     }
                 }
             }
@@ -153,7 +156,7 @@ namespace BL
             drone.Battery -= dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location);
             drone.Location = station.Location;
             drone.Status = DroneStatus.Maintenance;
-            station.AveChargeSlots -= 1;
+      /*      station.AveChargeSlots -= 1;*/
             AddDroneCharge(station.ID, drone.ID, drone.Battery);
 
             dalObj.UpdateDrone(ConvertBLDroneToDAL(drone));

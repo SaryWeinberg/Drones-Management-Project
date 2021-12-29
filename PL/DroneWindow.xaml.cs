@@ -238,7 +238,8 @@ namespace PL
         {
             try
             {
-                MessageBoxResult result =
+         /*       DateTime.Now  - כא       */
+                    MessageBoxResult result =
                 MessageBox.Show(
                   bl.ReleaseDroneFromCharge(IDInput(), TimeChargeInput()),
                   $"Release drone ID - {IDInput()} from charge",

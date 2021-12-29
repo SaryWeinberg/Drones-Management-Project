@@ -13,7 +13,7 @@ namespace BO
 
         private int id;
         private double battery;
-        public DateTime? DroneEnterToCharge { get; set; }
+      
         public int ID {
             get { return id; }
             set
@@ -34,6 +34,9 @@ namespace BO
                     throw new InvalidObjException("batteryStatus");
             }
         }
+
+
+        public DateTime? DroneEnterToCharge { get; set; }
 
         public DroneInCharge(int DroneID, double Battery)
         {
