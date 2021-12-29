@@ -238,7 +238,7 @@ namespace PL
         /// <param name="e"></param>
         private void ReleaseDronefromCharge(object sender, RoutedEventArgs e)
         {           
-            TimeSpan? timeInCharge = DateTime.Now - bl.GetSpecificDroneInCharge(IDInput()).DroneEnterToCharge; 
+            TimeSpan timeInCharge = DateTime.Now - bl.GetSpecificDroneInCharge(IDInput()).DroneEnterToCharge;
             try
             {
                 MessageBoxResult result =
