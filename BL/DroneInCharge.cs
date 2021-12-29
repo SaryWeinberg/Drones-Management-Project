@@ -35,6 +35,7 @@ namespace BO
             }
         }
 
+        public DateTime? DroneEnterToCharge { get; set; }
         public DroneInCharge(int DroneID, double Battery, DateTime? dateTime)
         {
             id = DroneID;

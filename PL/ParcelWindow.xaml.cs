@@ -64,7 +64,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     //new ParcelListWindow(bl).Show();
-                    Close();
+                  /*  Close();*/
                 }
             }
             catch (Exception exc)
@@ -87,12 +87,18 @@ namespace PL
         }        
         private int WeightInput()
         {
-            try { return int.Parse(ParcelWeight.Text); }
+            try {
+              return  ParcelWeight.SelectedIndex;
+            /*    return int.Parse(ParcelWeight.Text);*/
+            
+            }
             catch (Exception) { throw new InvalidObjException("Weight"); }
         }
         private int PriorityInput()
         {
-            try { return int.Parse(ParcelPriority.Text); }
+            try {
+                return ParcelPriority.SelectedIndex;
+              /*  return int.Parse(ParcelPriority.Text);*/ }
             catch (Exception) { throw new InvalidObjException("Priority"); }
         }
 
