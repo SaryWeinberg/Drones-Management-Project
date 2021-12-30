@@ -21,7 +21,7 @@ namespace PL
     public partial class DroneWindow : Window
     {
         BLApi.IBL bl;
-        BO.Drone Drone;
+        Drone Drone;
 
         /// <summary>
         /// Ctor of Add drone window
@@ -77,7 +77,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            Drone = drone;
+            Drone = new Drone(drone);
             AddDroneGrid.DataContext = Drone;
             StationIDLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;            

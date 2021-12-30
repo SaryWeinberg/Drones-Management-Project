@@ -23,7 +23,7 @@ namespace PL
         BLApi.IBL bl;
 
         private CollectionView view;
-        ObservableCollection<BO.ParcelToList> list = new ObservableCollection<BO.ParcelToList>();
+   ObservableCollection<BO.ParcelToList> list = new ObservableCollection<BO.ParcelToList>();
 
 
         public ParcelListWindow(BLApi.IBL blMain)
