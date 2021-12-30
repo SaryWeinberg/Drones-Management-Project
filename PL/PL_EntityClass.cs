@@ -31,10 +31,6 @@ namespace PL
         public BO.Location Location { get { return (BO.Location)GetValue(LocationProperty); } set { SetValue(LocationProperty, value); } }
 
 
-
-
-
-
         public static readonly DependencyProperty IDProperty =
             DependencyProperty.Register("ID", typeof(int), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty ModelProperty =
