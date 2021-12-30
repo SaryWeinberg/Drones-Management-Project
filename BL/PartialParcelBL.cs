@@ -86,7 +86,7 @@ namespace BL
                 DroneId = p.Drone.ID,
                 PickedUp = p.PickedUp,
                 Priority = p.Priority,
-                Created = p.Associated,
+                Created = p.Created,
                 SenderId = p.Sender.ID,
                 TargetId = p.Target.ID,
                 Weight = p.Weight,
@@ -119,8 +119,8 @@ namespace BL
             return new BO.Parcel
             {
                 ID = p.ID,
-                Associated = p.Created,
-                Created = p.PickedUp,
+                Associated = p.Associated,
+                Created = p.Created,
                 Delivered = p.Delivered,
                 PickedUp = p.PickedUp,
                 Priority = p.Priority,
@@ -194,7 +194,7 @@ namespace BL
             List<BO.ParcelToList> parcelToList = new List<BO.ParcelToList>();
             foreach (BO.Parcel parcel in parcels)
             {
-                parcelToList.Add(new BO.ParcelToList(parcel, dalObj));
+                parcelToList.Add(new BO.ParcelToList(parcel));
             }
             return parcelToList;
         }

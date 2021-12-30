@@ -101,7 +101,17 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsToList();
+        ///
+/*        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsToList();*/
+
+        private void FilterByDateRange(object sender, RoutedEventArgs e)
+        {
+            
+            ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
+            ParcelListView.ItemsSource = from parcels in bl.GetParcelsByCondition(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
+                                         select (new BO.ParcelToList(parcels));
+
+        }
 
         /// <summary>
         /// Show parcel window with adding ctor
@@ -145,6 +155,11 @@ namespace PL
                 PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetName");
                 view.GroupDescriptions.Add(groupDescription);
             }
+        }
+
+        private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

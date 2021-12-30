@@ -8,7 +8,7 @@ namespace BO
 {
     public class ParcelToList
     {
-        public ParcelToList(Parcel parcel, DalApi.IDal dalObj)
+        public ParcelToList(Parcel parcel)
         {
             ID = parcel.ID;
             SenderName = parcel.Sender.Name;
