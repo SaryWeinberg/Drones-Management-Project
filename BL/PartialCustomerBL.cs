@@ -39,7 +39,7 @@ namespace BL
         /// <param name="location"></param>
         public string AddCustomerBL(int id, int phone, string name, Location location)
         {
-            if (dalObj.GetCustomers().Any(c => c.ID == id))
+            if (dalObj.GeCustomerByCondition(c => c.ID == id) != null)
             {
                 throw new ObjectAlreadyExistException("Customer", id);
             }
@@ -160,9 +160,9 @@ namespace BL
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
-        public List<BO.Customer> GetCustomers()
+        public IEnumerable<BO.Customer> GetCustomers()
         {
-            List<DO.Customer> customersDal = dalObj.GetCustomers();
+            List<DO.Customer> customersDal = dalObj.GetCustomers().ToList();
             List<BO.Customer> customersBL = new List<BO.Customer>();
             customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
             return customersBL;
@@ -172,9 +172,9 @@ namespace BL
         /// Returns the customer list with CustomerToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.CustomerToList> GetCustomersToList()
+        public IEnumerable<BO.CustomerToList> GetCustomersToList()
         {
-            List<BO.Customer> customers = GetCustomers();
+            List<BO.Customer> customers = GetCustomers().ToList();
             List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
             foreach (BO.Customer custtomer in customers)
             {

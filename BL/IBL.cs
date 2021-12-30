@@ -36,15 +36,15 @@ namespace BLApi
         public BO.Parcel GetSpesificParcelBL(int parcelId);
         public BO.Station GetSpesificStation(int stationId);
         public DroneInCharge GetSpecificDroneInCharge(int droneId);
-        public List<BO.Customer> GetCustomers();
-        public List<BO.Drone> GetDalDronesListAsBL();
-        public List<BO.Drone> GetDronesList();
+        public IEnumerable<BO.Customer> GetCustomers();
+        public IEnumerable<BO.Drone> GetDalDronesListAsBL();
+        public IEnumerable<BO.Drone> GetDronesList();
         public string UpdateDrone(BO.Drone droneBL);
-        public List<BO.Parcel> GetParcels();
-        public List<BO.Station> GetStations();
+        public IEnumerable<BO.Parcel> GetParcels();
+        public IEnumerable<BO.Station> GetStations();
         /*        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> findBy);
         */
-        public List<BO.Station> GetAvailableStationsList();
+        public IEnumerable<BO.Station> GetAvailableStationsList();
         public BO.Station GetNearestAvailableStation(Location Targlocation);
         public string SendDroneToCharge(int droneId);
         public string ReleaseDroneFromCharge(int droneId, int timeInCharge);
@@ -60,9 +60,9 @@ namespace BLApi
         public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition);
          public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
         public IEnumerable<BO.ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition);
-        public List<BO.CustomerToList> GetCustomersToList();
-        public List<BO.DroneToList> GetDronesToList();
-        public List<BO.ParcelToList> GetParcelsToList();
-        public List<BO.StationToList> GetStationsList();
+        public IEnumerable<BO.CustomerToList> GetCustomersToList();
+        public IEnumerable<BO.DroneToList> GetDronesToList();
+        public IEnumerable<BO.ParcelToList> GetParcelsToList();
+        public IEnumerable<BO.StationToList> GetStationsList();
     }
 }

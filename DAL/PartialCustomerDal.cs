@@ -59,7 +59,7 @@ namespace DalObject
         /// Returns the customer list
         /// </summary>
         /// <returns></returns>
-        public List<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
             return DataSource.Customers;
         }      

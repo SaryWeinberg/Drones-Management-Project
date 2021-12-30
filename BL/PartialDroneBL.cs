@@ -175,9 +175,9 @@ namespace BL
         /// Returning the drone list from DAL
         /// </summary>
         /// <returns></returns>
-        public List<Drone> GetDalDronesListAsBL()
+        public IEnumerable<Drone> GetDalDronesListAsBL()
         {
-            List<DO.Drone> dronesDal = dalObj.GetDrones();
+            List<DO.Drone> dronesDal = dalObj.GetDrones().ToList();
             List<Drone> dronesBL = new List<Drone>();
             dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
             return dronesBL;
@@ -187,7 +187,7 @@ namespace BL
         /// Returning the drone list from BL
         /// </summary>
         /// <returns></returns>
-        public List<Drone> GetDronesList()
+        public IEnumerable<Drone> GetDronesList()
         {
             return dronesList;
         }
@@ -196,7 +196,7 @@ namespace BL
         /// Returns the drone list with DroneToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.DroneToList> GetDronesToList()
+        public IEnumerable<BO.DroneToList> GetDronesToList()
         {
 
             List<BO.DroneToList> droneToList = new List<BO.DroneToList>();

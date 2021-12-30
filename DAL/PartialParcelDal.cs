@@ -59,7 +59,7 @@ namespace DalObject
         /// Returns the parcel list
         /// </summary>
         /// <returns></returns>
-        public List<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcels()
         {
             return DataSource.Parcels;
         }

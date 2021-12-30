@@ -76,9 +76,11 @@ namespace DalObject
         /// Returns the station list
         /// </summary>
         /// <returns></returns>
-        public List<Station> GetStations()
+        public IEnumerable<Station> GetStations()
         {
-            return DataSource.Stations;
-        }
+            foreach (Station x in DataSource.Stations)
+                yield return x;
+/*            return DataSource.Stations;
+*/        }
     }
 }

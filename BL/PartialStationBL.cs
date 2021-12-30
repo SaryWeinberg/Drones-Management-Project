@@ -134,15 +134,15 @@ namespace BL
         }
 
 
- 
+
 
         /// <summary>
         /// Returning the station list
         /// </summary>
         /// <returns></returns>
-        public List<BO.Station> GetStations()
+        public IEnumerable<BO.Station> GetStations()
         {
-            List<DO.Station> stationsDal = dalObj.GetStations();
+            List<DO.Station> stationsDal = dalObj.GetStations().ToList();
             List<BO.Station> stationsBL = new List<BO.Station>();
             stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
             return stationsBL;
@@ -152,9 +152,9 @@ namespace BL
         /// Returns stations with available charge slots
         /// </summary>
         /// <returns></returns>
-        public List<BO.Station> GetAvailableStationsList()
+        public IEnumerable<BO.Station> GetAvailableStationsList()
         {
-            List<BO.Station> stationsBL = new List<BO.Station>();
+            List<BO.Station> stationsBL = new List<BO.Station>().ToList();
             foreach (DO.Station station in dalObj.GetStationLists())
             {
                 if (station.ChargeSlots > 0)
@@ -173,7 +173,7 @@ namespace BL
         public BO.Station GetNearestAvailableStation(Location Targlocation)
         {
             BO.Station station = null;
-            List<BO.Station> stations = GetStations();
+            List<BO.Station> stations = GetStations().ToList();
 
             double minDistance = Distance(stations[0].Location, Targlocation);
             foreach (BO.Station currentStation in stations)
@@ -202,9 +202,9 @@ namespace BL
         /// Returns the station list with StationToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.StationToList> GetStationsList()
+        public IEnumerable<BO.StationToList> GetStationsList()
         {
-            List<BO.Station> stations = GetStations();
+            List<BO.Station> stations = GetStations().ToList();
             List<BO.StationToList> stationToList = new List<BO.StationToList>();
             foreach (BO.Station station in stations)
             {
@@ -214,11 +214,11 @@ namespace BL
         }
 
 
-        public IEnumerable<StationToList>GetStationsToListByCondition(Predicate<StationToList> condition)
+        public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition)
         {
             return from station in GetStationsList()
                    where condition(station)
                    select station;
+        }
     }
-}
 }

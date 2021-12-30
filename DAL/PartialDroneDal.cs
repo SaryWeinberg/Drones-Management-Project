@@ -53,7 +53,7 @@ namespace DalObject
         /// Returns the drone list
         /// </summary>
         /// <returns></returns>
-        public List<Drone> GetDrones()
+        public IEnumerable<Drone> GetDrones()
         {
             return DataSource.Drones;
         }
@@ -62,7 +62,7 @@ namespace DalObject
         /// Returns the drone charge list
         /// </summary>
         /// <returns></returns>
-        public List<DroneCharge> GetDroneCharges()
+        public IEnumerable<DroneCharge> GetDroneCharges()
         {
             return DataSource.DroneCharges;
         }

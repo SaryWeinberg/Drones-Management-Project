@@ -58,7 +58,7 @@ namespace BL
                 targetCustomer.ID = targetId;
                 targetCustomer.Name = GetSpesificCustomer(targetId).Name;
 
-                parcel.ID = GetParcels().Count();
+                parcel.ID = GetParcels().ToList().Count();
                 parcel.Sender = senderCustomer;
                 parcel.Target = targetCustomer;
                 parcel.Weight = weight;
@@ -101,7 +101,7 @@ namespace BL
         /// <returns></returns>
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p)
         {
-            BO.Drone droneBL = GetDronesList().Find(d => d.ID == p.DroneId);
+            BO.Drone droneBL = GetDronesList().ToList().Find(d => d.ID == p.DroneId);
 
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
@@ -152,9 +152,9 @@ namespace BL
         /// Returning the parcel list
         /// </summary>
         /// <returns></returns>
-        public List<BO.Parcel> GetParcels()
+        public IEnumerable<BO.Parcel> GetParcels()
         {
-            List<DO.Parcel> parcelsDal = dalObj.GetParcels();
+            List<DO.Parcel> parcelsDal = dalObj.GetParcels().ToList();
             List<BO.Parcel> parcelsBL = new List<BO.Parcel>();
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
             return parcelsBL;
@@ -188,9 +188,9 @@ namespace BL
         /// Returns the parcel list with ParcelToList
         /// </summary>
         /// <returns></returns>
-        public List<BO.ParcelToList> GetParcelsToList()
+        public IEnumerable<BO.ParcelToList> GetParcelsToList()
         {
-            List<BO.Parcel> parcels = GetParcels();
+            List<BO.Parcel> parcels = GetParcels().ToList();
             List<BO.ParcelToList> parcelToList = new List<BO.ParcelToList>();
             foreach (BO.Parcel parcel in parcels)
             {

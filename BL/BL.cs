@@ -40,8 +40,8 @@ namespace BL
             double medium = ElectricUse[2];
             double heavy = ElectricUse[3];
             double chargingRate = ElectricUse[4];
-            dronesList = GetDalDronesListAsBL();
-            List<DO.Parcel> parcels = dalObj.GetParcels();
+            dronesList = GetDalDronesListAsBL().ToList();
+            List<DO.Parcel> parcels = dalObj.GetParcels().ToList();
 
             foreach (BO.Drone drone in dronesList)
             {
@@ -82,7 +82,7 @@ namespace BL
                     else
                     {
                         drone.Battery = rand.Next(1, 20);
-                        List<BO.Station> stationBLs = GetStations();
+                        List<BO.Station> stationBLs = GetStations().ToList();
                         int stationId = rand.Next(stationBLs.Count());
                         drone.Location = stationBLs[stationId].Location;
                         AddDroneCharge(stationId, drone.ID, drone.Battery);
@@ -192,7 +192,7 @@ namespace BL
             }
 
             droneBL.Status = DroneStatus.Available;
-            List<DO.Station> stations = dalObj.GetStations();
+            List<DO.Station> stations = dalObj.GetStations().ToList();
             DO.Station station = stations.Find(s => s.Latitude == droneBL.Location.Latitude && s.Longitude == droneBL.Location.Longitude);
             station.ChargeSlots += 1;
 
@@ -215,7 +215,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
 
-            List<BO.Parcel> parcels = GetParcels();
+            List<BO.Parcel> parcels = GetParcels().ToList();
             int flag = 0;
             double bestDistance = 100;
 
@@ -290,7 +290,7 @@ namespace BL
             try
             {
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp == null && parcel.Associated != null);
-                List<BO.Customer> customers = GetCustomers();
+                List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
                 droneBL.Battery = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
                 droneBL.Location = senderCustomer.Location;
@@ -334,7 +334,7 @@ namespace BL
             try
             {
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp != null && parcel.Associated != null);
-                List<BO.Customer> customers = GetCustomers();
+                List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer TargetCustomer = customers.Find(c => c.ID == currentParcel.Target.ID);
                 droneBL.Battery = Distance(droneBL.Location, TargetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
                 droneBL.Location = TargetCustomer.Location;
