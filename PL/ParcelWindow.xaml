@@ -17,10 +17,10 @@
                 <Label Name="ParcelTargetIDLabel" Content = "parcel target ID:" Margin = "43, 60, 680, 0"/>
                 <Label Name="ParcelweightLabel"   Content = "parcel weight:"    Margin = "43, 90, 680, 0"/>
                 <Label Name="ParcelPriorityLabel" Content = "parcel priority:"  Margin = "43, 120, 680, 0"/>
-                <TextBox Name="ParcelSenderID" Margin = "221, 30, 500, 0"/>
-                <TextBox Name="ParcelTargetID" Margin = "221, 60, 500, 0"/>
-                <ComboBox Name="ParcelWeight"   Margin = "221, 90, 500, 0"/>
-                <ComboBox Name="ParcelPriority" Margin = "221, 120, 500, 0"/>
+                <TextBox Name="ParcelSenderID" Margin = "221, 30, 500, 0" KeyDown="OnKeyDownParcelSenderID"/>
+                <TextBox Name="ParcelTargetID" Margin = "221, 60, 500, 0" KeyDown="OnKeyDownParcelTargetID"/>
+                <ComboBox Name="ParcelWeight"   Margin = "221, 90, 500, 0" KeyDown="OnKeyDownParcelWeight"/>
+                <ComboBox Name="ParcelPriority" Margin = "221, 120, 500, 0" KeyDown="OnKeyDownParcelPriority"/>
                 <Button Name="sendNewParcel" Content = "Send" Click="AddNewParcel" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
             </Grid>
 

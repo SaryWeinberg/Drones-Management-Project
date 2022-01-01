@@ -71,10 +71,104 @@ namespace PL
         public static readonly DependencyProperty LocationProperty =
             DependencyProperty.Register("Location", typeof(BO.Location), typeof(Station), new UIPropertyMetadata());
         public static readonly DependencyProperty AveChargeSlotsProperty =
-            DependencyProperty.Register("AveChargeSlots", typeof(WeightCategories), typeof(Station), new UIPropertyMetadata());
+            DependencyProperty.Register("AveChargeSlots", typeof(double), typeof(Station), new UIPropertyMetadata());
         public static readonly DependencyProperty DronesInChargelistProperty =
             DependencyProperty.Register("DronesInChargelist", typeof(List<BO.DroneInCharge>), typeof(Station), new UIPropertyMetadata());
     }
+
+
+    public class Customer : DependencyObject
+    {
+        public Customer(BO.Customer customer)
+        {
+            ID = customer.ID;
+            PhoneNum = customer.PhoneNum;
+            Name = customer.Name;
+            Location = customer.Location;
+            DeliveryToCustomer = customer.DeliveryToCustomer;
+            DeliveryFromCustomer = customer.DeliveryFromCustomer;
+        }
+        public int ID { get { return (int)GetValue(IDProperty); } set { SetValue(IDProperty, value); } }
+        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); } }
+        public BO.Location Location { get { return (BO.Location)GetValue(LocationProperty); } set { SetValue(LocationProperty, value); } }
+        public int PhoneNum { get { return (int)GetValue(PhoneNumProperty); } set { SetValue(PhoneNumProperty, value); } }
+        public List<BO.ParcelsAtTheCustomer> DeliveryToCustomer { get { return (List<BO.ParcelsAtTheCustomer>)GetValue(DeliveryToCustomerProperty); } set { SetValue(DeliveryToCustomerProperty, value); } }
+        public List<BO.ParcelsAtTheCustomer> DeliveryFromCustomer { get { return (List<BO.ParcelsAtTheCustomer>)GetValue(DeliveryFromCustomerProperty); } set { SetValue(DeliveryFromCustomerProperty, value); } }
+
+
+        public static readonly DependencyProperty IDProperty =
+            DependencyProperty.Register("ID", typeof(int), typeof(Customer), new UIPropertyMetadata());
+        public static readonly DependencyProperty NameProperty =
+            DependencyProperty.Register("Name", typeof(string), typeof(Customer), new UIPropertyMetadata());
+        public static readonly DependencyProperty LocationProperty =
+            DependencyProperty.Register("Location", typeof(BO.Location), typeof(Customer), new UIPropertyMetadata());
+        public static readonly DependencyProperty PhoneNumProperty =
+            DependencyProperty.Register("PhoneNum", typeof(int), typeof(Customer), new UIPropertyMetadata());
+        public static readonly DependencyProperty DeliveryToCustomerProperty =
+            DependencyProperty.Register("DeliveryToCustomer", typeof(List<BO.ParcelsAtTheCustomer>), typeof(Customer), new UIPropertyMetadata());
+        public static readonly DependencyProperty DeliveryFromCustomerProperty =
+            DependencyProperty.Register("DeliveryFromCustomer", typeof(List<BO.ParcelsAtTheCustomer>), typeof(Customer), new UIPropertyMetadata());
+    }
+
+
+
+
+
+
+
+    public class Parcel : DependencyObject
+    {
+        public Parcel(BO.Parcel parcel)
+        {
+            ID = parcel.ID;
+            Associated = parcel.Associated;
+            Created = parcel.Created;
+            Delivered = parcel.Delivered;
+            Drone = parcel.Drone;
+            PickedUp = parcel.PickedUp;
+            Priority = parcel.Priority;
+            Sender = parcel.Sender;
+            Target = parcel.Target;
+            Weight = parcel.Weight;                
+        }
+
+        public int ID { get { return (int)GetValue(IDProperty); } set { SetValue(IDProperty, value); } }
+        public DateTime? Associated { get { return (DateTime?)GetValue(AssociatedProperty); } set { SetValue(AssociatedProperty, value); } }
+        public DateTime? Created { get { return (DateTime?)GetValue(CreatedProperty); } set { SetValue(CreatedProperty, value); } }
+        public DateTime? Delivered { get { return (DateTime?)GetValue(DeliveredProperty); } set { SetValue(DeliveredProperty, value); } }
+        public DateTime? PickedUp { get { return (DateTime?)GetValue(PickedUpProperty); } set { SetValue(PickedUpProperty, value); } }
+        public BO.DroneInParcel Drone { get { return (BO.DroneInParcel)GetValue(DroneProperty); } set { SetValue(DroneProperty, value); } }
+        public Priorities Priority { get { return (Priorities)GetValue(PriorityProperty); } set { SetValue(PriorityProperty, value); } }
+        public WeightCategories Weight { get { return (WeightCategories)GetValue(WeightProperty); } set { SetValue(WeightProperty, value); } }
+        public BO.CustomerInParcel Sender { get { return (BO.CustomerInParcel)GetValue(SenderProperty); } set { SetValue(SenderProperty, value); } }
+        public BO.CustomerInParcel Target { get { return (BO.CustomerInParcel)GetValue(TargetProperty); } set { SetValue(TargetProperty, value); } }
+        
+
+        public static readonly DependencyProperty IDProperty =
+            DependencyProperty.Register("ID", typeof(int), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty AssociatedProperty =
+            DependencyProperty.Register("Associated", typeof(DateTime?), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty CreatedProperty =
+            DependencyProperty.Register("Created", typeof(DateTime?), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty DeliveredProperty =
+            DependencyProperty.Register("Delivered", typeof(DateTime?), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty PickedUpProperty =
+            DependencyProperty.Register("PickedUp", typeof(DateTime?), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty DroneProperty =
+            DependencyProperty.Register("Drone", typeof(BO.DroneInParcel), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty PriorityProperty =
+            DependencyProperty.Register("Priority", typeof(Priorities), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty WeightProperty =
+            DependencyProperty.Register("Weight", typeof(WeightCategories), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty SenderProperty =
+            DependencyProperty.Register("Sender", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
+        public static readonly DependencyProperty TargetProperty =
+            DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
+
+    }
+
+
+
 
 
 

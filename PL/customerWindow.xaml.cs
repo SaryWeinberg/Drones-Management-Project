@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Input;
 
 namespace PL
 {
@@ -12,13 +12,14 @@ namespace PL
     public partial class CustomerWindow : Window
     {
         BLApi.IBL bl;
-        BO.Customer Customer;
+        Customer Customer;
 
         public CustomerWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+            CustomerID.Focus();
             sendNewCustomer.Visibility = Visibility.Visible;          
         }
 
@@ -57,7 +58,7 @@ namespace PL
             ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
-            Customer = customer;
+            Customer = new Customer(customer);
             AddCustomer.DataContext = Customer;
             /*CustomerID.Text = customer.ID.ToString();
             CustomerName.Text = customer.Name.ToString();
@@ -145,5 +146,29 @@ namespace PL
             new CustomerListWindow(bl).Show();
             Close();
         }
+        private void OnKeyDownCustomerID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) CustomerPhone.Focus();
+        }
+
+        private void OnKeyDownCustomerPhone(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) CustomerName.Focus();
+        }
+
+        private void OnKeyDownCustomerName(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) CustomerLongitude.Focus();
+        }
+
+        private void OnKeyDownCustomerLongitude(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) CustomerLatitude.Focus();
+        }
+        
+        private void OnKeyDownCustomerLatitude(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) sendNewCustomer.Focus();
+        } 
     }
 }

@@ -20,15 +20,17 @@ namespace PL
     public partial class ParcelWindow : Window
     {
         BLApi.IBL bl;
+        Parcel Parcel;
         public ParcelWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+            ParcelSenderID.Focus();
             UpdateParcelGrid.Visibility = Visibility.Hidden;
-            ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));          
+            ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
-            sendNewParcel.Visibility = Visibility.Visible;           
+            sendNewParcel.Visibility = Visibility.Visible;
         }
 
         public ParcelWindow(BLApi.IBL blMain, BO.Parcel parcel)
@@ -36,25 +38,26 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+            Parcel = new Parcel(parcel);
             AddParcelGrid.Visibility = Visibility.Hidden;
-            UpdateParcelGrid.DataContext = parcel;
-/*            ParcelID.Text = parcel.ID.ToString();
-            ParcelSender.Text = parcel.Sender.ID.ToString();
-            ParcelTarget.Text = parcel.Target.ID.ToString();
-            ParcelWeigh.Text = parcel.Weight.ToString();
-            ParcelPriorit.Text = parcel.Priority.ToString();
-            ParcelDrone.Text = parcel.Drone.ID.ToString();
-            ParcelCreated.Text = parcel.Created.ToString();
-            ParcelAssociated.Text = parcel.Associated.ToString();
-            ParcelPickedUp.Text = parcel.PickedUp.ToString();
-            ParcelDelivered.Text = parcel.Delivered.ToString();*/
+            UpdateParcelGrid.DataContext = Parcel;
+            /*            ParcelID.Text = parcel.ID.ToString();
+                        ParcelSender.Text = parcel.Sender.ID.ToString();
+                        ParcelTarget.Text = parcel.Target.ID.ToString();
+                        ParcelWeigh.Text = parcel.Weight.ToString();
+                        ParcelPriorit.Text = parcel.Priority.ToString();
+                        ParcelDrone.Text = parcel.Drone.ID.ToString();
+                        ParcelCreated.Text = parcel.Created.ToString();
+                        ParcelAssociated.Text = parcel.Associated.ToString();
+                        ParcelPickedUp.Text = parcel.PickedUp.ToString();
+                        ParcelDelivered.Text = parcel.Delivered.ToString();*/
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
         {
-            
+
             try
-            {              
+            {
                 MessageBoxResult result =
                    MessageBox.Show(
                    bl.AddParcelBL(SenderIDInput(), TargetIDInput(), (WeightCategories)WeightInput(), (Priorities)PriorityInput()),
@@ -64,7 +67,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     //new ParcelListWindow(bl).Show();
-                  /*  Close();*/
+                    /*  Close();*/
                 }
             }
             catch (Exception exc)
@@ -84,21 +87,24 @@ namespace PL
         {
             try { return int.Parse(ParcelTargetID.Text); }
             catch (Exception) { throw new InvalidObjException("Target ID"); }
-        }        
+        }
         private int WeightInput()
         {
-            try {
-              return  ParcelWeight.SelectedIndex;
-            /*    return int.Parse(ParcelWeight.Text);*/
-            
+            try
+            {
+                return ParcelWeight.SelectedIndex;
+                /*    return int.Parse(ParcelWeight.Text);*/
+
             }
             catch (Exception) { throw new InvalidObjException("Weight"); }
         }
         private int PriorityInput()
         {
-            try {
+            try
+            {
                 return ParcelPriority.SelectedIndex;
-              /*  return int.Parse(ParcelPriority.Text);*/ }
+                /*  return int.Parse(ParcelPriority.Text);*/
+            }
             catch (Exception) { throw new InvalidObjException("Priority"); }
         }
 
@@ -125,6 +131,32 @@ namespace PL
         {
             new ParcelListWindow(bl).Show();
             Close();
+        }
+
+        
+
+        private void OnKeyDownParcelSenderID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) ParcelTargetID.Focus();
+
+        }
+
+        private void OnKeyDownParcelTargetID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) ParcelWeight.Focus();
+
+        }
+
+        private void OnKeyDownParcelWeight(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) ParcelPriority.Focus();
+
+        }
+
+        private void OnKeyDownParcelPriority(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) sendNewParcel.Focus();
+
         }
     }
 }
