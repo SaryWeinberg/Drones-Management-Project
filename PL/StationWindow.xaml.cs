@@ -20,7 +20,7 @@ namespace PL
     public partial class StationWindow : Window
     {
         BLApi.IBL bl;
-        BO.Station Station;
+        Station Station;
 
         public StationWindow(BLApi.IBL blMain)
         {
@@ -59,7 +59,7 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
 
-            Station = station;
+            Station = new Station(station);
             AddStation.DataContext = Station;
             /*StationID.Text = station.ID.ToString();
             StationName.Text = station.Name.ToString();

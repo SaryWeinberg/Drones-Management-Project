@@ -10,7 +10,7 @@ namespace PL
     class PL_EntityClass
     {
     }
-    public class Drone: DependencyObject
+    public class Drone : DependencyObject
     {
         public Drone(BO.Drone drone)
         {
@@ -42,16 +42,45 @@ namespace PL
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("Status", typeof(DroneStatus), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty ParcelProperty =
-    DependencyProperty.Register("Parcel", typeof(BO.ParcelByDelivery), typeof(Drone), new UIPropertyMetadata());
+            DependencyProperty.Register("Parcel", typeof(BO.ParcelByDelivery), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty LocationProperty =
-    DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
+            DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
+    }
+
+    public class Station : DependencyObject
+    {
+        public Station(BO.Station station)
+        {
+            ID = station.ID;
+            Name = station.Name;
+            Location = station.Location;
+            AveChargeSlots = station.AveChargeSlots;
+            DronesInChargelist = station.DronesInChargelist;
+        }
+        public int ID { get { return (int)GetValue(IDProperty); } set { SetValue(IDProperty, value); } }
+        public int Name { get { return (int)GetValue(NameProperty); } set { SetValue(NameProperty, value); } }
+        public BO.Location Location { get { return (BO.Location)GetValue(LocationProperty); } set { SetValue(LocationProperty, value); } }
+        public double AveChargeSlots { get { return (double)GetValue(AveChargeSlotsProperty); } set { SetValue(AveChargeSlotsProperty, value); } }
+        public List<BO.DroneInCharge> DronesInChargelist { get { return (List<BO.DroneInCharge>)GetValue(DronesInChargelistProperty); } set { SetValue(DronesInChargelistProperty, value); } }
+        
+
+        public static readonly DependencyProperty IDProperty =
+            DependencyProperty.Register("ID", typeof(int), typeof(Station), new UIPropertyMetadata());
+        public static readonly DependencyProperty NameProperty =
+            DependencyProperty.Register("Name", typeof(int), typeof(Station), new UIPropertyMetadata());
+        public static readonly DependencyProperty LocationProperty =
+            DependencyProperty.Register("Location", typeof(BO.Location), typeof(Station), new UIPropertyMetadata());
+        public static readonly DependencyProperty AveChargeSlotsProperty =
+            DependencyProperty.Register("AveChargeSlots", typeof(WeightCategories), typeof(Station), new UIPropertyMetadata());
+        public static readonly DependencyProperty DronesInChargelistProperty =
+            DependencyProperty.Register("DronesInChargelist", typeof(List<BO.DroneInCharge>), typeof(Station), new UIPropertyMetadata());
     }
 
 
 
 
 
-   
+
 
 
 
