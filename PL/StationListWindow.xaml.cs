@@ -72,8 +72,6 @@ namespace PL
         private void ShowAvailbleStations(object sender, RoutedEventArgs e)
         {
             ClearListView();
-
-
             StationListView.ItemsSource = bl.GetStationsToListByCondition(station => station.AveChargeSlots > 0);
             view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
         }

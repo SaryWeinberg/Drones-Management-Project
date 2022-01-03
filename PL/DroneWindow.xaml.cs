@@ -73,28 +73,19 @@ namespace PL
         /// <param name="blMain"></param>
         /// <param name="drone"></param>
         public DroneWindow(BLApi.IBL blMain, BO.Drone drone)
-        {          
+        {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             Drone = new Drone(drone);
             AddDroneGrid.DataContext = Drone;
             StationIDLabel.Visibility = Visibility.Hidden;
-            batteryStatusLabel.Visibility = Visibility.Visible;            
-
-            /*DroneID.Text = drone.ID.ToString();
-            DroneModel.Text = drone.Model.ToString();
-            MaxWeight.Text = drone.MaxWeight.ToString();
-            Status.Text = drone.Status.ToString();
-            parcel.Text = drone.Parcel.ID.ToString();
-            batteryStatus.Text = drone.BatteryStatus.ToString();
-            longitude.Text = drone.Location.Longitude.ToString();
-            latitude.Text = drone.Location.Latitude.ToString();*/
+            batteryStatusLabel.Visibility = Visibility.Visible;
 
             DroneModel.Text = drone.Model.ToString();
             DroneModel.TextChanged += AddUpdateBTN;
             DroneID.IsEnabled = false;
-            
+
             MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             MaxWeight.IsEnabled = false;
             MaxWeight.IsEditable = true;
@@ -104,7 +95,7 @@ namespace PL
             Status.IsEditable = true;
 
             if (Drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
-            else if(Drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
+            else if (Drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
             else battery.Foreground = new SolidColorBrush(Colors.Yellow);
 
             if (drone.Parcel != null)
@@ -112,7 +103,7 @@ namespace PL
                 parcelLabel.Visibility = Visibility.Visible;
                 parcel.Visibility = Visibility.Visible;
             }
-            
+
             if (drone.Status == DroneStatus.Available)
             {
                 available = true;
@@ -123,9 +114,6 @@ namespace PL
             }
             else if (drone.Status == DroneStatus.Maintenance)
             {
-                /*timecharge.Visibility = Visibility.Visible;
-                timechargeLabel.Visibility = Visibility.Visible;
-                timecharge.TextChanged += releseDrone;*/
                 releaseDronefromCharge.Visibility = Visibility.Visible;
                 releaseDronefromCharge.Margin = new Thickness(0, 370, 245, 0);
             }
@@ -158,17 +146,6 @@ namespace PL
         }
 
         /// <summary>
-        /// Adding relese button when the status is maintains and the user fill in the time of charge
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /*private void releseDrone(object sender, RoutedEventArgs e)
-        {
-            releaseDronefromCharge.Visibility = Visibility.Visible;
-            releaseDronefromCharge.Margin = new Thickness(0, 370, 245, 0);
-        }*/
-
-        /// <summary>
         /// closing the window
         /// </summary>
         /// <param name="sender"></param>
@@ -194,7 +171,6 @@ namespace PL
                 {
 
                     new DroneListWindow(bl).Show();
-             /*       Close();*/
                 }
             }
             catch (Exception exc)
@@ -210,7 +186,7 @@ namespace PL
         /// <param name="e"></param>
         private void SendDroneToCharge(object sender, RoutedEventArgs e)
         {
-            
+
             try
             {
                 MessageBoxResult result =
@@ -218,11 +194,10 @@ namespace PL
                   bl.SendDroneToCharge(IDInput()),
                   $"Send drone ID - {IDInput()} to charge",
                   MessageBoxButton.OK,
-                  MessageBoxImage.Information);               
+                  MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
-                  /*  Close();*/
                 }
             }
             catch (Exception exc)
@@ -237,7 +212,7 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ReleaseDronefromCharge(object sender, RoutedEventArgs e)
-        {           
+        {
             TimeSpan timeInCharge = DateTime.Now - bl.GetSpecificDroneInCharge(IDInput()).DroneEnterToCharge;
             try
             {
@@ -250,7 +225,6 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
-                  /*  Close();*/
                 }
             }
             catch (Exception exc)
@@ -277,7 +251,6 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
-             /*       Close();*/
                 }
             }
             catch (Exception exc)
@@ -303,8 +276,6 @@ namespace PL
                 MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-/*                    new DroneListWindow(bl).Show();
-*/                    /*Close();*/
                 }
             }
             catch (Exception exc)
@@ -330,8 +301,6 @@ namespace PL
                MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    //new DroneListWindow(bl).Show();
-          /*          Close();*/
                 }
             }
             catch (Exception exc)
@@ -340,32 +309,7 @@ namespace PL
             }
         }
 
-        //===========Get Inputs===========
-
-        private int IDInput()
-        {
-            try { return int.Parse(DroneID.Text); }
-            catch (Exception) { throw new InvalidObjException("ID"); }
-        }
-        private int WeightInput()
-        {
-            return MaxWeight.SelectedIndex != -1 ? MaxWeight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
-        }
-        private string ModelInput()
-        {
-            return DroneModel.Text != "" ? DroneModel.Text : throw new InvalidObjException("Model");
-        }
-        private int StationIDInput()
-        {
-            try { return int.Parse(stationID.Text); }
-            catch (Exception) { throw new InvalidObjException("Station ID"); }
-        }
-
-       /* private int TimeChargeInput()
-        {
-            try { return int.Parse(timecharge.Text); }
-            catch (Exception) { throw new InvalidObjException("Time of charge"); }
-        }*/
+        
 
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {
@@ -375,7 +319,7 @@ namespace PL
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
         {
-          
+
 
         }
 
@@ -385,24 +329,81 @@ namespace PL
             Close();
         }
 
+        #region Get Inputs
+        /// <summary>
+        /// Takes ID input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int IDInput()
+        {
+            try { return int.Parse(DroneID.Text); }
+            catch (Exception) { throw new InvalidObjException("ID"); }
+        }
+        /// <summary>
+        /// Takes weight input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int WeightInput()
+        {
+            return MaxWeight.SelectedIndex != -1 ? MaxWeight.SelectedIndex + 1 : throw new InvalidObjException("Weight");
+        }
+        /// <summary>
+        /// Takes model input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private string ModelInput()
+        {
+            return DroneModel.Text != "" ? DroneModel.Text : throw new InvalidObjException("Model");
+        }
+        /// <summary>
+        /// Takes station input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int StationIDInput()
+        {
+            try { return int.Parse(stationID.Text); }
+            catch (Exception) { throw new InvalidObjException("Station ID"); }
+        }
+
+        #endregion
+
+        #region Switch between TextBoxes
+        /// <summary>
+        /// Moves from TextBox DroneID to ComboBox MaxWeight
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownDroneID(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) MaxWeight.Focus();
         }
-
+        /// <summary>
+        /// Moves from ComboBox MaxWeight to TextBox DroneModel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownMaxWeight(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) DroneModel.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox DroneModel to TextBox stationID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownDroneModel(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) stationID.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox stationID to Button sendNewDrone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownStationID(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) sendNewDrone.Focus();
         }
+        #endregion
     }
 }

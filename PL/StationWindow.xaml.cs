@@ -60,19 +60,13 @@ namespace PL
             bl = blMain;
 
             Station = new Station(station);
-            AddStation.DataContext = Station;
-            /*StationID.Text = station.ID.ToString();
-            StationName.Text = station.Name.ToString();
-            StationChargeSlots.Text = station.AveChargeSlots.ToString();
-            StationLongitude.Text = station.Location.Longitude.ToString();
-            StationLatitude.Text = station.Location.Latitude.ToString();*/
+            AddStation.DataContext = Station;            
 
             StationName.Text = station.Name.ToString();
             StationChargeSlots.Text = station.AveChargeSlots.ToString();
 
             UpdateStationGrid.Visibility = Visibility.Visible;
-           /* DronesInChargelistLabel.Visibility = Visibility.Visible;
-            DronesInChargelist.Visibility = Visibility.Visible;*/
+           
             DronesInChargelist.ItemsSource = station.DronesInChargelist;
             StationID.IsEnabled = false;
             StationLongitude.IsEnabled = false;
@@ -111,33 +105,6 @@ namespace PL
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
-        //===========Get Inputs===========
-        private int IDInput()
-        {
-            try { return int.Parse(StationID.Text); }
-            catch (Exception) { throw new InvalidObjException("ID"); }
-        }
-        private int ChargeSlotsInput()
-        {
-            try { return int.Parse(StationChargeSlots.Text); }
-            catch (Exception) { throw new InvalidObjException("ChargeSlots"); }
-        }
-        private int NameInput()
-        {
-            try { return int.Parse(StationName.Text); }
-            catch (Exception) { throw new InvalidObjException("Name"); }
-        }
-        private int LongitudeInput()
-        {
-            try { return int.Parse(StationLongitude.Text); }
-            catch (Exception) { throw new InvalidObjException("Longitude"); }
-        }
-        private int LatitudeInput()
-        {
-            try { return int.Parse(StationLatitude.Text); }
-            catch (Exception) { throw new InvalidObjException("Latitude"); }
-        }
-
         private void RefreshWindow(object sender, RoutedEventArgs e)
         {
 
@@ -156,29 +123,100 @@ namespace PL
             Close();
         }
 
+        #region Get Inputs
+        /// <summary>
+        /// Takes ID input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int IDInput()
+        {
+            try { return int.Parse(StationID.Text); }
+            catch (Exception) { throw new InvalidObjException("ID"); }
+        }
+        /// <summary>
+        /// Takes charge slots input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int ChargeSlotsInput()
+        {
+            try { return int.Parse(StationChargeSlots.Text); }
+            catch (Exception) { throw new InvalidObjException("ChargeSlots"); }
+        }
+        /// <summary>
+        /// Takes name input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int NameInput()
+        {
+            try { return int.Parse(StationName.Text); }
+            catch (Exception) { throw new InvalidObjException("Name"); }
+        }
+        /// <summary>
+        /// Takes longitude input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int LongitudeInput()
+        {
+            try { return int.Parse(StationLongitude.Text); }
+            catch (Exception) { throw new InvalidObjException("Longitude"); }
+        }
+        /// <summary>
+        /// Takes latitude input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int LatitudeInput()
+        {
+            try { return int.Parse(StationLatitude.Text); }
+            catch (Exception) { throw new InvalidObjException("Latitude"); }
+        }
+        #endregion
+
+        #region Switch between TextBoxes
+        /// <summary>
+        /// Moves from TextBox StationID to TextBox StationName
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownStationID(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) StationName.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox StationName to TextBox StationChargeSlots
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownStationName(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) StationChargeSlots.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox StationChargeSlots to TextBox StationLongitude
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownStationChargeSlots(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) StationLongitude.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox StationLongitude to TextBox StationLatitude
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownStationLongitude(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) StationLatitude.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox StationLatitude to Button sendNewStation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownStationLatitude(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) sendNewStation.Focus();
         }
-    }   
+        #endregion
+    }
 }

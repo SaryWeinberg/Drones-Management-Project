@@ -41,16 +41,6 @@ namespace PL
             Parcel = new Parcel(parcel);
             AddParcelGrid.Visibility = Visibility.Hidden;
             UpdateParcelGrid.DataContext = Parcel;
-            /*            ParcelID.Text = parcel.ID.ToString();
-                        ParcelSender.Text = parcel.Sender.ID.ToString();
-                        ParcelTarget.Text = parcel.Target.ID.ToString();
-                        ParcelWeigh.Text = parcel.Weight.ToString();
-                        ParcelPriorit.Text = parcel.Priority.ToString();
-                        ParcelDrone.Text = parcel.Drone.ID.ToString();
-                        ParcelCreated.Text = parcel.Created.ToString();
-                        ParcelAssociated.Text = parcel.Associated.ToString();
-                        ParcelPickedUp.Text = parcel.PickedUp.ToString();
-                        ParcelDelivered.Text = parcel.Delivered.ToString();*/
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
@@ -65,9 +55,7 @@ namespace PL
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
-                {
-                    //new ParcelListWindow(bl).Show();
-                    /*  Close();*/
+                {                   
                 }
             }
             catch (Exception exc)
@@ -76,37 +64,6 @@ namespace PL
             }
         }
 
-        //===========Get Inputs===========
-
-        private int SenderIDInput()
-        {
-            try { return int.Parse(ParcelSenderID.Text); }
-            catch (Exception) { throw new InvalidObjException("Sender ID"); }
-        }
-        private int TargetIDInput()
-        {
-            try { return int.Parse(ParcelTargetID.Text); }
-            catch (Exception) { throw new InvalidObjException("Target ID"); }
-        }
-        private int WeightInput()
-        {
-            try
-            {
-                return ParcelWeight.SelectedIndex;
-                /*    return int.Parse(ParcelWeight.Text);*/
-
-            }
-            catch (Exception) { throw new InvalidObjException("Weight"); }
-        }
-        private int PriorityInput()
-        {
-            try
-            {
-                return ParcelPriority.SelectedIndex;
-                /*  return int.Parse(ParcelPriority.Text);*/
-            }
-            catch (Exception) { throw new InvalidObjException("Priority"); }
-        }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
@@ -133,30 +90,82 @@ namespace PL
             Close();
         }
 
-        
+        #region Get Inputs
+        /// <summary>
+        /// Takes sander ID input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int SenderIDInput()
+        {
+            try { return int.Parse(ParcelSenderID.Text); }
+            catch (Exception) { throw new InvalidObjException("Sender ID"); }
+        }
+        /// <summary>
+        /// Takes target ID input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int TargetIDInput()
+        {
+            try { return int.Parse(ParcelTargetID.Text); }
+            catch (Exception) { throw new InvalidObjException("Target ID"); }
+        }
+        /// <summary>
+        /// Takes weight input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int WeightInput()
+        {
+            try { return ParcelWeight.SelectedIndex; }
+            catch (Exception) { throw new InvalidObjException("Weight"); }
+        }
+        /// <summary>
+        /// Takes priority input from the user with tests
+        /// </summary>
+        /// <returns></returns>
+        private int PriorityInput()
+        {
+            try { return ParcelPriority.SelectedIndex; }
+            catch (Exception) { throw new InvalidObjException("Priority"); }
+        }
+        #endregion
 
+        #region Switch between TextBoxes
+        /// <summary>
+        /// Moves from TextBox ParcelSenderID to TextBox ParcelTargetID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownParcelSenderID(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) ParcelTargetID.Focus();
-
         }
-
+        /// <summary>
+        /// Moves from TextBox ParcelTargetID to ComboBOx ParcelWeight
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownParcelTargetID(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) ParcelWeight.Focus();
-
         }
-
+        /// <summary>
+        /// Moves from ComboBOx ParcelWeight to ComboBOx ParcelPriority
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownParcelWeight(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) ParcelPriority.Focus();
-
         }
-
+        /// <summary>
+        /// Moves from ComboBOx ParcelPriority to Button sendNewParcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnKeyDownParcelPriority(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) sendNewParcel.Focus();
-
         }
+        #endregion
     }
 }

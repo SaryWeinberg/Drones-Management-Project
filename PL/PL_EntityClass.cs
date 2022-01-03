@@ -30,7 +30,6 @@ namespace PL
         public BO.ParcelByDelivery Parcel { get { return (BO.ParcelByDelivery)GetValue(ParcelProperty); } set { SetValue(ParcelProperty, value); } }
         public BO.Location Location { get { return (BO.Location)GetValue(LocationProperty); } set { SetValue(LocationProperty, value); } }
 
-
         public static readonly DependencyProperty IDProperty =
             DependencyProperty.Register("ID", typeof(int), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty ModelProperty =
@@ -63,7 +62,6 @@ namespace PL
         public double AveChargeSlots { get { return (double)GetValue(AveChargeSlotsProperty); } set { SetValue(AveChargeSlotsProperty, value); } }
         public List<BO.DroneInCharge> DronesInChargelist { get { return (List<BO.DroneInCharge>)GetValue(DronesInChargelistProperty); } set { SetValue(DronesInChargelistProperty, value); } }
         
-
         public static readonly DependencyProperty IDProperty =
             DependencyProperty.Register("ID", typeof(int), typeof(Station), new UIPropertyMetadata());
         public static readonly DependencyProperty NameProperty =
@@ -75,7 +73,6 @@ namespace PL
         public static readonly DependencyProperty DronesInChargelistProperty =
             DependencyProperty.Register("DronesInChargelist", typeof(List<BO.DroneInCharge>), typeof(Station), new UIPropertyMetadata());
     }
-
 
     public class Customer : DependencyObject
     {
@@ -95,7 +92,6 @@ namespace PL
         public List<BO.ParcelsAtTheCustomer> DeliveryToCustomer { get { return (List<BO.ParcelsAtTheCustomer>)GetValue(DeliveryToCustomerProperty); } set { SetValue(DeliveryToCustomerProperty, value); } }
         public List<BO.ParcelsAtTheCustomer> DeliveryFromCustomer { get { return (List<BO.ParcelsAtTheCustomer>)GetValue(DeliveryFromCustomerProperty); } set { SetValue(DeliveryFromCustomerProperty, value); } }
 
-
         public static readonly DependencyProperty IDProperty =
             DependencyProperty.Register("ID", typeof(int), typeof(Customer), new UIPropertyMetadata());
         public static readonly DependencyProperty NameProperty =
@@ -109,12 +105,6 @@ namespace PL
         public static readonly DependencyProperty DeliveryFromCustomerProperty =
             DependencyProperty.Register("DeliveryFromCustomer", typeof(List<BO.ParcelsAtTheCustomer>), typeof(Customer), new UIPropertyMetadata());
     }
-
-
-
-
-
-
 
     public class Parcel : DependencyObject
     {
@@ -142,7 +132,6 @@ namespace PL
         public WeightCategories Weight { get { return (WeightCategories)GetValue(WeightProperty); } set { SetValue(WeightProperty, value); } }
         public BO.CustomerInParcel Sender { get { return (BO.CustomerInParcel)GetValue(SenderProperty); } set { SetValue(SenderProperty, value); } }
         public BO.CustomerInParcel Target { get { return (BO.CustomerInParcel)GetValue(TargetProperty); } set { SetValue(TargetProperty, value); } }
-        
 
         public static readonly DependencyProperty IDProperty =
             DependencyProperty.Register("ID", typeof(int), typeof(Parcel), new UIPropertyMetadata());
@@ -164,18 +153,5 @@ namespace PL
             DependencyProperty.Register("Sender", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

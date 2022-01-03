@@ -19,58 +19,8 @@ namespace PL
     /// Interaction logic for DroneList.xaml
     /// </summary>
     /// 
-/*    public class Drone
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public bool IsLecturer { get; set; }
-    }*/
     public partial class DroneListWindow : Window
     {
-
-
-        /// <summary>
-        /// Interaction logic for MainWindow.xaml
-        /// </summary>
-        /*
-                private ObservableCollection<Drone> _myCollection =
-                  new ObservableCollection<Drone>();*/
-
-        /*        public DroneListWindow()
-                {
-                    InitializeComponent();
-
-                    DataContext = _myCollection;
-                    _myCollection.Add(
-                      new Drone
-                      {
-                          FirstName = "Arik",
-                          LastName = "Poznanski",
-                          IsLecturer = true
-                      });
-                    _myCollection.Add(
-                      new Drone
-                      {
-                          FirstName = "John",
-                          LastName = "Smith",
-                          IsLecturer = false
-                      });
-                }
-
-                private int counter = 0;
-                private void Button_Click(object sender, RoutedEventArgs e)
-                {
-                    ++counter;
-                    _myCollection.Add(
-                        new Drone()
-                        {
-                            FirstName = "item " + counter,
-                            LastName = "item " + counter,
-                            IsLecturer = counter % 3 == 0
-                        });
-                }
-            }*/
-        /*}*/
         BLApi.IBL bl;
 
         /// <summary>
@@ -147,7 +97,6 @@ namespace PL
         private void AddDrone(object sender, RoutedEventArgs e)
         {
             new DroneWindow(bl).Show();
-          /*  Close();*/
         }
 
         /// <summary>
@@ -187,7 +136,7 @@ namespace PL
         }
 
         private void GroupByWeight(object sender, RoutedEventArgs e)
-         {
+        {
             ClearListView();
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("MaxWeight");
             view.GroupDescriptions.Add(groupDescription);
