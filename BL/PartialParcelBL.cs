@@ -149,7 +149,6 @@ namespace BL
 
         public string RemoveParcel(int ID)
         {
-
             DO.Parcel parcel = dalObj.GetParcels().First(p => p.ID == ID);
             if (parcel.Active)
             {
@@ -158,9 +157,6 @@ namespace BL
                 return $"The parcel ID - {ID} remove successfully";
             }
             else throw new ObjectNotExistException($"The parcel ID - {ID} not exist");
-
-
-
         }
 
 

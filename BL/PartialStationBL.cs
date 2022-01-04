@@ -40,10 +40,8 @@ namespace BL
         public string AddStationBL(int id, int name, Location location, int chargeSlots)
         {
             if (dalObj.GetStations().Any(s => s.ID == id))
-            {
-                throw new ObjectAlreadyExistException("Station", id);
-            }
-
+                throw new ObjectAlreadyExistException("Station", id);            
+            
             BO.Station station = new BO.Station();
             try
             {
