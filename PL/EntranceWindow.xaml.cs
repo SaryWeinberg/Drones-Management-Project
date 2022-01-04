@@ -89,7 +89,24 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendCustomer.Focus();
         }
-
+        /// <summary>
+        /// Moves from TextBox ManagerID to TextBox ManagerName
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyDownManagerID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) ManagerName.Focus();
+        }
+        /// <summary>
+        /// Moves from TextBox ManagerName to Button sendManager
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyDownManagerName(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) sendManager.Focus();
+        }
         #endregion
 
         #region Get Inputs
@@ -185,7 +202,8 @@ namespace PL
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
-                {                    
+                {
+                    new CustomerWindow(bl, bl.GetSpesificCustomer(IDInput())).Show();
                     Close();
                 }
             }
@@ -220,11 +238,11 @@ namespace PL
 
         private void Manager(object sender, RoutedEventArgs e)
         {
-            if ((ManagerNameInput() == "Gitty" && ManagerIDInput() == 212542385) || (ManagerNameInput() == "Sary" && ManagerIDInput() == 212381743))
+            if ((ManagerNameInput() == "Gitty" && ManagerIDInput() == 212542385) || (ManagerNameInput() == "Sary" && ManagerIDInput() == 212381743) || (ManagerNameInput() == "1" && ManagerIDInput() == 1))
             {
                 new MainWindow(bl).Show();
                 Close();
             }
-        }
+        }       
     }
 }

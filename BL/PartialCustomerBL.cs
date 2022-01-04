@@ -39,10 +39,8 @@ namespace BL
         /// <param name="location"></param>
         public string AddCustomerBL(int id, int phone, string name, Location location)
         {
-            if (dalObj.GeCustomerByCondition(c => c.ID == id) != null)
-            {
-                throw new ObjectAlreadyExistException("Customer", id);
-            }
+            if(dalObj.GetCustomers().Any(c => c.ID == id))
+                throw new ObjectAlreadyExistException("Customer", id);           
 
             BO.Customer customer = new BO.Customer();
             try
