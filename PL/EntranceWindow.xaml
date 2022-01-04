@@ -1,0 +1,50 @@
+﻿<Window x:Class="PL.EntranceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="EntranceWindow" Height="600" Width="900">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="87,359,0,32" Width="194"/>
+        <TabControl Name="tabControl" Width="400" Margin="468,96,32,85">
+            <TabItem Name="LogIn" Header="Log In" Width="132" Style="{StaticResource TabItemStyle}">
+                <Grid Height="300" Width="320">
+                    <Label Name="IDLabel"        Content="ID:"   Margin="0,0,195,0"    />
+                    <Label Name="PhoneLabel"     Content="phone:" Margin="0,35,195,0"     />
+                    <Label Name="NameLabel"      Content="name:" Margin="0,70,195,0"      />
+                    <Label Name="LongitudeLabel" Content="longitude:" Margin="0,105,195,0" />
+                    <Label Name="LatitudeLabel"  Content="latitude:" Margin="0,140,195,0"  />
+                    <TextBox Name="ID"         Margin="175,0,0,0" KeyDown="OnKeyDownID" Focusable="True"/>
+                    <TextBox Name="Phone"      Margin="175, 35, 0, 0" KeyDown="OnKeyDownPhone"/>
+                    <TextBox Name="Name"       Margin="175, 70, 0, 0" KeyDown="OnKeyDownName"/>
+                    <TextBox Name="Longitude"  Margin="175, 105, 0, 0" KeyDown="OnKeyDownLongitude"/>
+                    <TextBox Name="Latitude"   Margin="175, 140, 0, 0" KeyDown="OnKeyDownLatitude"/>
+                    <Button Name="sendNewCustomer" Content="Send" Click="AddNewCustomer"  Style="{StaticResource RedButton}" Margin="90,229,90,0" />
+                </Grid>               
+            </TabItem>
+            <TabItem Name="SignInTab" Header="Sign In" Width="132" Style="{StaticResource TabItemStyle}">
+                <Grid Height="300" Width="300">
+                    <Label Name="CustomerIDLabel"   Content="ID"   Margin="0,35,195,0"/>
+                    <Label Name="CustomerNameLabel" Content="name" Margin="0,70,195,0"/>                   
+                    <TextBox Name="CustomerID"   Margin="175,35,0,0" KeyDown="OnKeyDownCustomerID" Focusable="True"/>
+                    <TextBox Name="CustomerName" Margin="175, 70, 0, 0" KeyDown="OnKeyDownCustomerName"/>
+                    <Button Name="sendCustomer" Content="Send" Click="SignIn" Style="{StaticResource RedButton}" Margin="80,180,80,0" />
+                </Grid>
+            </TabItem>
+            <TabItem Name="ManagerTab" Header="Manager" Width="132" Style="{StaticResource TabItemStyle}">
+                <Grid Height="300" Width="300">
+                    <Label Name="ManagerIDLabel"   Content="ID"   Margin="0,35,195,0"/>
+                    <Label Name="ManagerNameLabel" Content="name" Margin="0,70,195,0"/>
+                    <TextBox Name="ManagerID"   Margin="175,35,0,0" KeyDown="OnKeyDownCustomerID" Focusable="True"/>
+                    <TextBox Name="ManagerName" Margin="175, 70, 0, 0" KeyDown="OnKeyDownCustomerName"/>
+                    <Button Name="sendManager" Content="Send" Click="Manager" Style="{StaticResource RedButton}" Margin="80,180,80,0" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
