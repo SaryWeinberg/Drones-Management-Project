@@ -50,9 +50,9 @@ namespace DalObject
 
         public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> condition)
         {
-            return from parcelBL in GetParcels()
-                   where condition(parcelBL)
-                   select parcelBL;
+            return from parcel in GetParcels()
+                   where condition(parcel)
+                   select parcel;
         }
 
         /// <summary>
@@ -61,7 +61,15 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels()
         {
-            return DataSource.Parcels;
+            return from parcel in DataSource.Parcels
+                   where parcel.Active == true
+                   select parcel;
+        }
+
+        public void RemoveParcel(int ID)
+        {
+            Parcel P = DataSource.Parcels.First(p=>p.ID == ID);
+            P.Active = false;
         }
     }
 }

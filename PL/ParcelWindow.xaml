@@ -25,7 +25,7 @@
             </Grid>
 
            <Grid x:Name="UpdateParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
-                <Label Name="ParcelIDLabel"         Content = "parcel sender:"     Margin = "43, 30, 680, 0" />
+                <Label Name="ParcelIDLabel"         Content = "parcel ID:"     Margin = "43, 30, 680, 0" />
                 <Label Name="ParcelSenderLabel"     Content = "sender ID:"         Margin = "43, 60, 680, 0" />
                 <Label Name="ParcelTargetLabel"     Content = "target ID:"         Margin = "43, 90, 680, 0"/>
                 <Label Name="ParcelweighLabel"      Content = "parcel weight:"     Margin = "43, 120, 680, 0" />
@@ -38,34 +38,14 @@
                 <TextBox Name="ParcelID"         Text="{Binding Path=ID}"          Margin="221, 30, 500, 0"  IsEnabled="False"/>
                 <TextBox Name="ParcelSender"     Text="{Binding Path=Sender.ID}"   Margin="221, 60, 500, 0"  MouseDoubleClick="GetCustomer" AcceptsReturn="True"/>
                 <TextBox Name="ParcelTarget"     Text="{Binding Path=Target.ID}"   Margin="221, 90, 500, 0"  MouseDoubleClick="GetCustomer" AcceptsReturn="True"/>
-                <TextBox Name = "ParcelWeigh"    Text="{Binding Path= Weight}"     Margin="221, 120, 500, 0" IsEnabled="False"/>
-                <TextBox Name="ParcelPriorit"    Text="{Binding Path= Priority}"   Margin="221, 150, 500, 0" IsEnabled="False"/>
-                <TextBox Name="ParcelDrone"      Text="{Binding Path= Drone.ID}"   Margin="221, 180, 500, 0" MouseDoubleClick="GetDrone" AcceptsReturn="True"/>
-                <TextBox Name="ParcelCreated"    Text="{Binding Path= Created}"    Margin="221, 210, 500, 0" IsEnabled="False"/>
-                <TextBox Name="ParcelAssociated" Text="{Binding Path= Associated}" Margin="221, 240, 500, 0" IsEnabled="False"/>
-                <TextBox Name="ParcelPickedUp"   Text="{Binding Path= PickedUp}"   Margin="221, 270, 500, 0" IsEnabled="False"/>
-                <TextBox Name="ParcelDelivered"  Text="{Binding Path= Delivered}"  Margin="221, 300, 500, 0" IsEnabled="False"/>
-
-                <!--<Label Name="ParcelIDLabel"  Content = "parcel sender:" VerticalAlignment ="Top" Margin = "43, 30, 680, 0" FontSize="16"/>
-               <TextBox Name="ParcelID" VerticalAlignment = "Top" Margin = "221, 30, 500, 0" FontSize="16" IsEnabled="False"/>
-                <Label Name="ParcelSenderLabel"  Content = "sender ID:" VerticalAlignment ="Top" Margin = "43, 60, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelSender" VerticalAlignment = "Top" AcceptsReturn="True" Margin = "221, 60, 500, 0" FontSize="16" MouseDoubleClick="GetCustomer"/>
-                <Label Name="ParcelTargetLabel" Content = "target ID:" VerticalAlignment ="Top" Margin = "43, 90, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelTarget" VerticalAlignment = "Top" AcceptsReturn="True" Margin = "221, 90,500, 0" FontSize="16" MouseDoubleClick="GetCustomer"/>
-                <Label Name="ParcelweighLabel"  Content = "parcel weight:" VerticalAlignment ="Top" Margin = "43, 120, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelWeigh" VerticalAlignment = "Top" Margin = "221, 120, 500, 0" FontSize="13" IsEnabled="False"/>
-                <Label Name="ParcelPrioritLabel" Content = "parcel priority:" VerticalAlignment ="Top" Margin = "43, 150, 680, 0"  FontSize="16"/>
-                <TextBox Name="ParcelPriorit" VerticalAlignment = "Top" Margin = "221, 150, 500, 0" FontSize="13" IsEnabled="False"/>
-                <Label Name="ParcelDroneLabel" Content = "drone ID:" VerticalAlignment ="Top" Margin = "43, 180, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelDrone" VerticalAlignment = "Top" AcceptsReturn="True" Margin = "221, 180,500, 0" FontSize="16" MouseDoubleClick="GetDrone"/>
-                <Label Name="ParcelCreatedLabel" Content = "parcel Created:" VerticalAlignment ="Top" Margin = "43, 210, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelCreated" VerticalAlignment = "Top" Margin = "221, 210,500, 0" FontSize="16" IsEnabled="False"/>
-                <Label Name="ParcelAssociatedLabel" Content = "parcel Associated:" VerticalAlignment ="Top" Margin = "43, 240, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelAssociated" VerticalAlignment = "Top" Margin = "221, 240,500, 0" FontSize="16" IsEnabled="False"/>
-                <Label Name="ParcelPickedUpLabel" Content = "parcel PickedUp:" VerticalAlignment ="Top" Margin = "43, 270, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelPickedUp" VerticalAlignment = "Top" Margin = "221, 270,500, 0" FontSize="16" IsEnabled="False"/>
-                <Label Name="ParcelDeliveredLabel" Content = "parcel Delivered:" VerticalAlignment ="Top" Margin = "43, 300, 680, 0" FontSize="16"/>
-                <TextBox Name="ParcelDelivered" VerticalAlignment = "Top" Margin = "221, 300,500, 0" FontSize="16" IsEnabled="False"/>-->
+                <TextBox Name="ParcelWeigh"      Text="{Binding Path=Weight}"      Margin="221, 120, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelPriorit"    Text="{Binding Path=Priority}"    Margin="221, 150, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelDrone"      Text="{Binding Path=Drone.ID}"    Margin="221, 180, 500, 0" MouseDoubleClick="GetDrone" AcceptsReturn="True"/>
+                <TextBox Name="ParcelCreated"    Text="{Binding Path=Created}"     Margin="221, 210, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelAssociated" Text="{Binding Path=Associated}"  Margin="221, 240, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelPickedUp"   Text="{Binding Path=PickedUp}"    Margin="221, 270, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelDelivered"  Text="{Binding Path=Delivered}"   Margin="221, 300, 500, 0" IsEnabled="False"/>
+                <Button Style="{StaticResource RedButton}" Click="RemoveParcel" Margin="260,438,500,0" Content="Remove Parcel"/>
             </Grid>
             <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
             <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>

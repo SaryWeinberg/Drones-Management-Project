@@ -57,14 +57,13 @@ namespace DalObject
             for (int i = 0; i < 10; i++)
             {
                 Parcel parcel = new Parcel();
+                parcel.Active = true;
                 parcel.ID = Parcels.Count;
                 parcel.SenderId = Customers[i].ID;
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-
                 parcel.DroneId = rand.Next() % Drones.Count;
-
 
                 int RndStatus = rand.Next(1, 4);
                 DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));
@@ -72,7 +71,6 @@ namespace DalObject
                 parcel.Created = randCreated;
                 switch (RndStatus)
                 {
-
                     case 1:
                         parcel.Associated = RandomDate(randCreated);
                         break;
@@ -85,14 +83,12 @@ namespace DalObject
                     case 3:
                         DateTime randAssociated2 = RandomDate(randCreated);
                         parcel.Associated = randAssociated2;
-                        /*                    parcel.Associated = RandomDate(randCreated);*/
                         DateTime randPickedUp = RandomDate(randAssociated2);
                         parcel.PickedUp = randPickedUp;
                         parcel.Delivered = RandomDate(randPickedUp);
                         break;
                     default:
                         break;
-
                 }
 
                 Parcels.Add(parcel);

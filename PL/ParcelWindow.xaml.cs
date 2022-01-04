@@ -55,7 +55,7 @@ namespace PL
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
-                {                   
+                {
                 }
             }
             catch (Exception exc)
@@ -64,6 +64,24 @@ namespace PL
             }
         }
 
+        private void RemoveParcel(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBoxResult result =
+                    MessageBox.Show(
+                    bl.RemoveParcel(int.Parse(ParcelID.Text)),
+                    $"Add parcel",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new ParcelListWindow(bl).Show();
+                    Close();
+                }
+            }
+            catch (Exception exc) { MessageBox.Show(exc.Message); }
+        }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
@@ -88,7 +106,7 @@ namespace PL
         {
             new ParcelListWindow(bl).Show();
             Close();
-        }
+        }        
 
         #region Get Inputs
         /// <summary>
@@ -166,6 +184,6 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewParcel.Focus();
         }
-        #endregion
+        #endregion       
     }
 }

@@ -26,8 +26,6 @@ namespace BLApi
         public BO.Drone ConvertDalDroneToBL(DO.Drone d);
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p);
         public BO.Station ConvertDalStationToBL(DO.Station s);
-        /*        public DO.Customer ConvertBLCustomerToDAL(BO.Customer c);
-        */
         public DO.Drone ConvertBLDroneToDAL(BO.Drone d);
         public DO.Parcel ConvertBLParcelToDAL(BO.Parcel p);
         public DO.Station ConvertBLStationToDAL(BO.Station s);
@@ -42,8 +40,6 @@ namespace BLApi
         public string UpdateDrone(BO.Drone droneBL);
         public IEnumerable<BO.Parcel> GetParcels();
         public IEnumerable<BO.Station> GetStations();
-        /*        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedDroneList(Predicate<BO.Parcel> findBy);
-        */
         public IEnumerable<BO.Station> GetAvailableStationsList();
         public BO.Station GetNearestAvailableStation(Location Targlocation);
         public string SendDroneToCharge(int droneId);
@@ -52,17 +48,15 @@ namespace BLApi
         public string CollectParcelByDrone(int droneId);
         public string SupplyParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
-        /*        public IEnumerable<BO.Customer> GeCustomerByCondition(Predicate<BO.Customer> condition);
-        */
-
         public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition);
         public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
         public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition);
-         public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
-        public IEnumerable<BO.ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition);
-        public IEnumerable<BO.CustomerToList> GetCustomersToList();
-        public IEnumerable<BO.DroneToList> GetDronesToList();
-        public IEnumerable<BO.ParcelToList> GetParcelsToList();
-        public IEnumerable<BO.StationToList> GetStationsList();
+        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
+        public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<ParcelToList> condition);
+        public IEnumerable<CustomerToList> GetCustomersToList();
+        public IEnumerable<DroneToList> GetDronesToList();
+        public IEnumerable<ParcelToList> GetParcelsToList();
+        public IEnumerable<StationToList> GetStationsList();
+        public string RemoveParcel(int ID);
     }
 }

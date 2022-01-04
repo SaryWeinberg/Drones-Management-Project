@@ -64,7 +64,6 @@ namespace BL
                 parcel.Weight = weight;
                 parcel.Priority = priority;
                 parcel.Drone = null;
-
                 parcel.Created = DateTime.Now;
             }
             catch (InvalidObjException e) { throw e; }
@@ -148,6 +147,17 @@ namespace BL
             }
         }
 
+        public string RemoveParcel(int ID)
+        {
+            if (dalObj.GetParcels().First(p => p.ID == ID).Active == true)
+            {
+                dalObj.RemoveParcel(ID);
+                return $"The parcel ID - {ID} remove successfully";
+            }
+            else throw new ObjectNotExistException($"The parcel ID - {ID} not exist");
+        }
+
+
         /// <summary>
         /// Returning the parcel list
         /// </summary>
@@ -172,7 +182,7 @@ namespace BL
                    select parcelBL;
         }
 
-        public IEnumerable<BO.ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition)
+        public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition)
         {
             return from ParcelToList in GetParcelsToList()
                    where condition(ParcelToList)
@@ -188,13 +198,13 @@ namespace BL
         /// Returns the parcel list with ParcelToList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.ParcelToList> GetParcelsToList()
+        public IEnumerable<ParcelToList> GetParcelsToList()
         {
             List<BO.Parcel> parcels = GetParcels().ToList();
-            List<BO.ParcelToList> parcelToList = new List<BO.ParcelToList>();
+            List<ParcelToList> parcelToList = new List<ParcelToList>();
             foreach (BO.Parcel parcel in parcels)
-            {
-                parcelToList.Add(new BO.ParcelToList(parcel));
+            {               
+                 parcelToList.Add(new ParcelToList(parcel));
             }
             return parcelToList;
         }

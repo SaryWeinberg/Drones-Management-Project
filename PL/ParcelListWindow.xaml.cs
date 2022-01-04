@@ -33,7 +33,9 @@ namespace PL
             bl = blMain;
            
             foreach (var item in bl.GetParcelsToList())
-                list.Add(item);
+            {
+                 list.Add(item);
+            }
             DataContext = list;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
             ParcelListView.ItemsSource = list;

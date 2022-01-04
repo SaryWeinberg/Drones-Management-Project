@@ -31,7 +31,7 @@ namespace DalApi
         public void UpdateParcel(Parcel parcel);
         public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> conditin);
         public IEnumerable<Customer> GeCustomerByCondition(Predicate<Customer> condition);
-
+        public void RemoveParcel(int ID);
     }
 }
 
