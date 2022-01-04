@@ -202,7 +202,7 @@ namespace BL
             List<BO.DroneToList> droneToList = new List<BO.DroneToList>();
             foreach (BO.Drone drone in dronesList)
             {
-                droneToList.Add(new BO.DroneToList(drone, dalObj));
+                droneToList.Add(new BO.DroneToList(drone));
             }
             return droneToList;
         }

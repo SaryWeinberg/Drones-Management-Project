@@ -22,7 +22,7 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         BLApi.IBL bl;
-
+        DroneList droneList;
         /// <summary>
         /// Ctor of Drone list window
         /// </summary>
@@ -32,7 +32,8 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            DroneListView.ItemsSource = bl.GetDronesToList();
+            droneList = new DroneList(bl.GetDronesToList());
+            DroneListView.DataContext = droneList;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -86,7 +87,7 @@ namespace PL
         {
             BO.DroneToList drone = (sender as ListView).SelectedValue as BO.DroneToList;
             new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
-            Close();
+            /*   Close();*/
         }
 
         /// <summary>
@@ -118,12 +119,12 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
+        private void RefreshWindow(object sender, RoutedEventArgs e) =>  droneList.DronesList = bl.GetDronesToList();
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
-            Close();
+            /*  Close();*/
         }
 
         private CollectionView view;
