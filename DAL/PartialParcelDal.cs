@@ -66,10 +66,13 @@ namespace DalObject
                    select parcel;
         }
 
-        public void RemoveParcel(int ID)
+/*        public void RemoveParcel(int ID)
         {
-            Parcel P = DataSource.Parcels.First(p=>p.ID == ID);
-            P.Active = false;
-        }
+            DataSource.Parcels.First(parcel => parcel.ID == ID)
+            int index = DataSource.Parcels.FindIndex(p => p.ID == ID);
+            DataSource.Parcels[index].Active = false; 
+      *//*      Parcel P = DataSource.Parcels.First(p=>p.ID == ID);
+            P.Active = false;*//*
+        }*/
     }
 }

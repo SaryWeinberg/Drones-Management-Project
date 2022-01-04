@@ -149,12 +149,18 @@ namespace BL
 
         public string RemoveParcel(int ID)
         {
-            if (dalObj.GetParcels().First(p => p.ID == ID).Active == true)
+
+            DO.Parcel parcel = dalObj.GetParcels().First(p => p.ID == ID);
+            if (parcel.Active)
             {
-                dalObj.RemoveParcel(ID);
+                parcel.Active = false;
+                dalObj.UpdateParcel(parcel);
                 return $"The parcel ID - {ID} remove successfully";
             }
             else throw new ObjectNotExistException($"The parcel ID - {ID} not exist");
+
+
+
         }
 
 
@@ -203,8 +209,8 @@ namespace BL
             List<BO.Parcel> parcels = GetParcels().ToList();
             List<ParcelToList> parcelToList = new List<ParcelToList>();
             foreach (BO.Parcel parcel in parcels)
-            {               
-                 parcelToList.Add(new ParcelToList(parcel));
+            {
+                parcelToList.Add(new ParcelToList(parcel));
             }
             return parcelToList;
         }
