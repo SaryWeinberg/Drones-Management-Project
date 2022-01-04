@@ -154,4 +154,36 @@ namespace PL
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
     }
+
+    public class DroneList : DependencyObject
+    {
+        public DroneList(IEnumerable<BO.DroneToList> droneList)
+        {
+            DronesList = droneList;
+
+
+        }
+        /*        public int ID { get { return (int)GetValue(IDProperty); } set { SetValue(IDProperty, value); } }
+                public string Model { get { return (string)GetValue(ModelProperty); } set { SetValue(ModelProperty, value); } }
+                public WeightCategories MaxWeight { get { return (WeightCategories)GetValue(MaxWeightProperty); } set { SetValue(MaxWeightProperty, value); } }
+                public double Battery { get { return (double)GetValue(BatteryProperty); } set { SetValue(BatteryProperty, value); } }
+                public DroneStatus Status { get { return (DroneStatus)GetValue(StatusProperty); } set { SetValue(StatusProperty, value); } }
+                public BO.ParcelByDelivery Parcel { get { return (BO.ParcelByDelivery)GetValue(ParcelProperty); } set { SetValue(ParcelProperty, value); } }*/
+        public IEnumerable<BO.DroneToList> DronesList { get { return (IEnumerable<BO.DroneToList>)GetValue(DronesListProperty); } set { SetValue(DronesListProperty, value); } }
+
+ /*       public static readonly DependencyProperty IDProperty =
+            DependencyProperty.Register("ID", typeof(int), typeof(Drone), new UIPropertyMetadata());
+        public static readonly DependencyProperty ModelProperty =
+            DependencyProperty.Register("Model", typeof(string), typeof(Drone), new UIPropertyMetadata());
+        public static readonly DependencyProperty MaxWeightProperty =
+            DependencyProperty.Register("MaxWeight", typeof(WeightCategories), typeof(Drone), new UIPropertyMetadata());
+        public static readonly DependencyProperty BatteryProperty =
+            DependencyProperty.Register("Battery", typeof(double), typeof(Drone), new UIPropertyMetadata());
+        public static readonly DependencyProperty StatusProperty =
+            DependencyProperty.Register("Status", typeof(DroneStatus), typeof(Drone), new UIPropertyMetadata());
+        public static readonly DependencyProperty ParcelProperty =
+            DependencyProperty.Register("Parcel", typeof(BO.ParcelByDelivery), typeof(Drone), new UIPropertyMetadata());*/
+        public static readonly DependencyProperty DronesListProperty =
+            DependencyProperty.Register("DronesList", typeof(IEnumerable<BO.DroneToList>), typeof(Drone), new UIPropertyMetadata());
+    }
 }
