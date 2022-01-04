@@ -167,6 +167,7 @@ namespace PL
                     $"Update drone - {IDInput()} model",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+                Drone.Model = ModelInput();
                 if (result == MessageBoxResult.OK)
                 {
 
@@ -195,6 +196,7 @@ namespace PL
                   $"Send drone ID - {IDInput()} to charge",
                   MessageBoxButton.OK,
                   MessageBoxImage.Information);
+                
                 if (result == MessageBoxResult.OK)
                 {
                     new DroneListWindow(bl).Show();
@@ -309,7 +311,7 @@ namespace PL
             }
         }
 
-        
+
 
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {
