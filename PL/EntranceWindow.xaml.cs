@@ -23,7 +23,7 @@ namespace PL
         public EntranceWindow()
         {
             InitializeComponent();
-        }       
+        }
 
         #region Switch between TextBoxes
         /// <summary>
@@ -243,6 +243,6 @@ namespace PL
                 new MainWindow(bl).Show();
                 Close();
             }
-        }       
+        }
     }
 }
