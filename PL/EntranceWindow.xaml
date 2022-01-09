@@ -40,8 +40,8 @@
                 <Grid Height="300" Width="300">
                     <Label Name="ManagerIDLabel"   Content="ID"   Margin="0,35,195,0"/>
                     <Label Name="ManagerNameLabel" Content="name" Margin="0,70,195,0"/>
-                    <TextBox Name="ManagerID"   Margin="175,35,0,0" KeyDown="OnKeyDownCustomerID" Focusable="True"/>
-                    <TextBox Name="ManagerName" Margin="175, 70, 0, 0" KeyDown="OnKeyDownCustomerName"/>
+                    <TextBox Name="ManagerID"   Margin="175,35,0,0" KeyDown="OnKeyDownManagerID" Focusable="True"/>
+                    <TextBox Name="ManagerName" Margin="175, 70, 0, 0" KeyDown="OnKeyDownManagerName"/>
                     <Button Name="sendManager" Content="Send" Click="Manager" Style="{StaticResource RedButton}" Margin="80,180,80,0" />
                 </Grid>
             </TabItem>

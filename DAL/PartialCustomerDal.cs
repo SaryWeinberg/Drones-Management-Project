@@ -40,7 +40,7 @@ namespace DalObject
         {
             try
             {
-                return GeCustomerByCondition(customer => customer.ID == customerId).First();
+                return GetCustomerByCondition(customer => customer.ID == customerId).First();
             }
             catch
             {
@@ -48,7 +48,7 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Customer> GeCustomerByCondition(Predicate<Customer> condition)
+        public IEnumerable<Customer> GetCustomerByCondition(Predicate<Customer> condition)
         {
             return from customer in GetCustomers()
                    where condition(customer)

@@ -56,9 +56,8 @@ namespace BL
         public string AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID)
         {
             if (GetDronesList().Any(d => d.ID == id))
-            {
-                throw new ObjectAlreadyExistException("drone", id);
-            }
+                throw new ObjectAlreadyExistException("drone", id);          
+            
             Drone droneBL = new Drone();
             try
             {
