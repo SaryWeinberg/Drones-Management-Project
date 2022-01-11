@@ -17,7 +17,7 @@ namespace DAL
 
         internal class config
         {
-            public static double Available = 0.02, Light = 0.3, medium = 0.5, heavy = 0.7, chargingRate = 0.8;
+            public static double Available = 0.002, Light = 0.03, medium = 0.05, heavy = 0.07, chargingRate = 0.1;
         }
 
         public static void Initialize()
@@ -37,8 +37,8 @@ namespace DAL
             for (int i = 0; i < 5; i++)
             {
                 Drone drone = new Drone();
-                drone.ID = Drones.Count;
-                drone.Model = $"{Drones.Count}";
+                drone.ID = Drones.Count + 1;
+                drone.Model = $"{Drones.Count+1}";
                 drone.MaxWeight = (WeightCategories)(rand.Next(1, 4));
                 Drones.Add(drone);
             }
@@ -63,9 +63,9 @@ namespace DAL
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-                parcel.DroneId = rand.Next() % Drones.Count;
+          
 
-                int RndStatus = rand.Next(1, 4);
+                int RndStatus = rand.Next(1, 5);
                 DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));
               
                 parcel.Created = randCreated;
@@ -73,12 +73,14 @@ namespace DAL
                 {
                     case 1:
                         parcel.Associated = RandomDate(randCreated);
+                        parcel.DroneId = rand.Next() % Drones.Count + 1;
+                     
                         break;
                     case 2:
-
                         DateTime randAssociated = RandomDate(randCreated);
                         parcel.Associated = randAssociated;
                         parcel.PickedUp = RandomDate(randAssociated);
+                        parcel.DroneId = rand.Next() % Drones.Count + 1;
                         break;
                     case 3:
                         DateTime randAssociated2 = RandomDate(randCreated);
@@ -86,6 +88,7 @@ namespace DAL
                         DateTime randPickedUp = RandomDate(randAssociated2);
                         parcel.PickedUp = randPickedUp;
                         parcel.Delivered = RandomDate(randPickedUp);
+                        parcel.DroneId = rand.Next() % Drones.Count + 1;
                         break;
                     default:
                         break;

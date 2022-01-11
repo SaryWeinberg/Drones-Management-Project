@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Drone 
+    public class Drone
     {
+
+        public event Action<Drone> droneChanged;
+
+
         private int id;
         private double battery;
         private WeightCategories maxWeight;
