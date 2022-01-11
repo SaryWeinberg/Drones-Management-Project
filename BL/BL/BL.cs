@@ -8,7 +8,6 @@ using BO;
 using DalApi;
 
 
-
 namespace BL
 {
     public partial class BL : BLApi.IBL
@@ -33,7 +32,7 @@ namespace BL
 
         BL()
         {
-            dalObj = DalObject.DalFactory.GetDal("object");
+            dalObj = DalFactory.GetDal("object");
             double[] ElectricUse = dalObj.ElectricalPowerRequest();
             double Available = ElectricUse[0];
             double Light = ElectricUse[1];

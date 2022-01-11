@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
-/*using IDAL;*/
 using DalApi;
 
 
-namespace DalObject
+namespace DAL
 {
-     partial class DalObject : IDal
+    partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new station to DataBase
@@ -37,9 +36,7 @@ namespace DalObject
         /// <param name="stationId"></param>
         /// <returns></returns>
         public Station GetSpesificStation(int stationId)
-        {
-            /*       try
-                   {*/
+        {           
             try
             {
                 Station station = DataSource.Stations.First(s => s.ID == stationId);
@@ -47,40 +44,20 @@ namespace DalObject
             }
             catch (InvalidOperationException e)
             {
-                throw new ObjectDoesNotExist("station", stationId);
-                /*    throw new Exception("station not exist!");*/
-            }
-            /*  }*/
-
-            /*            catch (ObjectDoesNotExist e)
-                        {
-                            throw new ObjectDoesNotExist("station", 0);
-                        }*/
+                throw new ObjectDoesNotExist("station", stationId);             
+            }           
         }
-
-        /// <summary>
-        /// Returns the list of stations one by one
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Station> GetStationLists()
-        {
-            return from station in DataSource.Stations
-                   select station;
-            /*foreach (Station station in DataSource.Stations)
-            {
-                yield return station;
-            }*/
-        }
-
+       
         /// <summary>
         /// Returns the station list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Station> GetStations()
+        public IEnumerable<Station> GetStations(Predicate<Station> condition = null)
         {
-            foreach (Station x in DataSource.Stations)
-                yield return x;
-/*            return DataSource.Stations;
-*/        }
+            condition ??= (s => true);
+            return from station in DataSource.Stations
+                   where condition(station)
+                   select station;
+        }
     }
 }

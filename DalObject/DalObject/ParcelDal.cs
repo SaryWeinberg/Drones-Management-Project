@@ -7,7 +7,7 @@ using DO;
 using DalApi;
 
 
-namespace DalObject
+namespace DAL
 {
     partial class DalObject : IDal
     {
@@ -39,7 +39,7 @@ namespace DalObject
         {
             try
             {
-                return GetParcelByCondition(parcel => parcel.ID == parcelId).First();
+                return GetParcels(parcel => parcel.ID == parcelId).First();
             }
             catch
             {
@@ -48,21 +48,22 @@ namespace DalObject
         }
 
 
-        public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> condition)
+        /*public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> condition)
         {
             return from parcel in GetParcels()
                    where condition(parcel)
                    select parcel;
-        }
+        }*/
 
         /// <summary>
         /// Returns the parcel list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> condition = null)
         {
+            condition ??= (p => true);
             return from parcel in DataSource.Parcels
-                   where parcel.Active == true
+                   where parcel.Active == true && condition(parcel)
                    select parcel;
         }
 

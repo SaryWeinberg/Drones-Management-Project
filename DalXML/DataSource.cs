@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
+using DalApi;
 
-namespace DalObject
+namespace DAL
 {
+
     internal class DataSource
     {
         internal static List<Drone> Drones = new List<Drone>();
@@ -67,7 +69,7 @@ namespace DalObject
 
                 int RndStatus = rand.Next(1, 4);
                 DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));
-              
+
                 parcel.Created = randCreated;
                 switch (RndStatus)
                 {
@@ -100,7 +102,8 @@ namespace DalObject
             DateTime start = dateTime;
             Random rand = new Random();
             int range = (DateTime.Today - start).Days;
-            return start.AddDays(rand.Next(range%100));
+            return start.AddDays(rand.Next(range % 100));
         }
     }
 }
+

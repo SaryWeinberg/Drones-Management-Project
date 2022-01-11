@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/*using IDAL;*/
-using DalApi;
 
-
-namespace DalObject
+namespace DalApi
 {  
     public static class DalFactory
     {
@@ -18,7 +15,7 @@ namespace DalObject
                 case "object":
                     return DalObject.GetInstance;
                 case "xml":
-                   // return DalXml.GetInstance;
+                    return DalXml.GetInstance;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

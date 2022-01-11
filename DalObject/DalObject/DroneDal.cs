@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
-/*using IDAL;*/
 using DalApi;
 
 
-namespace DalObject
+namespace DAL
 {
     partial class DalObject : IDal
     {
@@ -47,24 +46,30 @@ namespace DalObject
         {
             int index = DataSource.Drones.FindIndex(d => d.ID == drone.ID);
             DataSource.Drones[index] = drone;
-        }       
-        
+        }
+
         /// <summary>
         /// Returns the drone list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Drone> GetDrones()
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> condition = null)
         {
-            return DataSource.Drones;
+            condition ??= (d => true);
+            return from drone in DataSource.Drones
+                   where condition(drone)
+                   select drone;
         }
 
         /// <summary>
         /// Returns the drone charge list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DroneCharge> GetDroneCharges()
+        public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> condition = null)
         {
-            return DataSource.DroneCharges;
+            condition ??= (dc => true);
+            return from droneCharge in DataSource.DroneCharges
+                   where condition(droneCharge)
+                   select droneCharge;
         }
     }
 }
