@@ -153,7 +153,7 @@ namespace BL
         public IEnumerable<BO.Station> GetAvailableStationsList()
         {
             List<BO.Station> stationsBL = new List<BO.Station>().ToList();
-            foreach (DO.Station station in dalObj.GetStationLists())
+            foreach (DO.Station station in dalObj.GetStations())
             {
                 if (station.ChargeSlots > 0)
                 {

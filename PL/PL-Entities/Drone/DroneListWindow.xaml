@@ -28,7 +28,7 @@
             <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
             <Button Grid.Column="3" Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
         </Grid>
-        <ListView x:Name="DroneListView" ItemsSource="{Binding Path= DronesList ,UpdateSourceTrigger=PropertyChanged}"  FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateDrone">
+        <ListView x:Name="DroneListView" ItemsSource="{Binding}"  FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateDrone">
             <ListView.View >
                 <GridView>
                     <GridViewColumn Header="ID"         Width="50"  DisplayMemberBinding="{Binding ID}" />
@@ -48,7 +48,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Expander IsExpanded="False">
+                                        <Expander IsExpanded="true">
                                             <Expander.Header>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="{Binding Status}" Foreground="Gray" FontSize="18" VerticalAlignment="Bottom"/>

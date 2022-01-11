@@ -8,7 +8,6 @@ using BO;
 using DalApi;
 
 
-
 namespace BL
 {
     public partial class BL : BLApi.IBL
@@ -33,7 +32,7 @@ namespace BL
 
         BL()
         {
-            dalObj = DalObject.DalFactory.GetDal("object");
+            dalObj = DalFactory.GetDal("object");
             double[] ElectricUse = dalObj.ElectricalPowerRequest();
             double Available = ElectricUse[0];
             double Light = ElectricUse[1];
@@ -49,7 +48,7 @@ namespace BL
                 DO.Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);
 
                 //There is a parcel that has been associated but not delivered
-                if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == null)
+                if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == null && parcel.Associated != null)
                 {
                     //Package not collected
                     if (parcel.PickedUp == null)
@@ -153,7 +152,7 @@ namespace BL
                 throw new NoBatteryToReachChargingStationException();
             }
 
-            drone.Battery -= dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location);
+            drone.Battery -= Math.Round(dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location),2);
             drone.Location = station.Location;
             drone.Status = DroneStatus.Maintenance;
       /*      station.AveChargeSlots -= 1;*/
@@ -188,7 +187,7 @@ namespace BL
             }
             else
             {
-                droneBL.Battery += dalObj.ElectricalPowerRequest()[4] * timeInCharge;
+                droneBL.Battery +=  Math.Round(dalObj.ElectricalPowerRequest()[4] * timeInCharge,2);
             }
 
             droneBL.Status = DroneStatus.Available;
@@ -215,7 +214,11 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
 
-            List<BO.Parcel> parcels = GetParcels().ToList();
+            List<BO.Parcel> parcels = GetParcelsByCondition(parcel => ConvertBLParcelToDAL(parcel).Active && parcel.Associated == null).ToList();
+            if (!parcels.Any())
+            {//no parcel wait to collect
+                throw new ObjectDoesNotExist("parcel that wait to pack", 0);
+            }
             int flag = 0;
             double bestDistance = 100;
 
@@ -292,7 +295,7 @@ namespace BL
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp == null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
-                droneBL.Battery = Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
+                droneBL.Battery = Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
                 droneBL.Location = senderCustomer.Location;
                 currentParcel.PickedUp = DateTime.Now;
 
@@ -336,12 +339,14 @@ namespace BL
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp != null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer TargetCustomer = customers.Find(c => c.ID == currentParcel.Target.ID);
-                droneBL.Battery = Distance(droneBL.Location, TargetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
+                droneBL.Battery = Math.Round(Distance(droneBL.Location, TargetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight],2);
                 droneBL.Location = TargetCustomer.Location;
                 currentParcel.Delivered = DateTime.Now;
                 droneBL.Status = DroneStatus.Available;
-
+                
+                droneBL.Parcel = null;
                 dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+              
                 return $"The parcel ID - {currentParcel.ID} was successfully delivered by the drone!";
 
             }

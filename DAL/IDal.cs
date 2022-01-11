@@ -18,20 +18,16 @@ namespace DalApi
         public Station GetSpesificStation(int stationId);
         public Customer GetSpesificCustomer(int customerId);
         public Parcel GetSpesificParcel(int parcelId);
-        public IEnumerable<Station> GetStationLists();
-        public double[] ElectricalPowerRequest();
-        IEnumerable<Drone> GetDrones();
-        IEnumerable<Station> GetStations();
-        IEnumerable<Parcel> GetParcels();
-        IEnumerable<Customer> GetCustomers();
-        public IEnumerable<DroneCharge> GetDroneCharges();
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> condition = null);
+        public IEnumerable<Station> GetStations(Predicate<Station> condition = null);
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> condition = null);
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> condition = null);
+        public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> condition = null);
         public void UpdateDrone(Drone drone);
         public void UpdateCustomer(Customer customer);
         public void UpdateStation(Station station);
         public void UpdateParcel(Parcel parcel);
-        public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> conditin);
-        public IEnumerable<Customer> GetCustomerByCondition(Predicate<Customer> condition);
-   
+        public double[] ElectricalPowerRequest();
     }
 }
 

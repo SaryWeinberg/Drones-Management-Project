@@ -8,7 +8,7 @@ using DalApi;
 /*using IDAL;*/
 
 
-namespace DalObject
+namespace DAL
 {
     partial class DalObject : IDal
     {
@@ -40,7 +40,7 @@ namespace DalObject
         {
             try
             {
-                return GetCustomerByCondition(customer => customer.ID == customerId).First();
+                return GetCustomers(customer => customer.ID == customerId).First();
             }
             catch
             {
@@ -48,20 +48,23 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<Customer> GetCustomerByCondition(Predicate<Customer> condition)
+       /* public IEnumerable<Customer> GetCustomerByCondition(Predicate<Customer> condition)
         {
             return from customer in GetCustomers()
                    where condition(customer)
                    select customer;
-        }
+        }*/
 
         /// <summary>
         /// Returns the customer list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> condition = null)
         {
-            return DataSource.Customers;
+            condition ??= (c => true);
+            return from customer in DataSource.Customers
+                   where condition(customer)
+                   select customer;
         }      
     }
 }

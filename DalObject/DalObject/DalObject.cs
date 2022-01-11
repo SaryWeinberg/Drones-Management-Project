@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using DalApi;
-/*using IDAL;*/
-namespace DalObject
+
+namespace DAL
 {
     partial class DalObject : IDal
     {
@@ -30,6 +30,6 @@ namespace DalObject
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };
             return arr;
-        }
+        }        
     }
 }

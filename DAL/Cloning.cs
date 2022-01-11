@@ -16,7 +16,6 @@ namespace DO
             {
                 originalProp.SetValue(newObject, originalProp.GetValue(original));
             }
-
             return newObject;
         }
     }

@@ -13,10 +13,10 @@ namespace BO
             ID = customer.ID;
             Name = customer.Name;
             PhoneNum = customer.PhoneNum;
-            ParcelSentAndDelivered = dalObj.GetParcelByCondition(p => p.SenderId == ID && (p.Delivered != null && p.PickedUp != null)).Count();
-            ParcelSentButNotDelivered = dalObj.GetParcelByCondition(p => p.SenderId == ID && (p.Delivered == null && p.PickedUp != null)).Count();
-            ParcelReceived = dalObj.GetParcelByCondition(p => p.TargetId == ID && (p.Delivered != null)).Count();
-            ParcelOnTheWayToCustomer = dalObj.GetParcelByCondition(p => p.TargetId == ID && (p.Delivered == null && p.PickedUp != null)).Count();
+            ParcelSentAndDelivered = dalObj.GetParcels(p => p.SenderId == ID && (p.Delivered != null && p.PickedUp != null)).Count();
+            ParcelSentButNotDelivered = dalObj.GetParcels(p => p.SenderId == ID && (p.Delivered == null && p.PickedUp != null)).Count();
+            ParcelReceived = dalObj.GetParcels(p => p.TargetId == ID && (p.Delivered != null)).Count();
+            ParcelOnTheWayToCustomer = dalObj.GetParcels(p => p.TargetId == ID && (p.Delivered == null && p.PickedUp != null)).Count();
         }
 
         public int ID { get; set; }

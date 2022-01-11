@@ -31,7 +31,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Expander IsExpanded="False">
+                                        <Expander IsExpanded="true">
                                             <Expander.Header>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="{Binding GroupByEmptySlots}" Foreground="Gray" FontSize="18" VerticalAlignment="Bottom"/>

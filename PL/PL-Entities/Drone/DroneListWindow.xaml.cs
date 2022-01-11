@@ -23,17 +23,26 @@ namespace PL
     {
         BLApi.IBL bl;
         DroneList droneList;
+        private ObservableCollection<BO.DroneToList> _myCollection = new ObservableCollection<BO.DroneToList>();
         /// <summary>
+        /// 
         /// Ctor of Drone list window
         /// </summary>
         /// <param name="blMain"></param>
         public DroneListWindow(BLApi.IBL blMain)
         {
+
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            droneList = new DroneList(bl.GetDronesToList());
-            DroneListView.DataContext = droneList;
+            DataContext = _myCollection;
+            foreach (BO.DroneToList drone in bl.GetDronesToList())
+            {
+                _myCollection.Add(drone);
+            }
+  
+/*            droneList = new DroneList(bl.GetDronesToList());
+            DroneListView.DataContext = droneList;*/
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -119,7 +128,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RefreshWindow(object sender, RoutedEventArgs e) =>  droneList.DronesList = bl.GetDronesToList();
+        private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
