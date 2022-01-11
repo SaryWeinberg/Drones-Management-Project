@@ -82,14 +82,15 @@ namespace BL
             {
                 ID = p.ID,
                 Delivered = p.Delivered,
-                DroneId = p.Drone.ID,
+                DroneId = p.Drone == null? 0: p.Drone.ID,
                 PickedUp = p.PickedUp,
                 Priority = p.Priority,
                 Created = p.Created,
                 SenderId = p.Sender.ID,
                 TargetId = p.Target.ID,
                 Weight = p.Weight,
-                Associated = p.Associated
+                Associated = p.Associated,
+                Active = true
             };
         }
 
@@ -109,11 +110,18 @@ namespace BL
             CustomerInParcel Tcustomer = new CustomerInParcel();
             Tcustomer.ID = p.TargetId;
             Tcustomer.Name = dalObj.GetSpesificCustomer(p.TargetId).Name;
-
             DroneInParcel droneInparcel = new DroneInParcel();
-            droneInparcel.ID = droneBL.ID;
-            droneInparcel.Location = droneBL.Location;
-            droneInparcel.Battery = droneBL.Battery;
+            if (p.Associated == null)
+            {
+                droneInparcel.ID = 0;
+            }
+            else
+            {
+                
+                droneInparcel.ID = droneBL.ID;
+                droneInparcel.Location = droneBL.Location;
+                droneInparcel.Battery = droneBL.Battery;
+            }
 
             return new BO.Parcel
             {

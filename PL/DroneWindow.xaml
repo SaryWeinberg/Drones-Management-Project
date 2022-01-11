@@ -35,7 +35,7 @@
             <Label Name="latitudeLabel"        Content="drone latitude:"        Margin="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <Label Name="parcelLabel"          Content="parcel by delivery ID:" Margin="43, 240, 684, 0" Visibility="Hidden" />
             <!--<Label Name="timechargeLabel"      Content="write time of charge:"  Margin="43, 270, 684, 0" Visibility="Hidden"/>-->
-            <Label Name="batteryNum"           Content="{Binding Path = Battery}" Margin="221, 116, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="batteryNum"           Content="{Binding Path = Battery, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="221, 116, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <Label Name="batteryN"             Content="%"                        Margin="245, 116, 500, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <ProgressBar Name="battery"    Value="{Binding Path = Battery , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="276,120,500,378" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <ComboBox Name="Status"        Text="{Binding Path = Status , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="221,150,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
@@ -43,12 +43,12 @@
             <TextBox Name="latitude"       Text="{Binding Path = Location.Latitude,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin = "221, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
             <TextBox Name="parcel"         Text="{Binding Path = Parcel.ID ,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin = "221, 240, 500, 0" Visibility="Hidden" FontSize="16" MouseDoubleClick="GetParcel" AcceptsReturn="True"/>
             <!--<TextBox Name="timecharge"   Margin ="221, 270, 500, 0" Visibility="Hidden" FontSize="16"/>-->
-            <Button Name="sendDroneToCharge"      Content="send drone to charge"      Style="{StaticResource RedButton}" Click="SendDroneToCharge"      Visibility ="Hidden"/>
-            <Button Name="assignParcelToDrone"    Content="assign Parcel To Drone"    Style="{StaticResource RedButton}" Click="AssignParcelToDrone"    Visibility ="Hidden"/>
-            <Button Name="releaseDronefromCharge" Content="release Drone from Charge" Style="{StaticResource RedButton}" Click="ReleaseDronefromCharge" Visibility ="Hidden"/>
-            <Button Name="collectParcelByDrone"   Content="collect Parcel By Drone"   Style="{StaticResource RedButton}" Click="CollectParcelByDrone"   Visibility ="Hidden"/>
-            <Button Name="deliveryParcelByDrone"  Content="delivery Parcel By Drone"  Style="{StaticResource RedButton}" Click="DeliveryParcelByDrone"  Visibility ="Hidden"/>
-            <Button Name="update"                 Content="update"                    Style="{StaticResource RedButton}" Click="UpdateDrone"            Visibility ="Hidden"/>
+            <Button Name="sendDroneToCharge"      Content="send drone to charge"      Style="{StaticResource RedButton}" Click="SendDroneToCharge"      Visibility="Hidden"/>
+            <Button Name="assignParcelToDrone"    Content="assign Parcel To Drone"    Style="{StaticResource RedButton}" Click="AssignParcelToDrone"     Visibility="Hidden"/>
+            <Button Name="releaseDronefromCharge" Content="release Drone from Charge" Style="{StaticResource RedButton}" Click="ReleaseDronefromCharge"  Visibility="Hidden"/>
+            <Button Name="collectParcelByDrone"   Content="collect Parcel By Drone"   Style="{StaticResource RedButton}" Click="CollectParcelByDrone"    Visibility="Hidden"/>
+            <Button Name="deliveryParcelByDrone"  Content="delivery Parcel By Drone"  Style="{StaticResource RedButton}" Click="DeliveryParcelByDrone"   Visibility="Hidden"/>
+            <Button Name="update"                 Content="update"                    Style="{StaticResource RedButton}" Click="UpdateDrone"             Visibility="Hidden"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>

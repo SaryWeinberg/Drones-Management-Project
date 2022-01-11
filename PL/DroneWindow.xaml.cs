@@ -103,6 +103,14 @@ namespace PL
         public void DisplayBTN()
         {
 
+            sendDroneToCharge.Visibility = Visibility.Hidden;
+            assignParcelToDrone.Visibility = Visibility.Hidden;
+            releaseDronefromCharge.Visibility = Visibility.Hidden;
+            collectParcelByDrone.Visibility = Visibility.Hidden;
+            deliveryParcelByDrone.Visibility = Visibility.Hidden;
+ 
+       
+
             if (Drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
             else if (Drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
             else battery.Foreground = new SolidColorBrush(Colors.Yellow);
@@ -112,7 +120,7 @@ namespace PL
                 parcelLabel.Visibility = Visibility.Visible;
                 parcel.Visibility = Visibility.Visible;
             }
-           
+
 
             if (Drone.Status == DroneStatus.Available)
             {
@@ -187,6 +195,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    AddDroneGrid.DataContext = Drone;
                     /*        new DroneListWindow(bl).Show();*/
                 }
             }
@@ -216,6 +225,9 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    AddDroneGrid.DataContext = Drone;
+
+                    DisplayBTN();
                     /*   new DroneListWindow(bl).Show();*/
                 }
             }
@@ -244,6 +256,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    AddDroneGrid.DataContext = Drone;
                     DisplayBTN();
                     /*          new DroneListWindow(bl).Show();*/
                 }
@@ -271,7 +284,9 @@ namespace PL
                  MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
+
                     Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    AddDroneGrid.DataContext = Drone;
                     DisplayBTN();
                     /*         new DroneListWindow(bl).Show();*/
                 }
@@ -299,8 +314,8 @@ namespace PL
                 MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-
                     Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    AddDroneGrid.DataContext = Drone;
                     DisplayBTN();
                 }
             }
@@ -328,6 +343,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    AddDroneGrid.DataContext = Drone;
                     DisplayBTN();
                 }
             }

@@ -79,7 +79,7 @@ namespace PL
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.UpdateCustomerData(IDInput(), NameInput()),
+                    bl.UpdateCustomerData(IDInput(), NameInput(), PhoneInput()),
                     $"Update customer ID - {IDInput()}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -128,7 +128,7 @@ namespace PL
         /// Takes phone number input from the user with tests
         /// </summary>
         /// <returns></returns>
-        private int PhoneInput()
+        private string PhoneInput()
         {
             try { return int.Parse(CustomerPhone.Text); }
             catch (Exception) { throw new InvalidObjException("Phone"); }
