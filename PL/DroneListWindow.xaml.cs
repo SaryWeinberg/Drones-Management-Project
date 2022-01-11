@@ -123,7 +123,7 @@ namespace PL
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
+            new MainWindow(bl).Show();
             /*  Close();*/
         }
 
