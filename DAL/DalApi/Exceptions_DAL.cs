@@ -11,9 +11,8 @@ namespace DO
         public ObjectDoesNotExist(string obj, int id) : base(String.Format($"{obj}, ID - {id} does not exist")) { }
     }
 
-    public class XMLFileLoadCreateException : Exception
+    public class XmlFileLoadCreateException : Exception
     {
-        public XMLFileLoadCreateException(string exe) : base(String.Format(exe)) { }
+        public XmlFileLoadCreateException(string exe) : base(String.Format(exe)) { }
     }
-
 }

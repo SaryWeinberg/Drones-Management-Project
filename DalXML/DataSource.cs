@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DO;
 using DalApi;
 
-namespace DAL
+namespace Dal
 {
 
     internal class DataSource

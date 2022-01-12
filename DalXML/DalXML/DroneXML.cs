@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DalApi;
 using DO;
 
-namespace DAL
+namespace Dal
 {
     public partial class DalXml : IDal
     {
@@ -18,7 +18,7 @@ namespace DAL
         {
             IEnumerable<Drone> droneList = GetDrones();
             droneList.ToList().Add(drone);
-            XMLTools.SaveListToXMLSerializer(droneList, dir + droneFilePath);
+            XmlTools.SaveListToXmlSerializer(droneList, dir + droneFilePath);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace DAL
         {
             IEnumerable<DroneCharge> droneChargeList = GetDroneCharges();
             droneChargeList.ToList().Add(droneCharge);
-            XMLTools.SaveListToXMLSerializer(droneChargeList, dir + parcelFilePath);
+            XmlTools.SaveListToXmlSerializer(droneChargeList, dir + parcelFilePath);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace DAL
         {
             List<Drone> droneList = GetDrones().ToList();
             droneList[droneList.FindIndex(d => d.ID == drone.ID)] = drone;
-            XMLTools.SaveListToXMLSerializer(droneList, dir + droneFilePath);
+            XmlTools.SaveListToXmlSerializer(droneList, dir + droneFilePath);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace DAL
             IEnumerable<Drone> droneList = GetDrones();
             Drone drone = GetDrones(d => d.ID == droneId).First();
             droneList.ToList().Remove(drone);
-            XMLTools.SaveListToXMLSerializer(droneList, dir + droneFilePath);
+            XmlTools.SaveListToXmlSerializer(droneList, dir + droneFilePath);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace DAL
         /// <returns></returns>
         public IEnumerable<Drone> GetDrones(Predicate<Drone> condition = null)
         {
-            return from drone in XMLTools.LoadListFromXMLSerializer<Drone>(dir + droneFilePath)
+            return from drone in XmlTools.LoadListFromXmlSerializer<Drone>(dir + droneFilePath)
                    where condition(drone)
                    select drone;
         }
@@ -74,7 +74,7 @@ namespace DAL
         /// <returns></returns>
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> condition = null)
         {
-            return from droneCharge in XMLTools.LoadListFromXMLSerializer<DroneCharge>(dir + droneChargeFilePath)
+            return from droneCharge in XmlTools.LoadListFromXmlSerializer<DroneCharge>(dir + droneChargeFilePath)
                    where condition(droneCharge)
                    select droneCharge;
         }        

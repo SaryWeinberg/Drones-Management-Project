@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DalApi;
 using DO;
 
-namespace DAL
+namespace Dal
 {
     public partial class DalXml : IDal
     {
@@ -18,7 +18,7 @@ namespace DAL
         {
             IEnumerable<Parcel> parcelList = GetParcels();
             parcelList.ToList().Add(parcel);
-            XMLTools.SaveListToXMLSerializer(parcelList, dir + parcelFilePath);
+            XmlTools.SaveListToXmlSerializer(parcelList, dir + parcelFilePath);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace DAL
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> condition = null)
         {
-            return from parcel in XMLTools.LoadListFromXMLSerializer<Parcel>(dir + parcelFilePath)
+            return from parcel in XmlTools.LoadListFromXmlSerializer<Parcel>(dir + parcelFilePath)
                    where condition(parcel)
                    select parcel;
         }
@@ -52,7 +52,7 @@ namespace DAL
         {
             List<Parcel> parcelList = GetParcels().ToList();
             parcelList[parcelList.FindIndex(p => p.ID == parcel.ID)] = parcel;
-            XMLTools.SaveListToXMLSerializer(parcelList, dir + parcelFilePath);
+            XmlTools.SaveListToXmlSerializer(parcelList, dir + parcelFilePath);
         }
     }
 }

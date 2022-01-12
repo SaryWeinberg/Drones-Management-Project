@@ -7,7 +7,7 @@ using DO;
 using DalApi;
 
 
-namespace DAL
+namespace Dal
 {
     internal partial class DalObject : IDal
     {

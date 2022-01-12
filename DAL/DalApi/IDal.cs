@@ -30,5 +30,3 @@ namespace DalApi
         public double[] ElectricalPowerRequest();
     }
 }
-
-

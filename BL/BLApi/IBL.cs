@@ -23,6 +23,12 @@ namespace BLApi
         public string UpdateDroneData(int id, string model);
         public string UpdateStationData(int id, int name = -1, int ChargeSlots = -1);
         public string UpdateDrone(BO.Drone droneBL);
+        public string SendDroneToCharge(int droneId);
+        public string ReleaseDroneFromCharge(int droneId, int timeInCharge);
+        public string AssignParcelToDrone(int droneId);
+        public string CollectParcelByDrone(int droneId);
+        public string SupplyParcelByDrone(int droneId);
+        public string RemoveParcel(int ID);
         public BO.Customer ConvertDalCustomerToBL(DO.Customer c);
         public BO.Drone ConvertDalDroneToBL(DO.Drone d);
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p);
@@ -35,28 +41,17 @@ namespace BLApi
         public BO.Parcel GetSpesificParcelBL(int parcelId);
         public BO.Station GetSpesificStation(int stationId);
         public DroneInCharge GetSpecificDroneInCharge(int droneId);
+        public BO.Station GetNearestAvailableStation(Location Targlocation);
         public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null);
         public IEnumerable<BO.Drone> GetDalDronesListAsBL();
         public IEnumerable<BO.Drone> GetDronesList(Predicate<BO.Drone> condition = null);
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null);
         public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null);
         public IEnumerable<BO.Station> GetAvailableStationsList();
-        public BO.Station GetNearestAvailableStation(Location Targlocation);
-        public string SendDroneToCharge(int droneId);
-        public string ReleaseDroneFromCharge(int droneId, int timeInCharge);
-        public string AssignParcelToDrone(int droneId);
-        public string CollectParcelByDrone(int droneId);
-        public string SupplyParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
-/*        public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition);
-*//*        public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
-*//*        public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition);
-*//*        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
-*//*        public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<ParcelToList> condition);
-*/        public IEnumerable<CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null);
+        public IEnumerable<CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null);
         public IEnumerable<DroneToList> GetDronesToList(Predicate<BO.Drone> condition = null);
         public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition = null);
         public IEnumerable<StationToList> GetStationsToList(Predicate<BO.Station> condition = null);
-        public string RemoveParcel(int ID);
     }
 }

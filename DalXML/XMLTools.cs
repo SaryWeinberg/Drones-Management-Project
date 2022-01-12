@@ -9,11 +9,11 @@ using System.Xml.Linq;
 using DO;
 using DalApi;
 
-namespace DAL
+namespace Dal
 {
-    public class XMLTools
+    public class XmlTools
     {
-        public static void SaveListToXMLSerializer<T>(IEnumerable<T> list, string filePath)
+        public static void SaveListToXmlSerializer<T>(IEnumerable<T> list, string filePath)
         {
             try
             {
@@ -24,10 +24,10 @@ namespace DAL
             }
             catch (Exception)
             {
-                throw new DO.XMLFileLoadCreateException($"fail to create xml file: {filePath}");
+                throw new XmlFileLoadCreateException($"fail to create xml file: {filePath}");
             }
         }
-        public static IEnumerable<T> LoadListFromXMLSerializer<T>(string filePath)
+        public static IEnumerable<T> LoadListFromXmlSerializer<T>(string filePath)
         {
             try
             {
@@ -43,9 +43,9 @@ namespace DAL
             }
             catch (Exception)
             {
-                throw new XMLFileLoadCreateException($"fail to load xml file: {filePath}");
+                throw new XmlFileLoadCreateException($"fail to load xml file: {filePath}");
             }
-            throw new XMLFileLoadCreateException($"{filePath} not exist at the file");
+            throw new XmlFileLoadCreateException($"{filePath} not exist at the file");
         }
 
         public static XElement LoadData(string filePath)
@@ -56,7 +56,7 @@ namespace DAL
             }
             catch
             {
-                throw new XMLFileLoadCreateException($"File upload problem");               
+                throw new XmlFileLoadCreateException($"File upload problem");               
             }
         }
     }

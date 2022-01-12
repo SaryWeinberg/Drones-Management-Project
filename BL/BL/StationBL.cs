@@ -140,7 +140,7 @@ namespace BL
             condition ??= (s => true);
             return from s in dalObj.GetStations()
                    where condition(ConvertDalStationToBL(s))
-                   select ConvertDalStationToBL(s);*/
+                   select ConvertDalStationToBL(s);
         }
 
         /// <summary>

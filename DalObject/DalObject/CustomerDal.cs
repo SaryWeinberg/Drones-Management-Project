@@ -8,7 +8,7 @@ using DalApi;
 /*using IDAL;*/
 
 
-namespace DAL
+namespace Dal
 {
     internal partial class DalObject : IDal
     {

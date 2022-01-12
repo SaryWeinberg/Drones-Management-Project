@@ -7,7 +7,7 @@ using DalApi;
 using DO;
 
 
-namespace DAL
+namespace Dal
 {
     public partial class DalXml : IDal
     {
@@ -39,25 +39,25 @@ namespace DAL
         {
             DataSource.Initialize();
             if (!File.Exists(dir + customerFilePath))
-                XMLTools.SaveListToXMLSerializer<Customer>(DataSource.Customers, dir + customerFilePath);
+                XmlTools.SaveListToXmlSerializer<Customer>(DataSource.Customers, dir + customerFilePath);
 
             if (!File.Exists(dir + parcelFilePath))
-                XMLTools.SaveListToXMLSerializer<Parcel>(DataSource.Parcels, dir + parcelFilePath);
+                XmlTools.SaveListToXmlSerializer<Parcel>(DataSource.Parcels, dir + parcelFilePath);
 
             if (!File.Exists(dir + droneFilePath))
-                XMLTools.SaveListToXMLSerializer<Drone>(DataSource.Drones, dir + droneFilePath);
+                XmlTools.SaveListToXmlSerializer<Drone>(DataSource.Drones, dir + droneFilePath);
 
             if (!File.Exists(dir + stationFilePath))
-                XMLTools.SaveListToXMLSerializer<Station>(DataSource.Stations, dir + stationFilePath);
+                XmlTools.SaveListToXmlSerializer<Station>(DataSource.Stations, dir + stationFilePath);
 
             if (!File.Exists(dir + droneChargeFilePath))
-                XMLTools.SaveListToXMLSerializer<DroneCharge>(DataSource.DroneCharges, dir + droneChargeFilePath);
+                XmlTools.SaveListToXmlSerializer<DroneCharge>(DataSource.DroneCharges, dir + droneChargeFilePath);
         }
               
         public double[] ElectricalPowerRequest()
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };
             return arr;
-        }        
+        }      
     }
 }

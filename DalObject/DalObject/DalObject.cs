@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DO;
 using DalApi;
 
-namespace DAL
+namespace Dal
 {
     internal partial class DalObject : IDal
     {
@@ -23,13 +23,13 @@ namespace DAL
                 if (instance == null)
                     instance = new DalObject();
                 return instance;
-            }            
+            }        
         }
 
         public double[] ElectricalPowerRequest()
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };
             return arr;
-        }        
+        }      
     }
 }
