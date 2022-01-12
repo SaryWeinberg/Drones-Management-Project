@@ -40,8 +40,8 @@ namespace BL
         public string AddStationBL(int id, int name, Location location, int chargeSlots)
         {
             if (dalObj.GetStations().Any(s => s.ID == id))
-                throw new ObjectAlreadyExistException("Station", id);            
-            
+                throw new ObjectAlreadyExistException("Station", id);
+
             BO.Station station = new BO.Station();
             try
             {
@@ -137,14 +137,14 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null)
         {
-            /*List<DO.Station> stationsDal = dalObj.GetStations().ToList();
+            List<DO.Station> stationsDal = dalObj.GetStations().ToList();
             List<BO.Station> stationsBL = new List<BO.Station>();
             stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
-            return stationsBL;*/
+            return stationsBL;
 
-            return from s in dalObj.GetStations()
+            /*return from s in dalObj.GetStations()
                    where condition(ConvertDalStationToBL(s))
-                   select ConvertDalStationToBL(s);
+                   select ConvertDalStationToBL(s);*/
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace BL
                 stationToList.Add(new BO.StationToList(station, dalObj));
             }
             return stationToList;*/
-
+            condition ??= (s => true);
             return from s in GetStations()
                    where condition(s)
                    select new StationToList(s, dalObj);

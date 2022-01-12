@@ -160,14 +160,14 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null)
         {
-            /*List<DO.Customer> customersDal = dalObj.GetCustomers().ToList();
+            List<DO.Customer> customersDal = dalObj.GetCustomers().ToList();
             List<BO.Customer> customersBL = new List<BO.Customer>();
-            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));*/
-            condition ??= (c => true);
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
+            /*condition ??= (c => true);
             return from c in dalObj.GetCustomers()
                    where condition(ConvertDalCustomerToBL(c))
-                   select ConvertDalCustomerToBL(c);
-           // return customersBL;
+                   select ConvertDalCustomerToBL(c);*/
+            return customersBL;
         }
 
         /// <summary>
@@ -176,15 +176,15 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<BO.CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null)
         {
-           /* List<BO.Customer> customers = GetCustomers().ToList();
-            List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
-            foreach (BO.Customer custtomer in customers)
-            {
-                customersToList.Add(new BO.CustomerToList(custtomer, dalObj));
-            }
-            return customersToList;
-            condition ??= (c => true);*/
-
+            /* List<BO.Customer> customers = GetCustomers().ToList();
+             List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
+             foreach (BO.Customer custtomer in customers)
+             {
+                 customersToList.Add(new BO.CustomerToList(custtomer, dalObj));
+             }
+             return customersToList;
+             condition ??= (c => true);*/
+            condition ??= (c => true);
             return from c in GetCustomers()
                    where condition(c)
                    select new CustomerToList(c, dalObj);

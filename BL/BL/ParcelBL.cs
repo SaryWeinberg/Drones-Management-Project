@@ -174,14 +174,14 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null)
         {
-            /*List<DO.Parcel> parcelsDal = dalObj.GetParcels().ToList();
+            List<DO.Parcel> parcelsDal = dalObj.GetParcels().ToList();
             List<BO.Parcel> parcelsBL = new List<BO.Parcel>();
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
-            return parcelsBL;*/
-            condition ??= (p => true);
+            return parcelsBL;
+           /* condition ??= (p => true);
             return from p in dalObj.GetParcels()
                    where condition(ConvertDalParcelToBL(p))
-                   select ConvertDalParcelToBL(p);
+                   select ConvertDalParcelToBL(p);*/
         }
 
         /// <summary>

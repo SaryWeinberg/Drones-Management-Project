@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXML\DalXml.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalObject", "DalObject\DalObject.csproj", "{1D8EFADC-D83F-4D88-8DCE-991B4A00B1E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{01277584-1D81-46CA-84BC-79894482257C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{3046D33F-5DA7-457F-9C86-E45A56FAEA98}"
 	ProjectSection(SolutionItems) = preProject
-		xml\dal-config.xml = xml\dal-config.xml
+		dal-config.xml = dal-config.xml
 	EndProjectSection
 EndProject
 Global
