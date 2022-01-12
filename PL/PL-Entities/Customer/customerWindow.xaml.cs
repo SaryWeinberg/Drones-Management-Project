@@ -128,7 +128,7 @@ namespace PL
         /// Takes phone number input from the user with tests
         /// </summary>
         /// <returns></returns>
-        private string PhoneInput()
+        private int PhoneInput()
         {
             try { return int.Parse(CustomerPhone.Text); }
             catch (Exception) { throw new InvalidObjException("Phone"); }

@@ -186,24 +186,31 @@ namespace BL
         /// Returning the drone list from BL
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Drone> GetDronesList()
+        public IEnumerable<Drone> GetDronesList(Predicate<Drone> condition = null)
         {
-            return dronesList;
+            condition ??= (d => true);
+            return from d in dronesList
+                   where condition(d)
+                   select d;
         }
 
         /// <summary>
         /// Returns the drone list with DroneToList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.DroneToList> GetDronesToList()
+        public IEnumerable<BO.DroneToList> GetDronesToList(Predicate<Drone> condition = null)
         {
+            condition ??= (dc => true);
+            return from dc in dronesList
+                   where condition(dc)
+                   select new BO.DroneToList(dc);
 
-            List<BO.DroneToList> droneToList = new List<BO.DroneToList>();
+            /*List < BO.DroneToList > droneToList = new List<BO.DroneToList>();
             foreach (BO.Drone drone in dronesList)
             {
                 droneToList.Add(new BO.DroneToList(drone));
             }
-            return droneToList;
+            return droneToList;*/
         }
 
         /// <summary>
@@ -211,12 +218,12 @@ namespace BL
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public IEnumerable<Drone> GetDronesByCondition(Predicate<Drone> condition)
+        /*public IEnumerable<Drone> GetDronesByCondition(Predicate<Drone> condition)
         {
             return from droneBL in GetDronesList()
                    where condition(droneBL)
                    select droneBL;
-        }
+        }*/
 
 
         /// <summary>
@@ -224,12 +231,12 @@ namespace BL
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition)
+        /*public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition)
         {
             return from droneToList in GetDronesToList()
                    where condition(droneToList)
                    select droneToList;
-        }
+        }*/
 
         /// <summary>
         /// The function returns the total battery usage

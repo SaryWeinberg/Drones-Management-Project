@@ -9,7 +9,7 @@ using DalApi;
 
 namespace DAL
 {
-    partial class DalObject : IDal
+    internal partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new drone to DataBase

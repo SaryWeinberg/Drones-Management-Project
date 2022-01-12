@@ -54,13 +54,13 @@ namespace PL
             WeightCategories Sweight = 0;
             if (WeightSelector.SelectedItem == null)
             {
-                ParcelListView.ItemsSource = bl.GetParcelsToListByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem);
+                ParcelListView.ItemsSource = bl.GetParcelsToList(parcel => parcel.Priority == (Priorities)priority.SelectedItem);
             }
             else
             {
                 Sweight = (WeightCategories)WeightSelector.SelectedItem;
                 ParcelListView.ItemsSource =
-                    bl.GetParcelsToListByCondition(parcel => parcel.Priority == (Priorities)priority.SelectedItem && parcel.Weight == Sweight);
+                    bl.GetParcelsToList(parcel => parcel.Priority == (Priorities)priority.SelectedItem && parcel.Weight == Sweight);
             }
         }
 
@@ -75,12 +75,12 @@ namespace PL
             Priorities Ppriority = 0;
             if (PrioritySelector.SelectedItem == null)
             {
-                ParcelListView.ItemsSource = bl.GetParcelsToListByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem);
+                ParcelListView.ItemsSource = bl.GetParcelsToList(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem);
             }
             else
             {
                 Ppriority = (Priorities)PrioritySelector.SelectedItem;
-                ParcelListView.ItemsSource = bl.GetParcelsToListByCondition(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem && parcel.Priority == Ppriority);
+                ParcelListView.ItemsSource = bl.GetParcelsToList(parcel => parcel.Weight == (WeightCategories)weight.SelectedItem && parcel.Priority == Ppriority);
             }
         }
 
@@ -109,8 +109,8 @@ namespace PL
         private void FilterByDateRange(object sender, RoutedEventArgs e)
         {
             
-            ParcelListView.ItemsSource = bl.GetParcelsByCondition(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
-            ParcelListView.ItemsSource = from parcels in bl.GetParcelsByCondition(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
+            ParcelListView.ItemsSource = bl.GetParcels(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
+            ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
                                          select (new BO.ParcelToList(parcels));
 
         }

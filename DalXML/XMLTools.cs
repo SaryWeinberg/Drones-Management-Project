@@ -40,13 +40,12 @@ namespace DAL
                     file.Close();
                     return list;
                 }
-
             }
             catch (Exception)
             {
-                throw new DO.XMLFileLoadCreateException($"fail to load xml file: {filePath}");
+                throw new XMLFileLoadCreateException($"fail to load xml file: {filePath}");
             }
-            throw new Exception();
+            throw new XMLFileLoadCreateException($"{filePath} not exist at the file");
         }
 
         public static XElement LoadData(string filePath)
@@ -57,11 +56,8 @@ namespace DAL
             }
             catch
             {
-                Console.WriteLine("File upload problem");
-                return null;
+                throw new XMLFileLoadCreateException($"File upload problem");               
             }
         }
     }
-
-
 }

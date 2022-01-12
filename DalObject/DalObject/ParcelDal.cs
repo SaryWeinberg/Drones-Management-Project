@@ -9,7 +9,7 @@ using DalApi;
 
 namespace DAL
 {
-    partial class DalObject : IDal
+    internal partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new parcel to DataBase
@@ -46,14 +46,6 @@ namespace DAL
                 throw new ObjectDoesNotExist("Parcel", parcelId);
             }
         }
-
-
-        /*public IEnumerable<Parcel> GetParcelByCondition(Predicate<Parcel> condition)
-        {
-            return from parcel in GetParcels()
-                   where condition(parcel)
-                   select parcel;
-        }*/
 
         /// <summary>
         /// Returns the parcel list

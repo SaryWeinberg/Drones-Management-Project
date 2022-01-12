@@ -28,7 +28,7 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            foreach (var item in bl.GetStationsList())
+            foreach (var item in bl.GetStationsToList())
                 list.Add(item);
             DataContext = list;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
@@ -72,13 +72,13 @@ namespace PL
         private void ShowAvailbleStations(object sender, RoutedEventArgs e)
         {
             ClearListView();
-            StationListView.ItemsSource = bl.GetStationsToListByCondition(station => station.AveChargeSlots > 0);
+            StationListView.ItemsSource = bl.GetStationsToList(station => station.AveChargeSlots > 0);
             view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
         }
 
         private void ClearListView()
         {
-            StationListView.ItemsSource = bl.GetStationsList();
+            StationListView.ItemsSource = bl.GetStationsToList();
             view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
         }
     }

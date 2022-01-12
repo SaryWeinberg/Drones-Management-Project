@@ -63,12 +63,12 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
-        public string UpdateCustomerData(int id, string name = null, string phoneNum = null)
+        public string UpdateCustomerData(int id, string name = null, int phoneNum = -1)
         {
             DO.Customer customer = dalObj.GetSpesificCustomer(id);
 
             if (name != null && name != "") customer.Name = name;
-            if (phoneNum != null && phoneNum != "") customer.PhoneNum = int.Parse(phoneNum);
+            if (phoneNum != null && phoneNum != -1) customer.PhoneNum = phoneNum;
 
             dalObj.UpdateCustomer(customer);
 
@@ -147,38 +147,47 @@ namespace BL
             }
         }
 
-        public IEnumerable<BO.Customer> GeCustomerByCondition(Predicate<BO.Customer> condition)
+        /*public IEnumerable<BO.Customer> GeCustomerByCondition(Predicate<BO.Customer> condition)
         {
             return from customer in GetCustomers()
                    where condition(customer)
                    select customer;
-        } 
+        } */
 
         /// <summary>
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.Customer> GetCustomers()
+        public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null)
         {
-            List<DO.Customer> customersDal = dalObj.GetCustomers().ToList();
+            /*List<DO.Customer> customersDal = dalObj.GetCustomers().ToList();
             List<BO.Customer> customersBL = new List<BO.Customer>();
-            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));
-            return customersBL;
+            customersDal.ForEach(c => customersBL.Add(ConvertDalCustomerToBL(c)));*/
+            condition ??= (c => true);
+            return from c in dalObj.GetCustomers()
+                   where condition(ConvertDalCustomerToBL(c))
+                   select ConvertDalCustomerToBL(c);
+           // return customersBL;
         }
 
         /// <summary>
         /// Returns the customer list with CustomerToList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.CustomerToList> GetCustomersToList()
+        public IEnumerable<BO.CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null)
         {
-            List<BO.Customer> customers = GetCustomers().ToList();
+           /* List<BO.Customer> customers = GetCustomers().ToList();
             List<BO.CustomerToList> customersToList = new List<BO.CustomerToList>();
             foreach (BO.Customer custtomer in customers)
             {
                 customersToList.Add(new BO.CustomerToList(custtomer, dalObj));
             }
             return customersToList;
+            condition ??= (c => true);*/
+
+            return from c in GetCustomers()
+                   where condition(c)
+                   select new CustomerToList(c, dalObj);
         }
     }
 }

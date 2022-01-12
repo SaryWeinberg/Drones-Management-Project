@@ -19,9 +19,10 @@ namespace BLApi
         public string AddDroneBL(int id, string model, WeightCategories maxWeight, int stationID);
         public string AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority);
         public string AddStationBL(int id, int name, Location location, int chargeSlots);
-        public string UpdateCustomerData(int id, string name = null, string phoneNum = null);
+        public string UpdateCustomerData(int id, string name = null, int phoneNum = -1);
         public string UpdateDroneData(int id, string model);
         public string UpdateStationData(int id, int name = -1, int ChargeSlots = -1);
+        public string UpdateDrone(BO.Drone droneBL);
         public BO.Customer ConvertDalCustomerToBL(DO.Customer c);
         public BO.Drone ConvertDalDroneToBL(DO.Drone d);
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p);
@@ -34,12 +35,11 @@ namespace BLApi
         public BO.Parcel GetSpesificParcelBL(int parcelId);
         public BO.Station GetSpesificStation(int stationId);
         public DroneInCharge GetSpecificDroneInCharge(int droneId);
-        public IEnumerable<BO.Customer> GetCustomers();
+        public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null);
         public IEnumerable<BO.Drone> GetDalDronesListAsBL();
-        public IEnumerable<BO.Drone> GetDronesList();
-        public string UpdateDrone(BO.Drone droneBL);
-        public IEnumerable<BO.Parcel> GetParcels();
-        public IEnumerable<BO.Station> GetStations();
+        public IEnumerable<BO.Drone> GetDronesList(Predicate<BO.Drone> condition = null);
+        public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null);
+        public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null);
         public IEnumerable<BO.Station> GetAvailableStationsList();
         public BO.Station GetNearestAvailableStation(Location Targlocation);
         public string SendDroneToCharge(int droneId);
@@ -48,15 +48,15 @@ namespace BLApi
         public string CollectParcelByDrone(int droneId);
         public string SupplyParcelByDrone(int droneId);
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
-        public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition);
-        public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
-        public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition);
-        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
-        public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<ParcelToList> condition);
-        public IEnumerable<CustomerToList> GetCustomersToList();
-        public IEnumerable<DroneToList> GetDronesToList();
-        public IEnumerable<ParcelToList> GetParcelsToList();
-        public IEnumerable<StationToList> GetStationsList();
+/*        public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition);
+*//*        public IEnumerable<BO.Drone> GetDronesByCondition(Predicate<BO.Drone> condition);
+*//*        public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition);
+*//*        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition);
+*//*        public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<ParcelToList> condition);
+*/        public IEnumerable<CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null);
+        public IEnumerable<DroneToList> GetDronesToList(Predicate<BO.Drone> condition = null);
+        public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition = null);
+        public IEnumerable<StationToList> GetStationsToList(Predicate<BO.Station> condition = null);
         public string RemoveParcel(int ID);
     }
 }

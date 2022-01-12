@@ -17,7 +17,6 @@ namespace BL
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
 
-
         internal static BL instance;
 
         public static BL GetInstance {
@@ -32,7 +31,7 @@ namespace BL
 
         BL()
         {
-            dalObj = DalFactory.GetDal("object");
+            dalObj = DalFactory.GetDal();
             double[] ElectricUse = dalObj.ElectricalPowerRequest();
             double Available = ElectricUse[0];
             double Light = ElectricUse[1];
@@ -214,7 +213,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
 
-            List<BO.Parcel> parcels = GetParcelsByCondition(parcel => ConvertBLParcelToDAL(parcel).Active && parcel.Associated == null).ToList();
+            List<BO.Parcel> parcels = GetParcels(parcel => ConvertBLParcelToDAL(parcel).Active && parcel.Associated == null).ToList();
             if (!parcels.Any())
             {//no parcel wait to collect
                 throw new ObjectDoesNotExist("parcel that wait to pack", 0);

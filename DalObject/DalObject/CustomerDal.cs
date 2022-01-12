@@ -10,7 +10,7 @@ using DalApi;
 
 namespace DAL
 {
-    partial class DalObject : IDal
+    internal partial class DalObject : IDal
     {
         /// <summary>
         /// Adding new customer to Database
@@ -47,14 +47,7 @@ namespace DAL
                 throw new ObjectDoesNotExist("Customer", customerId);
             }
         }
-
-       /* public IEnumerable<Customer> GetCustomerByCondition(Predicate<Customer> condition)
-        {
-            return from customer in GetCustomers()
-                   where condition(customer)
-                   select customer;
-        }*/
-
+      
         /// <summary>
         /// Returns the customer list
         /// </summary>

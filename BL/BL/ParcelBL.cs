@@ -172,12 +172,16 @@ namespace BL
         /// Returning the parcel list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.Parcel> GetParcels()
+        public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null)
         {
-            List<DO.Parcel> parcelsDal = dalObj.GetParcels().ToList();
+            /*List<DO.Parcel> parcelsDal = dalObj.GetParcels().ToList();
             List<BO.Parcel> parcelsBL = new List<BO.Parcel>();
             parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
-            return parcelsBL;
+            return parcelsBL;*/
+            condition ??= (p => true);
+            return from p in dalObj.GetParcels()
+                   where condition(ConvertDalParcelToBL(p))
+                   select ConvertDalParcelToBL(p);
         }
 
         /// <summary>
@@ -185,38 +189,42 @@ namespace BL
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition)
+        /*public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition)
         {
             return from parcelBL in GetParcels()
                    where condition(parcelBL)
                    select parcelBL;
-        }
+        }*/
 
-        public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition)
+        /*public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition)
         {
             return from ParcelToList in GetParcelsToList()
                    where condition(ParcelToList)
                    select ParcelToList;
-        }
+        }*/
 
         public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedToDrone()
         {
-            return GetParcelsByCondition(parcel => parcel.Associated == null);
+            return GetParcels(parcel => parcel.Associated == null);
         }
 
         /// <summary>
         /// Returns the parcel list with ParcelToList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ParcelToList> GetParcelsToList()
+        public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition)
         {
-            List<BO.Parcel> parcels = GetParcels().ToList();
+            /*List<BO.Parcel> parcels = GetParcels().ToList();
             List<ParcelToList> parcelToList = new List<ParcelToList>();
             foreach (BO.Parcel parcel in parcels)
             {
                 parcelToList.Add(new ParcelToList(parcel));
             }
-            return parcelToList;
+            return parcelToList;*/
+            condition ??= (p => true);
+            return from p in GetParcels()
+                   where condition(p)
+                   select new ParcelToList(p);
         }
     }
 }
