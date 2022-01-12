@@ -173,35 +173,12 @@ namespace BL
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null)
-        {
-            /*List<DO.Parcel> parcelsDal = dalObj.GetParcels().ToList();
-            List<BO.Parcel> parcelsBL = new List<BO.Parcel>();
-            parcelsDal.ForEach(p => parcelsBL.Add(ConvertDalParcelToBL(p)));
-            return parcelsBL;*/
+        {            
             condition ??= (p => true);
             return from p in dalObj.GetParcels()
                    where condition(ConvertDalParcelToBL(p))
                    select ConvertDalParcelToBL(p);
-        }
-
-        /// <summary>
-        /// Returns a list of parcels that meet the condition 
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <returns></returns>
-        /*public IEnumerable<BO.Parcel> GetParcelsByCondition(Predicate<BO.Parcel> condition)
-        {
-            return from parcelBL in GetParcels()
-                   where condition(parcelBL)
-                   select parcelBL;
-        }*/
-
-        /*public IEnumerable<ParcelToList> GetParcelsToListByCondition(Predicate<BO.ParcelToList> condition)
-        {
-            return from ParcelToList in GetParcelsToList()
-                   where condition(ParcelToList)
-                   select ParcelToList;
-        }*/
+        }        
 
         public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedToDrone()
         {
@@ -214,13 +191,6 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition)
         {
-            /*List<BO.Parcel> parcels = GetParcels().ToList();
-            List<ParcelToList> parcelToList = new List<ParcelToList>();
-            foreach (BO.Parcel parcel in parcels)
-            {
-                parcelToList.Add(new ParcelToList(parcel));
-            }
-            return parcelToList;*/
             condition ??= (p => true);
             return from p in GetParcels()
                    where condition(p)

@@ -19,11 +19,11 @@ namespace DalApi
             try { Assembly.Load(dalPkg); }
             catch (Exception) { throw new DalConfigException("Failed to load the dal-config.xml file");}
             
-            Type type = Type.GetType($"Dal.{dalPkg}, {dalPkg}");
+            Type type = Type.GetType($"DAL.{dalPkg}, {dalPkg}");
             
             if (type == null) throw new DalConfigException($"Class {dalPkg} was not fount in the {dalPkg}.dll");
             
-            IDal dal = (IDal)type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static).GetValue(null);
+            IDal dal = (IDal)type.GetProperty("GetInstance", BindingFlags.Public | BindingFlags.Static).GetValue(null);
 
             if (dal == null) throw new DalConfigException($"Class {dalPkg} is not a singelton or wrong property name for Instance");
 

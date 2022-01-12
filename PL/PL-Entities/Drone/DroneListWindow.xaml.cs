@@ -22,7 +22,7 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         BLApi.IBL bl;
-        DroneList droneList;
+        //DroneList droneList;
         private ObservableCollection<BO.DroneToList> _myCollection = new ObservableCollection<BO.DroneToList>();
         /// <summary>
         /// 

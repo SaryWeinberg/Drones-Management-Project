@@ -36,7 +36,6 @@ namespace BL
             station.AveChargeSlots -= 1;
             station.DronesInChargelist.Add(new DroneInCharge(DroneID, batteryStatus, DateTime.Now));
 
-
             DO.DroneCharge droneCharge = new DO.DroneCharge();
             droneCharge.DroneId = DroneID;
             droneCharge.StationId = stationID;
@@ -198,45 +197,13 @@ namespace BL
         /// Returns the drone list with DroneToList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.DroneToList> GetDronesToList(Predicate<Drone> condition = null)
+        public IEnumerable<DroneToList> GetDronesToList(Predicate<Drone> condition = null)
         {
             condition ??= (dc => true);
             return from dc in dronesList
                    where condition(dc)
-                   select new BO.DroneToList(dc);
-
-            /*List < BO.DroneToList > droneToList = new List<BO.DroneToList>();
-            foreach (BO.Drone drone in dronesList)
-            {
-                droneToList.Add(new BO.DroneToList(drone));
-            }
-            return droneToList;*/
-        }
-
-        /// <summary>
-        /// Returns a list of drones that meet the condition 
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <returns></returns>
-        /*public IEnumerable<Drone> GetDronesByCondition(Predicate<Drone> condition)
-        {
-            return from droneBL in GetDronesList()
-                   where condition(droneBL)
-                   select droneBL;
-        }*/
-
-
-        /// <summary>
-        /// Returns a list of dronesToList that meet the condition 
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <returns></returns>
-        /*public IEnumerable<DroneToList> GetDronesToListByCondition(Predicate<DroneToList> condition)
-        {
-            return from droneToList in GetDronesToList()
-                   where condition(droneToList)
-                   select droneToList;
-        }*/
+                   select new DroneToList(dc);           
+        }        
 
         /// <summary>
         /// The function returns the total battery usage

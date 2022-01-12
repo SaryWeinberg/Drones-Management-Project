@@ -136,12 +136,8 @@ namespace BL
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null)
-        {
-            /*List<DO.Station> stationsDal = dalObj.GetStations().ToList();
-            List<BO.Station> stationsBL = new List<BO.Station>();
-            stationsDal.ForEach(s => stationsBL.Add(ConvertDalStationToBL(s)));
-            return stationsBL;*/
-
+        {            
+            condition ??= (s => true);
             return from s in dalObj.GetStations()
                    where condition(ConvertDalStationToBL(s))
                    select ConvertDalStationToBL(s);
@@ -190,38 +186,16 @@ namespace BL
             return station;
         }
 
-        /*public IEnumerable<BO.Station> GetStationsByCondition(Predicate<BO.Station> condition)
-        {
-            return from station in GetStations()
-                   where condition(station)
-                   select station;
-        }*/
-
         /// <summary>
         /// Returns the station list with StationToList
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BO.StationToList> GetStationsToList(Predicate<BO.Station> condition = null)
         {
-            /*List<BO.Station> stations = GetStations().ToList();
-            List<BO.StationToList> stationToList = new List<BO.StationToList>();
-            foreach (BO.Station station in stations)
-            {
-                stationToList.Add(new BO.StationToList(station, dalObj));
-            }
-            return stationToList;*/
-
+            condition ??= (s => true);
             return from s in GetStations()
                    where condition(s)
                    select new StationToList(s, dalObj);
         }
-
-
-        /*public IEnumerable<StationToList> GetStationsToListByCondition(Predicate<StationToList> condition)
-        {
-            return from station in GetStationsToList()
-                   where condition(station)
-                   select station;
-        }*/
     }
 }
