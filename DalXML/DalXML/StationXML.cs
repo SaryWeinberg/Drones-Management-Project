@@ -39,6 +39,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Station> GetStations(Predicate<Station> condition = null)
         {
+            condition ??= (s => true);
             return from station in XmlTools.LoadListFromXmlSerializer<Station>(dir + stationFilePath)
                    where condition(station)
                    select station;

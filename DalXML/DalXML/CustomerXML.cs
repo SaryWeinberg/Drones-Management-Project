@@ -50,6 +50,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> condition = null)
         {
+            condition ??= (c => true);
             return from customer in XmlTools.LoadListFromXmlSerializer<Customer>(dir + customerFilePath)
                    where condition(customer)
                    select customer;

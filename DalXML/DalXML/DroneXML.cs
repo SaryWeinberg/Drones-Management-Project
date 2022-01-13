@@ -62,6 +62,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Drone> GetDrones(Predicate<Drone> condition = null)
         {
+            condition ??= (d => true);
             return from drone in XmlTools.LoadListFromXmlSerializer<Drone>(dir + droneFilePath)
                    where condition(drone)
                    select drone;
@@ -74,6 +75,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> condition = null)
         {
+            condition ??= (d => true);
             return from droneCharge in XmlTools.LoadListFromXmlSerializer<DroneCharge>(dir + droneChargeFilePath)
                    where condition(droneCharge)
                    select droneCharge;

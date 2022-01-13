@@ -39,6 +39,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> condition = null)
         {
+            condition ??= (c => true);
             return from parcel in XmlTools.LoadListFromXmlSerializer<Parcel>(dir + parcelFilePath)
                    where condition(parcel)
                    select parcel;
