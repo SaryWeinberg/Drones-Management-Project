@@ -22,6 +22,17 @@ namespace Dal
         }
 
         /// <summary>
+        /// Update parcel in DataBase
+        /// </summary>
+        /// <param name="parcel"></param>
+        public void UpdateParcel(Parcel parcel)
+        {
+            List<Parcel> parcelList = GetParcels().ToList();
+            parcelList[parcelList.FindIndex(p => p.ID == parcel.ID)] = parcel;
+            XmlTools.SaveListToXmlSerializer(parcelList, dir + parcelFilePath);
+        }
+
+        /// <summary>
         /// Returns a specific parcel by ID number
         /// </summary>
         /// <param name="parcelId"></param>
@@ -43,17 +54,6 @@ namespace Dal
             return from parcel in XmlTools.LoadListFromXmlSerializer<Parcel>(dir + parcelFilePath)
                    where condition(parcel)
                    select parcel;
-        }
-
-        /// <summary>
-        /// Update parcel in DataBase
-        /// </summary>
-        /// <param name="parcel"></param>
-        public void UpdateParcel(Parcel parcel)
-        {
-            List<Parcel> parcelList = GetParcels().ToList();
-            parcelList[parcelList.FindIndex(p => p.ID == parcel.ID)] = parcel;
-            XmlTools.SaveListToXmlSerializer(parcelList, dir + parcelFilePath);
-        }
+        }        
     }
 }

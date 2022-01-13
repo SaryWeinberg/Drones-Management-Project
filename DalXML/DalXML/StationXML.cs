@@ -22,6 +22,17 @@ namespace Dal
         }
 
         /// <summary>
+        /// Update station in DataBase
+        /// </summary>
+        /// <param name="station"></param>
+        public void UpdateStation(Station station)
+        {
+            List<Station> stationList = GetStations().ToList();
+            stationList[stationList.FindIndex(s => s.ID == station.ID)] = station;
+            XmlTools.SaveListToXmlSerializer(stationList, dir + stationFilePath);
+        }
+
+        /// <summary>
         /// Returns a specific station by ID number
         /// </summary>
         /// <param name="stationId"></param>
@@ -43,17 +54,6 @@ namespace Dal
             return from station in XmlTools.LoadListFromXmlSerializer<Station>(dir + stationFilePath)
                    where condition(station)
                    select station;
-        }
-
-        /// <summary>
-        /// Update station in DataBase
-        /// </summary>
-        /// <param name="station"></param>
-        public void UpdateStation(Station station)
-        {
-            List<Station> stationList = GetStations().ToList();
-            stationList[stationList.FindIndex(s => s.ID == station.ID)] = station;
-            XmlTools.SaveListToXmlSerializer(stationList, dir + stationFilePath);
-        }
+        }        
     }
 }
