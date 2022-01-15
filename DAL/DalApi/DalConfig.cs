@@ -15,7 +15,6 @@ namespace DalApi
         {
             XElement dalConfig = XElement.Load(@"..\..\..\..\xml\dal-config.xml");
             DalName = dalConfig.Element("dal").Value;
-           // DalName = "xml";
             DalPackages = (from pkg in dalConfig.Element("dal-packages").Elements()
                            select pkg
                            ).ToDictionary(p => "" + p.Name, p => p.Value);

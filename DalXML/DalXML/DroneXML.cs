@@ -18,7 +18,7 @@ namespace Dal
         {
             IEnumerable<Drone> droneList = GetDrones();
             droneList.ToList().Add(drone);
-            XmlTools.SaveListToXmlSerializer(droneList, dir + droneFilePath);
+            XmlTools.SaveListToXmlSerializer(droneList, direction + droneFilePath);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Dal
         {
             IEnumerable<DroneCharge> droneChargeList = GetDroneCharges();
             droneChargeList.ToList().Add(droneCharge);
-            XmlTools.SaveListToXmlSerializer(droneChargeList, dir + parcelFilePath);
+            XmlTools.SaveListToXmlSerializer(droneChargeList, direction + droneChargeFilePath);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Dal
         {
             List<Drone> droneList = GetDrones().ToList();
             droneList[droneList.FindIndex(d => d.ID == drone.ID)] = drone;
-            XmlTools.SaveListToXmlSerializer(droneList, dir + droneFilePath);
+            XmlTools.SaveListToXmlSerializer(droneList, direction + droneFilePath);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Dal
             IEnumerable<Drone> droneList = GetDrones();
             Drone drone = GetDrones(d => d.ID == droneId).First();
             droneList.ToList().Remove(drone);
-            XmlTools.SaveListToXmlSerializer(droneList, dir + droneFilePath);
+            XmlTools.SaveListToXmlSerializer(droneList, direction + droneFilePath);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Dal
         public IEnumerable<Drone> GetDrones(Predicate<Drone> condition = null)
         {
             condition ??= (d => true);
-            return from drone in XmlTools.LoadListFromXmlSerializer<Drone>(dir + droneFilePath)
+            return from drone in XmlTools.LoadListFromXmlSerializer<Drone>(direction + droneFilePath)
                    where condition(drone)
                    select drone;
         }
@@ -76,7 +76,7 @@ namespace Dal
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> condition = null)
         {
             condition ??= (d => true);
-            return from droneCharge in XmlTools.LoadListFromXmlSerializer<DroneCharge>(dir + droneChargeFilePath)
+            return from droneCharge in XmlTools.LoadListFromXmlSerializer<DroneCharge>(direction + droneChargeFilePath)
                    where condition(droneCharge)
                    select droneCharge;
         }        

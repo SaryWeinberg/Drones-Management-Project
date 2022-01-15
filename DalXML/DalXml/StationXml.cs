@@ -18,7 +18,7 @@ namespace Dal
         {
             IEnumerable<Station> stationList = GetStations();
             stationList.ToList().Add(station);
-            XmlTools.SaveListToXmlSerializer(stationList, dir + stationFilePath);
+            XmlTools.SaveListToXmlSerializer(stationList, direction + stationFilePath);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Dal
         {
             List<Station> stationList = GetStations().ToList();
             stationList[stationList.FindIndex(s => s.ID == station.ID)] = station;
-            XmlTools.SaveListToXmlSerializer(stationList, dir + stationFilePath);
+            XmlTools.SaveListToXmlSerializer(stationList, direction + stationFilePath);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Dal
         public IEnumerable<Station> GetStations(Predicate<Station> condition = null)
         {
             condition ??= (s => true);
-            return from station in XmlTools.LoadListFromXmlSerializer<Station>(dir + stationFilePath)
+            return from station in XmlTools.LoadListFromXmlSerializer<Station>(direction + stationFilePath)
                    where condition(station)
                    select station;
         }        

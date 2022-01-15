@@ -77,7 +77,6 @@ namespace Dal
                         parcel.Associated = RandomDate(randCreated);
                         break;
                     case 2:
-
                         DateTime randAssociated = RandomDate(randCreated);
                         parcel.Associated = randAssociated;
                         parcel.PickedUp = RandomDate(randAssociated);
@@ -92,7 +91,6 @@ namespace Dal
                     default:
                         break;
                 }
-
                 Parcels.Add(parcel);
             }
         }
