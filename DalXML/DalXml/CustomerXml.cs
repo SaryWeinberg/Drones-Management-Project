@@ -18,7 +18,7 @@ namespace Dal
         {
             IEnumerable<Customer> customerList = GetCustomers();
             customerList.ToList().Add(customer);
-            XmlTools.SaveListToXmlSerializer(customerList, dir + customerFilePath);
+            XmlTools.SaveListToXmlSerializer(customerList, direction + customerFilePath);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Dal
         {
             List<Customer> customerList = GetCustomers().ToList();
             customerList[customerList.FindIndex(c => c.ID == customer.ID)] = customer;
-            XmlTools.SaveListToXmlSerializer(customerList, dir + customerFilePath);
+            XmlTools.SaveListToXmlSerializer(customerList, direction + customerFilePath);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Dal
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> condition = null)
         {
             condition ??= (c => true);
-            return from customer in XmlTools.LoadListFromXmlSerializer<Customer>(dir + customerFilePath)
+            return from customer in XmlTools.LoadListFromXmlSerializer<Customer>(direction + customerFilePath)
                    where condition(customer)
                    select customer;
         }     

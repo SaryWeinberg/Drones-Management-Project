@@ -18,7 +18,7 @@ namespace Dal
         {
             IEnumerable<Parcel> parcelList = GetParcels();
             parcelList.ToList().Add(parcel);
-            XmlTools.SaveListToXmlSerializer(parcelList, dir + parcelFilePath);
+            XmlTools.SaveListToXmlSerializer(parcelList, direction + parcelFilePath);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Dal
         {
             List<Parcel> parcelList = GetParcels().ToList();
             parcelList[parcelList.FindIndex(p => p.ID == parcel.ID)] = parcel;
-            XmlTools.SaveListToXmlSerializer(parcelList, dir + parcelFilePath);
+            XmlTools.SaveListToXmlSerializer(parcelList, direction + parcelFilePath);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Dal
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> condition = null)
         {
             condition ??= (c => true);
-            return from parcel in XmlTools.LoadListFromXmlSerializer<Parcel>(dir + parcelFilePath)
+            return from parcel in XmlTools.LoadListFromXmlSerializer<Parcel>(direction + parcelFilePath)
                    where condition(parcel)
                    select parcel;
         }        
