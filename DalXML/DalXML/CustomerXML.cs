@@ -16,8 +16,8 @@ namespace Dal
         /// <param name="customer"></param>
         public void AddCustomer(Customer customer)
         {
-            IEnumerable<Customer> customerList = GetCustomers();
-            customerList.ToList().Add(customer);
+            List<Customer> customerList = GetCustomers().ToList();
+            customerList.Add(customer);
             XmlTools.SaveListToXmlSerializer(customerList, direction + customerFilePath);
         }
 

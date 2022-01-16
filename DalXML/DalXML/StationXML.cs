@@ -16,8 +16,8 @@ namespace Dal
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
-            IEnumerable<Station> stationList = GetStations();
-            stationList.ToList().Add(station);
+            List<Station> stationList = GetStations().ToList();
+            stationList.Add(station);
             XmlTools.SaveListToXmlSerializer(stationList, direction + stationFilePath);
         }
 

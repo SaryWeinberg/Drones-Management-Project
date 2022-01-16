@@ -16,8 +16,8 @@ namespace Dal
         /// <param name="drone"></param>
         public void AddDrone(Drone drone)
         {
-            IEnumerable<Drone> droneList = GetDrones();
-            droneList.ToList().Add(drone);
+            List<Drone> droneList = GetDrones().ToList();
+            droneList.Add(drone);
             XmlTools.SaveListToXmlSerializer(droneList, direction + droneFilePath);
         }
 
@@ -27,8 +27,8 @@ namespace Dal
         /// <param name="droneCharge"></param>
         public void AddDroneCharge(DroneCharge droneCharge)
         {
-            IEnumerable<DroneCharge> droneChargeList = GetDroneCharges();
-            droneChargeList.ToList().Add(droneCharge);
+            List<DroneCharge> droneChargeList = GetDroneCharges().ToList();
+            droneChargeList.Add(droneCharge);
             XmlTools.SaveListToXmlSerializer(droneChargeList, direction + droneChargeFilePath);
         }
 
