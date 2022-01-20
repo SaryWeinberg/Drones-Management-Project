@@ -20,6 +20,7 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
             CustomerID.Focus();
+  
             sendNewCustomer.Visibility = Visibility.Visible;          
         }
 
@@ -50,14 +51,17 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
 
+
+            Customer = new Customer(customer);
+            AddCustomer.DataContext = Customer;
+
             ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
 
             ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
-            Customer = new Customer(customer);
-            AddCustomer.DataContext = Customer;
-         
+
+
             CustomerName.Text = customer.Name.ToString();
             CustomerPhone.Text = customer.PhoneNum.ToString();
 
@@ -79,13 +83,14 @@ namespace PL
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.UpdateCustomerData(IDInput(), NameInput(), PhoneInput()),
+                    bl.UpdateCustomerData(IDInput(), NameInput(), CustomerPhone.Text),
                     $"Update customer ID - {IDInput()}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    Close();
+                    Customer.UpdateCustomer(bl.GetSpesificCustomer(Customer.ID));
+                    /*Close();*/
                 }
             }
             catch (Exception exc)
@@ -128,7 +133,7 @@ namespace PL
         /// Takes phone number input from the user with tests
         /// </summary>
         /// <returns></returns>
-        private string PhoneInput()
+        private int PhoneInput()
         {
             try { return int.Parse(CustomerPhone.Text); }
             catch (Exception) { throw new InvalidObjException("Phone"); }

@@ -18,8 +18,8 @@
             <Label Name="StationLongitudeLabel"   Content = "station longitude:"    Margin = "43, 120, 680, 0"/>
             <Label Name="StationLatitudeLabel"    Content = "station latitude:"     Margin = "43, 150, 680, 0"/>
             <TextBox Name="StationID"          Margin = "221, 30, 500, 0" Text="{Binding ID}"  KeyDown="OnKeyDownStationID"/>
-            <TextBox Name="StationName"        Margin = "221, 60, 500, 0" KeyDown="OnKeyDownStationName"/>
-            <TextBox Name="StationChargeSlots" Margin = "221, 90, 500, 0" KeyDown="OnKeyDownStationChargeSlots"/>
+            <TextBox Name="StationName"        Margin = "221, 60, 500, 0"  Text="{Binding Name}" KeyDown="OnKeyDownStationName"/>
+            <TextBox Name="StationChargeSlots" Margin = "221, 90, 500, 0"  Text="{Binding AveChargeSlots}" KeyDown="OnKeyDownStationChargeSlots"/>
             <TextBox Name="StationLongitude"   Margin = "221, 120, 500, 0" Text="{Binding Location.Longitude}" KeyDown="OnKeyDownStationLongitude"/>
             <TextBox Name="StationLatitude"    Margin = "221, 150, 500, 0" Text="{Binding Location.Latitude}" KeyDown="OnKeyDownStationLatitude"/>
             <Button  Name="sendNewStation" Content="Send" Click="AddNewStation" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
