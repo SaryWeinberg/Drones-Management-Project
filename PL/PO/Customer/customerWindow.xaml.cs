@@ -98,7 +98,7 @@ namespace PL
         private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
-            new ParcelWindow(bl, bl.GetSpesificParcelBL(parcelsAtTheCustomer.ID)).Show();
+            new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID)).Show();
         }
 
 

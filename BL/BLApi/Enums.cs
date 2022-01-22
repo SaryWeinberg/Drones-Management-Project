@@ -12,7 +12,7 @@ public enum DroneStatus
 
 public enum Status
 {
-    created, associated, collected, provided
+    Created, Associated, PickedUp, Delivered
 }
 
 public enum UserOptions

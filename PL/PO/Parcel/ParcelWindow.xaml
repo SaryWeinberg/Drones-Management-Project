@@ -12,7 +12,7 @@
                 <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
             </Grid.Background>
             <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"/>
-            <Grid x:Name="AddParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">            
+            <Grid x:Name="AddParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
                 <Label Name="ParcelSenderIDLabel" Content = "parcel sender ID:" Margin = "43, 30, 680, 0"/>
                 <Label Name="ParcelTargetIDLabel" Content = "parcel target ID:" Margin = "43, 60, 680, 0"/>
                 <Label Name="ParcelweightLabel"   Content = "parcel weight:"    Margin = "43, 90, 680, 0"/>
@@ -24,7 +24,7 @@
                 <Button Name="sendNewParcel" Content = "Send" Click="AddNewParcel" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
             </Grid>
 
-           <Grid x:Name="UpdateParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
+            <Grid x:Name="UpdateParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
                 <Label Name="ParcelIDLabel"         Content = "parcel ID:"     Margin = "43, 30, 680, 0" />
                 <Label Name="ParcelSenderLabel"     Content = "sender ID:"         Margin = "43, 60, 680, 0" />
                 <Label Name="ParcelTargetLabel"     Content = "target ID:"         Margin = "43, 90, 680, 0"/>
@@ -45,6 +45,8 @@
                 <TextBox Name="ParcelAssociated" Text="{Binding Path=Associated}"  Margin="221, 240, 500, 0" IsEnabled="False"/>
                 <TextBox Name="ParcelPickedUp"   Text="{Binding Path=PickedUp}"    Margin="221, 270, 500, 0" IsEnabled="False"/>
                 <TextBox Name="ParcelDelivered"  Text="{Binding Path=Delivered}"   Margin="221, 300, 500, 0" IsEnabled="False"/>
+                <CheckBox Name="PickedUpChecked" HorizontalAlignment="Left" Margin="419,270,0,0" VerticalAlignment="Top" Click="ApprovePickedUp" Visibility="Hidden"/>
+                <CheckBox Name="DeliveredChecked" HorizontalAlignment="Left" Margin="419,300,0,0" VerticalAlignment="Top" Click="ApproveDelivered" Visibility="Hidden"/>
                 <Button Style="{StaticResource RedButton}" Click="RemoveParcel" Margin="260,438,500,0" Content="Remove Parcel"/>
             </Grid>
             <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>

@@ -137,7 +137,7 @@ namespace PL
             }
             else if (Drone.Status == DroneStatus.Delivery)
             {
-                if (bl.GetSpesificParcelBL(Drone.Parcel.ID).PickedUp == null)
+                if (bl.GetSpesificParcel(Drone.Parcel.ID).PickedUp == null)
                 {
                     deliveryParcelByDrone.Visibility = Visibility.Hidden;
                     collectParcelByDrone.Visibility = Visibility.Visible;
@@ -358,7 +358,7 @@ namespace PL
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {
             string ID = (sender as TextBox).SelectedText;
-            new ParcelWindow(bl, bl.GetSpesificParcelBL(int.Parse(ID))).Show();
+            new ParcelWindow(bl, bl.GetSpesificParcel(int.Parse(ID))).Show();
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)

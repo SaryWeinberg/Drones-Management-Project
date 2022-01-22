@@ -41,6 +41,10 @@ namespace PL
             Parcel = new Parcel(parcel);
             AddParcelGrid.Visibility = Visibility.Hidden;
             UpdateParcelGrid.DataContext = Parcel;
+            if (Parcel.Associated != null && Parcel.PickedUp == null)
+                PickedUpChecked.Visibility = Visibility.Visible;
+            if (Parcel.PickedUp != null && Parcel.Delivered == null)
+                DeliveredChecked.Visibility = Visibility.Visible;
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
@@ -97,6 +101,18 @@ namespace PL
             new DroneWindow(bl, bl.GetSpesificDrone(int.Parse(ID))).Show();
         }
 
+        private void ApprovePickedUp(object sender, RoutedEventArgs e)
+        {
+            Parcel.PickedUp = DateTime.Now;
+            bl.GetSpesificParcel(Parcel.ID).PickedUp = DateTime.Now;
+        }
+
+        private void ApproveDelivered(object sender, RoutedEventArgs e)
+        {
+            Parcel.Delivered = DateTime.Now;
+            bl.GetSpesificParcel(Parcel.ID).Delivered = DateTime.Now;
+        }
+
         private void RefreshWindow(object sender, RoutedEventArgs e)
         {
 
@@ -106,7 +122,7 @@ namespace PL
         {
             new ParcelListWindow(bl).Show();
             Close();
-        }        
+        }      
 
         #region Get Inputs
         /// <summary>
@@ -184,6 +200,6 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewParcel.Focus();
         }
-        #endregion       
+        #endregion        
     }
 }

@@ -1,2 +1,28 @@
 <?xml version="1.0"?>
-<ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+</ArrayOfDroneCharge>
