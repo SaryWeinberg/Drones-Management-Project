@@ -87,6 +87,26 @@ namespace PL
             catch (Exception exc) { MessageBox.Show(exc.Message); }
         }
 
+/*
+        private void UpdateParcel(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBoxResult result =
+                    MessageBox.Show(
+                    bl.(int.Parse(ParcelID.Text)),
+                    $"Add parcel",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    new ParcelListWindow(bl).Show();
+                    Close();
+                }
+            }
+            catch (Exception exc) { MessageBox.Show(exc.Message); }
+        }*/
+
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         private void GetCustomer(object sender, MouseButtonEventArgs e)

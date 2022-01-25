@@ -7,16 +7,28 @@ using System.Threading.Tasks;
 
 namespace PL
 {
-    class PL_EntityClass
+    delegate void ObjectChanged(string objectName);
+    public class UpdateToList
+
     {
+        public static void UpdateList(string listName)
+        {
+            switch (listName)
+            {
+                case "Drone":
+
+                default:
+                    break;
+            }
+        }
+
+
+
+
+
     }
     public class Drone : DependencyObject
-      /*  , ICloneable*/
-    {
-/*        public Drone Clone()
-        {
-
-        }*/
+    { 
         public Drone(BO.Drone drone)
         {
             ID = drone.ID;
@@ -50,18 +62,18 @@ namespace PL
         public static readonly DependencyProperty LocationProperty =
             DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
 
-       public Drone updateDronePO(BO.Drone drone)
+       public void updateDronePO(BO.Drone drone)
         {
-            return new Drone(drone)
-            {
-                ID = drone.ID,
-                Model = drone.Model,
-                MaxWeight = drone.MaxWeight,
-                Battery = drone.Battery,
-                Status = drone.Status,
-                Parcel = drone.Parcel,
-                Location = drone.Location
-            };
+
+            ID = drone.ID;
+            Model = drone.Model;
+            MaxWeight = drone.MaxWeight;
+            Battery = drone.Battery;
+            Status = drone.Status;
+            Parcel = drone.Parcel;
+            Location = drone.Location;
+
+
         }
     }
 
@@ -80,7 +92,7 @@ namespace PL
         public BO.Location Location { get { return (BO.Location)GetValue(LocationProperty); } set { SetValue(LocationProperty, value); } }
         public double AveChargeSlots { get { return (double)GetValue(AveChargeSlotsProperty); } set { SetValue(AveChargeSlotsProperty, value); } }
         public List<BO.DroneInCharge> DronesInChargelist { get { return (List<BO.DroneInCharge>)GetValue(DronesInChargelistProperty); } set { SetValue(DronesInChargelistProperty, value); } }
-        
+
         public static readonly DependencyProperty IDProperty =
             DependencyProperty.Register("ID", typeof(int), typeof(Station), new UIPropertyMetadata());
         public static readonly DependencyProperty NameProperty =
@@ -91,6 +103,14 @@ namespace PL
             DependencyProperty.Register("AveChargeSlots", typeof(double), typeof(Station), new UIPropertyMetadata());
         public static readonly DependencyProperty DronesInChargelistProperty =
             DependencyProperty.Register("DronesInChargelist", typeof(List<BO.DroneInCharge>), typeof(Station), new UIPropertyMetadata());
+        public void UpdateStation(BO.Station station)
+        {
+            ID = station.ID;
+            Name = station.Name;
+            Location = station.Location;
+            AveChargeSlots = station.AveChargeSlots;
+            DronesInChargelist = station.DronesInChargelist;
+        }
     }
 
     public class Customer : DependencyObject
@@ -123,7 +143,18 @@ namespace PL
             DependencyProperty.Register("DeliveryToCustomer", typeof(List<BO.ParcelsAtTheCustomer>), typeof(Customer), new UIPropertyMetadata());
         public static readonly DependencyProperty DeliveryFromCustomerProperty =
             DependencyProperty.Register("DeliveryFromCustomer", typeof(List<BO.ParcelsAtTheCustomer>), typeof(Customer), new UIPropertyMetadata());
+
+        public void UpdateCustomer(BO.Customer customer)
+        {
+            ID = customer.ID;
+            PhoneNum = customer.PhoneNum;
+            Name = customer.Name;
+            Location = customer.Location;
+            DeliveryToCustomer = customer.DeliveryToCustomer;
+            DeliveryFromCustomer = customer.DeliveryFromCustomer;
+        }
     }
+
 
     public class Parcel : DependencyObject
     {
@@ -138,7 +169,7 @@ namespace PL
             Priority = parcel.Priority;
             Sender = parcel.Sender;
             Target = parcel.Target;
-            Weight = parcel.Weight;                
+            Weight = parcel.Weight;
         }
 
         public int ID { get { return (int)GetValue(IDProperty); } set { SetValue(IDProperty, value); } }
@@ -172,10 +203,27 @@ namespace PL
             DependencyProperty.Register("Sender", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
+        public void updateParcel(BO.Parcel parcel)
+        {
+            ID = parcel.ID;
+            Associated = parcel.Associated;
+            Created = parcel.Created;
+            Delivered = parcel.Delivered;
+            Drone = parcel.Drone;
+            PickedUp = parcel.PickedUp;
+            Priority = parcel.Priority;
+            Sender = parcel.Sender;
+            Target = parcel.Target;
+            Weight = parcel.Weight;
+        }
     }
 
     public class DroneList : DependencyObject
     {
+
+
+        
+        
         public DroneList(IEnumerable<BO.DroneToList> droneList)
         {
             DronesList = droneList;
@@ -191,5 +239,7 @@ namespace PL
 
 
 
-    
+
+
+
 }
