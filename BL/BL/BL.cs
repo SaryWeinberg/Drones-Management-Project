@@ -12,10 +12,12 @@ namespace BL
 {
     public partial class BL : BLApi.IBL
     {
+
         IDal dalObj;
 
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
+
 
         internal static BL instance;
 

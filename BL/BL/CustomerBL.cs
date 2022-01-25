@@ -8,6 +8,7 @@ using BO;
 
 namespace BL
 {
+
     partial class BL : BLApi.IBL
     {
         /// <summary>
@@ -53,6 +54,7 @@ namespace BL
             catch (InvalidObjException e) { throw e; }
 
             AddCustomerDal(id, phone, name, location);
+
 
             return "Customer added successfully!";
         }
