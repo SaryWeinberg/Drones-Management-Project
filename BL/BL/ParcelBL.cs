@@ -143,7 +143,7 @@ namespace BL
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns></returns>
-        public BO.Parcel GetSpesificParcelBL(int parcelId)
+        public BO.Parcel GetSpesificParcel(int parcelId)
         {
             try
             {

@@ -137,7 +137,7 @@ namespace PL
             }
             else if (Drone.Status == DroneStatus.Delivery)
             {
-                if (bl.GetSpesificParcelBL(Drone.Parcel.ID).PickedUp == null)
+                if (bl.GetSpesificParcel(Drone.Parcel.ID).PickedUp == null)
                 {
                     deliveryParcelByDrone.Visibility = Visibility.Hidden;
                     collectParcelByDrone.Visibility = Visibility.Visible;
@@ -194,8 +194,8 @@ namespace PL
                 Drone.Model = ModelInput();
                 if (result == MessageBoxResult.OK)
                 {
-                    Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-                    AddDroneGrid.DataContext = Drone;
+                   Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+          /*          AddDroneGrid.DataContext = Drone;*/
                     /*        new DroneListWindow(bl).Show();*/
                 }
             }
@@ -224,8 +224,8 @@ namespace PL
 
                 if (result == MessageBoxResult.OK)
                 {
-                    Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-                    AddDroneGrid.DataContext = Drone;
+                    Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+              /*      AddDroneGrid.DataContext = Drone;*/
 
                     DisplayBTN();
                     /*   new DroneListWindow(bl).Show();*/
@@ -255,7 +255,7 @@ namespace PL
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                   Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
                     AddDroneGrid.DataContext = Drone;
                     DisplayBTN();
                     /*          new DroneListWindow(bl).Show();*/
@@ -285,8 +285,8 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
 
-                    Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-                    AddDroneGrid.DataContext = Drone;
+                     Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+/*                    AddDroneGrid.DataContext = Drone;*/
                     DisplayBTN();
                     /*         new DroneListWindow(bl).Show();*/
                 }
@@ -314,8 +314,8 @@ namespace PL
                 MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-                    AddDroneGrid.DataContext = Drone;
+                   Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+/*                    AddDroneGrid.DataContext = Drone;*/
                     DisplayBTN();
                 }
             }
@@ -342,8 +342,8 @@ namespace PL
                MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    Drone = Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-                    AddDroneGrid.DataContext = Drone;
+               Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+         /*           AddDroneGrid.DataContext = Drone;*/
                     DisplayBTN();
                 }
             }
@@ -358,7 +358,7 @@ namespace PL
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {
             string ID = (sender as TextBox).SelectedText;
-            new ParcelWindow(bl, bl.GetSpesificParcelBL(int.Parse(ID))).Show();
+            new ParcelWindow(bl, bl.GetSpesificParcel(int.Parse(ID))).Show();
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)

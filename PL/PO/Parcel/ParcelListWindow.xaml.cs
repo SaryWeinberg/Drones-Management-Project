@@ -129,7 +129,7 @@ namespace PL
         private void UpdateParcel(object sender, MouseButtonEventArgs e)
         {
             BO.ParcelToList parcelToList = (sender as ListView).SelectedValue as BO.ParcelToList;
-            new ParcelWindow(bl, bl.GetSpesificParcelBL(parcelToList.ID)).Show();
+            new ParcelWindow(bl, bl.GetSpesificParcel(parcelToList.ID)).Show();
             Close();
         }
 

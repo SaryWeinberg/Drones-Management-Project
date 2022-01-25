@@ -18,13 +18,10 @@ namespace BO
             ID = parcel.ID;
             Weight = parcel.Weight;
             Priority = parcel.Priority;
-            if (parcel.Delivered != null)
-                Status = Status.provided;
-            else if (parcel.PickedUp != null)
-                Status = Status.collected;
-            else if (parcel.Associated != null)
-                Status = Status.associated;
-            else Status = Status.created;
+            if (parcel.Delivered != null) Status = Status.Delivered;
+            else if (parcel.PickedUp != null) Status = Status.PickedUp;
+            else if (parcel.Associated != null) Status = Status.Associated;
+            else Status = Status.Created;
             Target = parcel.Target;
         }
 

@@ -65,7 +65,7 @@ namespace BL
                     drone.Battery = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
                     drone.Status = DroneStatus.Delivery;
 
-                    ParcelByDelivery parcelBD = new ParcelByDelivery(GetSpesificParcelBL(parcel.ID), drone, GetSpesificCustomer(parcel.SenderId), GetSpesificCustomer(parcel.TargetId));
+                    ParcelByDelivery parcelBD = new ParcelByDelivery(GetSpesificParcel(parcel.ID), drone, GetSpesificCustomer(parcel.SenderId), GetSpesificCustomer(parcel.TargetId));
                     drone.Parcel = parcelBD;
                 }
                 else
@@ -83,13 +83,9 @@ namespace BL
                     {
                         drone.Battery = rand.Next(1, 20);
                         List<BO.Station> stationBLs = GetStations().ToList();
-                        int stationId = rand.Next(stationBLs.Count());
+                        int stationId = rand.Next(1);
                         drone.Location = stationBLs[stationId].Location;
-                        AddDroneCharge(stationId, drone.ID, drone.Battery);
-                        //         stationBLs[stationId].DronesInChargelist.Add(new DroneInCharge(drone.ID, drone.BatteryStatus));
-
-
-                       
+                        AddDroneCharge(stationId, drone.ID, drone.Battery);                      
                     }
                 }
             }

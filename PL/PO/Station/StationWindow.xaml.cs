@@ -62,8 +62,8 @@ namespace PL
             Station = new Station(station);
             AddStation.DataContext = Station;            
 
-            StationName.Text = station.Name.ToString();
-            StationChargeSlots.Text = station.AveChargeSlots.ToString();
+           /* StationName.Text = station.Name.ToString();
+            StationChargeSlots.Text = station.AveChargeSlots.ToString();*/
 
             UpdateStationGrid.Visibility = Visibility.Visible;
            
@@ -81,8 +81,8 @@ namespace PL
         private void UpdateStation(object sender, RoutedEventArgs e)
         {
             string ID = StationID.Text;
-            string name = StationName.Text;
-            string chargeSlots = StationChargeSlots.Text;
+  /*          string name = StationName.Text;
+            string chargeSlots = StationChargeSlots.Text;*/
             try
             {           
                 MessageBoxResult result =
@@ -93,8 +93,9 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new StationListWindow(bl).Show();
-                    Close();
+                    /*  new StationListWindow(bl).Show();
+                      Close();*/
+                    Station.UpdateStation(bl.GetSpesificStation(Station.ID));
                 }
             }
             catch (Exception exc)

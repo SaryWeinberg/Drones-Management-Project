@@ -20,6 +20,7 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
             CustomerID.Focus();
+  
             sendNewCustomer.Visibility = Visibility.Visible;          
         }
 
@@ -50,14 +51,17 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
 
+
+            Customer = new Customer(customer);
+            AddCustomer.DataContext = Customer;
+
             ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
 
             ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
-            Customer = new Customer(customer);
-            AddCustomer.DataContext = Customer;
-         
+
+
             CustomerName.Text = customer.Name.ToString();
             CustomerPhone.Text = customer.PhoneNum.ToString();
 
@@ -79,13 +83,14 @@ namespace PL
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.UpdateCustomerData(IDInput(), NameInput(), PhoneInput()),
+                    bl.UpdateCustomerData(IDInput(), NameInput(), CustomerPhone.Text),
                     $"Update customer ID - {IDInput()}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    Close();
+                    Customer.UpdateCustomer(bl.GetSpesificCustomer(Customer.ID));
+                    /*Close();*/
                 }
             }
             catch (Exception exc)
@@ -98,7 +103,7 @@ namespace PL
         private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
-            new ParcelWindow(bl, bl.GetSpesificParcelBL(parcelsAtTheCustomer.ID)).Show();
+            new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID)).Show();
         }
 
 
