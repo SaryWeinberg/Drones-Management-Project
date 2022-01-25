@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <ID>0</ID>
+    <Name>0</Name>
+    <Longitude>25</Longitude>
+    <Latitude>27</Latitude>
+    <ChargeSlots>17</ChargeSlots>
+    <Active>false</Active>
+  </Station>
+  <Station>
+    <ID>1</ID>
+    <Name>1</Name>
+    <Longitude>16</Longitude>
+    <Latitude>7</Latitude>
+    <ChargeSlots>68</ChargeSlots>
+    <Active>false</Active>
+  </Station>
+  <Station>
+    <ID>13</ID>
+    <Name>12</Name>
+    <Longitude>12</Longitude>
+    <Latitude>12</Latitude>
+    <ChargeSlots>12</ChargeSlots>
+    <Active>true</Active>
+  </Station>
+</ArrayOfStation>

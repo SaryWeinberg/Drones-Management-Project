@@ -1,0 +1,57 @@
+﻿<Window x:Class="PL.ParcelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Height="600" Width="900">
+    <Grid>
+        <Grid x:Name="ParcelData">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="38,338,0,53" Grid.Row="1" Width="194"/>
+            <Grid x:Name="AddParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
+                <Label Name="ParcelSenderIDLabel" Content = "parcel sender ID:" Margin = "43, 30, 680, 0"/>
+                <Label Name="ParcelTargetIDLabel" Content = "parcel target ID:" Margin = "43, 60, 680, 0"/>
+                <Label Name="ParcelweightLabel"   Content = "parcel weight:"    Margin = "43, 90, 680, 0"/>
+                <Label Name="ParcelPriorityLabel" Content = "parcel priority:"  Margin = "43, 120, 680, 0"/>
+                <TextBox Name="ParcelSenderID" Margin = "221, 30, 500, 0" KeyDown="OnKeyDownParcelSenderID"/>
+                <TextBox Name="ParcelTargetID" Margin = "221, 60, 500, 0" KeyDown="OnKeyDownParcelTargetID"/>
+                <ComboBox Name="ParcelWeight"   Margin = "221, 90, 500, 0" KeyDown="OnKeyDownParcelWeight"/>
+                <ComboBox Name="ParcelPriority" Margin = "221, 120, 500, 0" KeyDown="OnKeyDownParcelPriority"/>
+                <Button Name="sendNewParcel" Content = "Send" Click="AddNewParcel" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
+            </Grid>
+
+            <Grid x:Name="UpdateParcelGrid" Grid.Row="1" Margin="434,30,-434,-30">
+                <Label Name="ParcelIDLabel"         Content = "parcel ID:"     Margin = "43, 30, 680, 0" />
+                <Label Name="ParcelSenderLabel"     Content = "sender ID:"         Margin = "43, 60, 680, 0" />
+                <Label Name="ParcelTargetLabel"     Content = "target ID:"         Margin = "43, 90, 680, 0"/>
+                <Label Name="ParcelweighLabel"      Content = "parcel weight:"     Margin = "43, 120, 680, 0" />
+                <Label Name="ParcelPrioritLabel"    Content = "parcel priority:"   Margin = "43, 150, 680, 0"  />
+                <Label Name="ParcelDroneLabel"      Content = "drone ID:"          Margin = "43, 180, 680, 0" />
+                <Label Name="ParcelCreatedLabel"    Content = "parcel Created:"    Margin = "43, 210, 680, 0" />
+                <Label Name="ParcelAssociatedLabel" Content = "parcel Associated:" Margin = "43, 240, 680, 0" />
+                <Label Name="ParcelPickedUpLabel"   Content = "parcel PickedUp:"   Margin = "43, 270, 680, 0" />
+                <Label Name="ParcelDeliveredLabel"  Content = "parcel Delivered:"  Margin = "43, 300, 680, 0" />
+                <TextBox Name="ParcelID"         Text="{Binding Path=ID}"          Margin="221, 30, 500, 0"  IsEnabled="False"/>
+                <TextBox Name="ParcelSender"     Text="{Binding Path=Sender.ID}"   Margin="221, 60, 500, 0"  MouseDoubleClick="GetCustomer" AcceptsReturn="True"/>
+                <TextBox Name="ParcelTarget"     Text="{Binding Path=Target.ID}"   Margin="221, 90, 500, 0"  MouseDoubleClick="GetCustomer" AcceptsReturn="True"/>
+                <TextBox Name="ParcelWeigh"      Text="{Binding Path=Weight}"      Margin="221, 120, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelPriorit"    Text="{Binding Path=Priority}"    Margin="221, 150, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelDrone"      Text="{Binding Path=Drone.ID}"    Margin="221, 180, 500, 0" MouseDoubleClick="GetDrone" AcceptsReturn="True"/>
+                <TextBox Name="ParcelCreated"    Text="{Binding Path=Created}"     Margin="221, 210, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelAssociated" Text="{Binding Path=Associated}"  Margin="221, 240, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelPickedUp"   Text="{Binding Path=PickedUp}"    Margin="221, 270, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelDelivered"  Text="{Binding Path=Delivered}"   Margin="221, 300, 500, 0" IsEnabled="False"/>
+                <CheckBox Name="PickedUpChecked" HorizontalAlignment="Left" Margin="419,270,0,0" VerticalAlignment="Top" Click="ApprovePickedUp" Visibility="Hidden"/>
+                <CheckBox Name="DeliveredChecked" HorizontalAlignment="Left" Margin="419,300,0,0" VerticalAlignment="Top" Click="ApproveDelivered" Visibility="Hidden"/>
+                <Button Style="{StaticResource RedButton}" Click="RemoveParcel" Margin="260,438,500,0" Content="Remove Parcel"/>
+            </Grid>
+            <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
+            <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
+            <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
+        </Grid>
+    </Grid>
+</Window>
