@@ -25,4 +25,19 @@
     <StationId>0</StationId>
     <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>0</DroneId>
+    <StationId>13</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
 </ArrayOfDroneCharge>

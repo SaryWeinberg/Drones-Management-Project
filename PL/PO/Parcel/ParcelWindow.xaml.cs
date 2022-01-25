@@ -105,6 +105,7 @@ namespace PL
         {
             Parcel.PickedUp = DateTime.Now;
             bl.GetSpesificParcel(Parcel.ID).PickedUp = DateTime.Now;
+            DeliveredChecked.Visibility = Visibility.Visible;
         }
 
         private void ApproveDelivered(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@
     <Name>0</Name>
     <Longitude>25</Longitude>
     <Latitude>27</Latitude>
-    <ChargeSlots>17</ChargeSlots>
+    <ChargeSlots>15</ChargeSlots>
     <Active>false</Active>
   </Station>
   <Station>
@@ -22,6 +22,6 @@
     <Longitude>12</Longitude>
     <Latitude>12</Latitude>
     <ChargeSlots>12</ChargeSlots>
-    <Active>true</Active>
+    <Active>false</Active>
   </Station>
 </ArrayOfStation>

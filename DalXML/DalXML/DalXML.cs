@@ -58,6 +58,6 @@ namespace Dal
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };
             return arr;
-        }      
+        }     
     }
 }
