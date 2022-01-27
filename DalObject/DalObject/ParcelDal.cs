@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using DalApi;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -15,6 +15,7 @@ namespace Dal
         /// Adding new parcel to DataBase
         /// </summary>
         /// <param name="parcel"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             DataSource.Parcels.Add(parcel);
@@ -24,6 +25,7 @@ namespace Dal
         /// Update parcel in DataBase
         /// </summary>
         /// <param name="parcel"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel parcel)
         {
             int index = DataSource.Parcels.FindIndex(d => d.ID == parcel.ID);
@@ -35,6 +37,7 @@ namespace Dal
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetSpesificParcel(int parcelId)
         {
             try
@@ -51,6 +54,7 @@ namespace Dal
         /// Returns the parcel list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> condition = null)
         {
             condition ??= (p => true);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DalApi;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -53,7 +53,8 @@ namespace Dal
             if (!File.Exists(direction + droneChargeFilePath))
                 XmlTools.SaveListToXmlSerializer<DroneCharge>(DataSource.DroneCharges, direction + droneChargeFilePath);
         }
-              
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricalPowerRequest()
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };

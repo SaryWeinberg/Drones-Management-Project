@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -14,6 +15,7 @@ namespace Dal
         /// Adding new station to DataBase
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station station)
         {
             List<Station> stationList = GetStations().ToList();
@@ -25,6 +27,7 @@ namespace Dal
         /// Update station in DataBase
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(Station station)
         {
             List<Station> stationList = GetStations().ToList();
@@ -37,6 +40,7 @@ namespace Dal
         /// </summary>
         /// <param name="stationId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetSpesificStation(int stationId)
         {
             try { return GetStations(s => s.ID == stationId).First(); }
@@ -48,6 +52,7 @@ namespace Dal
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> condition = null)
         {
             condition ??= (s => true);

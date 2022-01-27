@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using DalApi;
+using System.Runtime.CompilerServices;
 /*using IDAL;*/
 
 
@@ -16,6 +17,7 @@ namespace Dal
         /// Adding new customer to Database
         /// </summary>
         /// <param name="customer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             DataSource.Customers.Add(customer);
@@ -25,6 +27,7 @@ namespace Dal
         /// Update customer in DataBase
         /// </summary>
         /// <param name="customer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             int index = DataSource.Customers.FindIndex(d => d.ID == customer.ID);
@@ -36,6 +39,8 @@ namespace Dal
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        
         public Customer GetSpesificCustomer(int customerId)
         {
             try
@@ -47,11 +52,13 @@ namespace Dal
                 throw new ObjectDoesNotExist("Customer", customerId);
             }
         }
-      
+
         /// <summary>
         /// Returns the customer list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> condition = null)
         {
             condition ??= (c => true);

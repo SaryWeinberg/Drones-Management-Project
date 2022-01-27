@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
+
 
 namespace BL
 {
@@ -17,6 +19,7 @@ namespace BL
         /// <param name="name"></param>
         /// <param name="location"></param>
         /// <param name="chargeSlots"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStationDal(int id, int name, Location location, int chargeSlots)
         {
             DO.Station station = new DO.Station();
@@ -26,7 +29,10 @@ namespace BL
             station.Latitude = location.Latitude;
             station.ChargeSlots = chargeSlots;
             station.Active = true;
-            dalObj.AddStation(station);
+            lock (dalObj)
+            {
+                dalObj.AddStation(station);
+            }
         }
 
         /// <summary>
@@ -37,10 +43,14 @@ namespace BL
         /// <param name="name"></param>
         /// <param name="location"></param>
         /// <param name="chargeSlots"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string AddStationBL(int id, int name, Location location, int chargeSlots)
         {
-            if (dalObj.GetStations().Any(s => s.ID == id))
-                throw new ObjectAlreadyExistException("Station", id);
+            lock (dalObj)
+            {
+                if (dalObj.GetStations().Any(s => s.ID == id))
+                    throw new ObjectAlreadyExistException("Station", id);
+            }
 
             BO.Station station = new BO.Station();
             try
@@ -64,13 +74,17 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="ChargeSlots"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string UpdateStationData(int id, int name = -1, int ChargeSlots = -1)
         {
-            DO.Station station = dalObj.GetSpesificStation(id);
-            if (name != -1) station.Name = name;
-            if (ChargeSlots != -1) station.ChargeSlots = ChargeSlots;
-            dalObj.UpdateStation(station);
-            return "The update was successful!";
+            lock (dalObj)
+            {
+                DO.Station station = dalObj.GetSpesificStation(id);
+                if (name != -1) station.Name = name;
+                if (ChargeSlots != -1) station.ChargeSlots = ChargeSlots;
+                dalObj.UpdateStation(station);
+                return "The update was successful!";
+            }
         }
 
         /// <summary>
@@ -78,6 +92,7 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Station ConvertBLStationToDAL(BO.Station s)
         {
             return new DO.Station
@@ -95,13 +110,17 @@ namespace BL
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Station ConvertDalStationToBL(DO.Station s)
         {
             List<DroneInCharge> droneInCharge = new List<DroneInCharge>();
-            foreach (DO.DroneCharge droneCharge in dalObj.GetDroneCharges())
+            lock (dalObj)
             {
-                if (droneCharge.StationId == s.ID)
-                    droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).Battery, DateTime.Now));
+                foreach (DO.DroneCharge droneCharge in dalObj.GetDroneCharges())
+                {
+                    if (droneCharge.StationId == s.ID)
+                        droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).Battery, DateTime.Now));
+                }
             }
 
             return new BO.Station
@@ -119,11 +138,15 @@ namespace BL
         /// </summary>
         /// <param name="stationId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Station GetSpesificStation(int stationId)
         {
             try
             {
-                return ConvertDalStationToBL(dalObj.GetSpesificStation(stationId));
+                lock (dalObj)
+                {
+                    return ConvertDalStationToBL(dalObj.GetSpesificStation(stationId));
+                }
             }
             catch (ObjectDoesNotExist e)
             {
@@ -135,18 +158,24 @@ namespace BL
         /// Returning the station list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null)
         {            
             condition ??= (s => true);
-            return from s in dalObj.GetStations()
-                   where condition(ConvertDalStationToBL(s))
-                   select ConvertDalStationToBL(s);
+            lock (dalObj)
+            {
+                return from s in dalObj.GetStations()
+                       where condition(ConvertDalStationToBL(s))
+                       select ConvertDalStationToBL(s);
+            }
         }
 
         /// <summary>
         /// Returns stations with available charge slots
         /// </summary>
         /// <returns></returns>
+        /// ---------------------------------------------------------------
+/*        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Station> GetAvailableStationsList()
         {
             List<BO.Station> stationsBL = new List<BO.Station>().ToList();
@@ -158,13 +187,15 @@ namespace BL
                 }
             }
             return stationsBL;
-        }
+        }*/
+//--------------------------------------------------------------
 
         /// <summary>
         /// Returns the station in the location closest to the received location
         /// </summary>
         /// <param name="Targlocation"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Station GetNearestAvailableStation(Location Targlocation)
         {
             BO.Station station = null;
@@ -190,6 +221,7 @@ namespace BL
         /// Returns the station list with StationToList
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.StationToList> GetStationsToList(Predicate<BO.Station> condition = null)
         {
             condition ??= (s => true);

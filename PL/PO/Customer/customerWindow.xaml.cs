@@ -83,7 +83,7 @@ namespace PL
             {
                 MessageBoxResult result =
                     MessageBox.Show(
-                    bl.UpdateCustomerData(IDInput(), NameInput(), CustomerPhone.Text),
+                    bl.UpdateCustomerData(IDInput(), NameInput(), PhoneInput()),
                     $"Update customer ID - {IDInput()}",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
