@@ -8,27 +8,22 @@ using System.Threading.Tasks;
 namespace PL
 {
     delegate void ObjectChanged(string objectName);
-    public class UpdateToList
 
+    public class UpdateToList
     {
         public static void UpdateList(string listName)
         {
             switch (listName)
             {
                 case "Drone":
-
                 default:
                     break;
             }
         }
-
-
-
-
-
     }
+
     public class Drone : DependencyObject
-    { 
+    {
         public Drone(BO.Drone drone)
         {
             ID = drone.ID;
@@ -62,9 +57,8 @@ namespace PL
         public static readonly DependencyProperty LocationProperty =
             DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
 
-       public void updateDronePO(BO.Drone drone)
+        public void updateDronePO(BO.Drone drone)
         {
-
             ID = drone.ID;
             Model = drone.Model;
             MaxWeight = drone.MaxWeight;
@@ -72,8 +66,6 @@ namespace PL
             Status = drone.Status;
             Parcel = drone.Parcel;
             Location = drone.Location;
-
-
         }
     }
 
@@ -220,26 +212,12 @@ namespace PL
 
     public class DroneList : DependencyObject
     {
-
-
-        
-        
         public DroneList(IEnumerable<BO.DroneToList> droneList)
         {
             DronesList = droneList;
-
-
         }
-
         public IEnumerable<BO.DroneToList> DronesList { get { return (IEnumerable<BO.DroneToList>)GetValue(DronesListProperty); } set { SetValue(DronesListProperty, value); } }
-
         public static readonly DependencyProperty DronesListProperty =
             DependencyProperty.Register("DronesList", typeof(IEnumerable<BO.DroneToList>), typeof(Drone), new UIPropertyMetadata());
     }
-
-
-
-
-
-
 }
