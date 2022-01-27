@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -17,11 +18,15 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcelDal(int id, int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
-            if (dalObj.GetParcels().Any(p => p.ID == id))
+            lock (dalObj)
             {
-                throw new ObjectAlreadyExistException("Parcel", id);
+                if (dalObj.GetParcels().Any(p => p.ID == id))
+                {
+                    throw new ObjectAlreadyExistException("Parcel", id);
+                }
             }
 
             DO.Parcel parcel = new DO.Parcel();
@@ -33,8 +38,10 @@ namespace BL
             parcel.Priority = priority;
             parcel.Created = DateTime.Now;
             parcel.Active = true;
-
-            dalObj.AddParcel(parcel);
+            lock (dalObj)
+            {
+                dalObj.AddParcel(parcel);
+            }
         }
 
         /// <summary>
@@ -45,6 +52,7 @@ namespace BL
         /// <param name="targetId"></param>
         /// <param name="weight"></param>
         /// <param name="priority"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string AddParcelBL(int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
             BO.Parcel parcel = new BO.Parcel();
@@ -76,6 +84,7 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DO.Parcel ConvertBLParcelToDAL(BO.Parcel p)
         {
             return new DO.Parcel
@@ -99,17 +108,24 @@ namespace BL
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Parcel ConvertDalParcelToBL(DO.Parcel p)
         {
             BO.Drone droneBL = GetDronesList().ToList().Find(d => d.ID == p.DroneId);
 
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
-            Scustomer.Name = dalObj.GetSpesificCustomer(p.SenderId).Name;
+            lock (dalObj)
+            {
+                Scustomer.Name = dalObj.GetSpesificCustomer(p.SenderId).Name;
+            }
 
             CustomerInParcel Tcustomer = new CustomerInParcel();
             Tcustomer.ID = p.TargetId;
-            Tcustomer.Name = dalObj.GetSpesificCustomer(p.TargetId).Name;
+            lock (dalObj)
+            {
+                Tcustomer.Name = dalObj.GetSpesificCustomer(p.TargetId).Name;
+            }
             DroneInParcel droneInparcel = new DroneInParcel();
             if (p.Associated == null)
             {
@@ -143,11 +159,15 @@ namespace BL
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Parcel GetSpesificParcel(int parcelId)
         {
             try
             {
-                return ConvertDalParcelToBL(dalObj.GetSpesificParcel(parcelId));
+                lock (dalObj)
+                {
+                    return ConvertDalParcelToBL(dalObj.GetSpesificParcel(parcelId));
+                }
             }
             catch (ObjectDoesNotExist e)
             {
@@ -155,16 +175,20 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string RemoveParcel(int ID)
         {
-            DO.Parcel parcel = dalObj.GetParcels().First(p => p.ID == ID);
-            if (parcel.Active)
+            lock (dalObj)
             {
-                parcel.Active = false;
-                dalObj.UpdateParcel(parcel);
-                return $"The parcel ID - {ID} remove successfully";
+                DO.Parcel parcel = dalObj.GetParcels().First(p => p.ID == ID);
+                if (parcel.Active)
+                {
+                    parcel.Active = false;
+                    dalObj.UpdateParcel(parcel);
+                    return $"The parcel ID - {ID} remove successfully";
+                }
+                else throw new ObjectNotExistException($"The parcel ID - {ID} not exist");
             }
-            else throw new ObjectNotExistException($"The parcel ID - {ID} not exist");
         }
 
 
@@ -172,23 +196,28 @@ namespace BL
         /// Returning the parcel list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null)
         {            
             condition ??= (p => true);
-            return from p in dalObj.GetParcels()
-                   where condition(ConvertDalParcelToBL(p))
-                   select ConvertDalParcelToBL(p);
-        }        
+            lock (dalObj)
+            {
+                return from p in dalObj.GetParcels()
+                       where condition(ConvertDalParcelToBL(p))
+                       select ConvertDalParcelToBL(p);
+            }
+        }
 
-        public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedToDrone()
+        /*public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedToDrone()
         {
             return GetParcels(parcel => parcel.Associated == null);
-        }
+        }*/
 
         /// <summary>
         /// Returns the parcel list with ParcelToList
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition)
         {
             condition ??= (p => true);

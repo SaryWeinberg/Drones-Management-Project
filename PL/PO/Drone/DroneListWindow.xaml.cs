@@ -23,29 +23,34 @@ namespace PL
     {
         BLApi.IBL bl;
         //DroneList droneList;
+        DroneListClass droneListClass;
         private ObservableCollection<BO.DroneToList> _myCollection = new ObservableCollection<BO.DroneToList>();
         /// <summary>
         /// 
         /// Ctor of Drone list window
         /// </summary>
         /// <param name="blMain"></param>
-        public DroneListWindow(BLApi.IBL blMain)
+        public DroneListWindow(BLApi.IBL blMain )
         {
 
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            DataContext = _myCollection;
+
             foreach (BO.DroneToList drone in bl.GetDronesToList())
             {
                 _myCollection.Add(drone);
             }
-  
-/*            droneList = new DroneList(bl.GetDronesToList());
-            DroneListView.DataContext = droneList;*/
+
+            droneListClass = new DroneListClass(_myCollection);
+            DataContext = droneListClass.DroneList;
+            /*            droneList = new DroneList(bl.GetDronesToList());
+                        DroneListView.DataContext = droneList;*/
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
+
+
 
         /// <summary>
         /// Filter the list category status
@@ -66,6 +71,9 @@ namespace PL
                 DroneListView.ItemsSource = bl.GetDronesToList(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
             }
         }
+
+
+
 
         /// <summary>
         /// Filter the list category weight
@@ -95,7 +103,7 @@ namespace PL
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
             BO.DroneToList drone = (sender as ListView).SelectedValue as BO.DroneToList;
-            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
+            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID), this).Show();
             /*   Close();*/
         }
 
@@ -106,7 +114,9 @@ namespace PL
         /// <param name="e"></param>
         private void AddDrone(object sender, RoutedEventArgs e)
         {
-            new DroneWindow(bl).Show();
+             new DroneWindow(bl, this).Show();
+            
+            
         }
 
         /// <summary>
@@ -133,7 +143,7 @@ namespace PL
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();
-            /*  Close();*/
+
         }
 
         private CollectionView view;
@@ -157,5 +167,48 @@ namespace PL
             DroneListView.ItemsSource = bl.GetDronesToList();
             view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
         }
+
+
+        public void update(BO.Drone drone)
+        {
+            droneListClass.updateDroneList(drone);
+
+
+        }
+        public void AddDrone(BO.Drone drone)
+        {
+            droneListClass.DroneList.Add(new BO.DroneToList(drone));
+
+
+        }
     }
 }
+/*    public class Log
+    {
+        private ObjectChanged objectChangedlll;
+
+        public Log()
+        {
+            objectChangedlll = DroneListClass.UpdateList;
+        }
+        //public Log()
+        //{
+        //    ChangeColorType(true);
+        //}
+        public void update(bool update)
+        {
+            if (update)
+            {
+               
+                objectChangedlll.Invoke("drone");
+
+
+            }
+
+
+        }
+
+     
+
+    }
+}*/

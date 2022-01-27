@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
-
+using System.Runtime.CompilerServices;
 namespace Dal
 {
     public partial class DalXml : IDal
@@ -14,6 +14,7 @@ namespace Dal
         /// Adding new customer to Database
         /// </summary>
         /// <param name="customer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             List<Customer> customerList = GetCustomers().ToList();
@@ -25,6 +26,7 @@ namespace Dal
         /// Update customer in DataBase
         /// </summary>
         /// <param name="customer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             List<Customer> customerList = GetCustomers().ToList();
@@ -37,6 +39,7 @@ namespace Dal
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetSpesificCustomer(int customerId)
         {
             try { return GetCustomers(c => c.ID == customerId).First(); }
@@ -48,6 +51,7 @@ namespace Dal
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> condition = null)
         {
             condition ??= (c => true);

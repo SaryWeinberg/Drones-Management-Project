@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -18,6 +19,7 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomerDal(int id, int phone, string name, Location location)
         {
             DO.Customer customer = new DO.Customer();
@@ -27,7 +29,10 @@ namespace BL
             customer.Longitude = location.Longitude;
             customer.Latitude = location.Latitude;
             customer.Active = true;
-            dalObj.AddCustomer(customer);
+            lock (dalObj)
+            {
+                dalObj.AddCustomer(customer);
+            }
         }
 
         /// <summary>
@@ -38,11 +43,14 @@ namespace BL
         /// <param name="phone"></param>
         /// <param name="name"></param>
         /// <param name="location"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string AddCustomerBL(int id, int phone, string name, Location location)
         {
-            if(dalObj.GetCustomers().Any(c => c.ID == id))
-                throw new ObjectAlreadyExistException("Customer", id);           
-
+            lock (dalObj)
+            {
+                if (dalObj.GetCustomers().Any(c => c.ID == id))
+                    throw new ObjectAlreadyExistException("Customer", id);
+            }
             BO.Customer customer = new BO.Customer();
             try
             {
@@ -65,16 +73,20 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="phoneNum"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string UpdateCustomerData(int id, string name = null, int phoneNum = -1)
         {
-            DO.Customer customer = dalObj.GetSpesificCustomer(id);
+            lock (dalObj)
+            {
+                DO.Customer customer = dalObj.GetSpesificCustomer(id);
 
-            if (name != null && name != "") customer.Name = name;
-            if (phoneNum != -1) customer.PhoneNum = phoneNum;
+                if (name != null && name != "") customer.Name = name;
+                if (phoneNum != -1) customer.PhoneNum = phoneNum;
 
-            dalObj.UpdateCustomer(customer);
+                dalObj.UpdateCustomer(customer);
 
-            return "The update was successful!";
+                return "The update was successful!";
+            }
         }
 
         /// <summary>
@@ -82,23 +94,24 @@ namespace BL
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-       /* public DO.Customer ConvertBLCustomerToDAL(BO.Customer c)
-        {
-            return new DO.Customer
-            {
-                ID = c.ID,                
-                Name = c.Name,
-                PhoneNum = c.PhoneNum,
-                Latitude = c.location.Latitude,
-                Longitude = c.location.Longitude
-            };
-        }*/
+        /* public DO.Customer ConvertBLCustomerToDAL(BO.Customer c)
+         {
+             return new DO.Customer
+             {
+                 ID = c.ID,                
+                 Name = c.Name,
+                 PhoneNum = c.PhoneNum,
+                 Latitude = c.location.Latitude,
+                 Longitude = c.location.Longitude
+             };
+         }*/
 
         /// <summary>
         /// Convert from DAL customer to BL customer
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Customer ConvertDalCustomerToBL(DO.Customer c)
         {
             /* List<ParcelsAtTheCustomer> DeliveryFromCe = (from parcel in GetParcelsBL()
@@ -137,11 +150,15 @@ namespace BL
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Customer GetSpesificCustomer(int customerId)
         {
             try
             {
-                return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+                lock (dalObj)
+                {
+                    return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+                }
             }
             catch (ObjectDoesNotExist e)
             {
@@ -153,18 +170,23 @@ namespace BL
         /// Returning the customer list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null)
         {           
             condition ??= (c => true);
-            return from c in dalObj.GetCustomers()
-                   where condition(ConvertDalCustomerToBL(c))
-                   select ConvertDalCustomerToBL(c);
+            lock (dalObj)
+            {
+                return from c in dalObj.GetCustomers()
+                       where condition(ConvertDalCustomerToBL(c))
+                       select ConvertDalCustomerToBL(c);
+            }
         }
 
         /// <summary>
         /// Returns the customer list with CustomerToList
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null)
         {            
             condition ??= (c => true);

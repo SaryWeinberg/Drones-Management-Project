@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using DalApi;
-
+using System.Runtime.CompilerServices;
 namespace Dal
 {
     internal partial class DalObject : IDal
@@ -25,7 +25,7 @@ namespace Dal
                 return instance;
             }        
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricalPowerRequest()
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };

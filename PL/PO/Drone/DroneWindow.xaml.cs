@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -23,20 +24,26 @@ namespace PL
         BLApi.IBL bl;
         Drone Drone;
         BO.Drone Drone_bl;
+        DroneListWindow ExistDroneListWindow;
 
         /// <summary>
         /// Ctor of Add drone window
         /// </summary>
         /// <param name="blMain"></param>
-        public DroneWindow(BLApi.IBL blMain)
+        public DroneWindow(BLApi.IBL blMain, DroneListWindow droneListWindow)
         {
+            ExistDroneListWindow = droneListWindow;
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
+            /*Drone = new Drone();
+            Drone.droneListChanged += new ObjectChanged(droneListWindow.AddDrone);*/
             StationIDLabel.Visibility = Visibility.Visible;
             batteryStatusLabel.Visibility = Visibility.Hidden;
             MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneID.Focus();
+            
+            /*Drone.AddDroneOrRemove();*/
         }
 
         /// <summary>
@@ -46,6 +53,8 @@ namespace PL
         /// <param name="e"></param>
         private void AddNewDrone(object sender, RoutedEventArgs e)
         {
+            
+           
             try
             {
                 MessageBoxResult result =
@@ -56,7 +65,9 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new DroneListWindow(bl).Show();
+
+                    ExistDroneListWindow.AddDrone(bl.GetSpesificDrone(IDInput()));
+
                     Close();
                 }
             }
@@ -73,12 +84,15 @@ namespace PL
         /// </summary>
         /// <param name="blMain"></param>
         /// <param name="drone"></param>
-        public DroneWindow(BLApi.IBL blMain, BO.Drone drone)
+        public DroneWindow(BLApi.IBL blMain, BO.Drone drone, DroneListWindow droneListWindow)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             Drone = new Drone(drone);
+            Drone.droneListChanged += new ObjectChanged(droneListWindow.update);
+
+
             Drone_bl = drone;
             AddDroneGrid.DataContext = Drone;
             StationIDLabel.Visibility = Visibility.Hidden;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using DalApi;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -15,6 +15,7 @@ namespace Dal
         /// Adding new drone to DataBase
         /// </summary>
         /// <param name="drone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             DataSource.Drones.Add(drone);
@@ -24,6 +25,7 @@ namespace Dal
         /// Adding new droneCharge to DataBase
         /// </summary>
         /// <param name="droneCharge"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge droneCharge)
         {
             DataSource.DroneCharges.Add(droneCharge);
@@ -33,6 +35,7 @@ namespace Dal
         /// Removing a drone charge from the DataBase
         /// </summary>
         /// <param name="droneId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDroneInCharge(int droneId)
         {
             DataSource.DroneCharges.RemoveAt(DataSource.DroneCharges.FindIndex(Dich => Dich.DroneId == droneId));
@@ -42,6 +45,7 @@ namespace Dal
         /// Update drone in DataBase
         /// </summary>
         /// <param name="drone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone)
         {
             int index = DataSource.Drones.FindIndex(d => d.ID == drone.ID);
@@ -52,6 +56,7 @@ namespace Dal
         /// Returns the drone list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> condition = null)
         {
             condition ??= (d => true);
@@ -64,6 +69,7 @@ namespace Dal
         /// Returns the drone charge list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> condition = null)
         {
             condition ??= (dc => true);

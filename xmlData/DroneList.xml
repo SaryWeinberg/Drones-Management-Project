@@ -2,14 +2,14 @@
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
     <ID>0</ID>
-    <Model>0</Model>
-    <MaxWeight>Heavy</MaxWeight>
+    <Model>0nbngfdgfdcxzcxz</Model>
+    <MaxWeight>Medium</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
     <ID>1</ID>
     <Model>1</Model>
-    <MaxWeight>Medium</MaxWeight>
+    <MaxWeight>Light</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
@@ -21,13 +21,37 @@
   <Drone>
     <ID>3</ID>
     <Model>3</Model>
-    <MaxWeight>Medium</MaxWeight>
+    <MaxWeight>Light</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
     <ID>4</ID>
-    <Model>4</Model>
+    <Model>4כגגד</Model>
     <MaxWeight>Heavy</MaxWeight>
     <Active>false</Active>
+  </Drone>
+  <Drone>
+    <ID>7</ID>
+    <Model>254254</Model>
+    <MaxWeight>Medium</MaxWeight>
+    <Active>true</Active>
+  </Drone>
+  <Drone>
+    <ID>8</ID>
+    <Model>231312</Model>
+    <MaxWeight>Light</MaxWeight>
+    <Active>false</Active>
+  </Drone>
+  <Drone>
+    <ID>5</ID>
+    <Model>5454</Model>
+    <MaxWeight>Medium</MaxWeight>
+    <Active>true</Active>
+  </Drone>
+  <Drone>
+    <ID>84</ID>
+    <Model>gfdgfd</Model>
+    <MaxWeight>Medium</MaxWeight>
+    <Active>true</Active>
   </Drone>
 </ArrayOfDrone>

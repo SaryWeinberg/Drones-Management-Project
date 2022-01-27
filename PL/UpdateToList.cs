@@ -4,26 +4,131 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
-    delegate void ObjectChanged(string objectName);
+    public delegate void ObjectChanged(BO.Drone drone);
+    /*  public class UpdateToList
 
-    public class UpdateToList
+      {
+          public  void UpdateList(string listName)
+          {
+              switch (listName)
+              {
+                  case "Drone":
+
+                  default:
+                      break;
+              }
+          }
+
+
+      }*/
+
+
+
+
+
+
+
+    public class ParcelListClass : DependencyObject
     {
-        public static void UpdateList(string listName)
-        {
-            switch (listName)
+
+
+        public ObservableCollection<BO.ParcelToList> ParcelList {
+            get { return (ObservableCollection<BO.ParcelToList>)GetValue(ParcelListProperty); }
+            set
             {
-                case "Drone":
-                default:
-                    break;
+                SetValue(ParcelListProperty, value);
             }
         }
+
+        public static readonly DependencyProperty ParcelListProperty =
+        DependencyProperty.Register("ParcelList", typeof(ObservableCollection<BO.ParcelToList>), typeof(ParcelListClass), new UIPropertyMetadata());
+    }
+
+
+    public class DroneListClass : DependencyObject
+    {
+
+        public ObservableCollection<BO.DroneToList> DroneList {
+            get { return (ObservableCollection<BO.DroneToList>)GetValue(DroneListProperty); }
+            set
+            {
+                SetValue(DroneListProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty DroneListProperty =
+    DependencyProperty.Register("DroneList", typeof(IEnumerable<BO.DroneToList>), typeof(DroneListClass), new UIPropertyMetadata());
+
+        public DroneListClass(ObservableCollection<BO.DroneToList> List)
+        {
+            DroneList = List;
+        }
+      
+        public void updateDroneList(BO.Drone drone)
+        {
+            foreach (BO.DroneToList droneToList in this.DroneList)
+            {
+                if(drone.ID == droneToList.ID)
+                {
+                    DroneList.Remove(droneToList);
+                    this.DroneList.Add(new BO.DroneToList(drone));
+                    break;
+                   
+                }
+
+            }
+
+
+
+        }
+    }
+
+    public class StationListClass : DependencyObject
+    {
+        public ObservableCollection<BO.StationToList> StationList {
+            get { return (ObservableCollection<BO.StationToList>)GetValue(StationListProperty); }
+            set
+            {
+                SetValue(StationListProperty, value);
+            }
+        }
+        public static readonly DependencyProperty StationListProperty =
+        DependencyProperty.Register("StationList", typeof(IEnumerable<BO.StationToList>), typeof(StationListClass), new UIPropertyMetadata());
+    }
+
+    public class CustomerListClass : DependencyObject
+    {
+        public ObservableCollection<BO.CustomerToList> CustomerList {
+            get { return (ObservableCollection<BO.CustomerToList>)GetValue(CustomerListProperty); }
+            set
+            {
+                SetValue(CustomerListProperty, value);
+            }
+        }
+
+
+
+        /*        ObservableCollection<BO.DroneToList> DroneList = new ObservableCollection<BO.DroneToList>();
+                ObservableCollection<BO.DroneToList> StationList = new ObservableCollection<BO.DroneToList>();
+                ObservableCollection<BO.DroneToList> CustomerList = new ObservableCollection<BO.DroneToList>();*/
+
+
+
+
+
+        public static readonly DependencyProperty CustomerListProperty =
+    DependencyProperty.Register("CustomerList", typeof(IEnumerable<BO.CustomerToList>), typeof(CustomerListClass), new UIPropertyMetadata());
     }
 
     public class Drone : DependencyObject
     {
+
+
+
         public Drone(BO.Drone drone)
         {
             ID = drone.ID;
@@ -56,7 +161,7 @@ namespace PL
             DependencyProperty.Register("Parcel", typeof(BO.ParcelByDelivery), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty LocationProperty =
             DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
-
+        public event ObjectChanged droneListChanged;
         public void updateDronePO(BO.Drone drone)
         {
             ID = drone.ID;
@@ -66,8 +171,25 @@ namespace PL
             Status = drone.Status;
             Parcel = drone.Parcel;
             Location = drone.Location;
+
+            if (droneListChanged != null)
+                droneListChanged(drone);
+
+
+
+
         }
+        public void AddDrone(BO.Drone drone)
+        {
+            
+            if (droneListChanged != null)
+                droneListChanged(drone);
+
+        }
+
+
     }
+
 
     public class Station : DependencyObject
     {
@@ -210,14 +332,24 @@ namespace PL
         }
     }
 
-    public class DroneList : DependencyObject
+    /*public class DroneList : DependencyObject
     {
+
+
+
+
         public DroneList(IEnumerable<BO.DroneToList> droneList)
         {
             DronesList = droneList;
         }
         public IEnumerable<BO.DroneToList> DronesList { get { return (IEnumerable<BO.DroneToList>)GetValue(DronesListProperty); } set { SetValue(DronesListProperty, value); } }
         public static readonly DependencyProperty DronesListProperty =
-            DependencyProperty.Register("DronesList", typeof(IEnumerable<BO.DroneToList>), typeof(Drone), new UIPropertyMetadata());
-    }
+            DependencyProperty.Register("DronesList", typeof(IEnumerable<BO.DroneToList>), typeof(DroneList), new UIPropertyMetadata());
+    }*/
+
+
+
+
+
+
 }
