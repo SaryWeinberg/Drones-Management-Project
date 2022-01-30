@@ -24,15 +24,17 @@ namespace PL
         BLApi.IBL bl;
         Drone Drone;
         BO.Drone Drone_bl;
-        DroneListWindow ExistDroneListWindow;
+       /* DroneListWindow ExistDroneListWindow;*/
+/*        public delegate void ObjectChanged<T>(T drone);*/
 
+        public event ObjectChanged<BO.Drone> SomeChangedHappened;
         /// <summary>
         /// Ctor of Add drone window
         /// </summary>
         /// <param name="blMain"></param>
-        public DroneWindow(BLApi.IBL blMain, DroneListWindow droneListWindow)
+        public DroneWindow(BLApi.IBL blMain)
         {
-            ExistDroneListWindow = droneListWindow;
+         
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
@@ -42,7 +44,10 @@ namespace PL
             batteryStatusLabel.Visibility = Visibility.Hidden;
             MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneID.Focus();
-            
+            Drone = new Drone(new BO.Drone());
+            Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
+         
+
             /*Drone.AddDroneOrRemove();*/
         }
 
@@ -66,7 +71,11 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
 
-                    ExistDroneListWindow.AddDrone(bl.GetSpesificDrone(IDInput()));
+                    if (Drone.droneListChanged != null)
+                        Drone.droneListChanged(bl.GetSpesificDrone(IDInput()));
+                 
+                    
+            /*        ExistDroneListWindow.AddDrone(bl.GetSpesificDrone(IDInput()));*/
 
                     Close();
                 }
@@ -84,13 +93,14 @@ namespace PL
         /// </summary>
         /// <param name="blMain"></param>
         /// <param name="drone"></param>
-        public DroneWindow(BLApi.IBL blMain, BO.Drone drone, DroneListWindow droneListWindow)
+        public DroneWindow(BLApi.IBL blMain, BO.Drone drone)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             Drone = new Drone(drone);
-            Drone.droneListChanged += new ObjectChanged(droneListWindow.update);
+            Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
+           /* Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);*/
 
 
             Drone_bl = drone;
@@ -239,6 +249,7 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+            /*        Station station = new Station(bl.GetSpesificStation(Drone.))*/
               /*      AddDroneGrid.DataContext = Drone;*/
 
                     DisplayBTN();
@@ -367,6 +378,13 @@ namespace PL
             }
         }
 
+        public void UpdateDroneList(BO.Drone drone)
+        {
+
+            if (SomeChangedHappened != null)
+                SomeChangedHappened(drone);
+
+        }
 
 
         private void GetParcel(object sender, MouseButtonEventArgs e)
@@ -432,7 +450,7 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnKeyDownDroneID(object sender, KeyEventArgs e)
-        {
+       {
             if (e.Key == Key.Enter) MaxWeight.Focus();
         }
         /// <summary>
@@ -463,6 +481,8 @@ namespace PL
             if (e.Key == Key.Enter) sendNewDrone.Focus();
         }
         #endregion
+
+     
 
         /*        private void Button_Click(object sender, RoutedEventArgs e)
                 {

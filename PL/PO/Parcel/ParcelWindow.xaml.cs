@@ -118,7 +118,7 @@ namespace PL
         private void GetDrone(object sender, MouseButtonEventArgs e)
         {
             string ID = (sender as TextBox).SelectedText;
-            new DroneWindow(bl, bl.GetSpesificDrone(int.Parse(ID)), new DroneListWindow(bl)).Show();
+            new DroneWindow(bl, bl.GetSpesificDrone(int.Parse(ID))).Show();
         }
 
         private void ApprovePickedUp(object sender, RoutedEventArgs e)

@@ -227,7 +227,7 @@ namespace BL
             condition ??= (s => true);
             return from s in GetStations()
                    where condition(s)
-                   select new StationToList(s, dalObj);
+                   select new StationToList(s);
         }
     }
 }

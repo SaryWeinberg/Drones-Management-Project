@@ -8,7 +8,7 @@ namespace BO
 {
     public class StationToList
     {
-        public StationToList(Station station, DalApi.IDal dalObj)
+        public StationToList(Station station)
         {
             ID = station.ID;
             Name = station.Name;

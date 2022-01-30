@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace PL
 {
@@ -23,14 +24,16 @@ namespace PL
     {
         BLApi.IBL bl;
         //DroneList droneList;
-        DroneListClass droneListClass;
+  /*      ListClass droneListClass;*/
         private ObservableCollection<BO.DroneToList> _myCollection = new ObservableCollection<BO.DroneToList>();
+
+
         /// <summary>
         /// 
         /// Ctor of Drone list window
         /// </summary>
         /// <param name="blMain"></param>
-        public DroneListWindow(BLApi.IBL blMain )
+        public DroneListWindow(BLApi.IBL blMain)
         {
 
             InitializeComponent();
@@ -42,8 +45,15 @@ namespace PL
                 _myCollection.Add(drone);
             }
 
-            droneListClass = new DroneListClass(_myCollection);
-            DataContext = droneListClass.DroneList;
+            /* droneListClass = new ListClass(_myCollection);
+             droneListClass.DroneList.CollectionChanged += ContentCollectionChanged;*/
+            _myCollection.CollectionChanged += ContentCollectionChanged;
+
+
+            /*   DataContext = droneListClass.DroneList;*/
+            DataContext = _myCollection;
+
+
             /*            droneList = new DroneList(bl.GetDronesToList());
                         DroneListView.DataContext = droneList;*/
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
@@ -103,7 +113,9 @@ namespace PL
         private void UpdateDrone(object sender, MouseButtonEventArgs e)
         {
             BO.DroneToList drone = (sender as ListView).SelectedValue as BO.DroneToList;
-            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID), this).Show();
+            DroneWindow open = new DroneWindow(bl, bl.GetSpesificDrone(drone.ID));
+            open.SomeChangedHappened += UpdateObjectInTheList;
+            open.Show();
             /*   Close();*/
         }
 
@@ -114,9 +126,12 @@ namespace PL
         /// <param name="e"></param>
         private void AddDrone(object sender, RoutedEventArgs e)
         {
-             new DroneWindow(bl, this).Show();
-            
-            
+            DroneWindow openWindow = new DroneWindow(bl);
+
+            openWindow.SomeChangedHappened += AddDrone;
+            openWindow.Show();
+
+
         }
 
         /// <summary>
@@ -169,16 +184,44 @@ namespace PL
         }
 
 
-        public void update(BO.Drone drone)
+        public void UpdateObjectInTheList(BO.Drone drone)
         {
-            droneListClass.updateDroneList(drone);
+            BO.DroneToList droneToList = _myCollection.First(d => d.ID == drone.ID);
+            int idx = _myCollection.IndexOf(droneToList);
+            _myCollection[idx] = new BO.DroneToList(drone);
+            /*droneListClass.DroneList.First(d => d.ID == drone.ID).Model = drone.Model;*/
+            /*    dtl = new BO.DroneToList(drone);*/
+            /*   droneListClass.updateDroneList(drone);*/
 
 
         }
         public void AddDrone(BO.Drone drone)
         {
-            droneListClass.DroneList.Add(new BO.DroneToList(drone));
+            /*droneListClass.DroneList.Add(new BO.DroneToList(drone));*/
+            _myCollection.Add(new BO.DroneToList(drone));
 
+
+        }
+
+
+
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            /*            {
+                            foreach (BO.DroneToList item in e.OldItems)
+                            {
+                                //Removed items
+                                item.PropertyChanged -= EntityViewModelPropertyChanged;
+                            }
+                        }
+                        else if (e.Action == NotifyCollectionChangedAction.Add)
+                        {
+                            foreach (EntityViewModel item in e.NewItems)
+                            {
+                                //Added items
+                                item.PropertyChanged += EntityViewModelPropertyChanged;
+                            }
+                        }*/            /*if (e.Action == NotifyCollectionChangedAction.Remove)*/
 
         }
     }
@@ -210,5 +253,42 @@ namespace PL
 
      
 
+    }
+}
+/*public class CollectionViewModel : ViewModelBase
+{
+    public ObservableCollection<EntityViewModel> ContentList {
+        get { return _contentList; }
+    }*/
+
+/*  public CollectionViewModel()
+  {
+      _contentList = new ObservableCollection<EntityViewModel>();
+      _contentList.CollectionChanged += ContentCollectionChanged;
+  }*/
+
+/*    public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action == NotifyCollectionChangedAction.Remove)
+        {
+            foreach (EntityViewModel item in e.OldItems)
+            {
+                //Removed items
+                item.PropertyChanged -= EntityViewModelPropertyChanged;
+            }
+        }
+        else if (e.Action == NotifyCollectionChangedAction.Add)
+        {
+            foreach (EntityViewModel item in e.NewItems)
+            {
+                //Added items
+                item.PropertyChanged += EntityViewModelPropertyChanged;
+            }
+        }
+    }
+
+    public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        //This will get called when the property of an object inside the collection changes
     }
 }*/

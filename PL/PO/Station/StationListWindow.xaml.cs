@@ -20,17 +20,18 @@ namespace PL
     /// </summary>
     public partial class StationListWindow : Window
     {
+/*        public event ObjectChanged<BO.Drone> SomeChangedHappened;*/
         BLApi.IBL bl;
         private CollectionView view;
-        ObservableCollection<BO.StationToList> list = new ObservableCollection<BO.StationToList>();
+        ObservableCollection<BO.StationToList> _myCollection = new ObservableCollection<BO.StationToList>();
         public StationListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             foreach (var item in bl.GetStationsToList())
-                list.Add(item);
-            DataContext = list;
+                _myCollection.Add(item);
+            DataContext = _myCollection;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
 
         }
@@ -41,15 +42,31 @@ namespace PL
 
         private void AddStation(object sender, RoutedEventArgs e)
         {
-            new StationWindow(bl).Show();
-            Close();
+            StationWindow openWindow = new StationWindow(bl);
+            openWindow.SomeChangedHappened += AddStation;
+            openWindow.Show();
+            
         }
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;
-            new StationWindow(bl, bl.GetSpesificStation(station.ID)).Show();
-            Close();
+             StationWindow openWindow = new StationWindow(bl, bl.GetSpesificStation(station.ID));
+            openWindow.SomeChangedHappened += updateStation;
+            openWindow.Show();
+           
+        }
+        private void updateStation(BO.Station station)
+        {
+            BO.StationToList stationToList = _myCollection.First(s => s.ID == station.ID);
+            int idx = _myCollection.IndexOf(stationToList);
+            _myCollection[idx] = new BO.StationToList(station);
+        }
+
+        private void AddStation(BO.Station station)
+        {
+            _myCollection.Add(new BO.StationToList(station));
+  
         }
 
         private void ReturnWindow(object sender, RoutedEventArgs e)

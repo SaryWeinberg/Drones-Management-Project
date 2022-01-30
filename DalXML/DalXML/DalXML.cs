@@ -38,19 +38,19 @@ namespace Dal
         public DalXml()
         {
             DataSource.Initialize();
-            if (!File.Exists(direction + customerFilePath))
+           /* if (!File.Exists(direction + customerFilePath))*/
                 XmlTools.SaveListToXmlSerializer<Customer>(DataSource.Customers, direction + customerFilePath);
 
-            if (!File.Exists(direction + parcelFilePath))
+            /*if (!File.Exists(direction + parcelFilePath))*/
                 XmlTools.SaveListToXmlSerializer<Parcel>(DataSource.Parcels, direction + parcelFilePath);
 
-            if (!File.Exists(direction + droneFilePath))
+/*            if (!File.Exists(direction + droneFilePath))*/
                 XmlTools.SaveListToXmlSerializer<Drone>(DataSource.Drones, direction + droneFilePath);
 
-            if (!File.Exists(direction + stationFilePath))
+        /*    if (!File.Exists(direction + stationFilePath))*/
                 XmlTools.SaveListToXmlSerializer<Station>(DataSource.Stations, direction + stationFilePath);
-
-            if (!File.Exists(direction + droneChargeFilePath))
+/*
+            if (!File.Exists(direction + droneChargeFilePath))*/
                 XmlTools.SaveListToXmlSerializer<DroneCharge>(DataSource.DroneCharges, direction + droneChargeFilePath);
         }
 
