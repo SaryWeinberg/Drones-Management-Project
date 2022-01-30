@@ -25,9 +25,9 @@ namespace BL
             droneDal.Model = model;
             droneDal.MaxWeight = maxWeight;
             droneDal.Active = true;
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.AddDrone(droneDal);
+                dal.AddDrone(droneDal);
             }
         }
 
@@ -45,10 +45,10 @@ namespace BL
             DO.DroneCharge droneCharge = new DO.DroneCharge();
             droneCharge.DroneId = DroneID;
             droneCharge.StationId = stationID;
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.AddDroneCharge(droneCharge);
-                dalObj.UpdateStation(ConvertBLStationToDAL(station));
+                dal.AddDroneCharge(droneCharge);
+                dal.UpdateStation(ConvertBLStationToDAL(station));
             }
         }
 
@@ -150,9 +150,9 @@ namespace BL
         {
             int idx = dronesList.FindIndex(d => d.ID == droneBL.ID);
             dronesList[idx] = droneBL;
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.UpdateDrone(ConvertBLDroneToDAL(droneBL));
+                dal.UpdateDrone(ConvertBLDroneToDAL(droneBL));
                 return "The update was successful!";
             }
         }
@@ -180,9 +180,9 @@ namespace BL
         {
             try
             {
-                lock (dalObj)
+                lock (dal)
                 {
-                    return ConvertDalDroneChargeToBL(dalObj.GetDroneCharges().First(d => d.DroneId == droneId));
+                    return ConvertDalDroneChargeToBL(dal.GetDroneCharges().First(d => d.DroneId == droneId));
                 }
             }
             catch (ArgumentNullException)
@@ -198,9 +198,9 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDalDronesListAsBL()
         {
-            lock (dalObj)
+            lock (dal)
             {
-                List<DO.Drone> dronesDal = dalObj.GetDrones().ToList();
+                List<DO.Drone> dronesDal = dal.GetDrones().ToList();
                 List<Drone> dronesBL = new List<Drone>();
                 dronesDal.ForEach(d => dronesBL.Add(ConvertDalDroneToBL(d)));
                 return dronesBL;
@@ -245,11 +245,11 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                return ((Distance(droneLocation, GetSpesificCustomer(senderId).Location) * dalObj.ElectricalPowerRequest()[0])
-            + (Distance(GetSpesificCustomer(senderId).Location, GetSpesificCustomer(targetId).Location) * dalObj.ElectricalPowerRequest()[parcelweight])
-            + (Distance(GetSpesificCustomer(targetId).Location, GetNearestAvailableStation(GetSpesificCustomer(targetId).Location).Location) * dalObj.ElectricalPowerRequest()[0]));
+                return ((Distance(droneLocation, GetSpesificCustomer(senderId).Location) * dal.ElectricalPowerRequest()[0])
+            + (Distance(GetSpesificCustomer(senderId).Location, GetSpesificCustomer(targetId).Location) * dal.ElectricalPowerRequest()[parcelweight])
+            + (Distance(GetSpesificCustomer(targetId).Location, GetNearestAvailableStation(GetSpesificCustomer(targetId).Location).Location) * dal.ElectricalPowerRequest()[0]));
             }
         }
     }
