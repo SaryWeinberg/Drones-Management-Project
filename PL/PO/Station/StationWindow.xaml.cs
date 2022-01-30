@@ -21,7 +21,7 @@ namespace PL
     {
         BLApi.IBL bl;
         Station Station;
-
+        public event ObjectChanged<BO.Station> SomeChangedHappened;
         public StationWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -29,12 +29,14 @@ namespace PL
             bl = blMain;
             sendNewStation.Visibility = Visibility.Visible;
             StationID.Focus();
+            Station = new Station(new BO.Station());
+            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
         }
 
         private void AddNewStation(object sender, RoutedEventArgs e)
-        {  
+        {
             try
-            {               
+            {
                 MessageBoxResult result =
                    MessageBox.Show(
                    bl.AddStationBL(IDInput(), NameInput(), new BO.Location { Longitude = LongitudeInput(), Latitude = LatitudeInput() }, ChargeSlotsInput()),
@@ -43,15 +45,18 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new StationListWindow(bl).Show();
-                    Close();
+
+                    if (Station.stationListChanged != null)
+                        Station.stationListChanged(bl.GetSpesificStation(IDInput()));
+                    /* new StationListWindow(bl).Show();
+                     Close();*/
                 }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
-        }        
+        }
 
         public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
@@ -60,31 +65,38 @@ namespace PL
             bl = blMain;
 
             Station = new Station(station);
-            AddStation.DataContext = Station;            
+            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
+            AddStation.DataContext = Station;
 
-           /* StationName.Text = station.Name.ToString();
-            StationChargeSlots.Text = station.AveChargeSlots.ToString();*/
+            /* StationName.Text = station.Name.ToString();
+             StationChargeSlots.Text = station.AveChargeSlots.ToString();*/
 
             UpdateStationGrid.Visibility = Visibility.Visible;
-           
+
             DronesInChargelist.ItemsSource = station.DronesInChargelist;
             StationID.IsEnabled = false;
             StationLongitude.IsEnabled = false;
             StationLatitude.IsEnabled = false;
 
             StationName.TextChanged += AddUpdateButton;
-            StationChargeSlots.TextChanged += AddUpdateButton;          
+            StationChargeSlots.TextChanged += AddUpdateButton;
         }
 
         private void AddUpdateButton(object sender, RoutedEventArgs e) => updateStation.Visibility = Visibility.Visible;
+        public void UpdateStationList(BO.Station station)
+        {
 
+            if (SomeChangedHappened != null)
+                SomeChangedHappened(station);
+
+        }
         private void UpdateStation(object sender, RoutedEventArgs e)
         {
             string ID = StationID.Text;
-  /*          string name = StationName.Text;
-            string chargeSlots = StationChargeSlots.Text;*/
+            /*          string name = StationName.Text;
+                      string chargeSlots = StationChargeSlots.Text;*/
             try
-            {           
+            {
                 MessageBoxResult result =
                    MessageBox.Show(
                    bl.UpdateStationData(IDInput(), NameInput(), ChargeSlotsInput()),
@@ -118,10 +130,33 @@ namespace PL
         }
 
         private void GetDrone(object sender, MouseButtonEventArgs e)
-        {
+        
+       {
+
+
+
+   
+            
+                /*   Close();*/
+            
             BO.DroneInCharge drone = (sender as ListView).SelectedValue as BO.DroneInCharge;
-            new DroneWindow(bl, bl.GetSpesificDrone(drone.ID), new DroneListWindow(bl)).Show();
-            Close();
+
+            DroneWindow open = new DroneWindow(bl, bl.GetSpesificDrone(drone.ID));
+
+            open.SomeChangedHappened += UpdateObjectInTheList;
+            open.Show();
+       /*     new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
+            Close();*/
+        }
+
+        public void UpdateObjectInTheList(BO.Drone drone)
+        {
+            if (SomeChangedHappened != null)
+
+            
+                SomeChangedHappened(bl.GetNearestAvailableStation(drone.Location));
+
+
         }
 
         #region Get Inputs
