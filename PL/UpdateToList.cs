@@ -176,7 +176,6 @@ namespace PL
         public ObjectChanged<BO.Drone> droneListChanged;
         public void updateDronePO(BO.Drone drone )
         {
-
             ID = drone.ID;
             Model = drone.Model;
             MaxWeight = drone.MaxWeight;
@@ -368,12 +367,8 @@ namespace PL
         public DroneList(IEnumerable<BO.DroneToList> droneList)
         {
             DronesList = droneList;
-
-
         }
-
         public IEnumerable<BO.DroneToList> DronesList { get { return (IEnumerable<BO.DroneToList>)GetValue(DronesListProperty); } set { SetValue(DronesListProperty, value); } }
-
         public static readonly DependencyProperty DronesListProperty =
             DependencyProperty.Register("DronesList", typeof(IEnumerable<BO.DroneToList>), typeof(DroneList), new UIPropertyMetadata());
     }*/

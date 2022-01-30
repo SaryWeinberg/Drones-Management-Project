@@ -309,7 +309,7 @@ namespace BL
             {
                 throw new TheDroneNotAvailableException();
             }
-            //List<BO.Parcel> parcels = GetParcels();
+
             try
             {
                 lock (dalObj)
@@ -329,19 +329,6 @@ namespace BL
             {
                 throw new TheParcelCouldNotCollectedOrDeliveredException("collected");
             }
-            /*      foreach (BO.Parcel currentParcel in parcels)
-                  {
-                      if (currentParcel.Drone.ID == droneId)
-                      {
-                          if (currentParcel.Associated == null && currentParcel.PickedUp != null)
-                          {
-
-                          }*/
-            //A parcel associated with the drone but not collected for it
-
-
-
-            /*return "";*/
         }
 
         /// <summary>
