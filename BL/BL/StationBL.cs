@@ -29,9 +29,9 @@ namespace BL
             station.Latitude = location.Latitude;
             station.ChargeSlots = chargeSlots;
             station.Active = true;
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.AddStation(station);
+                dal.AddStation(station);
             }
         }
 
@@ -46,9 +46,9 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string AddStationBL(int id, int name, Location location, int chargeSlots)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                if (dalObj.GetStations().Any(s => s.ID == id))
+                if (dal.GetStations().Any(s => s.ID == id))
                     throw new ObjectAlreadyExistException("Station", id);
             }
 
@@ -77,12 +77,12 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string UpdateStationData(int id, int name = -1, int ChargeSlots = -1)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                DO.Station station = dalObj.GetSpesificStation(id);
+                DO.Station station = dal.GetSpesificStation(id);
                 if (name != -1) station.Name = name;
                 if (ChargeSlots != -1) station.ChargeSlots = ChargeSlots;
-                dalObj.UpdateStation(station);
+                dal.UpdateStation(station);
                 return "The update was successful!";
             }
         }
@@ -114,9 +114,9 @@ namespace BL
         public BO.Station ConvertDalStationToBL(DO.Station s)
         {
             List<DroneInCharge> droneInCharge = new List<DroneInCharge>();
-            lock (dalObj)
+            lock (dal)
             {
-                foreach (DO.DroneCharge droneCharge in dalObj.GetDroneCharges())
+                foreach (DO.DroneCharge droneCharge in dal.GetDroneCharges())
                 {
                     if (droneCharge.StationId == s.ID)
                         droneInCharge.Add(new DroneInCharge(droneCharge.DroneId, GetSpesificDrone(droneCharge.DroneId).Battery, DateTime.Now));
@@ -143,9 +143,9 @@ namespace BL
         {
             try
             {
-                lock (dalObj)
+                lock (dal)
                 {
-                    return ConvertDalStationToBL(dalObj.GetSpesificStation(stationId));
+                    return ConvertDalStationToBL(dal.GetSpesificStation(stationId));
                 }
             }
             catch (ObjectDoesNotExist e)
@@ -162,9 +162,9 @@ namespace BL
         public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null)
         {            
             condition ??= (s => true);
-            lock (dalObj)
+            lock (dal)
             {
-                return from s in dalObj.GetStations()
+                return from s in dal.GetStations()
                        where condition(ConvertDalStationToBL(s))
                        select ConvertDalStationToBL(s);
             }

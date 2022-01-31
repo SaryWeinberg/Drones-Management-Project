@@ -21,9 +21,9 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcelDal(int id, int senderId, int targetId, WeightCategories weight, Priorities priority)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                if (dalObj.GetParcels().Any(p => p.ID == id))
+                if (dal.GetParcels().Any(p => p.ID == id))
                 {
                     throw new ObjectAlreadyExistException("Parcel", id);
                 }
@@ -38,9 +38,9 @@ namespace BL
             parcel.Priority = priority;
             parcel.Created = DateTime.Now;
             parcel.Active = true;
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.AddParcel(parcel);
+                dal.AddParcel(parcel);
             }
         }
 
@@ -115,16 +115,16 @@ namespace BL
 
             CustomerInParcel Scustomer = new CustomerInParcel();
             Scustomer.ID = p.SenderId;
-            lock (dalObj)
+            lock (dal)
             {
-                Scustomer.Name = dalObj.GetSpesificCustomer(p.SenderId).Name;
+                Scustomer.Name = dal.GetSpesificCustomer(p.SenderId).Name;
             }
 
             CustomerInParcel Tcustomer = new CustomerInParcel();
             Tcustomer.ID = p.TargetId;
-            lock (dalObj)
+            lock (dal)
             {
-                Tcustomer.Name = dalObj.GetSpesificCustomer(p.TargetId).Name;
+                Tcustomer.Name = dal.GetSpesificCustomer(p.TargetId).Name;
             }
             DroneInParcel droneInparcel = new DroneInParcel();
             if (p.Associated == null)
@@ -164,9 +164,9 @@ namespace BL
         {
             try
             {
-                lock (dalObj)
+                lock (dal)
                 {
-                    return ConvertDalParcelToBL(dalObj.GetSpesificParcel(parcelId));
+                    return ConvertDalParcelToBL(dal.GetSpesificParcel(parcelId));
                 }
             }
             catch (ObjectDoesNotExist e)
@@ -178,13 +178,13 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string RemoveParcel(int ID)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                DO.Parcel parcel = dalObj.GetParcels().First(p => p.ID == ID);
+                DO.Parcel parcel = dal.GetParcels().First(p => p.ID == ID);
                 if (parcel.Active)
                 {
                     parcel.Active = false;
-                    dalObj.UpdateParcel(parcel);
+                    dal.UpdateParcel(parcel);
                     return $"The parcel ID - {ID} remove successfully";
                 }
                 else throw new ObjectNotExistException($"The parcel ID - {ID} not exist");
@@ -200,9 +200,9 @@ namespace BL
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null)
         {            
             condition ??= (p => true);
-            lock (dalObj)
+            lock (dal)
             {
-                return from p in dalObj.GetParcels()
+                return from p in dal.GetParcels()
                        where condition(ConvertDalParcelToBL(p))
                        select ConvertDalParcelToBL(p);
             }

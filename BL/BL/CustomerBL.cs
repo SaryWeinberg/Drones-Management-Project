@@ -29,9 +29,9 @@ namespace BL
             customer.Longitude = location.Longitude;
             customer.Latitude = location.Latitude;
             customer.Active = true;
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.AddCustomer(customer);
+                dal.AddCustomer(customer);
             }
         }
 
@@ -46,9 +46,9 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string AddCustomerBL(int id, int phone, string name, Location location)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                if (dalObj.GetCustomers().Any(c => c.ID == id))
+                if (dal.GetCustomers().Any(c => c.ID == id))
                     throw new ObjectAlreadyExistException("Customer", id);
             }
             BO.Customer customer = new BO.Customer();
@@ -76,14 +76,14 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string UpdateCustomerData(int id, string name = null, int phoneNum = -1)
         {
-            lock (dalObj)
+            lock (dal)
             {
-                DO.Customer customer = dalObj.GetSpesificCustomer(id);
+                DO.Customer customer = dal.GetSpesificCustomer(id);
 
                 if (name != null && name != "") customer.Name = name;
                 if (phoneNum != -1) customer.PhoneNum = phoneNum;
 
-                dalObj.UpdateCustomer(customer);
+                dal.UpdateCustomer(customer);
 
                 return "The update was successful!";
             }
@@ -155,9 +155,9 @@ namespace BL
         {
             try
             {
-                lock (dalObj)
+                lock (dal)
                 {
-                    return ConvertDalCustomerToBL(dalObj.GetSpesificCustomer(customerId));
+                    return ConvertDalCustomerToBL(dal.GetSpesificCustomer(customerId));
                 }
             }
             catch (ObjectDoesNotExist e)
@@ -174,9 +174,9 @@ namespace BL
         public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null)
         {           
             condition ??= (c => true);
-            lock (dalObj)
+            lock (dal)
             {
-                return from c in dalObj.GetCustomers()
+                return from c in dal.GetCustomers()
                        where condition(ConvertDalCustomerToBL(c))
                        select ConvertDalCustomerToBL(c);
             }
@@ -192,7 +192,7 @@ namespace BL
             condition ??= (c => true);
             return from c in GetCustomers()
                    where condition(c)
-                   select new CustomerToList(c, dalObj);
+                   select new CustomerToList(c, dal);
         }
     }
 }

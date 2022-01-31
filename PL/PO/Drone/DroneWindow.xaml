@@ -20,7 +20,7 @@
             <Label Name="MaxWeightLabel"  Content="drone max weight:" Margin = "43, 60, 680, 0"/>
             <Label Name="DroneModelLabel" Content="drone model:"      Margin = "43, 90, 680, 0"/>
             <Label Name="StationIDLabel"  Content="drone station ID:" Margin = "43, 120, 680, 0"/>
-            <TextBox  Name="DroneID"    Margin="221, 30, 500, 0" Text="{Binding Path=ID}" KeyDown="OnKeyDownDroneID"/>
+            <TextBox  Name="DroneID"    Margin="221, 30, 500, 0" Text="{Binding Path=ID}" KeyDown="OnKeyDownDroneID" IsEnabled="False"/>
             <ComboBox Name="MaxWeight"  Margin="221, 60, 500, 0" Text="{Binding Path=MaxWeight}" KeyDown="OnKeyDownMaxWeight"/>
             <TextBox  Name="DroneModel" Margin="221, 90, 500, 0" Text="{Binding Path=Model}" KeyDown="OnKeyDownDroneModel"/>
             <TextBox  Name="stationID"  Margin="221, 120, 500, 0" Visibility="{Binding ElementName= StationIDLabel, Path=Visibility}" KeyDown="OnKeyDownStationID"/>

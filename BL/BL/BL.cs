@@ -13,19 +13,18 @@ namespace BL
 {
     public partial class BL : BLApi.IBL
     {
+        IDal dal;
 
        internal IDal dalObj;
 
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
 
-
         internal static BL instance;
 
         public static BL GetInstance {
             get
             {
-
                 if (instance == null)
                     instance = new BL();
                 return instance;
@@ -34,18 +33,17 @@ namespace BL
 
         BL()
         {
-           
-                dalObj = DalFactory.GetDal();
-                double[] ElectricUse = dalObj.ElectricalPowerRequest();
-                double Available = ElectricUse[0];
-                double Light = ElectricUse[1];
-                double medium = ElectricUse[2];
-                double heavy = ElectricUse[3];
-                double chargingRate = ElectricUse[4];
-                dronesList = GetDalDronesListAsBL().ToList();
-            lock (dalObj)
+            dal = DalFactory.GetDal();
+            double[] ElectricUse = dal.ElectricalPowerRequest();
+            double Available = ElectricUse[0];
+            double Light = ElectricUse[1];
+            double medium = ElectricUse[2];
+            double heavy = ElectricUse[3];
+            double chargingRate = ElectricUse[4];
+            dronesList = GetDalDronesListAsBL().ToList();
+            lock (dal)
             {
-                List<DO.Parcel> parcels = dalObj.GetParcels().ToList();
+                List<DO.Parcel> parcels = dal.GetParcels().ToList();
 
                 foreach (BO.Drone drone in dronesList)
                 {
@@ -155,26 +153,26 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             BO.Station station = GetNearestAvailableStation(drone.Location);
-            lock (dalObj)
+            lock (dal)
             {
                 //If there is not enough battery until you reach the station
-                if (dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) > drone.Battery)
+                if (dal.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location) > drone.Battery)
                 {
                     throw new NoBatteryToReachChargingStationException();
                 }
 
             }
-            lock (dalObj)
+            lock (dal)
             {
-                drone.Battery -= Math.Round(dalObj.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location), 2);
+                drone.Battery -= Math.Round(dal.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location), 2);
             }
             drone.Location = station.Location;
             drone.Status = DroneStatus.Maintenance;
             /*      station.AveChargeSlots -= 1;*/
             AddDroneCharge(station.ID, drone.ID, drone.Battery);
-            lock (dalObj)
+            lock (dal)
             {
-                dalObj.UpdateDrone(ConvertBLDroneToDAL(drone));
+                dal.UpdateDrone(ConvertBLDroneToDAL(drone));
             }
             //     station.DronesInChargelist.Add(new DroneInCharge(drone.ID, drone.BatteryStatus));
             //      droneCharge.StationId = station.ID;
@@ -199,25 +197,25 @@ namespace BL
             }
 
             //If the charge exceeds one hundred percent, only 100 are charged
-            lock (dalObj)
+            lock (dal)
             {
-                if (dalObj.ElectricalPowerRequest()[4] * timeInCharge + droneBL.Battery >= 100)
+                if (dal.ElectricalPowerRequest()[4] * timeInCharge + droneBL.Battery >= 100)
                 {
                     droneBL.Battery = 100;
                 }
                 else
                 {
-                    droneBL.Battery += Math.Round(dalObj.ElectricalPowerRequest()[4] * timeInCharge, 2);
+                    droneBL.Battery += Math.Round(dal.ElectricalPowerRequest()[4] * timeInCharge, 2);
                 }
 
                 droneBL.Status = DroneStatus.Available;
-                List<DO.Station> stations = dalObj.GetStations().ToList();
+                List<DO.Station> stations = dal.GetStations().ToList();
                 DO.Station station = stations.Find(s => s.Latitude == droneBL.Location.Latitude && s.Longitude == droneBL.Location.Longitude);
                 station.ChargeSlots += 1;
 
                 UpdateDrone(droneBL);
-                dalObj.UpdateStation(station);
-                dalObj.RemoveDroneInCharge(droneId);
+                dal.UpdateStation(station);
+                dal.RemoveDroneInCharge(droneId);
                 return "The drone was successfully released from charging!";
             }
         }
@@ -294,9 +292,9 @@ namespace BL
                 DroneInParcel droneInP = new DroneInParcel { ID = droneBL.ID, Battery = droneBL.Battery, Location = droneBL.Location };
                 BestParcel.Drone = droneInP;
                 BestParcel.Associated = DateTime.Now;
-                lock (dalObj)
+                lock (dal)
                 {
-                    dalObj.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
+                    dal.UpdateParcel(ConvertBLParcelToDAL(BestParcel));
                     return $"The parcel ID - {BestParcel.ID} was successfully associated with the drone!";
                 }
             }
@@ -319,12 +317,12 @@ namespace BL
 
             try
             {
-                lock (dalObj)
+                lock (dal)
                 {
                     BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUpByDrone == null && parcel.Associated != null);
                     List<BO.Customer> customers = GetCustomers().ToList();
                     BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
-                    droneBL.Battery = Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
+                    droneBL.Battery = Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
                     droneBL.Location = senderCustomer.Location;
                     
                     currentParcel.PickedUpByDrone = DateTime.Now;
@@ -362,14 +360,14 @@ namespace BL
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUpByDrone != null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer TargetCustomer = customers.Find(c => c.ID == currentParcel.Target.ID);
-                droneBL.Battery = Math.Round(Distance(droneBL.Location, TargetCustomer.Location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
+                droneBL.Battery = Math.Round(Distance(droneBL.Location, TargetCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
                 droneBL.Location = TargetCustomer.Location;
                 currentParcel.Delivered = DateTime.Now;
                 droneBL.Status = DroneStatus.Available;
-                lock (dalObj)
+                lock (dal)
                 {
                     droneBL.Parcel = null;
-                    dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                    dal.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
 
                     return $"The parcel ID - {currentParcel.ID} was successfully delivered by the drone!";
                 }
