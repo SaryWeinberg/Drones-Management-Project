@@ -10,7 +10,7 @@ namespace BO
     public class ParcelByDelivery
     {
         public int ID { get; set; }
-        public bool DeliveryStatus { get; set; }
+        public bool isWaitingToDelivery { get; set; }
         public double Latitude { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Property { get; set; }
@@ -22,7 +22,7 @@ namespace BO
         public ParcelByDelivery(Parcel parcel, Drone drone, Customer sender, Customer target)
         {
             ID = parcel.ID;
-            DeliveryStatus = (drone.Status == DroneStatus.Delivery);
+            isWaitingToDelivery = (parcel.PickedUpByDrone == null)? true: false;
             Latitude = drone.Location.Latitude;
             Weight = parcel.Weight;
             Property = parcel.Priority;
@@ -35,7 +35,7 @@ namespace BO
 
     public override string ToString()
     {
-        return "Parcel: id:" + ID + " sender: " + Sender + " target: " + Target + "DeliveryStatus(T/F): " + DeliveryStatus + "\n ";
+        return "Parcel: id:" + ID + " sender: " + Sender + " target: " + Target + "DeliveryStatus(T/F): " + isWaitingToDelivery + "\n ";
     }
 }
 }

@@ -19,7 +19,7 @@ namespace BO
             Weight = parcel.Weight;
             Priority = parcel.Priority;
             if (parcel.Delivered != null) Status = Status.Delivered;
-            else if (parcel.PickedUp != null) Status = Status.PickedUp;
+            else if (parcel.PickedUpByDrone != null) Status = Status.PickedUp;
             else if (parcel.Associated != null) Status = Status.Associated;
             else Status = Status.Created;
             Target = parcel.Target;

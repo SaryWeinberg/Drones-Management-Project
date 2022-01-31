@@ -21,12 +21,12 @@ namespace BO
         public DroneInParcel Drone { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Associated { get; set; }
-        public DateTime? PickedUp { get; set; }
+        public DateTime? PickedUpByDrone { get; set; }
         public DateTime? Delivered { get; set; }
 
         public override string ToString()
         {
-            return "Parcel: id: " + ID + " Sender:  " + Sender + "  Target:  " + Target + " Weight: " + Weight + " Priority: " + Priority + " Drone: " + Drone + "\nCreated: " + Created + " Associated: " + Associated + " PickedUp: " + PickedUp + " Delivered: " + Delivered;
+            return "Parcel: id: " + ID + " Sender:  " + Sender + "  Target:  " + Target + " Weight: " + Weight + " Priority: " + Priority + " Drone: " + Drone + "\nCreated: " + Created + " Associated: " + Associated + " PickedUp: " + PickedUpByDrone + " Delivered: " + Delivered;
         }
     }
 }
