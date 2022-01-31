@@ -15,6 +15,8 @@ namespace BL
     {
         IDal dal;
 
+       internal IDal dalObj;
+
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
 
@@ -130,6 +132,12 @@ namespace BL
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
+        internal double ElectricalPowerRequest(int parcelWeight)
+        {
+            
+            return dalObj.ElectricalPowerRequest()[parcelWeight];
+        }
+
         /// <summary>
         /// function for Sending a drone for charging
         /// </summary>
@@ -211,6 +219,7 @@ namespace BL
                 return "The drone was successfully released from charging!";
             }
         }
+
 
         /// <summary>
         /// Function for assigning a parcel to a drone
@@ -310,14 +319,19 @@ namespace BL
             {
                 lock (dal)
                 {
-                    BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp == null && parcel.Associated != null);
+                    BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUpByDrone == null && parcel.Associated != null);
                     List<BO.Customer> customers = GetCustomers().ToList();
                     BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
                     droneBL.Battery = Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
                     droneBL.Location = senderCustomer.Location;
-                    currentParcel.PickedUp = DateTime.Now;
+                    
+                    currentParcel.PickedUpByDrone = DateTime.Now;
+                  
 
-                    dal.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                    dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                    ParcelByDelivery parcelByDelivery = droneBL.Parcel;
+                    parcelByDelivery.isWaitingToDelivery = false;
+                    droneBL.Parcel = parcelByDelivery;
                     return $"The parcel ID - {currentParcel.ID} was successfully collected by the drone!";
                 }
             }
@@ -343,7 +357,7 @@ namespace BL
 
             try
             {
-                BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUp != null && parcel.Associated != null);
+                BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUpByDrone != null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer TargetCustomer = customers.Find(c => c.ID == currentParcel.Target.ID);
                 droneBL.Battery = Math.Round(Distance(droneBL.Location, TargetCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
@@ -389,9 +403,9 @@ namespace BL
         }
 
 
-        /* public void StartSimulation(int DroneId, Action ViewUpdate, Func<bool> ToStop)
-         {
-             Simulation simulation = new Simulation(GetSpesificDrone(DroneId), ViewUpdate, ToStop);
-         }*/
+        public void StartSimulation(int DroneId, Action<int> ViewUpdate, Func<bool> ToStop)
+        {
+            Simulation simulation = new Simulation(this, DroneId, ViewUpdate, ToStop);
+        }
     }
 }

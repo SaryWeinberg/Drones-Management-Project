@@ -161,7 +161,7 @@ namespace PL
             }
             else if (Drone.Status == DroneStatus.Delivery)
             {
-                if (bl.GetSpesificParcel(Drone.Parcel.ID).PickedUp == null)
+                if (bl.GetSpesificParcel(Drone.Parcel.ID).PickedUpByDrone == null)
                 {
                     deliveryParcelByDrone.Visibility = Visibility.Hidden;
                     collectParcelByDrone.Visibility = Visibility.Visible;
@@ -480,9 +480,42 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewDrone.Focus();
         }
+        BackgroundWorker Worker = new BackgroundWorker();
+
+        private void Simulatiom_Click(object sender, RoutedEventArgs e)
+        {
+
+            Worker.DoWork += (object? sender, DoWorkEventArgs e) => {
+               bl.StartSimulation(
+                  Drone_bl.ID,
+                    (i) => {Worker.ReportProgress(i); },
+                    () => Worker.CancellationPending);
+
+            };
+            Worker.WorkerReportsProgress = true;
+            Worker.ProgressChanged += (object? sender, ProgressChangedEventArgs e) => {
+                Drone.updateDronePO(bl.GetSpesificDrone(Drone_bl.ID));
+              /*  Student.MyAge++;
+                Student.Name = updatedSt.FirstName;
+                progress.Content = e.ProgressPercentage;*/
+            };
+
+            /*Worker.RunWorkerCompleted += (object? sender, RunWorkerCompletedEventArgs e) => {
+             *//*   progress.Content = "stoped";*//*
+            };*/
+            Worker.WorkerSupportsCancellation = true;
+            Worker.RunWorkerAsync();
+
+        /*    int DroneId = IDInput();*/
+        }
+
+        private void Simulatiom_Stop_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.CancelAsync();
+        }
         #endregion
 
-     
+
 
         /*        private void Button_Click(object sender, RoutedEventArgs e)
                 {

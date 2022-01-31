@@ -67,7 +67,7 @@ namespace Dal
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
                 parcel.DroneId = rand.Next() % Drones.Count;
 
-                int RndStatus = rand.Next(1, 4);
+                int RndStatus = rand.Next(1, 6);
                 DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));
 
                 parcel.Created = randCreated;

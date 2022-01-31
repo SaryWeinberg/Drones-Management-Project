@@ -124,7 +124,7 @@ namespace PL
         private void ApprovePickedUp(object sender, RoutedEventArgs e)
         {
             Parcel.PickedUp = DateTime.Now;
-            bl.GetSpesificParcel(Parcel.ID).PickedUp = DateTime.Now;
+            bl.GetSpesificParcel(Parcel.ID).PickedUpByDrone = DateTime.Now;
             DeliveredChecked.Visibility = Visibility.Visible;
         }
 

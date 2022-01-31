@@ -305,7 +305,7 @@ namespace PL
             Created = parcel.Created;
             Delivered = parcel.Delivered;
             Drone = parcel.Drone;
-            PickedUp = parcel.PickedUp;
+            PickedUp = parcel.PickedUpByDrone;
             Priority = parcel.Priority;
             Sender = parcel.Sender;
             Target = parcel.Target;
@@ -350,7 +350,7 @@ namespace PL
             Created = parcel.Created;
             Delivered = parcel.Delivered;
             Drone = parcel.Drone;
-            PickedUp = parcel.PickedUp;
+            PickedUp = parcel.PickedUpByDrone;
             Priority = parcel.Priority;
             Sender = parcel.Sender;
             Target = parcel.Target;
