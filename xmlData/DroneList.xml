@@ -9,7 +9,7 @@
   <Drone>
     <ID>1</ID>
     <Model>1</Model>
-    <MaxWeight>Heavy</MaxWeight>
+    <MaxWeight>Light</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
