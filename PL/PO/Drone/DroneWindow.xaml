@@ -25,17 +25,14 @@
             <TextBox  Name="DroneModel" Margin="221, 90, 500, 0" Text="{Binding Path=Model}" KeyDown="OnKeyDownDroneModel"/>
             <TextBox  Name="stationID"  Margin="221, 120, 500, 0" Visibility="{Binding ElementName= StationIDLabel, Path=Visibility}" KeyDown="OnKeyDownStationID"/>
             <Button Name="sendNewDrone" Content="Send" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "AddNewDrone"  Margin="0,370,245,0"  Visibility="{Binding ElementName= StationIDLabel, Path=Visibility}"/>
-            <!--</Grid>-->
 
-
-            <!--<Grid x:Name="UpdateDroneGrid" Grid.Row="1" Margin="434,30,-434,-30">-->
             <Label Name="batteryStatusLabel"   Content="drone battery:"         Margin="43, 120, 684, 0"/>
             <Label Name="statusLabel"          Content="drone status:"          Margin="43, 150, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <Label Name="longitudeLabel"       Content="drone longitude:"       Margin="43, 180, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <Label Name="latitudeLabel"        Content="drone latitude:"        Margin="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <Label Name="parcelLabel"          Content="parcel by delivery ID:" Margin="43, 240, 684, 0" Visibility="Hidden" />
 
-            <Grid>
+            <Grid Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}">
                 <ProgressBar Name="battery" Minimum="0" Maximum="100" Value="{Binding Path = Battery , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="222,120,500,378" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
                 <TextBlock Text="{Binding ElementName=battery, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,123,0,0" />
             </Grid>
