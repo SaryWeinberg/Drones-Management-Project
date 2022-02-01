@@ -44,18 +44,13 @@ namespace PL
             {
                 _myCollection.Add(drone);
             }
-
             /* droneListClass = new ListClass(_myCollection);
              droneListClass.DroneList.CollectionChanged += ContentCollectionChanged;*/
-            _myCollection.CollectionChanged += ContentCollectionChanged;
-
-
+/*            _myCollection.CollectionChanged += ContentCollectionChanged;*/
             /*   DataContext = droneListClass.DroneList;*/
             DataContext = _myCollection;
-
-
             /*            droneList = new DroneList(bl.GetDronesToList());
-                        DroneListView.DataContext = droneList;*/
+ DroneListView.DataContext = droneList;*/
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -189,6 +184,7 @@ namespace PL
             BO.DroneToList droneToList = _myCollection.First(d => d.ID == drone.ID);
             int idx = _myCollection.IndexOf(droneToList);
             _myCollection[idx] = new BO.DroneToList(drone);
+
             /*droneListClass.DroneList.First(d => d.ID == drone.ID).Model = drone.Model;*/
             /*    dtl = new BO.DroneToList(drone);*/
             /*   droneListClass.updateDroneList(drone);*/

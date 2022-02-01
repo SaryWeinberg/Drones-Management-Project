@@ -15,7 +15,7 @@ namespace BL
     {
         IDal dal;
 
-       internal IDal dalObj;
+   /*    internal IDal dalObj;*/
 
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
@@ -135,7 +135,7 @@ namespace BL
         internal double ElectricalPowerRequest(int parcelWeight)
         {
             
-            return dalObj.ElectricalPowerRequest()[parcelWeight];
+            return dal.ElectricalPowerRequest()[parcelWeight];
         }
 
         /// <summary>
@@ -328,7 +328,7 @@ namespace BL
                     currentParcel.PickedUpByDrone = DateTime.Now;
                   
 
-                    dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
+                    dal.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
                     ParcelByDelivery parcelByDelivery = droneBL.Parcel;
                     parcelByDelivery.isWaitingToDelivery = false;
                     droneBL.Parcel = parcelByDelivery;
