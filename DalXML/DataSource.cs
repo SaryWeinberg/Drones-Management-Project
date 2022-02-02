@@ -39,8 +39,8 @@ namespace Dal
             for (int i = 0; i < 5; i++)
             {
                 Drone drone = new Drone();
-                drone.ID = Drones.Count;
-                drone.Model = $"{Drones.Count}";
+                drone.ID = Drones.Count +1;
+                drone.Model = $"{Drones.Count +1}";
                 drone.MaxWeight = (WeightCategories)(rand.Next(1, 4));
                 Drones.Add(drone);
             }
@@ -55,7 +55,7 @@ namespace Dal
                 customer.Latitude = rand.Next(1, 40);
                 Customers.Add(customer);
             }
-
+            int counter = 0;
             for (int i = 0; i < 10; i++)
             {
                 Parcel parcel = new Parcel();
@@ -65,16 +65,22 @@ namespace Dal
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-                parcel.DroneId = rand.Next() % Drones.Count;
-
+/*                parcel.DroneId = rand.Next() % Drones.Count;*/
                 int RndStatus = rand.Next(1, 6);
+                if (counter == 4) RndStatus = rand.Next(0, 2);
+                /*      int RndStatus = rand.Next(1, 6);*/
                 DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));
 
                 parcel.Created = randCreated;
                 switch (RndStatus)
                 {
                     case 1:
-                        parcel.Associated = RandomDate(randCreated);
+                        DateTime randAssociated2 = RandomDate(randCreated);
+                        parcel.Associated = randAssociated2;
+                        DateTime randPickedUp = RandomDate(randAssociated2);
+                        parcel.PickedUp = randPickedUp;
+                        parcel.Delivered = RandomDate(randPickedUp);
+                     /*   parcel.Associated = RandomDate(randCreated);*/
                         break;
                     case 2:
                         DateTime randAssociated = RandomDate(randCreated);
@@ -82,15 +88,18 @@ namespace Dal
                         parcel.PickedUp = RandomDate(randAssociated);
                         break;
                     case 3:
-                        DateTime randAssociated2 = RandomDate(randCreated);
-                        parcel.Associated = randAssociated2;
-                        DateTime randPickedUp = RandomDate(randAssociated2);
-                        parcel.PickedUp = randPickedUp;
-                        parcel.Delivered = RandomDate(randPickedUp);
+                        /*                        DateTime randAssociated2 = RandomDate(randCreated);
+                                                parcel.Associated = randAssociated2;
+                                                DateTime randPickedUp = RandomDate(randAssociated2);
+                                                parcel.PickedUp = randPickedUp;
+                                                parcel.Delivered = RandomDate(randPickedUp);*/
+                        parcel.Associated = RandomDate(randCreated);
                         break;
                     default:
                         break;
                 }
+                if (RndStatus == 3 || RndStatus == 2)
+                    counter++;
                 Parcels.Add(parcel);
             }
         }

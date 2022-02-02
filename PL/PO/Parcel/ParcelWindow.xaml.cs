@@ -124,14 +124,14 @@ namespace PL
         private void ApprovePickedUp(object sender, RoutedEventArgs e)
         {
             Parcel.PickedUp = DateTime.Now;
-            bl.GetSpesificParcel(Parcel.ID).PickedUpByDrone = DateTime.Now;
+            bl.CollectParcelByDrone(Parcel.Drone.ID);
             DeliveredChecked.Visibility = Visibility.Visible;
         }
 
         private void ApproveDelivered(object sender, RoutedEventArgs e)
         {
             Parcel.Delivered = DateTime.Now;
-            bl.GetSpesificParcel(Parcel.ID).Delivered = DateTime.Now;
+            bl.SupplyParcelByDrone(Parcel.Drone.ID);
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
