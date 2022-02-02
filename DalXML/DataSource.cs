@@ -65,7 +65,7 @@ namespace Dal
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-/*                parcel.DroneId = rand.Next() % Drones.Count;*/
+                parcel.DroneId = rand.Next() % Drones.Count + 1;
                 int RndStatus = rand.Next(1, 6);
                 if (counter == 4) RndStatus = rand.Next(0, 2);
                 /*      int RndStatus = rand.Next(1, 6);*/

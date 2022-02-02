@@ -21,27 +21,21 @@ namespace PL
     public partial class ParcelListWindow : Window
     {
         BLApi.IBL bl;
-
         private CollectionView view;
-        ObservableCollection<BO.ParcelToList> list = new ObservableCollection<BO.ParcelToList>();
-
+        ObservableCollection<BO.ParcelToList> _myCollection = new ObservableCollection<BO.ParcelToList>();
 
         public ParcelListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-           
             foreach (var item in bl.GetParcelsToList())
-            {
-                 list.Add(item);
-            }
-            DataContext = list;
+                _myCollection.Add(item);
+            DataContext = _myCollection;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
-            ParcelListView.ItemsSource = list;
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-        }
+        }       
 
         /// <summary>
         /// Filter the list category priority
@@ -119,20 +113,38 @@ namespace PL
         /// Show parcel window with adding ctor
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e"></param>       
         private void AddParcel(object sender, RoutedEventArgs e)
         {
-            new ParcelWindow(bl).Show();
-            Close();
+            ParcelWindow openWindow = new ParcelWindow(bl);
+            openWindow.SomeChangedHappened += addParcel;
+            openWindow.Show();
+
+        }
+
+
+        private void addParcel(BO.Parcel parcel)
+        {
+            _myCollection.Add(new BO.ParcelToList(parcel));
         }
 
         private void UpdateParcel(object sender, MouseButtonEventArgs e)
         {
             BO.ParcelToList parcelToList = (sender as ListView).SelectedValue as BO.ParcelToList;
-            new ParcelWindow(bl, bl.GetSpesificParcel(parcelToList.ID)).Show();
-            Close();
+            ParcelWindow openWindow = new ParcelWindow(bl, bl.GetSpesificParcel(parcelToList.ID));
+            openWindow.SomeChangedHappened += UpdateParcel;
+            openWindow.Show();
+
+        }
+        private void UpdateParcel(BO.Parcel parcel)
+        {
+            BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
+            int idx = _myCollection.IndexOf(parcelToList);
+            _myCollection[idx] = new BO.ParcelToList(parcel);
         }
 
+
+       
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();

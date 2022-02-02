@@ -21,6 +21,8 @@ namespace PL
     {
         BLApi.IBL bl;
         Parcel Parcel;
+        public event ObjectChanged<BO.Parcel> SomeChangedHappened;
+
         public ParcelWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -31,6 +33,7 @@ namespace PL
             ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
             sendNewParcel.Visibility = Visibility.Visible;
+            Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
         }
 
         public ParcelWindow(BLApi.IBL blMain, BO.Parcel parcel)
@@ -45,6 +48,8 @@ namespace PL
                 PickedUpChecked.Visibility = Visibility.Visible;
             if (Parcel.PickedUp != null && Parcel.Delivered == null)
                 DeliveredChecked.Visibility = Visibility.Visible;
+
+            Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
@@ -136,6 +141,14 @@ namespace PL
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        public void UpdateParcelList(BO.Parcel parcel)
+        {
+
+            if (SomeChangedHappened != null)
+                SomeChangedHappened(parcel);
 
         }
 

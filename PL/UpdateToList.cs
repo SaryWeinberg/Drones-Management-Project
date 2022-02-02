@@ -343,6 +343,9 @@ namespace PL
             DependencyProperty.Register("Sender", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
+
+        public ObjectChanged<BO.Parcel> ParcelListChanged;
+
         public void updateParcel(BO.Parcel parcel)
         {
             ID = parcel.ID;
@@ -355,6 +358,9 @@ namespace PL
             Sender = parcel.Sender;
             Target = parcel.Target;
             Weight = parcel.Weight;
+
+            if (ParcelListChanged != null)
+                ParcelListChanged(parcel);
         }
     }
 
