@@ -98,7 +98,7 @@ namespace PL
             AddDroneGrid.DataContext = Drone;
             StationIDLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
-
+            DroneID.IsEnabled = false;
             /*           DroneModel.Text = drone.Model.ToString();*/
             DroneModel.TextChanged += AddUpdateBTN;
             /*            DroneID.IsEnabled = false;*/

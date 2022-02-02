@@ -39,16 +39,18 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-
+           
             foreach (BO.DroneToList drone in bl.GetDronesToList())
             {
+   
                 _myCollection.Add(drone);
             }
             /* droneListClass = new ListClass(_myCollection);
              droneListClass.DroneList.CollectionChanged += ContentCollectionChanged;*/
-/*            _myCollection.CollectionChanged += ContentCollectionChanged;*/
+            /*            _myCollection.CollectionChanged += ContentCollectionChanged;*/
             /*   DataContext = droneListClass.DroneList;*/
             DataContext = _myCollection;
+
             /*            droneList = new DroneList(bl.GetDronesToList());
  DroneListView.DataContext = droneList;*/
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
