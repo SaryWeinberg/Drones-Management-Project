@@ -39,9 +39,10 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-
+           
             foreach (BO.DroneToList drone in bl.GetDronesToList())
             {
+   
                 _myCollection.Add(drone);
             }
             
