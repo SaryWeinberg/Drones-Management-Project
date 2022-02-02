@@ -36,7 +36,7 @@ namespace BO
 
         public override string ToString()
         {
-            return " Longitude: " + Longitude + " Latitude: " + Latitude + " ";
+            return "{ " + Longitude + " , " + Latitude + " }";
         }
     }
 }
