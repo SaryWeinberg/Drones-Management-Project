@@ -39,24 +39,18 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-
             foreach (BO.DroneToList drone in bl.GetDronesToList())
             {
+               /* if (drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
+                else if (drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
+                else battery.Foreground = new SolidColorBrush(Colors.Yellow);*/
                 _myCollection.Add(drone);
             }
-            
             /* droneListClass = new ListClass(_myCollection);
              droneListClass.DroneList.CollectionChanged += ContentCollectionChanged;*/
             /*            _myCollection.CollectionChanged += ContentCollectionChanged;*/
             /*   DataContext = droneListClass.DroneList;*/
             DataContext = _myCollection;
-            /*foreach (BO.DroneToList drone in _myCollection)
-            {
-                if (drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
-                else if (drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
-                else battery.Foreground = new SolidColorBrush(Colors.Yellow);
-            }*/
-
 
             /*            droneList = new DroneList(bl.GetDronesToList());
  DroneListView.DataContext = droneList;*/

@@ -29,21 +29,20 @@
             <Button Grid.Column="3" Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
         </Grid>
         <ListView x:Name="DroneListView" ItemsSource="{Binding}"  FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateDrone">
+            <ListView.Resources>
+                <DataTemplate x:Key="MyDataTemplate">
+                    <Grid>
+                        <ProgressBar Name="battery" Width="120" Minimum="0" Maximum="100" Value="{Binding Battery}" Foreground="Green"/>
+                        <TextBlock Text="{Binding Battery, StringFormat={}{0}%}" HorizontalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.Resources>
             <ListView.View >
                 <GridView>
                     <GridViewColumn Header="ID"         Width="50"  DisplayMemberBinding="{Binding ID}" />
                     <GridViewColumn Header="Model"      Width="130" DisplayMemberBinding="{Binding Model}" />
                     <GridViewColumn Header="Max Weight" Width="130" DisplayMemberBinding="{Binding MaxWeight}" />
-                    <GridViewColumn Header="Battery"    Width="130" DisplayMemberBinding="{Binding Battery}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate >
-                                <Grid>
-                                    <ProgressBar x:Name="battery" Foreground="Green" Minimum="0" Maximum="100" Value="{Binding Battery}"/>
-                                    <TextBlock Text="{Binding Battery, StringFormat={}{0}%}" HorizontalAlignment="Center"/>
-                                </Grid>                                
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Battery"    Width="140" CellTemplate="{StaticResource MyDataTemplate}"/>
                     <GridViewColumn Header="Status"     Width="130" DisplayMemberBinding="{Binding Status}" />
                     <GridViewColumn Header="Location"   Width="130" DisplayMemberBinding="{Binding Location}" />
                     <GridViewColumn Header="Parcel"     Width="130" DisplayMemberBinding="{Binding Parcel}" />
