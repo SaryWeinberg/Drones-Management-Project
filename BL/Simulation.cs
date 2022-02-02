@@ -23,18 +23,19 @@ namespace BL
                 {
                     case DroneStatus.Available:
                         int counter = 0;
-                            
 
-                      
-                            try
-                            {
-                                blapi.AssignParcelToDrone(DroneId);
+
+
+                        try
+                        {
+                            blapi.AssignParcelToDrone(DroneId);
                             ViewUpdate(1);
+                            Thread.Sleep(Delay);
                         }
 
-                            catch (CanNotAssignParcelToDroneException)
-                            {
-                            if (drone.Battery == 100 && counter < 0)
+                        catch (CanNotAssignParcelToDroneException)
+                        {
+                            if (drone.Battery == 100 && counter > 0)
                             {
                                 Thread.Sleep(Delay);
                                 counter++;
@@ -44,18 +45,20 @@ namespace BL
 
                                 blapi.SendDroneToCharge(DroneId);
                                 ViewUpdate(1);
+                                Thread.Sleep(Delay);
 
                             }
-                            }
+                        }
                         ViewUpdate(1);
+                        Thread.Sleep(Delay);
 
                         break;
                     case DroneStatus.Maintenance:
                         TimeSpan timeInCharge = DateTime.Now - blapi.GetSpecificDroneInCharge(DroneId).DroneEnterToCharge;
-                        while (drone.Battery + (timeInCharge.Milliseconds * blapi.ElectricalPowerRequest(4)) < 100)
+                        while (drone.Battery + (timeInCharge.Minutes * blapi.ElectricalPowerRequest(4)) < 100)
                         {
                             timeInCharge = DateTime.Now - blapi.GetSpecificDroneInCharge(DroneId).DroneEnterToCharge;
-                            drone.Battery += timeInCharge.Milliseconds * blapi.ElectricalPowerRequest(4);
+                            drone.Battery += timeInCharge.Minutes * blapi.ElectricalPowerRequest(4);
                             ViewUpdate(1);
                             Thread.Sleep(100);
                         }
@@ -68,6 +71,8 @@ namespace BL
                         {
                             blapi.CollectParcelByDrone(DroneId);
                             ViewUpdate(1);
+                            Thread.Sleep(Delay);
+
                         }
                         else
                         {
@@ -81,7 +86,7 @@ namespace BL
                     default:
                         break;
                 }
-          /*      blapi.GetSpesificDrone(DroneId);*/
+                /*      blapi.GetSpesificDrone(DroneId);*/
             }
 
         }

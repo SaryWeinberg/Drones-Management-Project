@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -27,7 +18,7 @@ namespace PL
        /* DroneListWindow ExistDroneListWindow;*/
 /*        public delegate void ObjectChanged<T>(T drone);*/
 
-        public event ObjectChanged<BO.Drone> SomeChangedHappened;
+        public ObjectChanged<BO.Drone> SomeChangedHappened;
         /// <summary>
         /// Ctor of Add drone window
         /// </summary>
@@ -380,6 +371,7 @@ namespace PL
 
         public void UpdateDroneList(BO.Drone drone)
         {
+            DisplayBTN();
 
             if (SomeChangedHappened != null)
                 SomeChangedHappened(drone);
