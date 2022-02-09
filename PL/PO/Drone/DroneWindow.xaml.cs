@@ -15,8 +15,8 @@ namespace PL
         BLApi.IBL bl;
         Drone Drone;
         BO.Drone Drone_bl;
-       /* DroneListWindow ExistDroneListWindow;*/
-/*        public delegate void ObjectChanged<T>(T drone);*/
+        /* DroneListWindow ExistDroneListWindow;*/
+        /*        public delegate void ObjectChanged<T>(T drone);*/
 
         public ObjectChanged<BO.Drone> SomeChangedHappened;
         /// <summary>
@@ -25,7 +25,7 @@ namespace PL
         /// <param name="blMain"></param>
         public DroneWindow(BLApi.IBL blMain)
         {
-         
+
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
@@ -37,7 +37,7 @@ namespace PL
             DroneID.Focus();
             Drone = new Drone(new BO.Drone());
             Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
-         
+
 
             /*Drone.AddDroneOrRemove();*/
         }
@@ -49,8 +49,8 @@ namespace PL
         /// <param name="e"></param>
         private void AddNewDrone(object sender, RoutedEventArgs e)
         {
-            
-           
+
+
             try
             {
                 MessageBoxResult result =
@@ -64,9 +64,9 @@ namespace PL
 
                     if (Drone.droneListChanged != null)
                         Drone.droneListChanged(bl.GetSpesificDrone(IDInput()));
-                 
-                    
-            /*        ExistDroneListWindow.AddDrone(bl.GetSpesificDrone(IDInput()));*/
+
+
+                    /*        ExistDroneListWindow.AddDrone(bl.GetSpesificDrone(IDInput()));*/
 
                     Close();
                 }
@@ -91,11 +91,11 @@ namespace PL
             bl = blMain;
             Drone = new Drone(drone);
             Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
-           /* Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);*/
+            /* Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);*/
 
 
             Drone_bl = drone;
-            AddDroneGrid.DataContext = Drone;
+            DataContext = Drone;
             StationIDLabel.Visibility = Visibility.Hidden;
             batteryStatusLabel.Visibility = Visibility.Visible;
             DroneID.IsEnabled = false;
@@ -123,8 +123,8 @@ namespace PL
             releaseDronefromCharge.Visibility = Visibility.Hidden;
             collectParcelByDrone.Visibility = Visibility.Hidden;
             deliveryParcelByDrone.Visibility = Visibility.Hidden;
- 
-       
+
+
 
             if (Drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
             else if (Drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
@@ -209,8 +209,8 @@ namespace PL
                 Drone.Model = ModelInput();
                 if (result == MessageBoxResult.OK)
                 {
-                   Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-          /*          AddDroneGrid.DataContext = Drone;*/
+                    Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    /*          AddDroneGrid.DataContext = Drone;*/
                     /*        new DroneListWindow(bl).Show();*/
                 }
             }
@@ -240,8 +240,8 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-            /*        Station station = new Station(bl.GetSpesificStation(Drone.))*/
-              /*      AddDroneGrid.DataContext = Drone;*/
+                    /*        Station station = new Station(bl.GetSpesificStation(Drone.))*/
+                    /*      AddDroneGrid.DataContext = Drone;*/
 
                     DisplayBTN();
                     /*   new DroneListWindow(bl).Show();*/
@@ -271,7 +271,7 @@ namespace PL
                   MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                   Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
                     AddDroneGrid.DataContext = Drone;
                     DisplayBTN();
                     /*          new DroneListWindow(bl).Show();*/
@@ -301,8 +301,8 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
 
-                     Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-/*                    AddDroneGrid.DataContext = Drone;*/
+                    Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    /*                    AddDroneGrid.DataContext = Drone;*/
                     DisplayBTN();
                     /*         new DroneListWindow(bl).Show();*/
                 }
@@ -330,8 +330,8 @@ namespace PL
                 MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                   Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-/*                    AddDroneGrid.DataContext = Drone;*/
+                    Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    /*                    AddDroneGrid.DataContext = Drone;*/
                     DisplayBTN();
                 }
             }
@@ -358,8 +358,8 @@ namespace PL
                MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-               Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
-         /*           AddDroneGrid.DataContext = Drone;*/
+                    Drone.updateDronePO(bl.GetSpesificDrone(Drone.ID));
+                    /*           AddDroneGrid.DataContext = Drone;*/
                     DisplayBTN();
                 }
             }
@@ -381,8 +381,8 @@ namespace PL
 
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {
-            string ID = (sender as TextBox).SelectedText;
-            new ParcelWindow(bl, bl.GetSpesificParcel(int.Parse(ID))).Show();
+     /*       string ID = (sender as TextBox).SelectedText;*/
+            new ParcelWindow(bl, bl.GetSpesificParcel(Drone.Parcel.ID)).Show();
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
@@ -442,7 +442,7 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnKeyDownDroneID(object sender, KeyEventArgs e)
-       {
+        {
             if (e.Key == Key.Enter) MaxWeight.Focus();
         }
         /// <summary>
@@ -478,18 +478,18 @@ namespace PL
         {
 
             Worker.DoWork += (object? sender, DoWorkEventArgs e) => {
-               bl.StartSimulation(
-                  Drone_bl.ID,
-                    (i) => {Worker.ReportProgress(i); },
-                    () => Worker.CancellationPending);
+                bl.StartSimulation(
+                   Drone_bl.ID,
+                     (i) => { Worker.ReportProgress(i); },
+                     () => Worker.CancellationPending);
 
             };
             Worker.WorkerReportsProgress = true;
             Worker.ProgressChanged += (object? sender, ProgressChangedEventArgs e) => {
                 Drone.updateDronePO(bl.GetSpesificDrone(Drone_bl.ID));
-              /*  Student.MyAge++;
-                Student.Name = updatedSt.FirstName;
-                progress.Content = e.ProgressPercentage;*/
+                /*  Student.MyAge++;
+                  Student.Name = updatedSt.FirstName;
+                  progress.Content = e.ProgressPercentage;*/
             };
 
             /*Worker.RunWorkerCompleted += (object? sender, RunWorkerCompletedEventArgs e) => {
@@ -498,11 +498,12 @@ namespace PL
             Worker.WorkerSupportsCancellation = true;
             Worker.RunWorkerAsync();
 
-        /*    int DroneId = IDInput();*/
+            /*    int DroneId = IDInput();*/
         }
 
         private void Simulatiom_Stop_Click(object sender, RoutedEventArgs e)
         {
+
             Worker.CancelAsync();
         }
         #endregion

@@ -1,15 +1,9 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <ID>0</ID>
-    <Model>0</Model>
-    <MaxWeight>Heavy</MaxWeight>
-    <Active>false</Active>
-  </Drone>
-  <Drone>
     <ID>1</ID>
-    <Model>1bvcbcv</Model>
-    <MaxWeight>Heavy</MaxWeight>
+    <Model>1</Model>
+    <MaxWeight>Medium</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
@@ -21,13 +15,19 @@
   <Drone>
     <ID>3</ID>
     <Model>3</Model>
-    <MaxWeight>Light</MaxWeight>
+    <MaxWeight>Heavy</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
     <ID>4</ID>
     <Model>4</Model>
-    <MaxWeight>Heavy</MaxWeight>
+    <MaxWeight>Light</MaxWeight>
+    <Active>false</Active>
+  </Drone>
+  <Drone>
+    <ID>5</ID>
+    <Model>5</Model>
+    <MaxWeight>Light</MaxWeight>
     <Active>false</Active>
   </Drone>
 </ArrayOfDrone>

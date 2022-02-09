@@ -148,7 +148,7 @@ namespace PL
             MaxWeight = drone.MaxWeight;
             Battery = drone.Battery;
             Status = drone.Status;
-            Parcel = drone.Parcel;
+            this.Parcel = drone.Parcel;
             Location = drone.Location;
         }
         public int ID { get { return (int)GetValue(IDProperty); } set { SetValue(IDProperty, value); } }
@@ -187,18 +187,7 @@ namespace PL
             if (droneListChanged != null)
                 droneListChanged(drone);
 
-
-
-
         }
-      /*  public void AddDrone(BO.Drone drone)
-        {
-            
-            if (droneListChanged != null)
-                droneListChanged(drone);
-
-        }*/
-
 
     }
 
@@ -234,6 +223,8 @@ namespace PL
 
 
         public  ObjectChanged<BO.Station> stationListChanged;
+
+
         public void UpdateStation(BO.Station station)
         {
             ID = station.ID;

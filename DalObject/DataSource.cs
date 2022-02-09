@@ -17,7 +17,7 @@ namespace Dal
 
         internal class config
         {
-            public static double Available = 0.002, Light = 0.03, medium = 0.05, heavy = 0.07, chargingRate = 0.1;
+            public static double  Available = 0.02, Light = 0.3, medium = 0.5, heavy = 0.7, chargingRate = 0.08;
         }
 
         public static void Initialize()

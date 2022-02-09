@@ -22,20 +22,20 @@ namespace BO
         public ParcelByDelivery(Parcel parcel, Drone drone, Customer sender, Customer target)
         {
             ID = parcel.ID;
-            isWaitingToDelivery = (parcel.PickedUpByDrone == null)? true: false;
-            Latitude = drone.Location.Latitude;
+            isWaitingToDelivery = (parcel.PickedUpByDrone == null) ? true : false;
+     /*       Latitude = drone.Location.Latitude;*/
             Weight = parcel.Weight;
             Property = parcel.Priority;
             Sender = parcel.Sender;
             Target = parcel.Target;
             PickUpLocation = sender.Location;
             TargetLocation = target.Location;
-            Distance = Math.Sqrt(Math.Pow((TargetLocation.Longitude - PickUpLocation.Longitude), 2) + Math.Pow((TargetLocation.Latitude - PickUpLocation.Latitude), 2)); 
+            Distance = isWaitingToDelivery? Math.Sqrt(Math.Pow((TargetLocation.Longitude - PickUpLocation.Longitude), 2) + Math.Pow((TargetLocation.Latitude - PickUpLocation.Latitude), 2)):5;
         }
 
-    public override string ToString()
-    {
-        return "Parcel: id:" + ID + " sender: " + Sender + " target: " + Target + "DeliveryStatus(T/F): " + isWaitingToDelivery + "\n ";
+        public override string ToString()
+        {
+            return "Parcel: id:" + ID + " sender: " + Sender + " target: " + Target + "DeliveryStatus(T/F): " + isWaitingToDelivery ;
+        }
     }
-}
 }
