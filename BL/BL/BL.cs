@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 
 namespace BL
 {
-    public partial class BL : BLApi.IBL
+    sealed public partial class BL : BLApi.IBL
     {
         IDal dal;
 
@@ -20,7 +20,7 @@ namespace BL
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
 
-        internal static BL instance;
+        private static BL instance;
 
         public static BL GetInstance {
             get
@@ -31,7 +31,7 @@ namespace BL
             }
         }
 
-        BL()
+        private BL()
         {
             dal = DalFactory.GetDal();
             double[] ElectricUse = dal.ElectricalPowerRequest();

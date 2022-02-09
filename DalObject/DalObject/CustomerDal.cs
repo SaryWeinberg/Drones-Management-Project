@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using DO;
 using DalApi;
 using System.Runtime.CompilerServices;
-/*using IDAL;*/
-
 
 namespace Dal
 {
