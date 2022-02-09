@@ -30,7 +30,7 @@ namespace PL
             sendNewStation.Visibility = Visibility.Visible;
             StationID.Focus();
             Station = new Station(new BO.Station());
-            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
+            Station.stationListChanged +=  UpdateStationList;
         }
 
         private void AddNewStation(object sender, RoutedEventArgs e)
@@ -126,7 +126,7 @@ namespace PL
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new StationListWindow(bl).Show();
-            Close();
+     /*       Close();*/
         }
 
         private void GetDrone(object sender, MouseButtonEventArgs e)

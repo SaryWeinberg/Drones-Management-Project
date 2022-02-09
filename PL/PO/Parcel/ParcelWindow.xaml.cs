@@ -21,7 +21,7 @@ namespace PL
     {
         BLApi.IBL bl;
         Parcel Parcel;
-        public event ObjectChanged<BO.Parcel> SomeChangedHappened;
+        public  ObjectChanged<BO.Parcel> SomeChangedHappened;
 
         public ParcelWindow(BLApi.IBL blMain)
         {
@@ -33,6 +33,7 @@ namespace PL
             ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
             sendNewParcel.Visibility = Visibility.Visible;
+            Parcel = new Parcel(new BO.Parcel());
             Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
         }
 
@@ -65,6 +66,9 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
+
+                    if (Parcel.ParcelListChanged != null)
+                        Parcel.ParcelListChanged(bl.GetSpesificParcel(bl.GetParcels().Count()-1));
                 }
             }
             catch (Exception exc)
@@ -85,7 +89,10 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new ParcelListWindow(bl).Show();
+
+                    if (Parcel.ParcelListChanged != null)
+                        Parcel.ParcelListChanged(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));
+                    /*     new ParcelListWindow(bl).Show();*/
                     Close();
                 }
             }

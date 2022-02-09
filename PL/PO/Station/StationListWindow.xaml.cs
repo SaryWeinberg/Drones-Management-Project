@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace PL
     /// </summary>
     public partial class StationListWindow : Window
     {
-/*        public event ObjectChanged<BO.Drone> SomeChangedHappened;*/
+        /*        public event ObjectChanged<BO.Drone> SomeChangedHappened;*/
         BLApi.IBL bl;
         private CollectionView view;
         ObservableCollection<BO.StationToList> _myCollection = new ObservableCollection<BO.StationToList>();
@@ -29,12 +30,21 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            foreach (var item in bl.GetStationsToList())
-                _myCollection.Add(item);
+            /*f*//*oreach (var item in bl.GetStationsToList())
+
+                _myCollection.Add(item);*/
+            _myCollection = Convert<BO.StationToList>(bl.GetStationsToList());
             DataContext = _myCollection;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
 
         }
+
+
+        private ObservableCollection<T> Convert<T>(IEnumerable original)
+        {
+            return new ObservableCollection<T>(original.Cast<T>());
+        }
+
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
@@ -45,16 +55,16 @@ namespace PL
             StationWindow openWindow = new StationWindow(bl);
             openWindow.SomeChangedHappened += AddStation;
             openWindow.Show();
-            
+
         }
 
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;
-             StationWindow openWindow = new StationWindow(bl, bl.GetSpesificStation(station.ID));
+            StationWindow openWindow = new StationWindow(bl, bl.GetSpesificStation(station.ID));
             openWindow.SomeChangedHappened += updateStation;
             openWindow.Show();
-           
+
         }
         private void updateStation(BO.Station station)
         {
@@ -66,7 +76,7 @@ namespace PL
         private void AddStation(BO.Station station)
         {
             _myCollection.Add(new BO.StationToList(station));
-  
+
         }
 
         private void ReturnWindow(object sender, RoutedEventArgs e)

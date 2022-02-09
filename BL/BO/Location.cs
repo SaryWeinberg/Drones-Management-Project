@@ -9,10 +9,10 @@ namespace BO
     public class Location
     {
 
-        private int longitude;
-        private int latitude;
+        private double longitude;
+        private double latitude;
 
-        public int Longitude {
+        public double Longitude {
             get { return longitude; }
             set
             {
@@ -23,7 +23,7 @@ namespace BO
             }
         }
 
-        public int Latitude {
+        public double Latitude {
             get { return latitude; }
             set
             {

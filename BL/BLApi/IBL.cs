@@ -54,5 +54,14 @@ namespace BLApi
         public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition = null);
         public IEnumerable<StationToList> GetStationsToList(Predicate<BO.Station> condition = null);
         public void StartSimulation(int DroneId, Action<int> ViewUpdate, Func<bool> ToStop);
+
+        private void ssss()
+        {
+            Console.WriteLine("czcx");
+
+
+        }
+
+
     }
 }
