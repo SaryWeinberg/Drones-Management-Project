@@ -14,12 +14,15 @@ namespace PL
         BLApi.IBL bl;
         Customer Customer;
 
+        Button ReaturnWin;
+
         public CustomerWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             CustomerID.Focus();
+            ReaturnWin = returnWindow;
   
             sendNewCustomer.Visibility = Visibility.Visible;          
         }
@@ -103,19 +106,34 @@ namespace PL
         private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
-            new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID)).Show();
+            ParcelWindow openWindow =    new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID));
+            openWindow.returnWindow.Click += returnSonWindow;
+            openWindow.Show();
+            this.Hide();
+
         }
 
 
-        private void RefreshWindow(object sender, RoutedEventArgs e)
+        private void returnSonWindow(object sender, RoutedEventArgs e)
         {
 
+            
+            this.Show();
         }
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new CustomerListWindow(bl).Show();
             Close();
+        }
+
+        private void AddParcel(object sender, RoutedEventArgs e)
+        {
+
+            ParcelWindow openWindow = new ParcelWindow(bl);
+            openWindow.ParcelSenderID.Text = CustomerID.Text;
+            openWindow.ParcelSenderID.IsEnabled = false;
+            openWindow.Show();
         }
 
         #region Get Inputs
@@ -213,6 +231,9 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewCustomer.Focus();
         }
+
         #endregion
+
+      
     }
 }

@@ -104,9 +104,9 @@ namespace PL
         {
             
             ParcelListView.ItemsSource = bl.GetParcels(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
-            ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
-                                         select (new BO.ParcelToList(parcels));
-
+/*            ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
+                                         select (new BO.ParcelToList(parcels));*/
+            
         }
 
         /// <summary>
@@ -118,6 +118,7 @@ namespace PL
         {
             ParcelWindow openWindow = new ParcelWindow(bl);
             openWindow.SomeChangedHappened += addParcel;
+            openWindow.returnWindow.Click += SonReturnWindow;
             openWindow.Show();
 
         }
@@ -142,9 +143,13 @@ namespace PL
             int idx = _myCollection.IndexOf(parcelToList);
             _myCollection[idx] = new BO.ParcelToList(parcel);
         }
+        private void SonReturnWindow(object sender, RoutedEventArgs e)
+        {
+           Show();
+            
+        }
 
 
-       
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();

@@ -161,7 +161,7 @@ namespace PL
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
-            new ParcelListWindow(bl).Show();
+/*            new ParcelListWindow(bl).Show();*/
             Close();
         }      
 
