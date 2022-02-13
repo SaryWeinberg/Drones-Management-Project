@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Height="600" Width="900">
+        Height="600" Width="900">  
     <Grid x:Name="DroneData">
         <Grid.Background>
             <ImageBrush ImageSource="/Images/DroneImg2.jpg" Stretch="UniformToFill"/>
@@ -26,11 +26,11 @@
             <TextBox  Name="stationID"  Margin="221, 120, 500, 0" Visibility="{Binding ElementName= StationIDLabel, Path=Visibility}" KeyDown="OnKeyDownStationID"/>
             <Button Name="sendNewDrone" Content="Send" Style="{StaticResource RedButton}" VerticalAlignment="Top" Click = "AddNewDrone"  Margin="0,370,245,0"  Visibility="{Binding ElementName= StationIDLabel, Path=Visibility}"/>
 
-            <Label Name="batteryStatusLabel"   Content="drone battery:"         Margin="43, 120, 684, 0"/>
-            <Label Name="statusLabel"          Content="drone status:"          Margin="43, 150, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="longitudeLabel"       Content="drone longitude:"       Margin="43, 180, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="latitudeLabel"        Content="drone latitude:"        Margin="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <Label Name="parcelLabel"          Content="parcel by delivery ID:" Margin="43, 240, 684, 0" Visibility="Hidden" />
+            <Label Name="batteryStatusLabel" Content="drone battery:"         Margin="43, 120, 684, 0"/>
+            <Label Name="statusLabel"        Content="drone status:"          Margin="43, 150, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="longitudeLabel"     Content="drone longitude:"       Margin="43, 180, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="latitudeLabel"      Content="drone latitude:"        Margin="43, 210, 684, 0" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <Label Name="parcelLabel"        Content="parcel by delivery ID:" Margin="43, 240, 684, 0" Visibility="{Binding ElementName=parcel , Path=Visibility}" />
 
             <Grid Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}">
                 <ProgressBar Name="battery" Minimum="0" Maximum="100" Value="{Binding Path = Battery , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="222,120,500,378" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
@@ -38,22 +38,19 @@
             </Grid>
 
             <Button Name="Simulation"      Content="Simulation"      Style="{StaticResource RedButton}" Click="Simulatiom_Click"      Visibility="Visible" Margin="-368,256,1128,0"/>
-            <Button Name="StopSimulation"      Content="Stop Simulation"      Style="{StaticResource RedButton}" Click="Simulatiom_Stop_Click"      Visibility="Visible" Margin="-368,193,1128,0"/>
-            <ComboBox Name="Status"        Text="{Binding Status , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="221,150,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
-            <TextBox Name="longitude"      Text="{Binding Path = Location.Longitude , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin = "221, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
+            <Button Name="StopSimulation"  Content="Stop Simulation" Style="{StaticResource RedButton}" Click="Simulatiom_Stop_Click"      Visibility="Visible" Margin="-368,193,1128,0"/>
+            <ComboBox Name="Status"        Text="{Binding Status , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="221,150,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+            <TextBox Name="longitude"      Text="{Binding Path=Location.Longitude , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin = "221, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
             <TextBox Name="latitude"       Text="{Binding  Location.Latitude,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin = "221, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
-            <Label Name="parcel" Content="{Binding Path= Parcel  ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin = "221, 240, 500, 0" Visibility="Hidden" FontSize="16" MouseDoubleClick="GetParcel"/>
-            <!--<Label Name="parcel" Content="{Binding   Parcel , UpdateSourceTrigger=PropertyChanged}" Margin = "221, 240, 500, 0" Visibility="Hidden" FontSize="20"/>-->
-            <Button Name="sendDroneToCharge"      Content="send drone to charge"      Style="{StaticResource RedButton}" Click="SendDroneToCharge"      Visibility="Hidden"/>
-
-            <Button Name="assignParcelToDrone"    Content="assign Parcel To Drone"    Style="{StaticResource RedButton}" Click="AssignParcelToDrone"     Visibility="Hidden"/>
-            <Button Name="releaseDronefromCharge" Content="release Drone from Charge" Style="{StaticResource RedButton}" Click="ReleaseDronefromCharge"  Visibility="Hidden"/>
-            <Button Name="collectParcelByDrone"   Content="collect Parcel By Drone"   Style="{StaticResource RedButton}" Click="CollectParcelByDrone"    Visibility="Hidden"/>
-            <Button Name="deliveryParcelByDrone"  Content="delivery Parcel By Drone"  Style="{StaticResource RedButton}" Click="DeliveryParcelByDrone"   Visibility="Hidden"/>
-            <Button Name="update"                 Content="update"                    Style="{StaticResource RedButton}" Click="UpdateDrone"             Visibility="Hidden"/>
+            <Label Name="parcel" Content="{Binding Path=Parcel  ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin = "221, 240, 500, 0" Visibility="Hidden" FontSize="16" MouseDoubleClick="GetParcel"/>
+            <Button Name="sendDroneToCharge"      Content="send drone to charge"      Style="{StaticResource RedButton}" Width="180" Click="SendDroneToCharge"        Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="{Binding ElementName=assignParcelToDrone}" Margin="238,335,482,0"/>
+            <Button Name="assignParcelToDrone"    Content="assign parcel to drone"    Style="{StaticResource RedButton}" Width="180" Click="AssignParcelToDrone"      Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false" Margin="238,280,482,0"/>
+            <Button Name="releaseDronefromCharge" Content="release drone from charge" Style="{StaticResource RedButton}" Width="180" Click="ReleaseDronefromCharge"   Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false" Margin="46,392,674,0" FontSize="13"/>
+            <Button Name="collectParcelByDrone"   Content="collect parcel by drone"   Style="{StaticResource RedButton}" Width="180" Click="CollectParcelByDrone"     Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false" Margin="46,335,674,0"/>
+            <Button Name="deliveryParcelByDrone"  Content="delivery parcel by drone"  Style="{StaticResource RedButton}" Width="180" Click="DeliveryParcelByDrone"    Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false" Margin="46,280,674,0"/>
+            <Button Name="update"                 Content="update"                    Style="{StaticResource RedButton}" Width="180" Click="UpdateDrone"              Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" IsEnabled="false" Margin="238,392,482,0"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
-        <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
         <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>
 </Window>

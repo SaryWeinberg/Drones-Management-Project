@@ -55,7 +55,6 @@
         <Button Grid.Row="2" Content=" Show stations with avilable charges slots" Click="ShowAvailbleStations" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Margin="222,0,0,33" Width ="auto" Height="26" VerticalAlignment="Bottom"/>
         <Button Grid.Row="1" Content="Add Station" Style="{StaticResource RedButton}" Click="AddStation" HorizontalAlignment="Left" Margin="500,431,0,0" Height="66" Grid.RowSpan="2" />
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
-        <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
         <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>
 </Window>
