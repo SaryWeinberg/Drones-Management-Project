@@ -231,7 +231,7 @@ namespace PL
                     MessageBoxImage.Error);
                 if (result == MessageBoxResult.OK)
                 {
-                    tabControl.SelectedItem = LogIn;
+                    tabControl.SelectedItem = SignUp;
                 }
             }
         }
