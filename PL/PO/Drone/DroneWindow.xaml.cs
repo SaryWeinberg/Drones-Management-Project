@@ -33,7 +33,7 @@ namespace PL
             MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneID.Focus();
             Drone = new Drone(new BO.Drone());
-            Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
+            Drone.droneListChanged += new ObjectChangedAction<BO.Drone>(UpdateDroneList);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace PL
             bl = blMain;
 
             Drone = new Drone(drone);
-            Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
+            Drone.droneListChanged += new ObjectChangedAction<BO.Drone>(UpdateDroneList);
 
             Drone_bl = drone;
             DataContext = Drone;
@@ -435,6 +435,7 @@ namespace PL
             Worker.WorkerReportsProgress = true;
             Worker.ProgressChanged += (object? sender, ProgressChangedEventArgs e) => {
                 Drone.updateDronePO(bl.GetSpesificDrone(Drone_bl.ID));
+                
                 /*  Student.MyAge++;
                   Student.Name = updatedSt.FirstName;
                   progress.Content = e.ProgressPercentage;*/

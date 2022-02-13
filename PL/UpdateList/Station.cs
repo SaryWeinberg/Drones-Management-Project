@@ -11,7 +11,7 @@ namespace PL
     {
         public Station(BO.Station station)
         {
-            ID = station.ID;
+            this.ID = station.ID;
             Name = station.Name;
             Location = station.Location;
             AveChargeSlots = station.AveChargeSlots;
@@ -34,7 +34,7 @@ namespace PL
         public static readonly DependencyProperty DronesInChargelistProperty =
             DependencyProperty.Register("DronesInChargelist", typeof(List<BO.DroneInCharge>), typeof(Station), new UIPropertyMetadata());
 
-        public ObjectChanged<BO.Station> stationListChanged;
+        public ObjectChangedAction<BO.Station> stationListChanged;
         public void UpdateStation(BO.Station station)
         {
             ID = station.ID;

@@ -17,11 +17,11 @@
             <Label Name="CustomerNameLabel"      Content="customer name:"      Margin="43, 90, 680, 0"/>
             <Label Name="CustomerLongitudeLabel" Content="customer longitude:" Margin="43, 120, 680, 0"/>
             <Label Name="CustomerLatitudeLabel"  Content="customer latitude:"  Margin="43, 150, 680, 0"/>
-            <TextBox Name="CustomerID"        Text="{Binding ID}" Margin="221, 30, 500, 0" KeyDown="OnKeyDownCustomerID" />
-            <TextBox Name="CustomerPhone"      Margin="221, 60, 500, 0" KeyDown="OnKeyDownCustomerPhone"/>
-            <TextBox Name="CustomerName"       Margin="221, 90, 500, 0" KeyDown="OnKeyDownCustomerName"/>
-            <TextBox Name="CustomerLongitude" Text="{Binding Location.Longitude}" Margin="221, 120, 500, 0" KeyDown="OnKeyDownCustomerLongitude"/>
-            <TextBox Name="CustomerLatitude"  Text="{Binding Location.Latitude}" Margin="221, 150, 500, 0" KeyDown="OnKeyDownCustomerLatitude"/>
+            <TextBox Name="CustomerID"        Text="{Binding ID}" Margin="221, 30, 500, 0" KeyDown="OnKeyDownCustomerID"  IsEnabled="False"/>
+            <TextBox Name="CustomerPhone"   Text="{Binding   PhoneNum}"  Margin="221, 60, 500, 0" KeyDown="OnKeyDownCustomerPhone"/>
+            <TextBox Name="CustomerName"      Text="{Binding Name}"    Margin="221, 90, 500, 0" KeyDown="OnKeyDownCustomerName"/>
+            <TextBox Name="CustomerLongitude" Text="{Binding Location.Longitude}" Margin="221, 120, 500, 0" KeyDown="OnKeyDownCustomerLongitude"  IsEnabled="False"/>
+            <TextBox Name="CustomerLatitude"  Text="{Binding Location.Latitude}" Margin="221, 150, 500, 0" KeyDown="OnKeyDownCustomerLatitude"  IsEnabled="False"/>
             <Button Name="sendNewCustomer" Content="Send" Click="AddNewCustomer" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="UpdateCustomerGrid" Grid.Row="1" Margin="434,30,-434,-30">

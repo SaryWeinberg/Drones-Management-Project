@@ -55,7 +55,7 @@ namespace PL
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
 
-        public ObjectChanged<BO.Parcel> ParcelListChanged;
+        public ObjectChangedAction<BO.Parcel> ParcelListChanged;
 
         public void updateParcel(BO.Parcel parcel)
         {

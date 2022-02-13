@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace PL
 
 
 
-    /*  public class UpdateToList
+    *//*  public class UpdateToList
 
       {
           public  void UpdateList(string listName)
@@ -134,7 +134,7 @@ namespace PL
 
             }
 
-        }*/
+        }*//*
 
 
 
@@ -358,7 +358,7 @@ namespace PL
         }
     }
 
-    /*public class DroneList : DependencyObject
+    *//*public class DroneList : DependencyObject
     {
 
 
@@ -371,7 +371,7 @@ namespace PL
         public IEnumerable<BO.DroneToList> DronesList { get { return (IEnumerable<BO.DroneToList>)GetValue(DronesListProperty); } set { SetValue(DronesListProperty, value); } }
         public static readonly DependencyProperty DronesListProperty =
             DependencyProperty.Register("DronesList", typeof(IEnumerable<BO.DroneToList>), typeof(DroneList), new UIPropertyMetadata());
-    }*/
+    }*//*
 
 
 
@@ -379,3 +379,4 @@ namespace PL
 
 
 }
+*/

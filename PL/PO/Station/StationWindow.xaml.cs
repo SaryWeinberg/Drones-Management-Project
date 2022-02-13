@@ -30,17 +30,17 @@ namespace PL
             sendNewStation.Visibility = Visibility.Visible;
             StationID.Focus();
             Station = new Station(new BO.Station());
-            Station.stationListChanged +=  UpdateStationList;
+            Station.stationListChanged += UpdateStationList;
         }
 
-        public StationWindow(BLApi.IBL blMain, BO.Station station)
+/*        public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
 
             Station = new Station(station);
-            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
+            Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
             AddStation.DataContext = Station;
 
             UpdateStationGrid.Visibility = Visibility.Visible;
@@ -52,7 +52,7 @@ namespace PL
 
             StationName.TextChanged += AddUpdateButton;
             StationChargeSlots.TextChanged += AddUpdateButton;
-        }
+        }*/
 
         private void AddNewStation(object sender, RoutedEventArgs e)
         {
@@ -74,7 +74,7 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
-        }       
+        }
 
         public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
@@ -85,9 +85,10 @@ namespace PL
             Station = new Station(station);
             Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
             AddStation.DataContext = Station;
+        }
 
-            /* StationName.Text = station.Name.ToString();
-             StationChargeSlots.Text = station.AveChargeSlots.ToString();*/
+        /* StationName.Text = station.Name.ToString();
+         StationChargeSlots.Text = station.AveChargeSlots.ToString();*/
         private void AddUpdateButton(object sender, RoutedEventArgs e) => updateStation.Visibility = Visibility.Visible;
 
         public void UpdateStationList(BO.Station station)

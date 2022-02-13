@@ -44,7 +44,7 @@ namespace BL
                             }
                             else
                             {
-
+                                progressDroneLocation(ref drone, ViewUpdate, blapi, blapi.GetNearestAvailableStation(drone.Location).Location, 0);
                                 blapi.SendDroneToCharge(DroneId);
                                 ViewUpdate(1);
                                 Thread.Sleep(Delay);
@@ -79,14 +79,14 @@ namespace BL
                         {
 
                             Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
-
-                            for (int i = 100; i > 0; i--)
-                            {
-                                drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.PickUpLocation, droneLocation);
-                     /*           drone.Battery -= 0.01* blapi.ElectricalPowerRequest((int)drone.Parcel.Weight);*/
-                                ViewUpdate(1);
-                                Thread.Sleep((int)(DroneSpeed / 100));
-                            }
+                            progressDroneLocation(ref drone, ViewUpdate, blapi, drone.Parcel.PickUpLocation, 0);
+                            /*              for (int i = 100; i > 0; i--)
+                                          {
+                                              drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.PickUpLocation, droneLocation);
+                                              drone.Battery -= 0.01 * blapi.ElectricalPowerRequest((int)drone.Parcel.Weight);
+                                              ViewUpdate(1);
+                                              Thread.Sleep((int)(DroneSpeed / 100));
+                                          }*/
                             Thread.Sleep(Delay);
                             blapi.CollectParcelByDrone(DroneId);
                             ViewUpdate(1);
@@ -95,17 +95,17 @@ namespace BL
                         }
                         else
                         {
+                            progressDroneLocation(ref drone, ViewUpdate, blapi, drone.Parcel.TargetLocation, drone.Parcel.Weight);
+                            ViewUpdate(1);
+                            /*
+                                                        Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
 
-                      
-
-                            Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
-                       
-                            for (int i = 100; i > 0; i--)
-                            {
-                                drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.TargetLocation, droneLocation);
-                                ViewUpdate(1);
-                                Thread.Sleep((int)(DroneSpeed / 100));
-                            }
+                                                        for (int i = 100; i > 0; i--)
+                                                        {
+                                                            drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.TargetLocation, droneLocation);
+                                                            ViewUpdate(1);
+                                                            Thread.Sleep((int)(DroneSpeed / 100));
+                                                        }*/
                             blapi.SupplyParcelByDrone(DroneId);
 
                             ViewUpdate(1);
@@ -123,5 +123,29 @@ namespace BL
 
         }
 
+
+        public void progressDroneLocation(ref Drone drone, Action<int> ViewUpdate, BL blapi, Location targetLocation, WeightCategories weight)
+        {
+
+            Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
+
+            double battery = drone.Battery;
+            double batteryRequest =  blapi.TotalBatteryToDestination(drone.Location, targetLocation, (int)weight);
+
+            for (int i = 100; i >= 0; i--)
+            {
+                drone.Battery -= batteryRequest/100;
+                drone.Location = blapi.Totalprogress(drone.Location, targetLocation, droneLocation);
+                ViewUpdate(1);
+                Thread.Sleep((int)(DroneSpeed / 100));
+            }
+
+
+            drone.Battery = battery;
+            drone.Location = droneLocation;
+        }
+
     }
+
+
 }

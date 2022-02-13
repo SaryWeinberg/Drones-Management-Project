@@ -42,7 +42,7 @@ namespace PL
             DependencyProperty.Register("Parcel", typeof(BO.ParcelByDelivery), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty LocationProperty =
             DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
-        public ObjectChanged<BO.Drone> droneListChanged;
+        public ObjectChangedAction<BO.Drone> droneListChanged;
         public void updateDronePO(BO.Drone drone)
         {
             ID = drone.ID;

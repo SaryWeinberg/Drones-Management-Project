@@ -9,7 +9,7 @@ namespace PL
 {
     public class Customer : DependencyObject
     {
-        public ObjectChanged<BO.Customer> CustomerListChanged;
+        public ObjectChangedAction<BO.Customer> CustomerListChanged;
         public Customer(BO.Customer customer)
         {
             ID = customer.ID;

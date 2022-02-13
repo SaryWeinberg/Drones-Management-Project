@@ -41,13 +41,6 @@ namespace PL
             ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
-            CustomerName.Text = customer.Name.ToString();
-            CustomerPhone.Text = customer.PhoneNum.ToString();
-
-            CustomerID.IsEnabled = false;
-            CustomerLongitude.IsEnabled = false;
-            CustomerLatitude.IsEnabled = false;
-
             CustomerName.TextChanged += AddUpdateButton;
             CustomerPhone.TextChanged += AddUpdateButton;
         }

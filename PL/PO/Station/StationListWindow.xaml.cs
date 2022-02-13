@@ -28,6 +28,7 @@ namespace PL
         {
             return new ObservableCollection<T>(original.Cast<T>());
         }
+
         public  ObjectChangedAction<BO.Station> SomeChangedHappened;
         BLApi.IBL bl;
         private CollectionView view;
@@ -42,11 +43,11 @@ namespace PL
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
         }
 
-
+/*
         private ObservableCollection<T> Convert<T>(IEnumerable original)
         {
             return new ObservableCollection<T>(original.Cast<T>());
-        }
+        }*/
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
@@ -61,11 +62,11 @@ namespace PL
         {
             BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;
             StationWindow openWindow = new StationWindow(bl, bl.GetSpesificStation(station.ID));
-            openWindow.SomeChangedHappened += updateStation;
+            openWindow.SomeChangedHappened += UpdateStationList;
             openWindow.Show();
         }
 
-        private void updateStation(BO.Station station)
+        private void UpdateStationList(BO.Station station)
         {
             BO.StationToList stationToList = _myCollection.First(s => s.ID == station.ID);
             int idx = _myCollection.IndexOf(stationToList);

@@ -8,5 +8,6 @@ using System.Collections.ObjectModel;
 
 namespace PL
 {
-    public delegate void ObjectChanged<T>(T objectChanged);
+    public delegate void ObjectChangedAction<T>(T objectChanged);
+
 } 
