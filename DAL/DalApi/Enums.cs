@@ -1,5 +1,4 @@
-﻿
-public enum WeightCategories
+﻿public enum WeightCategories
 {
     Light = 1, Medium, Heavy
 }

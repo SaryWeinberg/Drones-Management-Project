@@ -9,9 +9,9 @@ using System.Runtime.CompilerServices;
 
 namespace Dal
 {
-    public partial class DalXml : IDal
+    sealed public partial class DalXml : IDal
     {
-        internal static DalXml instance;
+        private static DalXml instance;
 
         public static DalXml GetInstance {
             get
@@ -38,19 +38,19 @@ namespace Dal
         public DalXml()
         {
             DataSource.Initialize();
-           /* if (!File.Exists(direction + customerFilePath))*/
+            if (!File.Exists(direction + customerFilePath))
                 XmlTools.SaveListToXmlSerializer<Customer>(DataSource.Customers, direction + customerFilePath);
 
-            /*if (!File.Exists(direction + parcelFilePath))*/
+            if (!File.Exists(direction + parcelFilePath))
                 XmlTools.SaveListToXmlSerializer<Parcel>(DataSource.Parcels, direction + parcelFilePath);
 
-/*            if (!File.Exists(direction + droneFilePath))*/
+            if (!File.Exists(direction + droneFilePath))
                 XmlTools.SaveListToXmlSerializer<Drone>(DataSource.Drones, direction + droneFilePath);
 
-        /*    if (!File.Exists(direction + stationFilePath))*/
-                XmlTools.SaveListToXmlSerializer<Station>(DataSource.Stations, direction + stationFilePath);
-/*
-            if (!File.Exists(direction + droneChargeFilePath))*/
+            if (!File.Exists(direction + stationFilePath))
+                XmlTools.SaveListToXmlXElement<Station>(DataSource.Stations, direction + stationFilePath);
+
+            if (!File.Exists(direction + droneChargeFilePath))
                 XmlTools.SaveListToXmlSerializer<DroneCharge>(DataSource.DroneCharges, direction + droneChargeFilePath);
         }
 
@@ -59,6 +59,6 @@ namespace Dal
         {
             double[] arr = { DataSource.config.Available, DataSource.config.Light, DataSource.config.medium, DataSource.config.heavy, DataSource.config.chargingRate };
             return arr;
-        }     
+        }  
     }
 }

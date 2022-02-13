@@ -33,6 +33,27 @@ namespace PL
             Station.stationListChanged +=  UpdateStationList;
         }
 
+        public StationWindow(BLApi.IBL blMain, BO.Station station)
+        {
+            InitializeComponent();
+            WindowStyle = WindowStyle.None;
+            bl = blMain;
+
+            Station = new Station(station);
+            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
+            AddStation.DataContext = Station;
+
+            UpdateStationGrid.Visibility = Visibility.Visible;
+
+            DronesInChargelist.ItemsSource = station.DronesInChargelist;
+            StationID.IsEnabled = false;
+            StationLongitude.IsEnabled = false;
+            StationLatitude.IsEnabled = false;
+
+            StationName.TextChanged += AddUpdateButton;
+            StationChargeSlots.TextChanged += AddUpdateButton;
+        }
+
         private void AddNewStation(object sender, RoutedEventArgs e)
         {
             try
@@ -45,18 +66,15 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-
                     if (Station.stationListChanged != null)
-                        Station.stationListChanged(bl.GetSpesificStation(IDInput()));
-                    /* new StationListWindow(bl).Show();
-                     Close();*/
+                        Station.stationListChanged(bl.GetSpesificStation(IDInput()));              
                 }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
-        }
+        }       
 
         public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
@@ -70,31 +88,16 @@ namespace PL
 
             /* StationName.Text = station.Name.ToString();
              StationChargeSlots.Text = station.AveChargeSlots.ToString();*/
-
-            UpdateStationGrid.Visibility = Visibility.Visible;
-
-            DronesInChargelist.ItemsSource = station.DronesInChargelist;
-            StationID.IsEnabled = false;
-            StationLongitude.IsEnabled = false;
-            StationLatitude.IsEnabled = false;
-
-            StationName.TextChanged += AddUpdateButton;
-            StationChargeSlots.TextChanged += AddUpdateButton;
-        }
-
         private void AddUpdateButton(object sender, RoutedEventArgs e) => updateStation.Visibility = Visibility.Visible;
+
         public void UpdateStationList(BO.Station station)
         {
-
             if (SomeChangedHappened != null)
                 SomeChangedHappened(station);
-
         }
         private void UpdateStation(object sender, RoutedEventArgs e)
         {
-            string ID = StationID.Text;
-            /*          string name = StationName.Text;
-                      string chargeSlots = StationChargeSlots.Text;*/
+            string ID = StationID.Text;            
             try
             {
                 MessageBoxResult result =
@@ -104,9 +107,7 @@ namespace PL
                    MessageBoxButton.OK,
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
-                {
-                    /*  new StationListWindow(bl).Show();
-                      Close();*/
+                {                  
                     Station.UpdateStation(bl.GetSpesificStation(Station.ID));
                 }
             }
@@ -117,46 +118,26 @@ namespace PL
         }
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
-
-        private void RefreshWindow(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+       
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new StationListWindow(bl).Show();
-     /*       Close();*/
         }
 
-        private void GetDrone(object sender, MouseButtonEventArgs e)
-        
-       {
-
-
-
-   
-            
-                /*   Close();*/
-            
+        private void GetDrone(object sender, MouseButtonEventArgs e)        
+        {
             BO.DroneInCharge drone = (sender as ListView).SelectedValue as BO.DroneInCharge;
 
             DroneWindow open = new DroneWindow(bl, bl.GetSpesificDrone(drone.ID));
 
             open.SomeChangedHappened += UpdateObjectInTheList;
-            open.Show();
-       /*     new DroneWindow(bl, bl.GetSpesificDrone(drone.ID)).Show();
-            Close();*/
+            open.Show();     
         }
 
         public void UpdateObjectInTheList(BO.Drone drone)
         {
-            if (SomeChangedHappened != null)
-
-            
+            if (SomeChangedHappened != null)            
                 SomeChangedHappened(bl.GetNearestAvailableStation(drone.Location));
-
-
         }
 
         #region Get Inputs

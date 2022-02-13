@@ -14,7 +14,6 @@
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
 
-
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -25,20 +24,9 @@
             <Label Content="weight:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="15,23,0,0" FontSize="18"/>
             <ComboBox Name="PrioritySelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="PrioritySelectorSelectionChanged" Margin="0,15,0,0" />
             <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged" Margin="0,15,0,0" />
-            <!--<Button Grid.Column="0" Content="Parcel List" Style="{StaticResource RedButton}" Click="ParcelAllList" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-4.827,-2.971" Margin="0,15,0,0"/>-->
             <Button Name="FilterBTN" Grid.Column="0" Content="Filter by date range" Style="{StaticResource RedButton}" Click="FilterByDateRange" HorizontalAlignment="Left" RenderTransformOrigin="-4.827,-2.971" Margin="26,15,0,0" Width="135"/>
-            <!--<Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.232"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>-->
-
-
+        
             <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
-            <Button Grid.Column="3" Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
             <Button Grid.Column="3" Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
             <DatePicker Name="DatePickerFrom" HorizontalAlignment="Left" Height="28" Margin="190,2,0,0" VerticalAlignment="Top" Width="107" />
             <DatePicker  Name="DatePickerTo"  Margin="190,30,3,-1"/>

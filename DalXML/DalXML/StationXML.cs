@@ -20,7 +20,7 @@ namespace Dal
         {
             List<Station> stationList = GetStations().ToList();
             stationList.Add(station);
-            XmlTools.SaveListToXmlSerializer(stationList, direction + stationFilePath);
+            XmlTools.SaveListToXmlXElement(stationList, direction + stationFilePath);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Dal
         {
             List<Station> stationList = GetStations().ToList();
             stationList[stationList.FindIndex(s => s.ID == station.ID)] = station;
-            XmlTools.SaveListToXmlSerializer(stationList, direction + stationFilePath);
+            XmlTools.SaveListToXmlXElement(stationList, direction + stationFilePath);
         }
 
         /// <summary>
@@ -55,10 +55,22 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> condition = null)
         {
+            var x = from station in XmlTools.LoadListFromXmlXElement(direction + stationFilePath)
+                    select new Station()
+                    {
+                        ID = Convert.ToInt32(station.Element("ID").Value),
+                        Name = Convert.ToInt32(station.Element("Name").Value),
+                        Longitude = Convert.ToInt32(station.Element("Longitude").Value),
+                        Latitude = Convert.ToInt32(station.Element("Latitude").Value),
+                        ChargeSlots = Convert.ToInt32(station.Element("ChargeSlots").Value),
+                        Active = Convert.ToBoolean(station.Element("Active").Value)
+                    };
+
             condition ??= (s => true);
-            return from station in XmlTools.LoadListFromXmlSerializer<Station>(direction + stationFilePath)
+            return from station in x
                    where condition(station)
+                   orderby(station.ID)
                    select station;
-        }        
+        }
     }
 }

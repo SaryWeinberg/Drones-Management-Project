@@ -13,10 +13,10 @@ namespace BO
             ID = drone.ID;
             Model = drone.Model;
             MaxWeight = drone.MaxWeight;
-            Battery = drone.Battery;
+            Battery = Math.Round(drone.Battery);
             Status = drone.Status;
             Location = drone.Location;
-            Parcel = drone.Parcel;         
+            Parcel = drone.Parcel;      
         }
 
         public int ID { get; set; }

@@ -27,38 +27,14 @@
                     <Setter Property="Foreground" Value="White"/>
                 </Trigger>
             </Style.Triggers>         
-        </Style>
-
-        <Style TargetType="Button" x:Key="RefreshButton">
-            <Setter Property="Content" Value="@" />
-            <Setter Property="Width" Value="40" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Margin" Value="0,0,40,0" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFCECCCC"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        </Style>        
 
         <Style TargetType="Button" x:Key="ReturnButton">
             <Setter Property="Content" Value="->" />
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="25" />
             <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Margin" Value="0,0,80,0" />
+            <Setter Property="Margin" Value="0,0,40,0" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -100,6 +76,10 @@
                     <Setter Property="Background" Value="#ffcc8f"/>
                     <Setter Property="Foreground" Value="Black"/>
                 </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
 
@@ -125,10 +105,29 @@
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
         </Style>
-
         
         <Style TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style TargetType="ProgressBar">
+            <Style.Triggers>
+                <Trigger Property="Value" Value="10">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger><Trigger Property="Value" Value="11">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger><Trigger Property="Value" Value="12">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger><Trigger Property="Value" Value="13">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger><Trigger Property="Value" Value="14">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger><Trigger Property="Value" Value="15">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger><Trigger Property="Value" Value="16">
+                    <Setter Property="Foreground" Value="Purple"/>
+                </Trigger>               
+            </Style.Triggers>
         </Style>
 
     </Application.Resources>

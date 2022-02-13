@@ -23,13 +23,10 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         BLApi.IBL bl;
-        //DroneList droneList;
-  /*      ListClass droneListClass;*/
+      
         private ObservableCollection<BO.DroneToList> _myCollection = new ObservableCollection<BO.DroneToList>();
 
-
-        /// <summary>
-        /// 
+        /// <summary> 
         /// Ctor of Drone list window
         /// </summary>
         /// <param name="blMain"></param>
@@ -41,18 +38,12 @@ namespace PL
             bl = blMain;
            
             foreach (BO.DroneToList drone in bl.GetDronesToList())
-            {
-   
+            {   
                 _myCollection.Add(drone);
             }
-            /* droneListClass = new ListClass(_myCollection);
-             droneListClass.DroneList.CollectionChanged += ContentCollectionChanged;*/
-            /*            _myCollection.CollectionChanged += ContentCollectionChanged;*/
-            /*   DataContext = droneListClass.DroneList;*/
+         
             DataContext = _myCollection;
 
-            /*            droneList = new DroneList(bl.GetDronesToList());
- DroneListView.DataContext = droneList;*/
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -78,9 +69,6 @@ namespace PL
                 DroneListView.ItemsSource = bl.GetDronesToList(drone => drone.Status == (DroneStatus)status.SelectedItem && drone.MaxWeight == Sweight);
             }
         }
-
-
-
 
         /// <summary>
         /// Filter the list category weight
@@ -113,7 +101,6 @@ namespace PL
             DroneWindow open = new DroneWindow(bl, bl.GetSpesificDrone(drone.ID));
             open.SomeChangedHappened += UpdateObjectInTheList;
             open.Show();
-            /*   Close();*/
         }
 
         /// <summary>
@@ -127,8 +114,6 @@ namespace PL
 
             openWindow.SomeChangedHappened += AddDrone;
             openWindow.Show();
-
-
         }
 
         /// <summary>
@@ -150,12 +135,10 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RefreshWindow(object sender, RoutedEventArgs e) => DroneListView.Items.Refresh();
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();
-
         }
 
         private CollectionView view;
@@ -180,113 +163,16 @@ namespace PL
             view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
         }
 
-
         public void UpdateObjectInTheList(BO.Drone drone)
         {
             BO.DroneToList droneToList = _myCollection.First(d => d.ID == drone.ID);
             int idx = _myCollection.IndexOf(droneToList);
             _myCollection[idx] = new BO.DroneToList(drone);
-
-            /*droneListClass.DroneList.First(d => d.ID == drone.ID).Model = drone.Model;*/
-            /*    dtl = new BO.DroneToList(drone);*/
-            /*   droneListClass.updateDroneList(drone);*/
-
-
         }
+
         public void AddDrone(BO.Drone drone)
         {
-            /*droneListClass.DroneList.Add(new BO.DroneToList(drone));*/
             _myCollection.Add(new BO.DroneToList(drone));
-
-
-        }
-
-
-
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            /*            {
-                            foreach (BO.DroneToList item in e.OldItems)
-                            {
-                                //Removed items
-                                item.PropertyChanged -= EntityViewModelPropertyChanged;
-                            }
-                        }
-                        else if (e.Action == NotifyCollectionChangedAction.Add)
-                        {
-                            foreach (EntityViewModel item in e.NewItems)
-                            {
-                                //Added items
-                                item.PropertyChanged += EntityViewModelPropertyChanged;
-                            }
-                        }*/            /*if (e.Action == NotifyCollectionChangedAction.Remove)*/
-
         }
     }
 }
-/*    public class Log
-    {
-        private ObjectChanged objectChangedlll;
-
-        public Log()
-        {
-            objectChangedlll = DroneListClass.UpdateList;
-        }
-        //public Log()
-        //{
-        //    ChangeColorType(true);
-        //}
-        public void update(bool update)
-        {
-            if (update)
-            {
-               
-                objectChangedlll.Invoke("drone");
-
-
-            }
-
-
-        }
-
-     
-
-    }
-}
-/*public class CollectionViewModel : ViewModelBase
-{
-    public ObservableCollection<EntityViewModel> ContentList {
-        get { return _contentList; }
-    }*/
-
-/*  public CollectionViewModel()
-  {
-      _contentList = new ObservableCollection<EntityViewModel>();
-      _contentList.CollectionChanged += ContentCollectionChanged;
-  }*/
-
-/*    public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (e.Action == NotifyCollectionChangedAction.Remove)
-        {
-            foreach (EntityViewModel item in e.OldItems)
-            {
-                //Removed items
-                item.PropertyChanged -= EntityViewModelPropertyChanged;
-            }
-        }
-        else if (e.Action == NotifyCollectionChangedAction.Add)
-        {
-            foreach (EntityViewModel item in e.NewItems)
-            {
-                //Added items
-                item.PropertyChanged += EntityViewModelPropertyChanged;
-            }
-        }
-    }
-
-    public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-        //This will get called when the property of an object inside the collection changes
-    }
-}*/

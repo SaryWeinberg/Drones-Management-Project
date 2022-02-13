@@ -107,12 +107,10 @@ namespace PL
 /*        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsToList();*/
 
         private void FilterByDateRange(object sender, RoutedEventArgs e)
-        {
-
-            ParcelListView.ItemsSource = bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate);
+        {            
+            ParcelListView.ItemsSource = bl.GetParcels(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
             ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
                                          select (new BO.ParcelToList(parcels));
-
         }
 
         /// <summary>
@@ -124,10 +122,9 @@ namespace PL
         {
             ParcelWindow openWindow = new ParcelWindow(bl);
             openWindow.SomeChangedHappened += addParcel;
+            openWindow.returnWindow.Click += SonReturnWindow;
             openWindow.Show();
-
         }
-
 
         private void addParcel(BO.Parcel parcel)
         {
@@ -141,8 +138,8 @@ namespace PL
             openWindow.SomeChangedHappened += UpdateParcel;
             openWindow.ParcelIsremoved += RemoveParcel;
             openWindow.Show();
-
         }
+
         private void UpdateParcel(BO.Parcel parcel)
         {
             BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
@@ -164,7 +161,11 @@ namespace PL
 
 
         }
-
+        private void SonReturnWindow(object sender, RoutedEventArgs e)
+        {
+           Show();
+            
+        }
 
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
@@ -193,9 +194,9 @@ namespace PL
             }
         }
 
-/*        private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }*/
+        }
     }
 }

@@ -14,15 +14,44 @@ namespace PL
         BLApi.IBL bl;
         Customer Customer;
 
+        Button ReaturnWin;
+
         public CustomerWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
             CustomerID.Focus();
+            ReaturnWin = returnWindow;
   
             sendNewCustomer.Visibility = Visibility.Visible;          
         }
+
+        public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
+        {
+            InitializeComponent();
+            WindowStyle = WindowStyle.None;
+            bl = blMain;
+
+            Customer = new Customer(customer);
+            AddCustomer.DataContext = Customer;
+
+            ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
+
+            ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
+            ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
+
+            CustomerName.Text = customer.Name.ToString();
+            CustomerPhone.Text = customer.PhoneNum.ToString();
+
+            CustomerID.IsEnabled = false;
+            CustomerLongitude.IsEnabled = false;
+            CustomerLatitude.IsEnabled = false;
+
+            CustomerName.TextChanged += AddUpdateButton;
+            CustomerPhone.TextChanged += AddUpdateButton;
+        }
+
 
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {   
@@ -44,39 +73,7 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-        
-        public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
-        {
-            InitializeComponent();
-            WindowStyle = WindowStyle.None;
-            bl = blMain;
-
-
-            Customer = new Customer(customer);
-            AddCustomer.DataContext = Customer;
-
-            ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
-
-            ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
-            ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
-
-
-
-            CustomerName.Text = customer.Name.ToString();
-            CustomerPhone.Text = customer.PhoneNum.ToString();
-
-            CustomerID.IsEnabled = false;
-            CustomerLongitude.IsEnabled = false;
-            CustomerLatitude.IsEnabled = false;
-
-            CustomerName.TextChanged += AddUpdateButton;
-            CustomerPhone.TextChanged += AddUpdateButton;        
-        }
-
-        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
-
-        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
-        
+       
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
             try
@@ -90,7 +87,6 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Customer.UpdateCustomer(bl.GetSpesificCustomer(Customer.ID));
-                    /*Close();*/
                 }
             }
             catch (Exception exc)
@@ -99,23 +95,41 @@ namespace PL
             }
         }
 
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
+        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
 
         private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
-            new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID)).Show();
+            ParcelWindow openWindow =    new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID));
+            openWindow.returnWindow.Click += returnSonWindow;
+            openWindow.Show();
+            this.Hide();
+
         }
 
 
-        private void RefreshWindow(object sender, RoutedEventArgs e)
+        private void returnSonWindow(object sender, RoutedEventArgs e)
         {
 
+            
+            this.Show();
         }
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new CustomerListWindow(bl).Show();
             Close();
+        }
+
+        private void AddParcel(object sender, RoutedEventArgs e)
+        {
+
+            ParcelWindow openWindow = new ParcelWindow(bl);
+            openWindow.ParcelSenderID.Text = CustomerID.Text;
+            openWindow.ParcelSenderID.IsEnabled = false;
+            openWindow.Show();
         }
 
         #region Get Inputs
@@ -213,6 +227,9 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewCustomer.Focus();
         }
+
         #endregion
+
+      
     }
 }
