@@ -37,7 +37,6 @@
             <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" Click="UpdateStation" Margin="258,441,502,0"  Visibility ="Hidden"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
-        <Button Style="{StaticResource RefreshButton}" Click="RefreshWindow"/>
         <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>
 </Window>

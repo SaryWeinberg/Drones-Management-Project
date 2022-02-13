@@ -57,7 +57,8 @@ namespace Dal
             condition ??= (c => true);
             return from customer in XmlTools.LoadListFromXmlSerializer<Customer>(direction + customerFilePath)
                    where condition(customer)
+                   orderby(customer.ID)
                    select customer;
-        }     
+        }  
     }
 }

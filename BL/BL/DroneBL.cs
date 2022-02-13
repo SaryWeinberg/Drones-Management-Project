@@ -82,7 +82,6 @@ namespace BL
             catch (InvalidObjException e) { throw e; }
             dronesList.Add(droneBL);
             AddDroneDal(id, model, maxWeight);
-            //AddDroneCharge(stationID, id);
             return "Drone added successfully!";
         }
 
@@ -259,8 +258,6 @@ namespace BL
             lock (dal)
             {
                 return ((Distance(droneLocation, target) * DroneSpeed));
-
-
             }
         }
 
@@ -268,7 +265,6 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
         public Location Totalprogress(Location current, Location target, Location source)
         {
-
             double longitudeDistance = Math.Abs(source.Longitude - target.Longitude) / 100;
             /*            double longitude = current.Longitude;*/
             if (current.Longitude <= target.Longitude)
@@ -276,16 +272,14 @@ namespace BL
             else
                 current.Longitude -= longitudeDistance;
 
-
             double latitudeDistance = Math.Abs(current.Latitude - target.Latitude) / 100;
-            double latitude = current.Latitude;
-            if (current.Latitude <= target.Latitude)
+/*            double latitude = current.Latitude;
+*/          if (current.Latitude <= target.Latitude)
                 current.Latitude += latitudeDistance;
             else
                 current.Latitude -= latitudeDistance;
 
-            return new Location() { Latitude = current.Latitude, Longitude = current.Longitude };
-
+            return new Location() { Latitude = Math.Round(current.Latitude), Longitude = Math.Round(current.Longitude) };
         }
     }
 }

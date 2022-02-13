@@ -27,6 +27,32 @@ namespace PL
             sendNewCustomer.Visibility = Visibility.Visible;          
         }
 
+        public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
+        {
+            InitializeComponent();
+            WindowStyle = WindowStyle.None;
+            bl = blMain;
+
+            Customer = new Customer(customer);
+            AddCustomer.DataContext = Customer;
+
+            ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
+
+            ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
+            ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
+
+            CustomerName.Text = customer.Name.ToString();
+            CustomerPhone.Text = customer.PhoneNum.ToString();
+
+            CustomerID.IsEnabled = false;
+            CustomerLongitude.IsEnabled = false;
+            CustomerLatitude.IsEnabled = false;
+
+            CustomerName.TextChanged += AddUpdateButton;
+            CustomerPhone.TextChanged += AddUpdateButton;
+        }
+
+
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {   
             try
@@ -47,39 +73,7 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-        
-        public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
-        {
-            InitializeComponent();
-            WindowStyle = WindowStyle.None;
-            bl = blMain;
-
-
-            Customer = new Customer(customer);
-            AddCustomer.DataContext = Customer;
-
-            ParcelDeliveryToCustomerLabel.Visibility = Visibility.Visible;
-
-            ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
-            ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
-
-
-
-            CustomerName.Text = customer.Name.ToString();
-            CustomerPhone.Text = customer.PhoneNum.ToString();
-
-            CustomerID.IsEnabled = false;
-            CustomerLongitude.IsEnabled = false;
-            CustomerLatitude.IsEnabled = false;
-
-            CustomerName.TextChanged += AddUpdateButton;
-            CustomerPhone.TextChanged += AddUpdateButton;        
-        }
-
-        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
-
-        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
-        
+       
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
             try
@@ -93,7 +87,6 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
                     Customer.UpdateCustomer(bl.GetSpesificCustomer(Customer.ID));
-                    /*Close();*/
                 }
             }
             catch (Exception exc)
@@ -102,6 +95,9 @@ namespace PL
             }
         }
 
+        private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
+
+        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
 
         private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

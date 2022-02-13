@@ -54,9 +54,7 @@ namespace Dal
         public void RemoveDroneInCharge(int droneId)
         {
             IEnumerable<DroneCharge> DroneChargeList = GetDroneCharges();
-
             DroneCharge DroneCharge = DroneChargeList.First(d => d.DroneId == droneId);
-            /*            DroneCharge DroneCharge = GetDroneCharges(d => d.DroneId == droneId).First();*/
             List<DroneCharge> TempDroneChargeList = DroneChargeList.ToList();
             TempDroneChargeList.Remove(DroneCharge);
             XmlTools.SaveListToXmlSerializer(TempDroneChargeList, direction + droneChargeFilePath);
@@ -73,6 +71,7 @@ namespace Dal
             condition ??= (d => true);
             return from drone in XmlTools.LoadListFromXmlSerializer<Drone>(direction + droneFilePath)
                    where condition(drone)
+                   orderby (drone.ID)
                    select drone;
         }
 

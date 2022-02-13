@@ -53,7 +53,6 @@
             <Button Content="Add parcel" Style="{StaticResource RedButton}" Click="AddParcel" HorizontalAlignment="Left" Margin="-365,483,0,0"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
-        <Button Style="{StaticResource RefreshButton}" Click="returnSonWindow"/>
-        <Button Name="returnWindow" Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
+        <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>
 </Window>

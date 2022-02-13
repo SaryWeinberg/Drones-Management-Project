@@ -48,20 +48,10 @@ namespace BLApi
         public IEnumerable<BO.Drone> GetDronesList(Predicate<BO.Drone> condition = null);
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null);
         public IEnumerable<BO.Station> GetStations(Predicate<BO.Station> condition = null);
-/*        public IEnumerable<BO.Station> GetAvailableStationsList();*/
         public IEnumerable<CustomerToList> GetCustomersToList(Predicate<BO.Customer> condition = null);
         public IEnumerable<DroneToList> GetDronesToList(Predicate<BO.Drone> condition = null);
         public IEnumerable<ParcelToList> GetParcelsToList(Predicate<BO.Parcel> condition = null);
         public IEnumerable<StationToList> GetStationsToList(Predicate<BO.Station> condition = null);
-        public void StartSimulation(int DroneId, Action<int> ViewUpdate, Func<bool> ToStop);
-
-        private void ssss()
-        {
-            Console.WriteLine("czcx");
-
-
-        }
-
-
+        public void StartSimulation(int DroneId, Action<int> ViewUpdate, Func<bool> ToStop);      
     }
 }
