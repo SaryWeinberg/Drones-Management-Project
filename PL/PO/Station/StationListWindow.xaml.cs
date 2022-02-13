@@ -24,6 +24,16 @@ namespace PL
         BLApi.IBL bl;
         private CollectionView view;
         ObservableCollection<BO.StationToList> _myCollection = new ObservableCollection<BO.StationToList>();
+
+        private ObservableCollection<T> Convert<T>(IEnumerable original)
+        {
+            return new ObservableCollection<T>(original.Cast<T>());
+        }
+
+        /// <summary>
+        /// Ctor of StationListWindow
+        /// </summary>
+        /// <param name="blMain"></param>
         public StationListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -34,13 +44,18 @@ namespace PL
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
         }
 
-        private ObservableCollection<T> Convert<T>(IEnumerable original)
-        {
-            return new ObservableCollection<T>(original.Cast<T>());
-        }
-
+        /// <summary>
+        /// Closing window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
+        /// <summary>
+        /// Show drone window with adding ctor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddStation(object sender, RoutedEventArgs e)
         {
             StationWindow openWindow = new StationWindow(bl);
@@ -48,6 +63,11 @@ namespace PL
             openWindow.Show();
         }
 
+        /// <summary>
+        /// Show station window with update ctor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateStation(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (sender as ListView).SelectedValue as BO.StationToList;
@@ -56,6 +76,10 @@ namespace PL
             openWindow.Show();
         }
 
+        /// <summary>
+        /// Updates objects within the station list
+        /// </summary>
+        /// <param name="station"></param>
         private void updateStation(BO.Station station)
         {
             BO.StationToList stationToList = _myCollection.First(s => s.ID == station.ID);
@@ -63,17 +87,31 @@ namespace PL
             _myCollection[idx] = new BO.StationToList(station);
         }
 
+        /// <summary>
+        /// Adds a station to the station list
+        /// </summary>
+        /// <param name="station"></param>
         private void AddStation(BO.Station station)
         {
             _myCollection.Add(new BO.StationToList(station));
         }
 
+        /// <summary>
+        /// Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();
             Close();
         }
 
+        /// <summary>
+        /// Returns the list divided into groups by empty slots
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupByEmptySlots(object sender, RoutedEventArgs e)
         {
             if (view != null && view.CanGroup == true)
@@ -84,13 +122,21 @@ namespace PL
             }
         }
 
-        private void ShowAvailbleStations(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Returns the list divided into groups by availble stations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GroupByAvailbleStations(object sender, RoutedEventArgs e)
         {
             ClearListView();
             StationListView.ItemsSource = bl.GetStationsToList(station => station.AveChargeSlots > 0);
             view = (CollectionView)CollectionViewSource.GetDefaultView(StationListView.ItemsSource);
         }
 
+        /// <summary>
+        /// Clears the list to insert a new grouping
+        /// </summary>
         private void ClearListView()
         {
             StationListView.ItemsSource = bl.GetStationsToList();
