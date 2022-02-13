@@ -242,7 +242,7 @@ namespace PL
                     MessageBoxImage.Error);
                 if (result == MessageBoxResult.OK)
                 {
-                    tabControl.SelectedItem = LogIn;
+                    tabControl.SelectedItem = SignUp;
                 }
             }
         }
@@ -251,8 +251,21 @@ namespace PL
         {
             if ((ManagerNameInput() == "Gitty" && ManagerIDInput() == 212542385) || (ManagerNameInput() == "Sary" && ManagerIDInput() == 212381743) || (ManagerNameInput() == "1" && ManagerIDInput() == 1))
             {
+
                 new MainWindow(bl).Show();
                 Close();
+            }
+            else
+            {
+                MessageBoxResult result =
+                    MessageBox.Show("This manager is not registered in the system, please register as a new customer",
+                    "Error!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                if (result == MessageBoxResult.OK)
+                {
+                    tabControl.SelectedItem = SignUp;
+                }
             }
         }
     }

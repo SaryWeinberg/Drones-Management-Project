@@ -21,6 +21,10 @@ namespace PL
     {        
         BLApi.IBL bl;
 
+        /// <summary>
+        /// Ctor of CustomerListWindow
+        /// </summary>
+        /// <param name="blMain"></param>
         public CustomerListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -29,16 +33,39 @@ namespace PL
             CustomerListView.ItemsSource = bl.GetCustomersToList();
         }
 
+        /// <summary>
+        /// Close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
-        private void AddCustomer(object sender, RoutedEventArgs e) => new CustomerWindow(bl).Show();
+        /// <summary>
+        /// Sending to the window of adding a new customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddCustomer(object sender, RoutedEventArgs e)
+        {
+            new CustomerWindow(bl).Show();
+        }
 
+        /// <summary>
+        /// Sending to the window of update customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)
         {
             BO.CustomerToList customerToList = (sender as ListView).SelectedValue as BO.CustomerToList;
             new CustomerWindow(bl, bl.GetSpesificCustomer(customerToList.ID)).Show();
         }
 
+        /// <summary>
+        /// Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();

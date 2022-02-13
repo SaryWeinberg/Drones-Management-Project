@@ -99,6 +99,9 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Displays the buttons according to the status of the drone
+        /// </summary>
         public void DisplayBTN()
         {
             sendDroneToCharge.IsEnabled = false;
@@ -323,6 +326,10 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Submit to update the drone list
+        /// </summary>
+        /// <param name="drone"></param>
         public void UpdateDroneList(BO.Drone drone)
         {
             DisplayBTN();
@@ -331,15 +338,60 @@ namespace PL
                 SomeChangedHappened(drone);
         }
 
+        /// <summary>
+        /// Entrance to the window of the parcel associated with the drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetParcel(object sender, MouseButtonEventArgs e)
         {
             new ParcelWindow(bl, bl.GetSpesificParcel(Drone.Parcel.ID)).Show();
         }
 
+        /// <summary>
+        /// Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new DroneListWindow(bl).Show();
             Close();
+        }
+
+        BackgroundWorker Worker = new BackgroundWorker();
+
+        /// <summary>
+        /// Start of the Simulatiom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SimulationClick(object sender, RoutedEventArgs e)
+        {
+            Worker.DoWork += (object? sender, DoWorkEventArgs e) => {
+                bl.StartSimulation(
+                   Drone_bl.ID,
+                     (i) => { Worker.ReportProgress(i); },
+                     () => Worker.CancellationPending);
+            };
+
+            Worker.WorkerReportsProgress = true;
+            Worker.ProgressChanged += (object? sender, ProgressChangedEventArgs e) => {
+                Drone.updateDronePO(bl.GetSpesificDrone(Drone_bl.ID));               
+            };
+           
+            Worker.WorkerSupportsCancellation = true;
+            Worker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Stopping the Simulatiom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SimulationStopClick(object sender, RoutedEventArgs e)
+        {
+            Worker.CancelAsync();
         }
 
         #region Get Inputs
@@ -417,9 +469,6 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewDrone.Focus();
         }
-        BackgroundWorker Worker = new BackgroundWorker();
-
-
         #endregion
 
         private void Simulatiom_Click(object sender, RoutedEventArgs e)

@@ -24,6 +24,10 @@ namespace PL
         public  ObjectChangedAction<BO.Parcel> SomeChangedHappened;
         public ObjectChangedAction<BO.Parcel> ParcelIsremoved;
 
+        /// <summary>
+        /// Ctor of add parcel window
+        /// </summary>
+        /// <param name="blMain"></param>
         public ParcelWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -38,6 +42,11 @@ namespace PL
             Parcel.ParcelListChanged += new ObjectChangedAction<BO.Parcel>(UpdateParcelList);
         }
 
+        /// <summary>
+        /// Ctor of update customer window
+        /// </summary>
+        /// <param name="blMain"></param>
+        /// <param name="parcel"></param>
         public ParcelWindow(BLApi.IBL blMain, BO.Parcel parcel)
         {
             InitializeComponent();
@@ -54,6 +63,11 @@ namespace PL
             Parcel.ParcelListChanged += new ObjectChangedAction<BO.Parcel>(UpdateParcelList);
         }
 
+        /// <summary>
+        /// Adding new parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddNewParcel(object sender, RoutedEventArgs e)
         {
             try
@@ -77,6 +91,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Remove parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveParcel(object sender, RoutedEventArgs e)
         {
             try
@@ -103,20 +122,40 @@ namespace PL
             catch (Exception exc) { MessageBox.Show(exc.Message); }
         }
 
+        /// <summary>
+        /// Closing window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
+        /// <summary>
+        /// Enter the customer registered with the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetCustomer(object sender, MouseButtonEventArgs e)
         {
             string ID = (sender as TextBox).SelectedText;
             new CustomerWindow(bl, bl.GetSpesificCustomer(int.Parse(ID))).Show();
         }
 
+        /// <summary>
+        /// Enter the drone registered with the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetDrone(object sender, MouseButtonEventArgs e)
         {
             string ID = (sender as TextBox).SelectedText;
             new DroneWindow(bl, bl.GetSpesificDrone(int.Parse(ID))).Show();
         }
 
+        /// <summary>
+        /// Parcel collection confirmation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApprovePickedUp(object sender, RoutedEventArgs e)
         {
             Parcel.PickedUp = DateTime.Now;
@@ -124,13 +163,21 @@ namespace PL
             DeliveredChecked.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Confirmation of parcel arrival
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApproveDelivered(object sender, RoutedEventArgs e)
         {
             Parcel.Delivered = DateTime.Now;
             bl.SupplyParcelByDrone(Parcel.Drone.ID);
-
         }
 
+        /// <summary>
+        /// Submit to update the parcel list
+        /// </summary>
+        /// <param name="parcel"></param>
         public void UpdateParcelList(BO.Parcel parcel)
         {
             if (SomeChangedHappened != null)
@@ -143,9 +190,13 @@ namespace PL
 
         }*/
 
+        /// <summary>
+        ///  Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
-/*            new ParcelListWindow(bl).Show();*/
             Close();
         }      
 

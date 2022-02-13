@@ -33,12 +33,12 @@
             <Label Name="parcelLabel"        Content="parcel by delivery ID:" Margin="43, 240, 684, 0" Visibility="{Binding ElementName=parcel , Path=Visibility}" />
 
             <Grid Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}">
-                <ProgressBar Name="battery" Minimum="0" Maximum="100" Value="{Binding Path = Battery , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="222,120,500,378" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
+                <ProgressBar Name="battery" Height="30" Minimum="0" Maximum="100" Value="{Binding Path = Battery , Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="222,120,500,378" IsEnabled="False" Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
                 <TextBlock Text="{Binding ElementName=battery, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,123,0,0" />
             </Grid>
 
-            <Button Name="Simulation"      Content="Simulation"      Style="{StaticResource RedButton}" Click="Simulatiom_Click"      Visibility="Visible" Margin="-368,256,1128,0"/>
-            <Button Name="StopSimulation"  Content="Stop Simulation" Style="{StaticResource RedButton}" Click="Simulatiom_Stop_Click"      Visibility="Visible" Margin="-368,193,1128,0"/>
+            <Button Name="Simulation"      Content="Simulation"      Style="{StaticResource RedButton}" Click="SimulationClick"      Visibility="Visible" Margin="-368,256,1128,0"/>
+            <Button Name="StopSimulation"  Content="Stop Simulation" Style="{StaticResource RedButton}" Click="SimulationStopClick"      Visibility="Visible" Margin="-368,193,1128,0"/>
             <ComboBox Name="Status"        Text="{Binding Status , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="221,150,500,0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}"/>
             <TextBox Name="longitude"      Text="{Binding Path=Location.Longitude , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin = "221, 180, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>
             <TextBox Name="latitude"       Text="{Binding  Location.Latitude,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin = "221, 210, 500, 0" IsEnabled="False"  Visibility="{Binding ElementName=batteryStatusLabel , Path=Visibility}" FontSize="16"/>

@@ -29,6 +29,10 @@ namespace PL
         private CollectionView view;
         ObservableCollection<BO.ParcelToList> _myCollection = new ObservableCollection<BO.ParcelToList>();
 
+        /// <summary>
+        /// Ctor of parcel list window
+        /// </summary>
+        /// <param name="blMain"></param>
         public ParcelListWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -85,32 +89,22 @@ namespace PL
         }
 
         /// <summary>
-        /// 
+        /// Closing the Window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
-        /// 
+        /// Filter the list by date range
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RefreshWindow(object sender, RoutedEventArgs e) => ParcelListView.Items.Refresh();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///
-/*        private void ParcelAllList(object sender, RoutedEventArgs e) => ParcelListView.ItemsSource = bl.GetParcelsToList();*/
-
         private void FilterByDateRange(object sender, RoutedEventArgs e)
         {            
             ParcelListView.ItemsSource = bl.GetParcels(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
             ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
-                                         select (new BO.ParcelToList(parcels));
+                                         select (new BO.ParcelToList(parcels));      
         }
 
         /// <summary>
@@ -126,11 +120,20 @@ namespace PL
             openWindow.Show();
         }
 
+        /// <summary>
+        /// Add parcel to the list
+        /// </summary>
+        /// <param name="parcel"></param>
         private void addParcel(BO.Parcel parcel)
         {
             _myCollection.Add(new BO.ParcelToList(parcel));
         }
 
+        /// <summary>
+        /// Sending to the window of update parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateParcel(object sender, MouseButtonEventArgs e)
         {
             BO.ParcelToList parcelToList = (sender as ListView).SelectedValue as BO.ParcelToList;
@@ -140,6 +143,10 @@ namespace PL
             openWindow.Show();
         }
 
+        /// <summary>
+        /// Update parcel in the list
+        /// </summary>
+        /// <param name="parcel"></param>
         private void UpdateParcel(BO.Parcel parcel)
         {
             BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
@@ -161,19 +168,33 @@ namespace PL
 
 
         }
+
+        /// <summary>
+        /// Back to this window through the son
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SonReturnWindow(object sender, RoutedEventArgs e)
         {
-           Show();
-            
+           this.Show();            
         }
 
-
+        /// <summary>
+        ///  Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();
             Close();
         }
 
+        /// <summary>
+        /// Sorting into groups by sender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupBySender(object sender, RoutedEventArgs e)
         {
             if (view != null && view.CanGroup == true)
@@ -184,6 +205,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Sorting into groups by target
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupByTarget(object sender, RoutedEventArgs e)
         {
             if (view != null && view.CanGroup == true)

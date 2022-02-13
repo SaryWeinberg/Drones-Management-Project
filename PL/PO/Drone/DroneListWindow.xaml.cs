@@ -111,7 +111,6 @@ namespace PL
         private void AddDrone(object sender, RoutedEventArgs e)
         {
             DroneWindow openWindow = new DroneWindow(bl);
-
             openWindow.SomeChangedHappened += AddDrone;
             openWindow.Show();
         }
@@ -131,11 +130,10 @@ namespace PL
         private void DroneAllList(object sender, RoutedEventArgs e) => DroneListView.ItemsSource = bl.GetDronesToList();
 
         /// <summary>
-        /// Refresh the drone list
+        /// Back to previous window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();
@@ -143,6 +141,11 @@ namespace PL
 
         private CollectionView view;
 
+        /// <summary>
+        /// Returns the list divided into groups by status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupByStatus(object sender, RoutedEventArgs e)
         {
             ClearListView();
@@ -150,6 +153,11 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
         }
 
+        /// <summary>
+        /// Returns the list divided into groups by weight
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupByWeight(object sender, RoutedEventArgs e)
         {
             ClearListView();
@@ -157,12 +165,19 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
         }
 
+        /// <summary>
+        /// Clears the list to insert a new grouping
+        /// </summary>
         private void ClearListView()
         {
             DroneListView.ItemsSource = bl.GetDronesToList();
             view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
         }
 
+        /// <summary>
+        /// Updates objects within the drone list
+        /// </summary>
+        /// <param name="drone"></param>
         public void UpdateObjectInTheList(BO.Drone drone)
         {
             BO.DroneToList droneToList = _myCollection.First(d => d.ID == drone.ID);
@@ -170,6 +185,10 @@ namespace PL
             _myCollection[idx] = new BO.DroneToList(drone);
         }
 
+        /// <summary>
+        /// Adds a drone to the drone list
+        /// </summary>
+        /// <param name="drone"></param>
         public void AddDrone(BO.Drone drone)
         {
             _myCollection.Add(new BO.DroneToList(drone));

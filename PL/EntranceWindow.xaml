@@ -12,7 +12,7 @@
         </Grid.Background>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="87,359,0,32" Width="194"/>
         <TabControl Name="tabControl" Width="400" Margin="468,96,32,85">
-            <TabItem Name="LogIn" Header="Log In" Width="132" Style="{StaticResource TabItemStyle}">
+            <TabItem Name="SignUp" Header="Sign Up" Width="132" Style="{StaticResource TabItemStyle}">
                 <Grid Height="300" Width="320">
                     <Label Name="IDLabel"        Content="ID:"   Margin="0,0,195,0"    />
                     <Label Name="PhoneLabel"     Content="phone:" Margin="0,35,195,0"     />
