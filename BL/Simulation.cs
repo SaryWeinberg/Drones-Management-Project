@@ -19,15 +19,17 @@ namespace BL
             while (!ToStop())
             {
                 BO.Drone drone = blapi.GetSpesificDrone(DroneId);
+                int counter = 0;
                 switch (drone.Status)
                 {
                     case DroneStatus.Available:
-                        int counter = 0;
 
 
+                        Thread.Sleep(Delay);
 
                         try
                         {
+
                             blapi.AssignParcelToDrone(DroneId);
                             ViewUpdate(1);
                             Thread.Sleep(Delay);
@@ -35,9 +37,9 @@ namespace BL
 
                         catch (CanNotAssignParcelToDroneException)
                         {
-                            if (drone.Battery == 100 && counter > 0)
+                            if (drone.Battery == 100)
                             {
-                                Thread.Sleep(Delay);
+                                Thread.Sleep(3000);
                                 counter++;
                             }
                             else
@@ -48,6 +50,12 @@ namespace BL
                                 Thread.Sleep(Delay);
 
                             }
+                        }
+
+                        catch (ObjectNotExistException)
+                        {
+                            ToStop();
+
                         }
                         ViewUpdate(1);
                         Thread.Sleep(Delay);
@@ -69,6 +77,17 @@ namespace BL
 
                         if (drone.Parcel.isWaitingToDelivery)
                         {
+
+                            Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
+
+                            for (int i = 100; i > 0; i--)
+                            {
+                                drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.PickUpLocation, droneLocation);
+                     /*           drone.Battery -= 0.01* blapi.ElectricalPowerRequest((int)drone.Parcel.Weight);*/
+                                ViewUpdate(1);
+                                Thread.Sleep((int)(DroneSpeed / 100));
+                            }
+                            Thread.Sleep(Delay);
                             blapi.CollectParcelByDrone(DroneId);
                             ViewUpdate(1);
                             Thread.Sleep(Delay);
@@ -76,10 +95,23 @@ namespace BL
                         }
                         else
                         {
-                            blapi.SupplyParcelByDrone(DroneId);
-                            ViewUpdate(1);
 
+                      
+
+                            Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
+
+                            for (int i = 100; i > 0; i--)
+                            {
+                                drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.TargetLocation, droneLocation);
+                                ViewUpdate(1);
+                                Thread.Sleep((int)(DroneSpeed / 100));
+                            }
+                            blapi.SupplyParcelByDrone(DroneId);
+
+                            ViewUpdate(1);
                             Thread.Sleep(Delay);
+
+                            /*         Thread.sl(blapi.TotalTimeUsage(drone.Location, DroneSpeed, drone.Parcel.TargetLocation);*/
                         }
                         ViewUpdate(1);
                         break;

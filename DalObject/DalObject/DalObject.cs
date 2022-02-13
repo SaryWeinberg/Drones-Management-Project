@@ -8,14 +8,14 @@ using DalApi;
 using System.Runtime.CompilerServices;
 namespace Dal
 {
-    internal partial class DalObject : IDal
+    sealed internal partial class DalObject : IDal
     {
-        DalObject()
+        private DalObject()
         {
             DataSource.Initialize();
         }
 
-        internal static DalObject instance;
+        private static DalObject instance;
 
         public static DalObject GetInstance {
             get

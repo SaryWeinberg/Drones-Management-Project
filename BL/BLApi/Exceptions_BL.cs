@@ -50,4 +50,5 @@ namespace BO
     {
         public ObjectAlreadyExistException(string obj, int id) : base(String.Format($"{obj}, ID - {id} already exist")) { }
     }
+
 }

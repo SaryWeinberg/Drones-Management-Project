@@ -21,6 +21,8 @@ namespace PL
     {
         BLApi.IBL bl;
         Parcel Parcel;
+        public  ObjectChanged<BO.Parcel> SomeChangedHappened;
+
         public ParcelWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -31,6 +33,8 @@ namespace PL
             ParcelWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
             sendNewParcel.Visibility = Visibility.Visible;
+            Parcel = new Parcel(new BO.Parcel());
+            Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
         }
 
         public ParcelWindow(BLApi.IBL blMain, BO.Parcel parcel)
@@ -45,6 +49,8 @@ namespace PL
                 PickedUpChecked.Visibility = Visibility.Visible;
             if (Parcel.PickedUp != null && Parcel.Delivered == null)
                 DeliveredChecked.Visibility = Visibility.Visible;
+
+            Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
@@ -60,6 +66,9 @@ namespace PL
                    MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
+
+                    if (Parcel.ParcelListChanged != null)
+                        Parcel.ParcelListChanged(bl.GetSpesificParcel(bl.GetParcels().Count()-1));
                 }
             }
             catch (Exception exc)
@@ -80,7 +89,10 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new ParcelListWindow(bl).Show();
+
+                    if (Parcel.ParcelListChanged != null)
+                        Parcel.ParcelListChanged(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));
+                    /*     new ParcelListWindow(bl).Show();*/
                     Close();
                 }
             }
@@ -124,18 +136,26 @@ namespace PL
         private void ApprovePickedUp(object sender, RoutedEventArgs e)
         {
             Parcel.PickedUp = DateTime.Now;
-            bl.GetSpesificParcel(Parcel.ID).PickedUpByDrone = DateTime.Now;
+            bl.CollectParcelByDrone(Parcel.Drone.ID);
             DeliveredChecked.Visibility = Visibility.Visible;
         }
 
         private void ApproveDelivered(object sender, RoutedEventArgs e)
         {
             Parcel.Delivered = DateTime.Now;
-            bl.GetSpesificParcel(Parcel.ID).Delivered = DateTime.Now;
+            bl.SupplyParcelByDrone(Parcel.Drone.ID);
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        public void UpdateParcelList(BO.Parcel parcel)
+        {
+
+            if (SomeChangedHappened != null)
+                SomeChangedHappened(parcel);
 
         }
 

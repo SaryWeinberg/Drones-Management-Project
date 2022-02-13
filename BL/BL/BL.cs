@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 
 namespace BL
 {
-    public partial class BL : BLApi.IBL
+    sealed public partial class BL : BLApi.IBL
     {
         IDal dal;
 
@@ -20,7 +20,7 @@ namespace BL
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
 
-        internal static BL instance;
+        private static BL instance;
 
         public static BL GetInstance {
             get
@@ -31,7 +31,7 @@ namespace BL
             }
         }
 
-        BL()
+        private BL()
         {
             dal = DalFactory.GetDal();
             double[] ElectricUse = dal.ElectricalPowerRequest();
@@ -77,15 +77,15 @@ namespace BL
                         if (drone.Status == 0)
                         {
                             List<DO.Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp != null);
-                            double randIDX = rand.Next(0, parcelProvided.Count() - 1);
+                            double randIDX = parcelProvided.Any()? rand.Next(0, parcelProvided.Count() - 1):0;
                             drone.Location = GetSpesificCustomer(parcelProvided[(int)randIDX].TargetId).Location;
                             drone.Battery = rand.Next((int)(Distance(GetNearestAvailableStation(drone.Location).Location, drone.Location) * Available), 100);
                         }
                         else
                         {
                             drone.Battery = rand.Next(1, 20);
-                            List<BO.Station> stationBLs = GetStations().ToList();
-                            int stationId = rand.Next(1);
+                            List<BO.Station> stationBLs = GetStations(x=>x.AveChargeSlots >0).ToList();
+                            int stationId = rand.Next(0,2);
                             drone.Location = stationBLs[stationId].Location;
                             AddDroneCharge(stationId, drone.ID, drone.Battery);
                         }
@@ -125,10 +125,10 @@ namespace BL
         /// <returns></returns>
         double Distance(Location location1, Location location2)
         {
-            int x1 = location1.Latitude;
-            int x2 = location1.Longitude;
-            int y1 = location2.Latitude;
-            int y2 = location2.Longitude;
+           double x1 = location1.Latitude;
+            double x2 = location1.Longitude;
+            double y1 = location2.Latitude;
+            double y2 = location2.Longitude;
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
@@ -238,7 +238,7 @@ namespace BL
             List<BO.Parcel> parcels = GetParcels(parcel => ConvertBLParcelToDAL(parcel).Active && parcel.Associated == null).ToList();
             if (!parcels.Any())
             {//no parcel wait to collect
-                throw new ObjectDoesNotExist("parcel that wait to pack", 0);
+                throw new ObjectNotExistException("no parcel that wait to pack!");
             }
             int flag = 0;
             double bestDistance = 100;

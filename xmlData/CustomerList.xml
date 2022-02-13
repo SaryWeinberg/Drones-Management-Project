@@ -1,91 +1,91 @@
 <?xml version="1.0"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
-    <ID>697810771</ID>
-    <PhoneNum>836457482</PhoneNum>
+    <ID>178882541</ID>
+    <PhoneNum>501070592</PhoneNum>
     <Name>Customer0</Name>
-    <Longitude>2</Longitude>
-    <Latitude>4</Latitude>
+    <Longitude>14</Longitude>
+    <Latitude>25</Latitude>
     <Active>false</Active>
   </Customer>
   <Customer>
-    <ID>245661231</ID>
-    <PhoneNum>913443033</PhoneNum>
+    <ID>638353397</ID>
+    <PhoneNum>341576720</PhoneNum>
     <Name>Customer1</Name>
-    <Longitude>15</Longitude>
-    <Latitude>35</Latitude>
-    <Active>false</Active>
-  </Customer>
-  <Customer>
-    <ID>260015109</ID>
-    <PhoneNum>717986793</PhoneNum>
-    <Name>Customer2</Name>
-    <Longitude>17</Longitude>
-    <Latitude>16</Latitude>
-    <Active>false</Active>
-  </Customer>
-  <Customer>
-    <ID>633052548</ID>
-    <PhoneNum>635996184</PhoneNum>
-    <Name>Customer3</Name>
-    <Longitude>24</Longitude>
-    <Latitude>1</Latitude>
-    <Active>false</Active>
-  </Customer>
-  <Customer>
-    <ID>208161722</ID>
-    <PhoneNum>539921319</PhoneNum>
-    <Name>Customer4</Name>
     <Longitude>29</Longitude>
-    <Latitude>10</Latitude>
+    <Latitude>2</Latitude>
     <Active>false</Active>
   </Customer>
   <Customer>
-    <ID>578730356</ID>
-    <PhoneNum>713595365</PhoneNum>
-    <Name>Customer5</Name>
-    <Longitude>4</Longitude>
-    <Latitude>5</Latitude>
+    <ID>521153593</ID>
+    <PhoneNum>323057266</PhoneNum>
+    <Name>Customer2</Name>
+    <Longitude>15</Longitude>
+    <Latitude>21</Latitude>
     <Active>false</Active>
   </Customer>
   <Customer>
-    <ID>212963821</ID>
-    <PhoneNum>328766825</PhoneNum>
-    <Name>Customer6</Name>
+    <ID>949537253</ID>
+    <PhoneNum>870549609</PhoneNum>
+    <Name>Customer3</Name>
     <Longitude>33</Longitude>
-    <Latitude>23</Latitude>
+    <Latitude>15</Latitude>
     <Active>false</Active>
   </Customer>
   <Customer>
-    <ID>631093451</ID>
-    <PhoneNum>737782661</PhoneNum>
-    <Name>Customer7</Name>
-    <Longitude>3</Longitude>
-    <Latitude>38</Latitude>
+    <ID>840573415</ID>
+    <PhoneNum>334660387</PhoneNum>
+    <Name>Customer4</Name>
+    <Longitude>11</Longitude>
+    <Latitude>19</Latitude>
     <Active>false</Active>
   </Customer>
   <Customer>
-    <ID>418622912</ID>
-    <PhoneNum>301779717</PhoneNum>
-    <Name>Customer8</Name>
-    <Longitude>31</Longitude>
-    <Latitude>9</Latitude>
+    <ID>112630633</ID>
+    <PhoneNum>837493640</PhoneNum>
+    <Name>Customer5</Name>
+    <Longitude>19</Longitude>
+    <Latitude>3</Latitude>
     <Active>false</Active>
   </Customer>
   <Customer>
-    <ID>511028520</ID>
-    <PhoneNum>151616176</PhoneNum>
-    <Name>Customer9</Name>
-    <Longitude>39</Longitude>
-    <Latitude>5</Latitude>
-    <Active>false</Active>
-  </Customer>
-  <Customer>
-    <ID>706633099</ID>
-    <PhoneNum>844167049</PhoneNum>
-    <Name>Customer10</Name>
-    <Longitude>36</Longitude>
+    <ID>807295153</ID>
+    <PhoneNum>322630258</PhoneNum>
+    <Name>Customer6</Name>
+    <Longitude>17</Longitude>
     <Latitude>10</Latitude>
+    <Active>false</Active>
+  </Customer>
+  <Customer>
+    <ID>189126982</ID>
+    <PhoneNum>704909290</PhoneNum>
+    <Name>Customer7</Name>
+    <Longitude>8</Longitude>
+    <Latitude>25</Latitude>
+    <Active>false</Active>
+  </Customer>
+  <Customer>
+    <ID>664848180</ID>
+    <PhoneNum>183602992</PhoneNum>
+    <Name>Customer8</Name>
+    <Longitude>26</Longitude>
+    <Latitude>6</Latitude>
+    <Active>false</Active>
+  </Customer>
+  <Customer>
+    <ID>679042013</ID>
+    <PhoneNum>319752747</PhoneNum>
+    <Name>Customer9</Name>
+    <Longitude>37</Longitude>
+    <Latitude>24</Latitude>
+    <Active>false</Active>
+  </Customer>
+  <Customer>
+    <ID>873098182</ID>
+    <PhoneNum>956316470</PhoneNum>
+    <Name>Customer10</Name>
+    <Longitude>31</Longitude>
+    <Latitude>16</Latitude>
     <Active>false</Active>
   </Customer>
 </ArrayOfCustomer>

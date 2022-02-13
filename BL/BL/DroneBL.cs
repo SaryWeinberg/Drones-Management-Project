@@ -119,7 +119,7 @@ namespace BL
             };
         }
 
-         DroneInCharge ConvertDalDroneChargeToBL(DO.DroneCharge d)
+        DroneInCharge ConvertDalDroneChargeToBL(DO.DroneCharge d)
         {
             return new DroneInCharge(d.DroneId, GetSpesificDrone(d.DroneId).Battery, d.DroneEnterToCharge);
         }
@@ -251,6 +251,41 @@ namespace BL
             + (Distance(GetSpesificCustomer(senderId).Location, GetSpesificCustomer(targetId).Location) * dal.ElectricalPowerRequest()[parcelweight])
             + (Distance(GetSpesificCustomer(targetId).Location, GetNearestAvailableStation(GetSpesificCustomer(targetId).Location).Location) * dal.ElectricalPowerRequest()[0]));
             }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
+        public double TotalTimeUsage(Location target, double DroneSpeed, Location droneLocation)
+        {
+            lock (dal)
+            {
+                return ((Distance(droneLocation, target) * DroneSpeed));
+
+
+            }
+        }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
+        public Location Totalprogress(Location current, Location target, Location source)
+        {
+
+            double longitudeDistance = Math.Abs(source.Longitude - target.Longitude) / 100;
+            /*            double longitude = current.Longitude;*/
+            if (current.Longitude <= target.Longitude)
+                current.Longitude += longitudeDistance;
+            else
+                current.Longitude -= longitudeDistance;
+
+
+            double latitudeDistance = Math.Abs(current.Latitude - target.Latitude) / 100;
+            double latitude = current.Latitude;
+            if (current.Latitude <= target.Latitude)
+                current.Latitude += latitudeDistance;
+            else
+                current.Latitude -= latitudeDistance;
+
+            return new Location() { Latitude = current.Latitude, Longitude = current.Longitude };
+
         }
     }
 }

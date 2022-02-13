@@ -9,9 +9,9 @@ using System.Runtime.CompilerServices;
 
 namespace Dal
 {
-    public partial class DalXml : IDal
+    sealed public partial class DalXml : IDal
     {
-        internal static DalXml instance;
+        private static DalXml instance;
 
         public static DalXml GetInstance {
             get
@@ -48,7 +48,7 @@ namespace Dal
                 XmlTools.SaveListToXmlSerializer<Drone>(DataSource.Drones, direction + droneFilePath);
 
         /*    if (!File.Exists(direction + stationFilePath))*/
-                XmlTools.SaveListToXmlSerializer<Station>(DataSource.Stations, direction + stationFilePath);
+                XmlTools.SaveListToXmlXElement<Station>(DataSource.Stations, direction + stationFilePath);
 /*
             if (!File.Exists(direction + droneChargeFilePath))*/
                 XmlTools.SaveListToXmlSerializer<DroneCharge>(DataSource.DroneCharges, direction + droneChargeFilePath);
