@@ -16,12 +16,19 @@ using System.Windows.Shapes;
 
 namespace PL
 {
+
+    
     /// <summary>
     /// Interaction logic for StationListWindow.xaml
     /// </summary>
     public partial class StationListWindow : Window
     {
-        /*        public event ObjectChanged<BO.Drone> SomeChangedHappened;*/
+
+        private ObservableCollection<T> Convert<T>(IEnumerable original)
+        {
+            return new ObservableCollection<T>(original.Cast<T>());
+        }
+        public  ObjectChangedAction<BO.Station> SomeChangedHappened;
         BLApi.IBL bl;
         private CollectionView view;
         ObservableCollection<BO.StationToList> _myCollection = new ObservableCollection<BO.StationToList>();
@@ -40,10 +47,7 @@ namespace PL
         }
 
 
-        private ObservableCollection<T> Convert<T>(IEnumerable original)
-        {
-            return new ObservableCollection<T>(original.Cast<T>());
-        }
+       
 
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();

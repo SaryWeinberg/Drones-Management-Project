@@ -99,7 +99,7 @@ namespace BL
                       
 
                             Location droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
-
+                       
                             for (int i = 100; i > 0; i--)
                             {
                                 drone.Location = blapi.Totalprogress(drone.Location, drone.Parcel.TargetLocation, droneLocation);
@@ -122,5 +122,6 @@ namespace BL
             }
 
         }
+
     }
 }

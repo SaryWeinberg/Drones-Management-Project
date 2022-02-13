@@ -18,7 +18,7 @@ namespace PL
         /* DroneListWindow ExistDroneListWindow;*/
         /*        public delegate void ObjectChanged<T>(T drone);*/
 
-        public ObjectChanged<BO.Drone> SomeChangedHappened;
+        public ObjectChangedAction<BO.Drone> SomeChangedHappened;
         /// <summary>
         /// Ctor of Add drone window
         /// </summary>
@@ -36,7 +36,7 @@ namespace PL
             MaxWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneID.Focus();
             Drone = new Drone(new BO.Drone());
-            Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
+            Drone.droneListChanged += new ObjectChangedAction<BO.Drone>(UpdateDroneList);
 
 
             /*Drone.AddDroneOrRemove();*/
@@ -90,7 +90,7 @@ namespace PL
             WindowStyle = WindowStyle.None;
             bl = blMain;
             Drone = new Drone(drone);
-            Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);
+            Drone.droneListChanged += new ObjectChangedAction<BO.Drone>(UpdateDroneList);
             /* Drone.droneListChanged += new ObjectChanged<BO.Drone>(UpdateDroneList);*/
 
 

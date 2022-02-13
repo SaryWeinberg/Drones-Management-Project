@@ -21,7 +21,8 @@ namespace PL
     {
         BLApi.IBL bl;
         Parcel Parcel;
-        public  ObjectChanged<BO.Parcel> SomeChangedHappened;
+        public  ObjectChangedAction<BO.Parcel> SomeChangedHappened;
+        public ObjectChangedAction<BO.Parcel> ParcelIsremoved;
 
         public ParcelWindow(BLApi.IBL blMain)
         {
@@ -34,7 +35,7 @@ namespace PL
             ParcelPriority.ItemsSource = Enum.GetValues(typeof(Priorities));
             sendNewParcel.Visibility = Visibility.Visible;
             Parcel = new Parcel(new BO.Parcel());
-            Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
+            Parcel.ParcelListChanged += new ObjectChangedAction<BO.Parcel>(UpdateParcelList);
         }
 
         public ParcelWindow(BLApi.IBL blMain, BO.Parcel parcel)
@@ -50,7 +51,7 @@ namespace PL
             if (Parcel.PickedUp != null && Parcel.Delivered == null)
                 DeliveredChecked.Visibility = Visibility.Visible;
 
-            Parcel.ParcelListChanged += new ObjectChanged<BO.Parcel>(UpdateParcelList);
+            Parcel.ParcelListChanged += new ObjectChangedAction<BO.Parcel>(UpdateParcelList);
         }
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
@@ -90,8 +91,12 @@ namespace PL
                 if (result == MessageBoxResult.OK)
                 {
 
-                    if (Parcel.ParcelListChanged != null)
-                        Parcel.ParcelListChanged(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));
+                    ParcelIsremoved(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));
+
+                   /* Parcel.ParcelListChanged = RemoveParcelFromList;*/
+                    /*          if (Parcel.ParcelListChanged != null)
+                                  Parcel.ParcelListChanged(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));*/
+
                     /*     new ParcelListWindow(bl).Show();*/
                     Close();
                 }
@@ -144,6 +149,7 @@ namespace PL
         {
             Parcel.Delivered = DateTime.Now;
             bl.SupplyParcelByDrone(Parcel.Drone.ID);
+
         }
 
         private void RefreshWindow(object sender, RoutedEventArgs e)
@@ -158,6 +164,12 @@ namespace PL
                 SomeChangedHappened(parcel);
 
         }
+/*        public void RemoveParcelFromList(BO.Parcel parcel)
+        {
+            if (SomeChangedHappened != null)
+                SomeChangedHappened(parcel);
+
+        }*/
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {

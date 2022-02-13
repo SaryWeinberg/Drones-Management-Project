@@ -21,7 +21,7 @@ namespace PL
     {
         BLApi.IBL bl;
         Station Station;
-        public event ObjectChanged<BO.Station> SomeChangedHappened;
+        public event ObjectChangedAction<BO.Station> SomeChangedHappened;
         public StationWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -65,7 +65,7 @@ namespace PL
             bl = blMain;
 
             Station = new Station(station);
-            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
+            Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
             AddStation.DataContext = Station;
 
             /* StationName.Text = station.Name.ToString();

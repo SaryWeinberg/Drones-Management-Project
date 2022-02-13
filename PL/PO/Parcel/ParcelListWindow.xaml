@@ -45,7 +45,7 @@
             <Label Content="From:" HorizontalAlignment="Left" Height="28" Margin="142,-2,0,0" Width="48" />
             <Label Content="To:" HorizontalAlignment="Left" Height="29" Margin="143,27,0,0" Width="46" />
         </Grid>
-        <ListView x:Name="ParcelListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateParcel" SelectionChanged="ParcelListView_SelectionChanged">
+        <ListView x:Name="ParcelListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateParcel">
 
             <ListView.GroupStyle>
                 <GroupStyle>

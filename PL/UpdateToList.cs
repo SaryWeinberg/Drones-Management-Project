@@ -8,7 +8,10 @@ using System.Collections.ObjectModel;
 
 namespace PL
 {
-    public delegate void ObjectChanged<T>(T objectChanged);
+    public delegate void ObjectChangedAction<T>(T objectChanged);
+
+
+
 
     /*  public class UpdateToList
 
@@ -33,105 +36,105 @@ namespace PL
 
 
 
-  /*  public class ParcelListClass : DependencyObject
-    {
-
-
-    
-    }*/
-
-
- /*   public class ListClass : DependencyObject
-    {*/
-
-/*        public ObservableCollection<BO.DroneToList> DroneList {
-            get { return (ObservableCollection<BO.DroneToList>)GetValue(DroneListProperty); }
-            set
-            {
-                SetValue(DroneListProperty, value);
-            }
-        }
-
-        public static readonly DependencyProperty DroneListProperty =
-    DependencyProperty.Register("DroneList", typeof(IEnumerable<BO.DroneToList>), typeof(ListClass), new UIPropertyMetadata());
-
-
-        public ObservableCollection<BO.ParcelToList> ParcelList {
-            get { return (ObservableCollection<BO.ParcelToList>)GetValue(ParcelListProperty); }
-            set
-            {
-                SetValue(ParcelListProperty, value);
-            }
-        }
-
-        public static readonly DependencyProperty ParcelListProperty =
-        DependencyProperty.Register("ParcelList", typeof(ObservableCollection<BO.ParcelToList>), typeof(ParcelListClass), new UIPropertyMetadata());
-
-        public ObservableCollection<BO.StationToList> StationList {
-            get { return (ObservableCollection<BO.StationToList>)GetValue(StationListProperty); }
-            set
-            {
-                SetValue(StationListProperty, value);
-            }
-        }
-        public static readonly DependencyProperty StationListProperty =
-        DependencyProperty.Register("StationList", typeof(IEnumerable<BO.StationToList>), typeof(ListClass), new UIPropertyMetadata());
-
-
-        public ObservableCollection<BO.CustomerToList> CustomerList {
-            get { return (ObservableCollection<BO.CustomerToList>)GetValue(CustomerListProperty); }
-            set
-            {
-                SetValue(CustomerListProperty, value);
-            }
-        }
+    /*  public class ParcelListClass : DependencyObject
+      {
 
 
 
+      }*/
 
-        public static readonly DependencyProperty CustomerListProperty =
-    DependencyProperty.Register("CustomerList", typeof(IEnumerable<BO.CustomerToList>), typeof(ListClass), new UIPropertyMetadata());
 
-        public ListClass(ObservableCollection<BO.DroneToList> List)
-        {
-            DroneList = List;
-        }
-        public ListClass(ObservableCollection<BO.ParcelToList> List)
-        {
-            ParcelList = List;
-        }
-        public ListClass(ObservableCollection<BO.StationToList> List)
-        {
-            StationList = List;
-        }
-        public ListClass(ObservableCollection<BO.CustomerToList> List)
-        {
-            CustomerList = List;
-        }
+    /*   public class ListClass : DependencyObject
+       {*/
 
-        public void updateDroneList(BO.Drone drone)
-        {
-
-            
-            foreach (BO.DroneToList droneToList in this.DroneList)
-            {
-                if(drone.ID == droneToList.ID)
+    /*        public ObservableCollection<BO.DroneToList> DroneList {
+                get { return (ObservableCollection<BO.DroneToList>)GetValue(DroneListProperty); }
+                set
                 {
+                    SetValue(DroneListProperty, value);
+                }
+            }
 
-                 
-                    DroneList.Remove(droneToList);
-                    this.DroneList.Add(new BO.DroneToList(drone));
-                    break;
-                   
+            public static readonly DependencyProperty DroneListProperty =
+        DependencyProperty.Register("DroneList", typeof(IEnumerable<BO.DroneToList>), typeof(ListClass), new UIPropertyMetadata());
+
+
+            public ObservableCollection<BO.ParcelToList> ParcelList {
+                get { return (ObservableCollection<BO.ParcelToList>)GetValue(ParcelListProperty); }
+                set
+                {
+                    SetValue(ParcelListProperty, value);
+                }
+            }
+
+            public static readonly DependencyProperty ParcelListProperty =
+            DependencyProperty.Register("ParcelList", typeof(ObservableCollection<BO.ParcelToList>), typeof(ParcelListClass), new UIPropertyMetadata());
+
+            public ObservableCollection<BO.StationToList> StationList {
+                get { return (ObservableCollection<BO.StationToList>)GetValue(StationListProperty); }
+                set
+                {
+                    SetValue(StationListProperty, value);
+                }
+            }
+            public static readonly DependencyProperty StationListProperty =
+            DependencyProperty.Register("StationList", typeof(IEnumerable<BO.StationToList>), typeof(ListClass), new UIPropertyMetadata());
+
+
+            public ObservableCollection<BO.CustomerToList> CustomerList {
+                get { return (ObservableCollection<BO.CustomerToList>)GetValue(CustomerListProperty); }
+                set
+                {
+                    SetValue(CustomerListProperty, value);
+                }
+            }
+
+
+
+
+            public static readonly DependencyProperty CustomerListProperty =
+        DependencyProperty.Register("CustomerList", typeof(IEnumerable<BO.CustomerToList>), typeof(ListClass), new UIPropertyMetadata());
+
+            public ListClass(ObservableCollection<BO.DroneToList> List)
+            {
+                DroneList = List;
+            }
+            public ListClass(ObservableCollection<BO.ParcelToList> List)
+            {
+                ParcelList = List;
+            }
+            public ListClass(ObservableCollection<BO.StationToList> List)
+            {
+                StationList = List;
+            }
+            public ListClass(ObservableCollection<BO.CustomerToList> List)
+            {
+                CustomerList = List;
+            }
+
+            public void updateDroneList(BO.Drone drone)
+            {
+
+
+                foreach (BO.DroneToList droneToList in this.DroneList)
+                {
+                    if(drone.ID == droneToList.ID)
+                    {
+
+
+                        DroneList.Remove(droneToList);
+                        this.DroneList.Add(new BO.DroneToList(drone));
+                        break;
+
+                    }
+
                 }
 
+
+
             }
 
-
-
-        }
-
-    }*/
+        }*/
 
 
 
@@ -173,7 +176,7 @@ namespace PL
             DependencyProperty.Register("Parcel", typeof(BO.ParcelByDelivery), typeof(Drone), new UIPropertyMetadata());
         public static readonly DependencyProperty LocationProperty =
             DependencyProperty.Register("Location", typeof(BO.Location), typeof(Drone), new UIPropertyMetadata());
-        public ObjectChanged<BO.Drone> droneListChanged;
+        public ObjectChangedAction<BO.Drone> droneListChanged;
         public void updateDronePO(BO.Drone drone )
         {
             ID = drone.ID;
@@ -222,7 +225,7 @@ namespace PL
             DependencyProperty.Register("DronesInChargelist", typeof(List<BO.DroneInCharge>), typeof(Station), new UIPropertyMetadata());
 
 
-        public  ObjectChanged<BO.Station> stationListChanged;
+        public  ObjectChangedAction<BO.Station> stationListChanged;
 
 
         public void UpdateStation(BO.Station station)
@@ -242,7 +245,7 @@ namespace PL
     public class Customer : DependencyObject
     {
 
-        public  ObjectChanged<BO.Customer> CustomerListChanged;
+        public  ObjectChangedAction<BO.Customer> CustomerListChanged;
         public Customer(BO.Customer customer)
         {
             ID = customer.ID;
@@ -335,7 +338,7 @@ namespace PL
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(BO.CustomerInParcel), typeof(Parcel), new UIPropertyMetadata());
 
-        public ObjectChanged<BO.Parcel> ParcelListChanged;
+        public ObjectChangedAction<BO.Parcel> ParcelListChanged;
 
         public void updateParcel(BO.Parcel parcel)
         {

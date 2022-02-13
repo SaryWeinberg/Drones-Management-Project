@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections;
 
 namespace PL
 {
@@ -20,6 +21,10 @@ namespace PL
     /// </summary>
     public partial class ParcelListWindow : Window
     {
+        private ObservableCollection<T> Convert<T>(IEnumerable original)
+        {
+            return new ObservableCollection<T>(original.Cast<T>());
+        }
         BLApi.IBL bl;
         private CollectionView view;
         ObservableCollection<BO.ParcelToList> _myCollection = new ObservableCollection<BO.ParcelToList>();
@@ -29,13 +34,14 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            foreach (var item in bl.GetParcelsToList())
-                _myCollection.Add(item);
+            _myCollection = Convert<BO.ParcelToList>(bl.GetParcelsToList());
+            /*   foreach (var item in bl.GetParcelsToList())
+                   _myCollection.Add(item);*/
             DataContext = _myCollection;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-        }       
+        }
 
         /// <summary>
         /// Filter the list category priority
@@ -102,8 +108,8 @@ namespace PL
 
         private void FilterByDateRange(object sender, RoutedEventArgs e)
         {
-            
-            ParcelListView.ItemsSource = bl.GetParcels(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
+
+            ParcelListView.ItemsSource = bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate);
             ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
                                          select (new BO.ParcelToList(parcels));
 
@@ -133,18 +139,34 @@ namespace PL
             BO.ParcelToList parcelToList = (sender as ListView).SelectedValue as BO.ParcelToList;
             ParcelWindow openWindow = new ParcelWindow(bl, bl.GetSpesificParcel(parcelToList.ID));
             openWindow.SomeChangedHappened += UpdateParcel;
+            openWindow.ParcelIsremoved += RemoveParcel;
             openWindow.Show();
 
         }
         private void UpdateParcel(BO.Parcel parcel)
         {
             BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
+      
+           
+                int idx = _myCollection.IndexOf(parcelToList);
+                _myCollection[idx] = new BO.ParcelToList(parcel);
+           
+           
+        }
+
+        private void RemoveParcel(BO.Parcel parcel)
+        {
+            BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
             int idx = _myCollection.IndexOf(parcelToList);
-            _myCollection[idx] = new BO.ParcelToList(parcel);
+            _myCollection.RemoveAt(idx); 
+     
+/*            _myCollection[idx] = new BO.ParcelToList(parcel);*/
+
+
         }
 
 
-       
+
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new MainWindow(bl).Show();
@@ -171,9 +193,9 @@ namespace PL
             }
         }
 
-        private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+/*        private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }
+        }*/
     }
 }
