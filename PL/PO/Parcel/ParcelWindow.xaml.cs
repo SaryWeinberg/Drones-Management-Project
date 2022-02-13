@@ -55,7 +55,6 @@ namespace PL
 
         private void AddNewParcel(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 MessageBoxResult result =
@@ -92,32 +91,11 @@ namespace PL
 
                     if (Parcel.ParcelListChanged != null)
                         Parcel.ParcelListChanged(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));
-                    /*     new ParcelListWindow(bl).Show();*/
                     Close();
                 }
             }
             catch (Exception exc) { MessageBox.Show(exc.Message); }
         }
-
-/*
-        private void UpdateParcel(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                MessageBoxResult result =
-                    MessageBox.Show(
-                    bl.(int.Parse(ParcelID.Text)),
-                    $"Add parcel",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                if (result == MessageBoxResult.OK)
-                {
-                    new ParcelListWindow(bl).Show();
-                    Close();
-                }
-            }
-            catch (Exception exc) { MessageBox.Show(exc.Message); }
-        }*/
 
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
@@ -144,24 +122,17 @@ namespace PL
         {
             Parcel.Delivered = DateTime.Now;
             bl.SupplyParcelByDrone(Parcel.Drone.ID);
-        }
-
-        private void RefreshWindow(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }      
 
         public void UpdateParcelList(BO.Parcel parcel)
         {
-
             if (SomeChangedHappened != null)
                 SomeChangedHappened(parcel);
-
         }
 
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
-            new ParcelListWindow(bl).Show();
+/*            new ParcelListWindow(bl).Show();*/
             Close();
         }      
 

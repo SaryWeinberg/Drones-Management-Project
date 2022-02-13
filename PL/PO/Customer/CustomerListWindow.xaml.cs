@@ -31,8 +31,6 @@ namespace PL
 
         private void DataWindowClosing(object sender, RoutedEventArgs e) => Close();
 
-        private void RefreshWindow(object sender, RoutedEventArgs e) => CustomerListView.Items.Refresh();
-
         private void AddCustomer(object sender, RoutedEventArgs e) => new CustomerWindow(bl).Show();
 
         private void UpdateCustomer(object sender, MouseButtonEventArgs e)

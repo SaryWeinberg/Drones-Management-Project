@@ -55,7 +55,6 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> condition = null)
         {
-
             var x = from station in XmlTools.LoadListFromXmlXElement(direction + stationFilePath)
                     select new Station()
                     {
@@ -70,6 +69,7 @@ namespace Dal
             condition ??= (s => true);
             return from station in x
                    where condition(station)
+                   orderby(station.ID)
                    select station;
         }
     }

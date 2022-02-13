@@ -62,14 +62,5 @@ namespace Dal
                    where parcel.Active == true && condition(parcel)
                    select parcel;
         }
-
-/*        public void RemoveParcel(int ID)
-        {
-            DataSource.Parcels.First(parcel => parcel.ID == ID)
-            int index = DataSource.Parcels.FindIndex(p => p.ID == ID);
-            DataSource.Parcels[index].Active = false; 
-      *//*      Parcel P = DataSource.Parcels.First(p=>p.ID == ID);
-            P.Active = false;*//*
-        }*/
     }
 }

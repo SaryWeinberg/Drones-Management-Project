@@ -15,8 +15,6 @@ namespace BL
     {
         IDal dal;
 
-   /*    internal IDal dalObj;*/
-
         Random rand = new Random();
         List<BO.Drone> dronesList = new List<BO.Drone>();
 
@@ -133,8 +131,7 @@ namespace BL
         }
 
         internal double ElectricalPowerRequest(int parcelWeight)
-        {
-            
+        {            
             return dal.ElectricalPowerRequest()[parcelWeight];
         }
 
@@ -153,6 +150,7 @@ namespace BL
                 throw new TheDroneNotAvailableException();
             }
             BO.Station station = GetNearestAvailableStation(drone.Location);
+
             lock (dal)
             {
                 //If there is not enough battery until you reach the station
@@ -160,24 +158,20 @@ namespace BL
                 {
                     throw new NoBatteryToReachChargingStationException();
                 }
-
             }
+
             lock (dal)
             {
                 drone.Battery -= Math.Round(dal.ElectricalPowerRequest()[0] * Distance(drone.Location, station.Location), 2);
             }
             drone.Location = station.Location;
             drone.Status = DroneStatus.Maintenance;
-            /*      station.AveChargeSlots -= 1;*/
             AddDroneCharge(station.ID, drone.ID, drone.Battery);
+
             lock (dal)
             {
                 dal.UpdateDrone(ConvertBLDroneToDAL(drone));
-            }
-            //     station.DronesInChargelist.Add(new DroneInCharge(drone.ID, drone.BatteryStatus));
-            //      droneCharge.StationId = station.ID;
-            //      droneCharge.DroneId = drone.ID;
-            //    dalObj.AddDroneCharge(droneCharge);
+            }          
 
             return "The drone was sent for charging successfully!";
         }
@@ -325,8 +319,7 @@ namespace BL
                     droneBL.Battery = Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
                     droneBL.Location = senderCustomer.Location;
                     
-                    currentParcel.PickedUpByDrone = DateTime.Now;
-                  
+                    currentParcel.PickedUpByDrone = DateTime.Now;                  
 
                     dal.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
                     ParcelByDelivery parcelByDelivery = droneBL.Parcel;
@@ -376,32 +369,7 @@ namespace BL
             {
                 throw new TheParcelCouldNotCollectedOrDeliveredException("supplied");
             }
-
-
-
-            /*            List<BO.Parcel> parcels = GetParcels();
-                        foreach (BO.Parcel currentParcel in parcels)
-                        {
-                            if (currentParcel.Drone.ID == droneId)
-                            {
-                                if (currentParcel.PickedUp == null && currentParcel.Delivered != null)
-                                {
-                                    throw new TheParcelCouldNotCollectedOrDeliveredException(currentParcel.ID, "delivered");
-                                }*/
-            //A parcel collected by a drone but not delivered by him
-            /*                    List<BO.Customer> customers = GetCustomers();
-                                BO.Customer targetCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);*/
-            /*                    droneBL.BatteryStatus = Distance(droneBL.Location, targetCustomer.location) * dalObj.ElectricalPowerRequest()[(int)droneBL.MaxWeight];
-            *//*                    droneBL.Location = targetCustomer.location;
-                                droneBL.Status = DroneStatus.Available;*/
-            /*                currentParcel.Delivered = DateTime.Now;*/
-            /*         dalObj.UpdateParcel(ConvertBLParcelToDAL(currentParcel));*/
-            /*                    return $"The parcel ID - {currentParcel.ID} was successfully delivered by the drone!";
-                            }
-                        }*/
-            /*  return "";*/
         }
-
 
         public void StartSimulation(int DroneId, Action<int> ViewUpdate, Func<bool> ToStop)
         {
