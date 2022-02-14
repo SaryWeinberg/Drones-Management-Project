@@ -67,7 +67,7 @@ namespace Dal
                 parcel.SenderId = Customers[i].ID;
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
-                parcel.Priority = (Priorities)(rand.Next(0, 2));
+                parcel.Priority = (Priorities)(rand.Next(0, 3));
 
                 /*                public static void Initialize()
                                 {
@@ -132,9 +132,9 @@ namespace Dal
                         DateTime randPickedUp = RandomDate(randAssociated2);
                         parcel.PickedUp = randPickedUp;
                         parcel.Delivered = RandomDate(randPickedUp);
-                        parcel.DroneId = DroneIndex %5 +1;
+                        parcel.DroneId =  rand.Next(1,6);
                         parcel.Weight = Drones.First(d => d.ID == parcel.DroneId).MaxWeight;
-                        DroneIndex++;
+                  
 
 
                         break;

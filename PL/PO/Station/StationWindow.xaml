@@ -24,18 +24,19 @@
             <TextBox Name="StationLatitude"    Margin = "221, 150, 500, 0" Text="{Binding Location.Latitude}" KeyDown="OnKeyDownStationLatitude"/>
             <Button  Name="sendNewStation" Content="Send" Click="AddNewStation" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
-        <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30" Visibility="Hidden">
+        <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30" Visibility="Visible">
             <Label  Name="DronesInChargelistLabel" Content = "Drones In Charge:" Margin = "139,191,612,0"/>
-            <ListView Name="DronesInChargelist" ItemsSource="{Binding}" Margin="43,234,502,214" FontSize="15"  MouseDoubleClick="GetDrone">
+            <ListView Name="DronesInChargelist" ItemsSource="{Binding }" Margin="43,234,502,214" FontSize="15"  MouseDoubleClick="GetDrone">
                 <ListView.View >
                     <GridView>
-                        <GridViewColumn Header="ID" Width="171" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="Battery" Width="172" DisplayMemberBinding="{Binding BatteryStatus}" />
+                        <GridViewColumn Header="ID" Width="171" DisplayMemberBinding="{Binding DronesInChargelist.ID}" />
+                        <GridViewColumn Header="Battery" Width="172" DisplayMemberBinding="{Binding DronesInChargelist.BatteryStatus}" />
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" Click="UpdateStation" Margin="258,441,502,0"  Visibility ="Hidden"/>
         </Grid>
+        <Button Name="updateStation" Content="update" Style="{StaticResource RedButton}" Click="UpdateStation" Margin="700,433,60,0"/>
+
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>

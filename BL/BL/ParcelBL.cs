@@ -208,10 +208,6 @@ namespace BL
             }
         }
 
-        /*public IEnumerable<BO.Parcel> GetParcelsNotYetAssignedToDrone()
-        {
-            return GetParcels(parcel => parcel.Associated == null);
-        }*/
 
         /// <summary>
         /// Returns the parcel list with ParcelToList

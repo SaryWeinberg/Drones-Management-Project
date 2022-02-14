@@ -42,8 +42,8 @@ namespace BLApi
         public BO.Station GetSpesificStation(int stationId);
         public DroneInCharge GetSpecificDroneInCharge(int droneId);
         public BO.Station GetNearestAvailableStation(Location Targlocation);
-        public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
-        public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null);
+/*        public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation);
+*/        public IEnumerable<BO.Customer> GetCustomers(Predicate<BO.Customer> condition = null);
         public IEnumerable<BO.Drone> GetDalDronesListAsBL();
         public IEnumerable<BO.Drone> GetDronesList(Predicate<BO.Drone> condition = null);
         public IEnumerable<BO.Parcel> GetParcels(Predicate<BO.Parcel> condition = null);
