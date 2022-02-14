@@ -3,19 +3,13 @@
   <Drone>
     <ID>1</ID>
     <Model>1</Model>
-    <MaxWeight>Medium</MaxWeight>
-    <Active>false</Active>
-  </Drone>
-  <Drone>
-    <ID>13</ID>
-    <Model>12345</Model>
-    <MaxWeight>Light</MaxWeight>
+    <MaxWeight>Heavy</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
     <ID>2</ID>
     <Model>2</Model>
-    <MaxWeight>Medium</MaxWeight>
+    <MaxWeight>Light</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
@@ -25,26 +19,14 @@
     <Active>false</Active>
   </Drone>
   <Drone>
-    <ID>21254</ID>
-    <Model>321</Model>
-    <MaxWeight>Medium</MaxWeight>
-    <Active>false</Active>
-  </Drone>
-  <Drone>
     <ID>4</ID>
     <Model>4</Model>
-    <MaxWeight>Medium</MaxWeight>
+    <MaxWeight>Light</MaxWeight>
     <Active>false</Active>
   </Drone>
   <Drone>
     <ID>5</ID>
     <Model>5</Model>
-    <MaxWeight>Heavy</MaxWeight>
-    <Active>false</Active>
-  </Drone>
-  <Drone>
-    <ID>123</ID>
-    <Model>7657</Model>
     <MaxWeight>Medium</MaxWeight>
     <Active>false</Active>
   </Drone>

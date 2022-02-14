@@ -92,7 +92,7 @@ namespace BL
                         {
                             drone.Battery = rand.Next(1, 20);
                             List<BO.Station> stationBLs = GetStations(x => x.AveChargeSlots > 0).ToList();
-                            int stationId = rand.Next(0, 2);
+                            int stationId = rand.Next(stationBLs.Count-1);
                             drone.Location = stationBLs[stationId].Location;
                             AddDroneCharge(stationId, drone.ID, drone.Battery);
                         }
