@@ -159,7 +159,11 @@ namespace PL
         private void ApprovePickedUp(object sender, RoutedEventArgs e)
         {
             Parcel.PickedUp = DateTime.Now;
-            bl.CollectParcelByDrone(Parcel.Drone.ID);
+            try
+            {
+                bl.CollectParcelByDrone(Parcel.Drone.ID);
+            }
+            catch(Exception exc) { MessageBox.Show(exc.Message); }
             DeliveredChecked.Visibility = Visibility.Visible;
         }
 
@@ -171,7 +175,11 @@ namespace PL
         private void ApproveDelivered(object sender, RoutedEventArgs e)
         {
             Parcel.Delivered = DateTime.Now;
-            bl.SupplyParcelByDrone(Parcel.Drone.ID);
+            try
+            {
+                bl.SupplyParcelByDrone(Parcel.Drone.ID);
+            }
+            catch (Exception exc) { MessageBox.Show(exc.Message); }
         }
 
         /// <summary>
@@ -183,12 +191,6 @@ namespace PL
             if (SomeChangedHappened != null)
                 SomeChangedHappened(parcel);
         }
-/*        public void RemoveParcelFromList(BO.Parcel parcel)
-        {
-            if (SomeChangedHappened != null)
-                SomeChangedHappened(parcel);
-
-        }*/
 
         /// <summary>
         ///  Back to previous window

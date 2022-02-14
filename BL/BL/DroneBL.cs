@@ -168,7 +168,7 @@ namespace BL
             {
                 return dronesList.Find(d => d.ID == droneId);
             }
-            catch (ArgumentNullException)
+            catch (Exception)
             {
                 throw new ObjectNotExistException($"There is no drone with ID - {droneId}");
             }
@@ -184,7 +184,7 @@ namespace BL
                     return ConvertDalDroneChargeToBL(dal.GetDroneCharges().First(d => d.DroneId == droneId));
                 }
             }
-            catch (ArgumentNullException)
+            catch (Exception)
             {
                 throw new ObjectNotExistException($"There is no drone with ID - {droneId}");
             }
@@ -277,9 +277,7 @@ namespace BL
         {
             lock (dal)
             {
-                
                 return Distance(droneLocation, targetLocation) * dal.ElectricalPowerRequest()[parcelweight];
-      
             }
         }
 

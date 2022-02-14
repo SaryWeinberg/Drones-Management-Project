@@ -111,10 +111,12 @@ namespace PL
             deliveryParcelByDrone.IsEnabled = false;
 
             if (Drone.Battery < 10) battery.Foreground = new SolidColorBrush(Colors.Red);
-            else if (Drone.Battery > 95) battery.Foreground = new SolidColorBrush(Colors.Green);
-            else battery.Foreground = new SolidColorBrush(Colors.Yellow);
+            else if (Drone.Battery > 10 && Drone.Battery < 30) battery.Foreground = new SolidColorBrush(Colors.Orange);
+            else if (Drone.Battery > 30 && Drone.Battery < 50) battery.Foreground = new SolidColorBrush(Colors.Yellow);
+            else if (Drone.Battery > 50 && Drone.Battery < 90) battery.Foreground = new SolidColorBrush(Colors.YellowGreen);
+            else battery.Foreground = new SolidColorBrush(Colors.Green);
 
-            if (Drone.Parcel != null)
+            if (Drone.Parcel != null) 
             {
                 parcelLabel.Visibility = Visibility.Visible;
                 parcel.Visibility = Visibility.Visible;
@@ -493,7 +495,6 @@ namespace PL
 
         private void Simulatiom_Stop_Click(object sender, RoutedEventArgs e)
         {
-
             Worker.CancelAsync();
         }       
     }

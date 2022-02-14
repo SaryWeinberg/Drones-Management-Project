@@ -16,7 +16,7 @@
         <ListView x:Name="CustomerListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateCustomer">
             <ListView.View >
                 <GridView>                  
-                    <GridViewColumn Header="ID"                            Width="50"  DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="ID"                            Width="130"  DisplayMemberBinding="{Binding ID}" />
                     <GridViewColumn Header="Name"                          Width="130" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Phone Num"                     Width="130" DisplayMemberBinding="{Binding PhoneNum}" />
                     <GridViewColumn Header="Parcel Sent And Delivered"     Width="200" DisplayMemberBinding="{Binding ParcelSentAndDelivered}" />

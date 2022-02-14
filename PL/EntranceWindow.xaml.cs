@@ -249,13 +249,15 @@ namespace PL
 
         private void Manager(object sender, RoutedEventArgs e)
         {
-            if ((ManagerNameInput() == "Gitty" && ManagerIDInput() == 212542385) || (ManagerNameInput() == "Sary" && ManagerIDInput() == 212381743) || (ManagerNameInput() == "1" && ManagerIDInput() == 1))
+            try
             {
-
-                new MainWindow(bl).Show();
-                Close();
+                if ((ManagerNameInput() == "Gitty" && ManagerIDInput() == 212542385) || (ManagerNameInput() == "Sary" && ManagerIDInput() == 212381743) || (ManagerNameInput() == "1" && ManagerIDInput() == 1))
+                {
+                    new MainWindow(bl).Show();
+                    Close();
+                }
             }
-            else
+            catch(Exception)            
             {
                 MessageBoxResult result =
                     MessageBox.Show("This manager is not registered in the system, please register as a new customer",
