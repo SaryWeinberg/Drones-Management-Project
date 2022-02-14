@@ -108,14 +108,7 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-
-                    ParcelIsremoved(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));
-
-                   /* Parcel.ParcelListChanged = RemoveParcelFromList;*/
-                    /*          if (Parcel.ParcelListChanged != null)
-                                  Parcel.ParcelListChanged(bl.GetSpesificParcel(int.Parse(ParcelID.Text)));*/
-
-                    /*     new ParcelListWindow(bl).Show();*/
+                    ParcelIsremoved(new BO.Parcel() { ID = int.Parse(ParcelID.Text) });
                     Close();
                 }
             }

@@ -4,19 +4,16 @@
     <ID>0</ID>
     <Name>0</Name>
     <Longitude>15</Longitude>
-    <Latitude>5</Latitude>
-    <ChargeSlots>54</ChargeSlots>
-    <Longitude>13</Longitude>
-    <Latitude>34</Latitude>
-    <ChargeSlots>21</ChargeSlots>
+    <Latitude>29</Latitude>
+    <ChargeSlots>72</ChargeSlots>
     <Active>false</Active>
   </Station>
   <Station>
     <ID>1</ID>
     <Name>1</Name>
-    <Longitude>22</Longitude>
-    <Latitude>11</Latitude>
-    <ChargeSlots>32</ChargeSlots>
+    <Longitude>15</Longitude>
+    <Latitude>19</Latitude>
+    <ChargeSlots>65</ChargeSlots>
     <Active>false</Active>
   </Station>
 </ArrayOfStation>

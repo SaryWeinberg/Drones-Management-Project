@@ -77,6 +77,5 @@
         <Button Grid.Row="2" Content="Add Drone" Click="AddDrone" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="696,8,0,0" />
         <Button Grid.Row="2" Content="Group by status" Click="GroupByStatus" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="530,8,0,0" />
         <Button Grid.Row="2" Content="Group by Weight" Click="GroupByWeight" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="360,8,0,0" />
-        <Button Grid.Row="2" Content="All Simulation" Click="AllSimulation" Style="{StaticResource RedButton}" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="190,8,0,0" />
     </Grid>
 </Window>

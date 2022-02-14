@@ -193,14 +193,5 @@ namespace PL
         {
             MyCollection.Add(new BO.DroneToList(drone));
         }
-
-        private void AllSimulation(object sender, RoutedEventArgs e)
-        {
-          /*  foreach(BO.Drone item in bl.GetDronesList())
-             new DroneWindow(bl, bl.GetSpesificDrone(item.ID)).Simulation += 
-           *//* from droneWindow in windows*//*
-            droneWindow().Show();*/
-
-        }
     }
 }
