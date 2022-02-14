@@ -16,7 +16,7 @@
         <ListView x:Name="StationListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateStation">
             <ListView.View >
                 <GridView>
-                   
+
                     <GridViewColumn Header="ID"                Width="130" DisplayMemberBinding="{Binding ID}" />
                     <GridViewColumn Header="Name"              Width="130" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="AveChargeSlots"  Width="130" DisplayMemberBinding="{Binding AveChargeSlots}" />
@@ -48,12 +48,13 @@
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
             </ListView.GroupStyle>
-      
+
         </ListView>
         <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
+        <Button Grid.Row="1" Content="Station List" Style="{StaticResource RedButton}" Click="StationAllList" HorizontalAlignment="Left" RenderTransformOrigin="-4.827,-2.971" Margin="675,431,0,0" Grid.RowSpan="2"/>
         <Button Grid.Row="1" Content="Group by sum of avilable charges slots" Click="GroupByEmptySlots" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Width ="254"  Margin="222,431,0,0" Height="26" Grid.RowSpan="2" />
         <Button Grid.Row="2" Content=" Show stations with avilable charges slots" Click="GroupByAvailbleStations" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Margin="222,0,0,33" Width ="auto" Height="26" VerticalAlignment="Bottom"/>
-        <Button Grid.Row="1" Content="Add Station" Style="{StaticResource RedButton}" Click="AddStation" HorizontalAlignment="Left" Margin="500,431,0,0" Height="66" Grid.RowSpan="2" />
+        <Button Grid.Row="1" Content="Add Station" Style="{StaticResource RedButton}" Click="AddStation" HorizontalAlignment="Left" Margin="500,431,0,0" Grid.RowSpan="2" />
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
     </Grid>

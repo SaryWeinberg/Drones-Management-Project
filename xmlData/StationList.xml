@@ -3,9 +3,12 @@
   <Station>
     <ID>0</ID>
     <Name>0</Name>
-    <Longitude>29</Longitude>
-    <Latitude>38</Latitude>
-    <ChargeSlots>97</ChargeSlots>
+    <Longitude>15</Longitude>
+    <Latitude>5</Latitude>
+    <ChargeSlots>54</ChargeSlots>
+    <Longitude>13</Longitude>
+    <Latitude>34</Latitude>
+    <ChargeSlots>21</ChargeSlots>
     <Active>false</Active>
   </Station>
   <Station>

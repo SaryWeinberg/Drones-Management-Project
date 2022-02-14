@@ -57,6 +57,13 @@ namespace PL
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
+        /// Show all drones without filter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StationAllList(object sender, RoutedEventArgs e) => StationListView.ItemsSource = bl.GetStationsToList();
+
+        /// <summary>
         /// Show drone window with adding ctor
         /// </summary>
         /// <param name="sender"></param>
