@@ -136,11 +136,11 @@
     <TargetId>212381743</TargetId>
     <Weight>Light</Weight>
     <Priority>Emergency</Priority>
-    <DroneId>0</DroneId>
+    <DroneId>13</DroneId>
     <Created>2022-02-14T15:25:16.7823578+02:00</Created>
-    <Associated xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <Active>false</Active>
+    <Associated>2022-02-14T16:34:06.1341489+02:00</Associated>
+    <PickedUp>2022-02-14T16:34:11.8621593+02:00</PickedUp>
+    <Delivered>2022-02-14T16:34:15.621193+02:00</Delivered>
+    <Active>true</Active>
   </Parcel>
 </ArrayOfParcel>

@@ -67,7 +67,7 @@ namespace Dal
                 parcel.SenderId = Customers[i].ID;
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
-                parcel.Priority = (Priorities)(rand.Next(0, 2));
+                parcel.Priority = (Priorities)(rand.Next(0, 3));
 
                 /*                public static void Initialize()
                                 {
