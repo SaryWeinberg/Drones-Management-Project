@@ -132,9 +132,9 @@ namespace Dal
                         DateTime randPickedUp = RandomDate(randAssociated2);
                         parcel.PickedUp = randPickedUp;
                         parcel.Delivered = RandomDate(randPickedUp);
-                        parcel.DroneId = DroneIndex %5 +1;
+                        parcel.DroneId =  rand.Next(1,6);
                         parcel.Weight = Drones.First(d => d.ID == parcel.DroneId).MaxWeight;
-                        DroneIndex++;
+                  
 
 
                         break;

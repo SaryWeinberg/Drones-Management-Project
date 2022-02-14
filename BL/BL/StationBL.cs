@@ -170,25 +170,6 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// Returns stations with available charge slots
-        /// </summary>
-        /// <returns></returns>
-        /// ---------------------------------------------------------------
-/*        [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<BO.Station> GetAvailableStationsList()
-        {
-            List<BO.Station> stationsBL = new List<BO.Station>().ToList();
-            foreach (DO.Station station in dalObj.GetStations())
-            {
-                if (station.ChargeSlots > 0)
-                {
-                    stationsBL.Add(ConvertDalStationToBL(station));
-                }
-            }
-            return stationsBL;
-        }*/
-//--------------------------------------------------------------
 
         /// <summary>
         /// Returns the station in the location closest to the received location

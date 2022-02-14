@@ -233,6 +233,24 @@ namespace BL
                    select new DroneToList(dc);
         }
 
+
+        /// <summary>
+        /// Function that finds a distance between 2 points
+        /// </summary>
+        /// <param name="location1"></param>
+        /// <param name="location2"></param>
+        /// <returns></returns>
+        double Distance(Location location1, Location location2)
+        {
+
+            double x1 = location1.Longitude;
+            double y1 = location1.Latitude;
+
+            double x2 = location2.Longitude;
+            double y2 = location2.Latitude;
+            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+        }
+
         /// <summary>
         /// The function returns the total battery usage
         /// </summary>
@@ -241,8 +259,8 @@ namespace BL
         /// <param name="parcelweight"></param>
         /// <param name="droneLocation"></param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation)
+
+       internal double TotalBatteryUsage(int senderId, int targetId, int parcelweight, Location droneLocation)
         {
             lock (dal)
             {
@@ -253,8 +271,9 @@ namespace BL
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
-        public double TotalBatteryToDestination(  Location droneLocation, Location targetLocation, int parcelweight = 0)
+
+
+        internal double TotalBatteryToDestination(  Location droneLocation, Location targetLocation, int parcelweight = 0)
         {
             lock (dal)
             {
@@ -264,34 +283,32 @@ namespace BL
             }
         }
 
-        /*        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק*/
-        /*        public double TotalTimeUsage(Location target, double DroneSpeed, Location droneLocation)
-                {
-                    lock (dal)
-                    {
-                        return ((Distance(droneLocation, target) * DroneSpeed));
-                    }
-                }*/
 
 
-        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
-        public Location Totalprogress(Location current, Location target, Location source)
+        internal Location Totalprogress(Location current, Location target, Location source)
         {
             double longitudeDistance = Math.Abs(source.Longitude - target.Longitude) / 100;
-            /*            double longitude = current.Longitude;*/
+
             if (current.Longitude <= target.Longitude)
                 current.Longitude += longitudeDistance;
             else
                 current.Longitude -= longitudeDistance;
 
             double latitudeDistance = Math.Abs(current.Latitude - target.Latitude) / 100;
-/*            double latitude = current.Latitude;
-*/          if (current.Latitude <= target.Latitude)
+
+         if (current.Latitude <= target.Latitude)
                 current.Latitude += latitudeDistance;
             else
                 current.Latitude -= latitudeDistance;
 
             return new Location() { Latitude = Math.Round(current.Latitude, 3), Longitude = Math.Round(current.Longitude, 3) };
+        }
+
+
+
+        internal double ElectricalPowerRequest(int parcelWeight)
+        {
+            return dal.ElectricalPowerRequest()[parcelWeight];
         }
     }
 }

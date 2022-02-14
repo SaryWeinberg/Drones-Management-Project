@@ -29,6 +29,7 @@ namespace BL
             }
         }
 
+
         private BL()
         {
             dal = DalFactory.GetDal();
@@ -46,27 +47,35 @@ namespace BL
                 foreach (BO.Drone drone in dronesList)
                 {
                     drone.Location = new Location { Longitude = rand.Next(0, 40), Latitude = rand.Next(0, 40) };
-                    DO.Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);
-
-                    //There is a parcel that has been associated but not delivered
-                    if (parcels.Any(p => p.DroneId == drone.ID) && parcel.Delivered == null && parcel.Associated != null)
+                    if (parcels.Any(p => p.DroneId == drone.ID &&p.Delivered == null))
                     {
-                        //Package not collected
-                        if (parcel.PickedUp == null)
+                        foreach (DO.Parcel parcel in dal.GetParcels(p => p.DroneId == drone.ID))
                         {
-                            drone.Location = GetNearestAvailableStation(GetSpesificCustomer(parcel.SenderId).Location).Location;
-                        }
-                        //There must be a package that is not delivered
-                        else
-                        {
-                            drone.Location = GetSpesificCustomer(parcel.SenderId).Location;
-                        }
 
-                        drone.Battery = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
-                        drone.Status = DroneStatus.Delivery;
 
-                        ParcelByDelivery parcelBD = new ParcelByDelivery(GetSpesificParcel(parcel.ID), drone, GetSpesificCustomer(parcel.SenderId), GetSpesificCustomer(parcel.TargetId));
-                        drone.Parcel = parcelBD;
+                            /*DO.Parcel parcel = parcels.Find(p => p.DroneId == drone.ID);*/
+/*                            (parcels.Any(p => p.DroneId == drone.ID && parcel.Delivered == null && parcel.Associated != null)*/
+                        //There is a parcel that has been associated but not delivered
+                        if (parcel.Delivered == null && parcel.Associated != null)
+                            {
+                                //Package not collected, just assosited
+                                if (parcel.PickedUp == null)
+                                {
+                                    drone.Location = GetNearestAvailableStation(GetSpesificCustomer(parcel.SenderId).Location).Location;
+                                }
+                                //There must be a package that is not delivered
+                                else
+                                {
+                                    drone.Location = GetSpesificCustomer(parcel.SenderId).Location;
+                                }
+
+                                drone.Battery = rand.Next((int)TotalBatteryUsage(parcel.SenderId, parcel.TargetId, (int)parcel.Weight, drone.Location), 100);
+                                drone.Status = DroneStatus.Delivery;
+
+                                ParcelByDelivery parcelBD = new ParcelByDelivery(GetSpesificParcel(parcel.ID), drone, GetSpesificCustomer(parcel.SenderId), GetSpesificCustomer(parcel.TargetId));
+                                drone.Parcel = parcelBD;
+                            }
+                        }
                     }
                     else
                     {
@@ -115,27 +124,7 @@ namespace BL
             return false;
         }
 
-        /// <summary>
-        /// Function that finds a distance between 2 points
-        /// </summary>
-        /// <param name="location1"></param>
-        /// <param name="location2"></param>
-        /// <returns></returns>
-        internal double Distance(Location location1, Location location2)
-        {
 
-            double x1 = location1.Longitude;
-            double y1 = location1.Latitude;
-     
-            double x2 = location2.Longitude;
-            double y2 = location2.Latitude;
-            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
-        }
-
-        internal double ElectricalPowerRequest(int parcelWeight)
-        {
-            return dal.ElectricalPowerRequest()[parcelWeight];
-        }
 
         /// <summary>
         /// function for Sending a drone for charging
