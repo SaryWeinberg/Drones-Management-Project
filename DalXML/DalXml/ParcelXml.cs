@@ -57,6 +57,7 @@ namespace Dal
             condition ??= (c => true);
             return from parcel in XmlTools.LoadListFromXmlSerializer<Parcel>(direction + parcelFilePath)
                    where condition(parcel)
+                   orderby(parcel.ID)
                    select parcel;
         }        
     }
