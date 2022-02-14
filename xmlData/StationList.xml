@@ -5,7 +5,7 @@
     <Name>0</Name>
     <Longitude>13</Longitude>
     <Latitude>34</Latitude>
-    <ChargeSlots>26</ChargeSlots>
+    <ChargeSlots>21</ChargeSlots>
     <Active>false</Active>
   </Station>
   <Station>
@@ -13,7 +13,7 @@
     <Name>1</Name>
     <Longitude>1</Longitude>
     <Latitude>1</Latitude>
-    <ChargeSlots>38</ChargeSlots>
+    <ChargeSlots>29</ChargeSlots>
     <Active>false</Active>
   </Station>
   <Station>
