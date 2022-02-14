@@ -54,7 +54,11 @@ namespace PL
 
             Station = new Station(station);
             Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
+
+            DronesInChargelist.ItemsSource = station.DronesInChargelist;
             AddStation.DataContext = Station;
+
+
 
 
             StationName.TextChanged += AddUpdateButton;

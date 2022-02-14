@@ -35,7 +35,7 @@ namespace BO
             }
         }
 
-        public DateTime DroneEnterToCharge { get; set; } // לא ? כי תמיד יש זמן כניסה לטעינה, זאת היישות
+        public DateTime DroneEnterToCharge { get; set; } 
         public DroneInCharge(int DroneID, double Battery, DateTime dateTime)
         {
             id = DroneID;
