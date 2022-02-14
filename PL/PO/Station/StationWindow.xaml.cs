@@ -55,15 +55,14 @@ namespace PL
             Station = new Station(station);
             Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
             AddStation.DataContext = Station;
-        }
-        
-
-      
 
 
             StationName.TextChanged += AddUpdateButton;
             StationChargeSlots.TextChanged += AddUpdateButton;
-        }*/
+        }
+
+
+        
 
         /// <summary>
         /// Adding station 
@@ -91,18 +90,9 @@ namespace PL
                 MessageBox.Show(exc.Message);
             }
         }
-        }
+        
 
-        public StationWindow(BLApi.IBL blMain, BO.Station station)
-        {
-            InitializeComponent();
-            WindowStyle = WindowStyle.None;
-            bl = blMain;
-
-            Station = new Station(station);
-            Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
-            AddStation.DataContext = Station;
-        }
+  
 
         /// <summary>
         /// Add an update button

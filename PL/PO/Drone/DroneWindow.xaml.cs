@@ -484,19 +484,11 @@ namespace PL
             Worker.WorkerReportsProgress = true;
             Worker.ProgressChanged += (object? sender, ProgressChangedEventArgs e) => {
                 Drone.updateDronePO(bl.GetSpesificDrone(Drone_bl.ID));
-                
-                /*  Student.MyAge++;
-                  Student.Name = updatedSt.FirstName;
-                  progress.Content = e.ProgressPercentage;*/
+
             };
 
-            /*Worker.RunWorkerCompleted += (object? sender, RunWorkerCompletedEventArgs e) => {
-             *//*   progress.Content = "stoped";*//*
-            };*/
             Worker.WorkerSupportsCancellation = true;
             Worker.RunWorkerAsync();
-
-            /*    int DroneId = IDInput();*/
         }
 
         private void Simulatiom_Stop_Click(object sender, RoutedEventArgs e)

@@ -9,5 +9,4 @@ using System.Collections.ObjectModel;
 namespace PL
 {
     public delegate void ObjectChangedAction<T>(T objectChanged);
-
 } 

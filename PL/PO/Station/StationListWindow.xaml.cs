@@ -34,10 +34,6 @@ namespace PL
         private CollectionView view;
         ObservableCollection<BO.StationToList> _myCollection = new ObservableCollection<BO.StationToList>();
 
-        private ObservableCollection<T> Convert<T>(IEnumerable original)
-        {
-            return new ObservableCollection<T>(original.Cast<T>());
-        }
 
         /// <summary>
         /// Ctor of StationListWindow
@@ -85,12 +81,12 @@ namespace PL
             openWindow.Show();
         }
 
-        private void UpdateStationList(BO.Station station)
+    
         /// <summary>
         /// Updates objects within the station list
         /// </summary>
         /// <param name="station"></param>
-        private void updateStation(BO.Station station)
+        private void UpdateStationList(BO.Station station)
         {
             BO.StationToList stationToList = _myCollection.First(s => s.ID == station.ID);
             int idx = _myCollection.IndexOf(stationToList);
