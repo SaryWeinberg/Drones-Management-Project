@@ -27,7 +27,7 @@ namespace PL
         }
         BLApi.IBL bl;
         private CollectionView view;
-        ObservableCollection<BO.ParcelToList> _myCollection = new ObservableCollection<BO.ParcelToList>();
+        ObservableCollection<BO.ParcelToList> MyCollection = new ObservableCollection<BO.ParcelToList>();
 
         /// <summary>
         /// Ctor of parcel list window
@@ -38,10 +38,10 @@ namespace PL
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            _myCollection = Convert<BO.ParcelToList>(bl.GetParcelsToList());
+            MyCollection = Convert<BO.ParcelToList>(bl.GetParcelsToList());
             /*   foreach (var item in bl.GetParcelsToList())
                    _myCollection.Add(item);*/
-            DataContext = _myCollection;
+            DataContext = MyCollection;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DataContext);
             PrioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -101,10 +101,10 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void FilterByDateRange(object sender, RoutedEventArgs e)
-        {            
-            ParcelListView.ItemsSource = bl.GetParcels(parcel=> parcel.Created >= DatePickerFrom.SelectedDate);
-            ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
-                                         select (new BO.ParcelToList(parcels));      
+        {
+            ParcelListView.ItemsSource = bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate);
+          /*  ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
+                                         select (new BO.ParcelToList(parcels));*/
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace PL
         /// <param name="parcel"></param>
         private void addParcel(BO.Parcel parcel)
         {
-            _myCollection.Add(new BO.ParcelToList(parcel));
+            MyCollection.Add(new BO.ParcelToList(parcel));
         }
 
         /// <summary>
@@ -149,24 +149,16 @@ namespace PL
         /// <param name="parcel"></param>
         private void UpdateParcel(BO.Parcel parcel)
         {
-            BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
-      
-           
-                int idx = _myCollection.IndexOf(parcelToList);
-                _myCollection[idx] = new BO.ParcelToList(parcel);
-           
-           
+            BO.ParcelToList parcelToList = MyCollection.First(s => s.ID == parcel.ID);
+            int idx = MyCollection.IndexOf(parcelToList);
+            MyCollection[idx] = new BO.ParcelToList(parcel);
         }
 
         private void RemoveParcel(BO.Parcel parcel)
         {
-            BO.ParcelToList parcelToList = _myCollection.First(s => s.ID == parcel.ID);
-            int idx = _myCollection.IndexOf(parcelToList);
-            _myCollection.RemoveAt(idx); 
-     
-/*            _myCollection[idx] = new BO.ParcelToList(parcel);*/
-
-
+            BO.ParcelToList parcelToList = MyCollection.First(s => s.ID == parcel.ID);
+            int idx = MyCollection.IndexOf(parcelToList);
+            MyCollection.RemoveAt(idx);
         }
 
         /// <summary>
@@ -176,7 +168,7 @@ namespace PL
         /// <param name="e"></param>
         private void SonReturnWindow(object sender, RoutedEventArgs e)
         {
-           this.Show();            
+            this.Show();
         }
 
         /// <summary>
