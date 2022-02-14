@@ -98,21 +98,28 @@ namespace PL
         /// <param name="e"></param>
         private void RemoveParcel(object sender, RoutedEventArgs e)
         {
-            try
+            if (Parcel.Associated != null && Parcel.Delivered == null)
             {
-                MessageBoxResult result =
-                    MessageBox.Show(
-                    bl.RemoveParcel(int.Parse(ParcelID.Text)),
-                    $"Add parcel",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                if (result == MessageBoxResult.OK)
-                {
-                    ParcelIsremoved(new BO.Parcel() { ID = int.Parse(ParcelID.Text) });
-                    Close();
-                }
+                MessageBox.Show("Unable to delete package in shipment");
             }
-            catch (Exception exc) { MessageBox.Show(exc.Message); }
+            else
+            {
+                try
+                {
+                    MessageBoxResult result =
+                        MessageBox.Show(
+                        bl.RemoveParcel(int.Parse(ParcelID.Text)),
+                        $"Add parcel",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        ParcelIsremoved(new BO.Parcel() { ID = int.Parse(ParcelID.Text) });
+                        Close();
+                    }
+                }
+                catch (Exception exc) { MessageBox.Show(exc.Message); }
+            }
         }
 
         /// <summary>
