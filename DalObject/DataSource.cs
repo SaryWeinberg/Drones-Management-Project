@@ -53,7 +53,8 @@ namespace Dal
                 customer.Latitude = rand.Next(1, 40);
                 Customers.Add(customer);
             }
-
+            int counter = 0;
+            int DroneIndex = 1;
             for (int i = 0; i < 10; i++)
             {
                 Parcel parcel = new Parcel();
@@ -63,36 +64,55 @@ namespace Dal
                 parcel.TargetId = Customers[i + 1].ID;
                 parcel.Weight = (WeightCategories)(rand.Next(1, 4));
                 parcel.Priority = (Priorities)(rand.Next(0, 2));
-          
+                
+                int RndStatus = rand.Next(1, 6);
+                if (counter == 4) RndStatus = rand.Next(0, 2);
 
-                int RndStatus = rand.Next(1, 5);
                 DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));
-              
+                /*
+                                int RndStatus = rand.Next(1, 5);
+                                DateTime randCreated = RandomDate(new DateTime(2021, 1, 1));*/
+
                 parcel.Created = randCreated;
                 switch (RndStatus)
                 {
                     case 1:
-                        parcel.Associated = RandomDate(randCreated);
-                        parcel.DroneId = rand.Next() % Drones.Count + 1;
-                     
-                        break;
-                    case 2:
-                        DateTime randAssociated = RandomDate(randCreated);
-                        parcel.Associated = randAssociated;
-                        parcel.PickedUp = RandomDate(randAssociated);
-                        parcel.DroneId = rand.Next() % Drones.Count + 1;
-                        break;
-                    case 3:
+
                         DateTime randAssociated2 = RandomDate(randCreated);
                         parcel.Associated = randAssociated2;
                         DateTime randPickedUp = RandomDate(randAssociated2);
                         parcel.PickedUp = randPickedUp;
                         parcel.Delivered = RandomDate(randPickedUp);
-                        parcel.DroneId = rand.Next() % Drones.Count + 1;
+                        parcel.DroneId = DroneIndex % 5 + 1;
+                        parcel.Weight = Drones.First(d => d.ID == parcel.DroneId).MaxWeight;
+                        DroneIndex++;
+
+
+                        break;
+                    case 2:
+                        DateTime randAssociated = RandomDate(randCreated);
+                        parcel.Associated = randAssociated;
+                        parcel.PickedUp = RandomDate(randAssociated);
+                        parcel.DroneId = DroneIndex % 5 + 1;
+                        parcel.Weight = Drones.First(d => d.ID == parcel.DroneId).MaxWeight;
+                        DroneIndex++;
+                        break;
+                    case 3:
+                        parcel.Associated = RandomDate(randCreated);
+                        parcel.DroneId = DroneIndex % 5 + 1;
+                        parcel.Weight = Drones.First(d => d.ID == parcel.DroneId).MaxWeight;
+                        DroneIndex++;
+
                         break;
                     default:
                         break;
+              
+                
+ ;
                 }
+
+                if (RndStatus == 3 || RndStatus == 2)
+                    counter++;
 
                 Parcels.Add(parcel);
             }

@@ -21,8 +21,12 @@ namespace PL
     {
         BLApi.IBL bl;
         Station Station;
-        public event ObjectChanged<BO.Station> SomeChangedHappened;
+        public  ObjectChangedAction<BO.Station> SomeChangedHappened;
 
+        /// <summary>
+        /// Ctor of add station window
+        /// </summary>
+        /// <param name="blMain"></param>
         public StationWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
@@ -31,9 +35,17 @@ namespace PL
             sendNewStation.Visibility = Visibility.Visible;
             StationID.Focus();
             Station = new Station(new BO.Station());
-            Station.stationListChanged +=  UpdateStationList;
+            Station.stationListChanged += UpdateStationList;
+
         }
 
+
+        /// <summary>
+        /// Ctor of update station window
+        /// </summary>
+        /// <param name="blMain"></param>
+        /// <param name="station"></param>
+        /// 
         public StationWindow(BLApi.IBL blMain, BO.Station station)
         {
             InitializeComponent();
@@ -41,20 +53,22 @@ namespace PL
             bl = blMain;
 
             Station = new Station(station);
-            Station.stationListChanged += new ObjectChanged<BO.Station>(UpdateStationList);
+            Station.stationListChanged += new ObjectChangedAction<BO.Station>(UpdateStationList);
             AddStation.DataContext = Station;
 
-            UpdateStationGrid.Visibility = Visibility.Visible;
-
-            DronesInChargelist.ItemsSource = station.DronesInChargelist;
-            StationID.IsEnabled = false;
-            StationLongitude.IsEnabled = false;
-            StationLatitude.IsEnabled = false;
 
             StationName.TextChanged += AddUpdateButton;
             StationChargeSlots.TextChanged += AddUpdateButton;
         }
 
+
+        
+
+        /// <summary>
+        /// Adding station 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddNewStation(object sender, RoutedEventArgs e)
         {
             try
@@ -75,15 +89,36 @@ namespace PL
             {
                 MessageBox.Show(exc.Message);
             }
-        }       
+        }
+        
 
-        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateStation.Visibility = Visibility.Visible;
+  
 
+        /// <summary>
+        /// Add an update button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddUpdateButton(object sender, RoutedEventArgs e)
+        {
+            updateStation.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Submit to update the station list
+        /// </summary>
+        /// <param name="station"></param>
         public void UpdateStationList(BO.Station station)
         {
             if (SomeChangedHappened != null)
                 SomeChangedHappened(station);
         }
+
+        /// <summary>
+        /// Update station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateStation(object sender, RoutedEventArgs e)
         {
             string ID = StationID.Text;            
@@ -106,13 +141,28 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Closing window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
-       
+
+        /// <summary>
+        /// Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new StationListWindow(bl).Show();
         }
 
+        /// <summary>
+        /// Enter the drone registered with the station and register where to return later
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetDrone(object sender, MouseButtonEventArgs e)        
         {
             BO.DroneInCharge drone = (sender as ListView).SelectedValue as BO.DroneInCharge;
@@ -123,6 +173,10 @@ namespace PL
             open.Show();     
         }
 
+        /// <summary>
+        /// Update object in the list
+        /// </summary>
+        /// <param name="drone"></param>
         public void UpdateObjectInTheList(BO.Drone drone)
         {
             if (SomeChangedHappened != null)            

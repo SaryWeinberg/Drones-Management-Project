@@ -14,15 +14,28 @@ namespace PL
         BLApi.IBL bl;
         Customer Customer;
 
+        Button ReaturnWin;
+
+        /// <summary>
+        /// Ctor of add customer window
+        /// </summary>
+        /// <param name="blMain"></param>
         public CustomerWindow(BLApi.IBL blMain)
         {
             InitializeComponent();
             WindowStyle = WindowStyle.None;
             bl = blMain;
-            CustomerID.Focus();  
-            sendNewCustomer.Visibility = Visibility.Visible;       
+            CustomerID.Focus();
+            ReaturnWin = returnWindow;
+  
+            sendNewCustomer.Visibility = Visibility.Visible;          
         }
 
+        /// <summary>
+        /// ctor of update customer window
+        /// </summary>
+        /// <param name="blMain"></param>
+        /// <param name="customer"></param>
         public CustomerWindow(BLApi.IBL blMain, BO.Customer customer)
         {
             InitializeComponent();
@@ -37,18 +50,15 @@ namespace PL
             ParcelDeliveryToCustomerList.ItemsSource = customer.DeliveryToCustomer;
             ParcelDeliveryFromCustomerList.ItemsSource = customer.DeliveryFromCustomer;
 
-            CustomerName.Text = customer.Name.ToString();
-            CustomerPhone.Text = customer.PhoneNum.ToString();
-
-            CustomerID.IsEnabled = false;
-            CustomerLongitude.IsEnabled = false;
-            CustomerLatitude.IsEnabled = false;
-
             CustomerName.TextChanged += AddUpdateButton;
             CustomerPhone.TextChanged += AddUpdateButton;
         }
 
-
+        /// <summary>
+        /// Adding customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {   
             try
@@ -70,6 +80,11 @@ namespace PL
             }
         }
        
+        /// <summary>
+        /// Update customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
             try
@@ -91,20 +106,69 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// Closing window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClosingWindow(object sender, RoutedEventArgs e) => Close();
 
-        private void AddUpdateButton(object sender, RoutedEventArgs e) => updateCustomer.Visibility = Visibility.Visible;
-
-        private void GetParcel(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// Add an update button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddUpdateButton(object sender, RoutedEventArgs e)
         {
-            BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
-            new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID)).Show();
+            updateCustomer.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Enter the parcel registered with the customer and register where to return later
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GetParcel(object sender, MouseButtonEventArgs e)
+        {
+            BO.ParcelsAtTheCustomer parcelsAtTheCustomer = (sender as ListView).SelectedValue as BO.ParcelsAtTheCustomer;
+            ParcelWindow openWindow =    new ParcelWindow(bl, bl.GetSpesificParcel(parcelsAtTheCustomer.ID));
+            openWindow.returnWindow.Click += returnSonWindow;
+            openWindow.Show();
+            this.Hide();
+        }
+
+        /// <summary>
+        /// Back to this window through the son
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void returnSonWindow(object sender, RoutedEventArgs e)
+        {            
+            this.Show();
+        }
+
+        /// <summary>
+        /// Back to previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReturnWindow(object sender, RoutedEventArgs e)
         {
             new CustomerListWindow(bl).Show();
             Close();
+        }
+
+        /// <summary>
+        /// Adding a parcel through the customer's window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddParcel(object sender, RoutedEventArgs e)
+        {
+            ParcelWindow openWindow = new ParcelWindow(bl);
+            openWindow.ParcelSenderID.Text = CustomerID.Text;
+            openWindow.ParcelSenderID.IsEnabled = false;
+            openWindow.Show();
         }
 
         #region Get Inputs
@@ -202,6 +266,7 @@ namespace PL
         {
             if (e.Key == Key.Enter) sendNewCustomer.Focus();
         }
-        #endregion
+
+        #endregion      
     }
 }

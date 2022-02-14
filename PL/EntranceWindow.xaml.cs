@@ -17,9 +17,12 @@ namespace PL
     /// <summary>
     /// Interaction logic for EntranceWindow.xaml
     /// </summary>
+    /// 
     public partial class EntranceWindow : Window
     {
         BLApi.IBL bl = BL.BLFactory.GetBL();
+
+
         public EntranceWindow()
         {
             InitializeComponent();
@@ -136,7 +139,7 @@ namespace PL
         private string NameInput()
         {
             return Name.Text != "" ? Name.Text : throw new InvalidObjException("Name");
-        }       
+        }
         /// <summary>
         /// Takes longitude input from the user with tests
         /// </summary>
@@ -203,7 +206,11 @@ namespace PL
                     MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)
                 {
-                    new CustomerWindow(bl, bl.GetSpesificCustomer(IDInput())).Show();
+                    CustomerWindow open = new CustomerWindow(bl, bl.GetSpesificCustomer(IDInput()));
+
+                    open.returnWindow.Visibility = Visibility.Hidden;
+                    open.Show();
+              
                     Close();
                 }
             }
@@ -219,19 +226,23 @@ namespace PL
             BO.Customer customer = bl.GetCustomers().ToList().Find(c => c.ID == SignIDInput() && c.Name == SignNameInput());
             if (customer != null)
             {
-                new CustomerWindow(bl, customer).Show();
+                CustomerWindow open = new CustomerWindow(bl, customer);
+            
+                open.returnWindow.Visibility = Visibility.Hidden;
+                open.Show();
+
                 Close();
             }
             else
             {
-                MessageBoxResult result = 
+                MessageBoxResult result =
                     MessageBox.Show("The user does not exist in the system",
                     "Error!",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 if (result == MessageBoxResult.OK)
                 {
-                    tabControl.SelectedItem = LogIn;
+                    tabControl.SelectedItem = SignUp;
                 }
             }
         }
@@ -240,8 +251,21 @@ namespace PL
         {
             if ((ManagerNameInput() == "Gitty" && ManagerIDInput() == 212542385) || (ManagerNameInput() == "Sary" && ManagerIDInput() == 212381743) || (ManagerNameInput() == "1" && ManagerIDInput() == 1))
             {
+
                 new MainWindow(bl).Show();
                 Close();
+            }
+            else
+            {
+                MessageBoxResult result =
+                    MessageBox.Show("This manager is not registered in the system, please register as a new customer",
+                    "Error!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                if (result == MessageBoxResult.OK)
+                {
+                    tabControl.SelectedItem = SignUp;
+                }
             }
         }
     }

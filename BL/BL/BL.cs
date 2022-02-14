@@ -75,15 +75,15 @@ namespace BL
                         if (drone.Status == 0)
                         {
                             List<DO.Parcel> parcelProvided = parcels.FindAll(p => p.PickedUp != null);
-                            double randIDX = parcelProvided.Any()? rand.Next(0, parcelProvided.Count() - 1):0;
+                            double randIDX = parcelProvided.Any() ? rand.Next(0, parcelProvided.Count() - 1) : 0;
                             drone.Location = GetSpesificCustomer(parcelProvided[(int)randIDX].TargetId).Location;
                             drone.Battery = rand.Next((int)(Distance(GetNearestAvailableStation(drone.Location).Location, drone.Location) * Available), 100);
                         }
                         else
                         {
                             drone.Battery = rand.Next(1, 20);
-                            List<BO.Station> stationBLs = GetStations(x=>x.AveChargeSlots >0).ToList();
-                            int stationId = rand.Next(0,2);
+                            List<BO.Station> stationBLs = GetStations(x => x.AveChargeSlots > 0).ToList();
+                            int stationId = rand.Next(0, 2);
                             drone.Location = stationBLs[stationId].Location;
                             AddDroneCharge(stationId, drone.ID, drone.Battery);
                         }
@@ -121,17 +121,19 @@ namespace BL
         /// <param name="location1"></param>
         /// <param name="location2"></param>
         /// <returns></returns>
-        double Distance(Location location1, Location location2)
+        internal double Distance(Location location1, Location location2)
         {
-           double x1 = location1.Latitude;
-            double x2 = location1.Longitude;
-            double y1 = location2.Latitude;
-            double y2 = location2.Longitude;
+
+            double x1 = location1.Longitude;
+            double y1 = location1.Latitude;
+     
+            double x2 = location2.Longitude;
+            double y2 = location2.Latitude;
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
         internal double ElectricalPowerRequest(int parcelWeight)
-        {            
+        {
             return dal.ElectricalPowerRequest()[parcelWeight];
         }
 
@@ -171,7 +173,7 @@ namespace BL
             lock (dal)
             {
                 dal.UpdateDrone(ConvertBLDroneToDAL(drone));
-            }          
+            }
 
             return "The drone was sent for charging successfully!";
         }
@@ -316,10 +318,10 @@ namespace BL
                     BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUpByDrone == null && parcel.Associated != null);
                     List<BO.Customer> customers = GetCustomers().ToList();
                     BO.Customer senderCustomer = customers.Find(c => c.ID == currentParcel.Sender.ID);
-                    droneBL.Battery = Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
+                    droneBL.Battery -= Math.Round(Distance(droneBL.Location, senderCustomer.Location) * dal.ElectricalPowerRequest()[0], 2);
                     droneBL.Location = senderCustomer.Location;
-                    
-                    currentParcel.PickedUpByDrone = DateTime.Now;                  
+
+                    currentParcel.PickedUpByDrone = DateTime.Now;
 
                     dal.UpdateParcel(ConvertBLParcelToDAL(currentParcel));
                     ParcelByDelivery parcelByDelivery = droneBL.Parcel;
@@ -353,7 +355,7 @@ namespace BL
                 BO.Parcel currentParcel = GetParcels().First(parcel => parcel.Drone.ID == droneId && parcel.Delivered == null && parcel.PickedUpByDrone != null && parcel.Associated != null);
                 List<BO.Customer> customers = GetCustomers().ToList();
                 BO.Customer TargetCustomer = customers.Find(c => c.ID == currentParcel.Target.ID);
-                droneBL.Battery = Math.Round(Distance(droneBL.Location, TargetCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.MaxWeight], 2);
+                droneBL.Battery -= Math.Round(Distance(droneBL.Location, TargetCustomer.Location) * dal.ElectricalPowerRequest()[(int)droneBL.Parcel.Weight], 2);
                 droneBL.Location = TargetCustomer.Location;
                 currentParcel.Delivered = DateTime.Now;
                 droneBL.Status = DroneStatus.Available;

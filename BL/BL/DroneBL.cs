@@ -246,20 +246,32 @@ namespace BL
         {
             lock (dal)
             {
-                return ((Distance(droneLocation, GetSpesificCustomer(senderId).Location) * dal.ElectricalPowerRequest()[0])
+                return (
+              (Distance(droneLocation, GetSpesificCustomer(senderId).Location) * dal.ElectricalPowerRequest()[0])
             + (Distance(GetSpesificCustomer(senderId).Location, GetSpesificCustomer(targetId).Location) * dal.ElectricalPowerRequest()[parcelweight])
             + (Distance(GetSpesificCustomer(targetId).Location, GetNearestAvailableStation(GetSpesificCustomer(targetId).Location).Location) * dal.ElectricalPowerRequest()[0]));
             }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
-        public double TotalTimeUsage(Location target, double DroneSpeed, Location droneLocation)
+        public double TotalBatteryToDestination(  Location droneLocation, Location targetLocation, int parcelweight = 0)
         {
             lock (dal)
             {
-                return ((Distance(droneLocation, target) * DroneSpeed));
+                
+                return Distance(droneLocation, targetLocation) * dal.ElectricalPowerRequest()[parcelweight];
+      
             }
         }
+
+        /*        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק*/
+        /*        public double TotalTimeUsage(Location target, double DroneSpeed, Location droneLocation)
+                {
+                    lock (dal)
+                    {
+                        return ((Distance(droneLocation, target) * DroneSpeed));
+                    }
+                }*/
 
 
         [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
@@ -279,7 +291,7 @@ namespace BL
             else
                 current.Latitude -= latitudeDistance;
 
-            return new Location() { Latitude = Math.Round(current.Latitude), Longitude = Math.Round(current.Longitude) };
+            return new Location() { Latitude = Math.Round(current.Latitude, 3), Longitude = Math.Round(current.Longitude, 3) };
         }
     }
 }

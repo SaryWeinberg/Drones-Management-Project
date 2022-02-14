@@ -50,7 +50,7 @@
                 <Button Style="{StaticResource RedButton}" Click="RemoveParcel" Margin="260,438,500,0" Content="Remove Parcel"/>
             </Grid>
             <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
-            <Button Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
+            <Button Name="returnWindow" Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>
         </Grid>
     </Grid>
 </Window>
