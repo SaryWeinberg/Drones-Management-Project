@@ -26,11 +26,12 @@
         </Grid>
         <Grid x:Name="UpdateStationGrid" Grid.Row="1" Margin="434,30,-434,-30" Visibility="Visible">
             <Label  Name="DronesInChargelistLabel" Content = "Drones In Charge:" Margin = "139,191,612,0"/>
-            <ListView Name="DronesInChargelist" ItemsSource="{Binding }" Margin="43,234,502,214" FontSize="15"  MouseDoubleClick="GetDrone">
+            <ListView Name="DronesInChargelist" ItemsSource="{Binding  }" Margin="43,234,502,214" FontSize="15"  MouseDoubleClick="GetDrone">
                 <ListView.View >
                     <GridView>
-                        <GridViewColumn Header="ID" Width="171" DisplayMemberBinding="{Binding DronesInChargelist.ID}" />
-                        <GridViewColumn Header="Battery" Width="172" DisplayMemberBinding="{Binding DronesInChargelist.BatteryStatus}" />
+                        <GridViewColumn Header="ID" Width="171" DisplayMemberBinding="{Binding ID}" />
+                        <GridViewColumn Header="Battery" Width="172" DisplayMemberBinding="{Binding Battery}" />
+                        <GridViewColumn Header="DroneEnterToCharge" Width="172" DisplayMemberBinding="{Binding DroneEnterToCharge}" />
                     </GridView>
                 </ListView.View>
             </ListView>
