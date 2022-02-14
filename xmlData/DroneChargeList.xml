@@ -211,6 +211,76 @@
     <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
   </DroneCharge>
   <DroneCharge>
+    <DroneId>1</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>13</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>4</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>5</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>123</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>2</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>3</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>123</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>1</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>13</DroneId>
+    <StationId>1</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>3</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>4</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>5</DroneId>
+    <StationId>0</StationId>
+    <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
+  </DroneCharge>
+  <DroneCharge>
     <DroneId>123</DroneId>
     <StationId>0</StationId>
     <DroneEnterToCharge>0001-01-01T00:00:00</DroneEnterToCharge>
