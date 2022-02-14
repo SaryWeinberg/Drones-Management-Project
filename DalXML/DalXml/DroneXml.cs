@@ -71,7 +71,7 @@ namespace Dal
             condition ??= (d => true);
             return from drone in XmlTools.LoadListFromXmlSerializer<Drone>(direction + droneFilePath)
                    where condition(drone)
-                   orderby (drone.ID)
+                   orderby (drone.Model)
                    select drone;
         }
 

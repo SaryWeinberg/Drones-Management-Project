@@ -24,7 +24,7 @@ namespace PL
     {
         BLApi.IBL bl;
       
-        private ObservableCollection<BO.DroneToList> _myCollection = new ObservableCollection<BO.DroneToList>();
+        private ObservableCollection<BO.DroneToList> MyCollection = new ObservableCollection<BO.DroneToList>();
 
         /// <summary> 
         /// Ctor of Drone list window
@@ -39,10 +39,10 @@ namespace PL
            
             foreach (BO.DroneToList drone in bl.GetDronesToList())
             {   
-                _myCollection.Add(drone);
+                MyCollection.Add(drone);
             }
          
-            DataContext = _myCollection;
+            DataContext = MyCollection;
 
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -180,9 +180,9 @@ namespace PL
         /// <param name="drone"></param>
         public void UpdateObjectInTheList(BO.Drone drone)
         {
-            BO.DroneToList droneToList = _myCollection.First(d => d.ID == drone.ID);
-            int idx = _myCollection.IndexOf(droneToList);
-            _myCollection[idx] = new BO.DroneToList(drone);
+            BO.DroneToList droneToList = MyCollection.First(d => d.ID == drone.ID);
+            int idx = MyCollection.IndexOf(droneToList);
+            MyCollection[idx] = new BO.DroneToList(drone);
         }
 
         /// <summary>
@@ -191,7 +191,16 @@ namespace PL
         /// <param name="drone"></param>
         public void AddDrone(BO.Drone drone)
         {
-            _myCollection.Add(new BO.DroneToList(drone));
+            MyCollection.Add(new BO.DroneToList(drone));
+        }
+
+        private void AllSimulation(object sender, RoutedEventArgs e)
+        {
+          /*  foreach(BO.Drone item in bl.GetDronesList())
+             new DroneWindow(bl, bl.GetSpesificDrone(item.ID)).Simulation += 
+           *//* from droneWindow in windows*//*
+            droneWindow().Show();*/
+
         }
     }
 }

@@ -25,7 +25,7 @@
             <Button Name="sendNewCustomer" Content="Send" Click="AddNewCustomer" Margin="0,370,245,0" Style="{StaticResource RedButton}" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="UpdateCustomerGrid" Grid.Row="1" Margin="434,30,-434,-30">
-            <Button  Name="updateCustomer" Content="update" Style="{StaticResource RedButton}" Click="UpdateCustomer" Margin="-148,392,908,0"  Visibility ="Hidden"/>
+            <Button  Name="updateCustomer" Content="update" Style="{StaticResource RedButton}" Click="UpdateCustomer" Margin="-148,372,908,0" />
             <Label  Name="ParcelDeliveryToCustomerLabel" Content = "Parcel Delivery To Customer:" Margin = "113,180,543,0"  FontSize="16" Visibility="Hidden"/>
             <ListView Name="ParcelDeliveryToCustomerList" ItemsSource="{Binding}" Margin="44,214,502,235" FontSize="15" MouseDoubleClick="GetParcel" Visibility="{Binding ElementName= ParcelDeliveryToCustomerLabel, Path=Visibility}">
                 <ListView.View >
@@ -50,7 +50,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Add parcel" Style="{StaticResource RedButton}" Click="AddParcel" HorizontalAlignment="Left" Margin="-365,483,0,0"/>
+            <Button Content="Add parcel" Style="{StaticResource RedButton}" Click="AddParcel" Margin="-148,432,908,0" HorizontalAlignment="Left"/>
         </Grid>
         <Button Style="{StaticResource CloseButton}"   Click="ClosingWindow"/>
         <Button Name="returnWindow" Style="{StaticResource ReturnButton}"  Click="ReturnWindow"/>

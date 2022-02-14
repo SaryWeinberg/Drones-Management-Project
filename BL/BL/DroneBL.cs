@@ -168,7 +168,7 @@ namespace BL
             {
                 return dronesList.Find(d => d.ID == droneId);
             }
-            catch (ArgumentNullException)
+            catch (Exception)
             {
                 throw new ObjectNotExistException($"There is no drone with ID - {droneId}");
             }
@@ -184,7 +184,7 @@ namespace BL
                     return ConvertDalDroneChargeToBL(dal.GetDroneCharges().First(d => d.DroneId == droneId));
                 }
             }
-            catch (ArgumentNullException)
+            catch (Exception)
             {
                 throw new ObjectNotExistException($"There is no drone with ID - {droneId}");
             }
@@ -253,40 +253,26 @@ namespace BL
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
-        public double TotalBatteryToDestination(  Location droneLocation, Location targetLocation, int parcelweight = 0)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public double TotalBatteryToDestination(Location droneLocation, Location targetLocation, int parcelweight = 0)
         {
             lock (dal)
             {
-                
                 return Distance(droneLocation, targetLocation) * dal.ElectricalPowerRequest()[parcelweight];
-      
             }
         }
 
-        /*        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק*/
-        /*        public double TotalTimeUsage(Location target, double DroneSpeed, Location droneLocation)
-                {
-                    lock (dal)
-                    {
-                        return ((Distance(droneLocation, target) * DroneSpeed));
-                    }
-                }*/
-
-
-        [MethodImpl(MethodImplOptions.Synchronized)]//לשים בממשק
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Location Totalprogress(Location current, Location target, Location source)
         {
             double longitudeDistance = Math.Abs(source.Longitude - target.Longitude) / 100;
-            /*            double longitude = current.Longitude;*/
             if (current.Longitude <= target.Longitude)
                 current.Longitude += longitudeDistance;
             else
                 current.Longitude -= longitudeDistance;
 
             double latitudeDistance = Math.Abs(current.Latitude - target.Latitude) / 100;
-/*            double latitude = current.Latitude;
-*/          if (current.Latitude <= target.Latitude)
+            if (current.Latitude <= target.Latitude)
                 current.Latitude += latitudeDistance;
             else
                 current.Latitude -= latitudeDistance;

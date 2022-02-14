@@ -25,13 +25,13 @@
             <ComboBox Name="PrioritySelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="PrioritySelectorSelectionChanged" Margin="0,15,0,0" />
             <ComboBox Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelectorSelectionChanged" Margin="0,15,0,0" />
             <Button Name="FilterBTN" Grid.Column="0" Content="Filter by date range" Style="{StaticResource RedButton}" Click="FilterByDateRange" HorizontalAlignment="Left" RenderTransformOrigin="-4.827,-2.971" Margin="26,15,0,0" Width="135"/>
-        
+
             <Button Grid.Column="3" Style="{StaticResource CloseButton}" Click="ClosingWindow"/>
             <Button Grid.Column="3" Style="{StaticResource ReturnButton}" Click="ReturnWindow"/>
-            <DatePicker Name="DatePickerFrom" HorizontalAlignment="Left" Height="28" Margin="190,2,0,0" VerticalAlignment="Top" Width="107" />
+            <DatePicker Name="DatePickerFrom" HorizontalAlignment="Left" Margin="190,2,0,25" Width="107" />
             <DatePicker  Name="DatePickerTo"  Margin="190,30,3,-1"/>
-            <Label Content="From:" HorizontalAlignment="Left" Height="28" Margin="142,-2,0,0" Width="48" />
-            <Label Content="To:" HorizontalAlignment="Left" Height="29" Margin="143,27,0,0" Width="46" />
+            <!--<Label Content="From:" HorizontalAlignment="Left" Height="28" Margin="190,487,0,0" Width="48" />
+            <Label Content="To:" HorizontalAlignment="Left" Height="29" Margin="193,524,0,0" Width="46" Grid.Column="1" Grid.Row="3"/>-->
         </Grid>
         <ListView x:Name="ParcelListView" ItemsSource="{Binding}" FontSize="15" Padding="10" Margin="22" Grid.Row="1" MouseDoubleClick="UpdateParcel">
 
@@ -70,9 +70,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="56,0,0,27" Grid.Row="2" Width="116"/>
+        <Image Source="/Images/logo_1.png" HorizontalAlignment="Left" Margin="22,438,0,31" Grid.Row="1" Width="116" Grid.RowSpan="2"/>
         <Button Grid.Row="2" Content="Add Parcel" Style="{StaticResource RedButton}" Click="AddParcel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="696,8,0,0"/>
-        <Button Grid.Row="1" Content="Group by Sender" Click="GroupBySender" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Width ="254"  Margin="222,431,0,0" Height="26" Grid.RowSpan="2" />
-        <Button Grid.Row="2" Content="Group by Target" Click="GroupByTarget" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Margin="222,0,0,33" Width ="254" Height="26" VerticalAlignment="Bottom"/>
+        <Button Grid.Row="1" Content="Group by Sender" Click="GroupBySender" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Width ="254"  Margin="177,431,0,0" Height="26" Grid.RowSpan="2" />
+        <Button Grid.Row="2" Content="Group by Target" Click="GroupByTarget" Style="{StaticResource RedButton}" HorizontalAlignment="Left"  Margin="177,0,0,34" Width ="254" Height="26" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
