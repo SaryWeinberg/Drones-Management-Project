@@ -26,7 +26,7 @@ namespace BO
 
         public override string ToString()
         {
-            return "Parcel: id: " + ID + " Sender:  " + Sender + "  Target:  " + Target + " Weight: " + Weight + " Priority: " + Priority + " Drone: " + Drone + "\nCreated: " + Created + " Associated: " + Associated + " PickedUp: " + PickedUpByDrone + " Delivered: " + Delivered;
+            return "Parcel: id: " + ID + " Sender:  " + Sender + "  Target:  " + Target + " Weight: " + Weight + " Priority: " + Priority + " Drone: " + Drone + "\nCreated: " + Created?.ToString("dd/MM/yyyy") + " Associated: " + Associated?.ToString("dd/MM/yyyy") + " PickedUp: " + PickedUpByDrone?.ToString("dd/MM/yyyy") + " Delivered: " + Delivered?.ToString("dd/MM/yyyy");
         }
     }
 }

@@ -38,7 +38,7 @@
                 <TextBox Name="ParcelID"         Text="{Binding Path=ID}"          Margin="221, 30, 500, 0"  IsEnabled="False"/>
                 <TextBox Name="ParcelSender"     Text="{Binding Path=Sender.ID}"   Margin="221, 60, 500, 0"  MouseDoubleClick="GetCustomer" AcceptsReturn="True"/>
                 <TextBox Name="ParcelTarget"     Text="{Binding Path=Target.ID}"   Margin="221, 90, 500, 0"  MouseDoubleClick="GetCustomer" AcceptsReturn="True"/>
-                <TextBox Name="ParcelWeigh"      Text="{Binding Path=Weight}"      Margin="221, 120, 500, 0" IsEnabled="False"/>
+                <TextBox Name="ParcelWeigh"      Text="{Binding Path= Weight}"      Margin="221, 120, 500, 0" IsEnabled="False"/>
                 <TextBox Name="ParcelPriorit"    Text="{Binding Path=Priority}"    Margin="221, 150, 500, 0" IsEnabled="False"/>
                 <TextBox Name="ParcelDrone"      Text="{Binding Path=Drone.ID}"    Margin="221, 180, 500, 0" MouseDoubleClick="GetDrone" AcceptsReturn="True"/>
                 <TextBox Name="ParcelCreated"    Text="{Binding Path=Created}"     Margin="221, 210, 500, 0" IsEnabled="False"/>

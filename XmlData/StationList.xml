@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStation>
+  <Station>
+    <ID>0</ID>
+    <Name>0</Name>
+    <Longitude>38</Longitude>
+    <Latitude>12</Latitude>
+    <ChargeSlots>68</ChargeSlots>
+    <Active>false</Active>
+  </Station>
+  <Station>
+    <ID>1</ID>
+    <Name>1</Name>
+    <Longitude>19</Longitude>
+    <Latitude>25</Latitude>
+    <ChargeSlots>28</ChargeSlots>
+    <Active>false</Active>
+  </Station>
+</ArrayOfStation>

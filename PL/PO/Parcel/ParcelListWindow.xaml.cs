@@ -102,8 +102,13 @@ namespace PL
         /// <param name="e"></param>
         private void FilterByDateRange(object sender, RoutedEventArgs e)
         {
-            ParcelListView.ItemsSource = bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate);
-          /*  ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
+
+            ParcelListView.ItemsSource = from parcel in bl.GetParcels()
+                                         where parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate
+                                         select MyCollection.First(p => p.ID == parcel.ID);
+                                         
+/*            ParcelListView.ItemsSource = bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate);
+*/          /*  ParcelListView.ItemsSource = from parcels in bl.GetParcels(parcel => parcel.Created >= DatePickerFrom.SelectedDate && parcel.Created <= DatePickerTo.SelectedDate)
                                          select (new BO.ParcelToList(parcels));*/
         }
 

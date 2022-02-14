@@ -42,12 +42,12 @@ namespace BL
             dronesList = GetDalDronesListAsBL().ToList();
             lock (dal)
             {
-                List<DO.Parcel> parcels = dal.GetParcels().ToList();
+                List<DO.Parcel> parcels = dal.GetParcels(p=> p.Delivered ==null).ToList();
 
                 foreach (BO.Drone drone in dronesList)
                 {
                     drone.Location = new Location { Longitude = rand.Next(0, 40), Latitude = rand.Next(0, 40) };
-                    if (parcels.Any(p => p.DroneId == drone.ID &&p.Delivered == null))
+                    if (parcels.Any(p => p.DroneId == drone.ID ))
                     {
                         foreach (DO.Parcel parcel in dal.GetParcels(p => p.DroneId == drone.ID))
                         {

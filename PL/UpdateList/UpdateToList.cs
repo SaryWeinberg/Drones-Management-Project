@@ -9,4 +9,13 @@ using System.Collections.ObjectModel;
 namespace PL
 {
     public delegate void ObjectChangedAction<T>(T objectChanged);
+
+    public static  class tostring
+    {
+        public static string ToSortableString(this DateTime datetime)
+        {
+            return datetime.ToString("yyyy-MM-dd");
+        }
+    }
 } 
+

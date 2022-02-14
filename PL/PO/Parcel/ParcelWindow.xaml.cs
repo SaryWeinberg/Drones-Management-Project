@@ -19,6 +19,8 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
+
+      
         BLApi.IBL bl;
         Parcel Parcel;
         public  ObjectChangedAction<BO.Parcel> SomeChangedHappened;
